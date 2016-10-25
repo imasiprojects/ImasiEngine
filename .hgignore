@@ -20,12 +20,13 @@ ImasiEngine.lib
 
 ## User-specific files
 
-.vs/
+*.suo
 *.user
 *.sln.docstates
 
 ## Project folders
 
+.vs/
 *.config
 
 ## Build results
