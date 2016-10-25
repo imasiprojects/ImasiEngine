@@ -86,20 +86,20 @@ namespace ImasiEngine
     void Engine::setupOpenGL()
     {
         // Clear color
-        GL(glClearColor(1.0f, 0.7f, 0.1f, 1.0f));
+        glClearColor(1.0f, 0.7f, 0.1f, 1.0f);
 
         // Backface culling
-        GL(glEnable(GL_CULL_FACE));
-        GL(glCullFace(GL_BACK));
-        GL(glFrontFace(GL_CCW));
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+        glFrontFace(GL_CCW);
 
         // Depth control
-        GL(glEnable(GL_DEPTH_TEST));
-        GL(glDepthFunc(GL_LEQUAL));
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LEQUAL);
 
         // Transparency
-        GL(glEnable(GL_BLEND));
-        GL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
     void Engine::processWindowEvents()
@@ -118,7 +118,7 @@ namespace ImasiEngine
         processWindowEvents();
 
         glViewport(0, 0, _window->getSize().x, _window->getSize().y);
-        GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         SfmlOpengl::beginSfml(_window);
 
@@ -129,16 +129,16 @@ namespace ImasiEngine
 
         SfmlOpengl::endSfml(_window);
 
-        GL(glMatrixMode(GL_MODELVIEW));
-        GL(glLoadIdentity());
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
 
-        GL(glColor3ub(230, 57, 56));
+        glColor3ub(230, 57, 56);
         glBegin(GL_QUADS);
             glVertex3f(-p / 250, 0.3f, 0.0f);
             glVertex3f(-0.3f, -p / 250, 0.0f);
             glVertex3f(0.3f, -0.3f, 0.0f);
             glVertex3f(0.3f, 0.3f, 0.0f);
-        GL(glEnd());
+        glEnd();
 
         SfmlOpengl::beginSfml(_window);
 

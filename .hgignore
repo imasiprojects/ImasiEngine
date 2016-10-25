@@ -20,6 +20,7 @@ ImasiEngine.lib
 
 ## User-specific files
 
+.vs/
 *.user
 *.sln.docstates
 
