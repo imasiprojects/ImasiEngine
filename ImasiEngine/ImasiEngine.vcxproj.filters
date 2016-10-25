@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Source\Utils\Logger.cpp" />
+    <ClCompile Include="Source\Graphics\Window.cpp" />
+    <ClCompile Include="Source\Engine.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Utils\Logger.hpp" />
+    <ClInclude Include="Source\Utils\OpenglDebugger.hpp" />
+    <ClInclude Include="Source\Graphics\Window.hpp" />
+    <ClInclude Include="Source\Engine.hpp" />
+    <ClInclude Include="Source\Utils\Preprocessor.hpp" />
+    <ClInclude Include="Source\Utils\SfmlOpengl.hpp" />
+  </ItemGroup>
+</Project>
