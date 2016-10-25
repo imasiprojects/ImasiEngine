@@ -1,7 +1,6 @@
 #include "Engine.hpp"
 #include "Utils/Logger.hpp"
 #include "Utils/Preprocessor.hpp"
-#include <GL/glew.h>
 #include "Utils/OpenglDebugger.hpp"
 #include "Utils/SfmlOpengl.hpp"
 
@@ -123,8 +122,8 @@ namespace ImasiEngine
 
         SfmlOpengl::beginSfml(_window);
 
-        sf::CircleShape a(p += 0.1);
-        a.setPosition(_window->getSize().x / 2 + 50, 250);
+        sf::CircleShape a(p += 0.1f);
+        a.setPosition(_window->getSize().x / 2.f + 50, 250);
         a.setFillColor(sf::Color::Green);
         _window->draw(a);
 
@@ -143,7 +142,7 @@ namespace ImasiEngine
 
         SfmlOpengl::beginSfml(_window);
 
-        sf::CircleShape b(p += 0.1);
+        sf::CircleShape b(p += 0.1f);
         b.setFillColor(sf::Color::Blue);
         _window->draw(b);
 

@@ -14,7 +14,7 @@
         } while (0)
 #else
     #define GL(glCall) glCall
-    #define GL_TEST(glCall) glCall
+    #define GL_CHECK() 
 #endif
 
 namespace ImasiEngine

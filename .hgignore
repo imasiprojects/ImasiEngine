@@ -3,13 +3,17 @@
 ############################################################
 syntax: glob
 
+## Custom files
+
+logger.txt
+ImasiEngine.lib
+
 ## Compiled files
 
 *.map
 *.*ilk
 *.*pdb
 *.*exe
-*.*lib
 *.*db
 *.tlog
 *.iobj
