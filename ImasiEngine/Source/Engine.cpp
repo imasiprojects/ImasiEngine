@@ -48,7 +48,6 @@ namespace ImasiEngine
         if (contextSettings.majorVersion < 3)
         {
             Logger::out << std::endl << "  ## No compatible graphics card found" << std::endl;
-            return;
         }
 
         Logger::out << std::endl;
@@ -117,7 +116,6 @@ namespace ImasiEngine
     {
         processWindowEvents();
 
-        glViewport(0, 0, _window->getSize().x, _window->getSize().y);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         SfmlOpengl::beginSfml(_window);
