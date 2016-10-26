@@ -25,7 +25,7 @@ namespace ImasiEngine
             std::ofstream outFile(_filename, std::ios::trunc);
             const auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
             outFile << ctime(&time);
-            outFile << "---------------------------------------------------" << std::endl;
+            outFile << "---------------------------------------------------" << std::endl << std::endl;
             outFile.close();
 
             #endif
