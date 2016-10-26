@@ -3,6 +3,11 @@
 #include "Utils/Preprocessor.hpp"
 #include "Utils/OpenglDebugger.hpp"
 #include "Utils/SfmlOpengl.hpp"
+#include "Graphics/Buffers/Buffer.hpp"
+#include "Graphics/Buffers/VertexArray.hpp"
+#include "Graphics/Shaders/Shader.hpp"
+#include "Demo/FragmentShader.hpp"
+#include "Demo/VertexShader.hpp"
 
 namespace ImasiEngine
 {
@@ -112,8 +117,8 @@ namespace ImasiEngine
         glDepthFunc(GL_LEQUAL);
 
         // Transparency
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        //glEnable(GL_BLEND);
+        //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
     void Engine::processWindowEvents()
@@ -125,42 +130,31 @@ namespace ImasiEngine
         }
     }
 
-    // TODO: Delete this. Just for testing.
-    float p = 0;
-
     void Engine::loop()
     {
         processWindowEvents();
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        SfmlOpengl::beginSfml(_window);
+        Shader shader;
+        shader.loadFromStrings(Shaders::vertexShader, Shaders::fragmentShader);
 
-        sf::CircleShape a(p += 0.1f);
-        a.setPosition(_window->getSize().x / 2.f + 50, 250);
-        a.setFillColor(sf::Color::Green);
-        _window->draw(a);
+        static GLfloat g_vertex_buffer_data[] = {
+            -1.0f, -1.0f, 0.0f,
+            1.0f, -1.0f, 0.0f,
+            0.0f, 1.0f, 0.0f,
+        };
 
-        SfmlOpengl::endSfml(_window);
+        Buffer buffer(g_vertex_buffer_data, 3, 3);
 
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
+        VertexArray vertexArray;
+        vertexArray.addBuffer(&buffer, Vertex);
 
-        glColor3ub(230, 57, 56);
-        glBegin(GL_QUADS);
-        glVertex3f(-p / 250, 0.3f, 0.0f);
-        glVertex3f(-0.3f, -p / 250, 0.0f);
-        glVertex3f(0.3f, -0.3f, 0.0f);
-        glVertex3f(0.3f, 0.3f, 0.0f);
-        glEnd();
-
-        SfmlOpengl::beginSfml(_window);
-
-        sf::CircleShape b(p += 0.1f);
-        b.setFillColor(sf::Color::Blue);
-        _window->draw(b);
-
-        SfmlOpengl::endSfml(_window);
+        Shader::bind(&shader);
+        VertexArray::bind(&vertexArray);
+        VertexArray::draw(&vertexArray);
+        VertexArray::unbind();
+        Shader::unbind();
 
         GL_CHECK();
         _window->display();

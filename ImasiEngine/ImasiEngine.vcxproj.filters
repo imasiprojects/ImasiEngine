@@ -4,6 +4,9 @@
     <ClCompile Include="Source\Utils\Logger.cpp" />
     <ClCompile Include="Source\Graphics\Window.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
+    <ClCompile Include="Source\Graphics\Buffers\Buffer.cpp" />
+    <ClCompile Include="Source\Graphics\Buffers\VertexArray.cpp" />
+    <ClCompile Include="Source\Graphics\Shaders\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\Logger.hpp" />
@@ -12,5 +15,11 @@
     <ClInclude Include="Source\Engine.hpp" />
     <ClInclude Include="Source\Utils\Preprocessor.hpp" />
     <ClInclude Include="Source\Utils\SfmlOpengl.hpp" />
+    <ClInclude Include="Source\Graphics\Buffers\Buffer.hpp" />
+    <ClInclude Include="Source\Graphics\Buffers\VertexArray.hpp" />
+    <ClInclude Include="Source\Graphics\Buffers\BufferType.hpp" />
+    <ClInclude Include="Source\Graphics\Shaders\Shader.hpp" />
+    <ClInclude Include="Source\Demo\FragmentShader.hpp" />
+    <ClInclude Include="Source\Demo\VertexShader.hpp" />
   </ItemGroup>
 </Project>
