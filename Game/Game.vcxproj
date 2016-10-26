@@ -29,9 +29,6 @@
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="logger.txt" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{ec3d1560-b3b5-4467-807b-b2586ded91e8}</ProjectGuid>
     <RootNamespace>Game</RootNamespace>

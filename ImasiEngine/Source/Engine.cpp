@@ -24,7 +24,7 @@ namespace ImasiEngine
     void Engine::create(const std::string& title, const unsigned int width, const unsigned int height, const unsigned int style)
     {
         Logger::out << std::endl;
-        Logger::out << " Creating context..." << std::endl << std::endl;
+        Logger::out << "Creating context..." << std::endl << std::endl;
 
         sf::ContextSettings contextSettings;
         contextSettings.depthBits = 24;
@@ -44,7 +44,7 @@ namespace ImasiEngine
 
         if (contextSettings.majorVersion < 3)
         {
-            Logger::out << std::endl << "  ## No compatible graphics card found" << std::endl;
+            Logger::out << std::endl << "!## No compatible graphics card found" << std::endl;
             _window->close();
             return;
         }
