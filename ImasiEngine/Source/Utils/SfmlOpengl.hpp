@@ -11,7 +11,6 @@ namespace ImasiEngine
         static void beginSfml(sf::RenderWindow* window)
         {
             window->pushGLStates();
-            window->resetGLStates();
         }
 
         static void endSfml(sf::RenderWindow* window)

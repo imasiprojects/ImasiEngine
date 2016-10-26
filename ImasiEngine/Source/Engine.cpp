@@ -115,6 +115,7 @@ namespace ImasiEngine
         }
     }
 
+    // TODO: Delete this. Just for testing.
     float p = 0;
 
     void Engine::loop()
