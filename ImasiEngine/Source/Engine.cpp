@@ -32,15 +32,15 @@ namespace ImasiEngine
         contextSettings.majorVersion = 2;
         contextSettings.minorVersion = 1;
 
-		sf::VideoMode videoMode;
-		if (style == sf::Style::Fullscreen)
-		{
-			videoMode = sf::VideoMode::getDesktopMode();
-		}
-		else
-		{
-			videoMode = sf::VideoMode(width, height);
-		}
+        sf::VideoMode videoMode;
+        if (style == sf::Style::Fullscreen)
+        {
+            videoMode = sf::VideoMode::getDesktopMode();
+        }
+        else
+        {
+            videoMode = sf::VideoMode(width, height);
+        }
 
         _window = new Window(videoMode, title, style, contextSettings);
         _window->setVerticalSyncEnabled(false);
@@ -148,10 +148,10 @@ namespace ImasiEngine
 
         glColor3ub(230, 57, 56);
         glBegin(GL_QUADS);
-            glVertex3f(-p / 250, 0.3f, 0.0f);
-            glVertex3f(-0.3f, -p / 250, 0.0f);
-            glVertex3f(0.3f, -0.3f, 0.0f);
-            glVertex3f(0.3f, 0.3f, 0.0f);
+        glVertex3f(-p / 250, 0.3f, 0.0f);
+        glVertex3f(-0.3f, -p / 250, 0.0f);
+        glVertex3f(0.3f, -0.3f, 0.0f);
+        glVertex3f(0.3f, 0.3f, 0.0f);
         glEnd();
 
         SfmlOpengl::beginSfml(_window);

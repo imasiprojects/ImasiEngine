@@ -5,11 +5,11 @@
 #include "Logger.hpp"
 
 #ifdef DEBUG
-    #define GL(glCall) do { \
+#define GL(glCall) do { \
         glCall; \
         ImasiEngine::OpenglDebugger::checkOpenglError(__FILE__, __LINE__, #glCall); \
         } while (0)
-    #define GL_CHECK() do { \
+#define GL_CHECK() do { \
         ImasiEngine::OpenglDebugger::checkOpenglError(__FILE__, __LINE__); \
         } while (0)
 #else
