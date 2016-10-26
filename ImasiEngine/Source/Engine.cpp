@@ -21,7 +21,7 @@ namespace ImasiEngine
         return _window;
     }
 
-    void Engine::create(const std::string& title, const unsigned int width, const unsigned int height, const unsigned int style)
+    void Engine::create(const std::string& title, const unsigned int style, const unsigned int width, const unsigned int height)
     {
         Logger::out << "Creating context..." << std::endl << std::endl;
 
@@ -32,9 +32,19 @@ namespace ImasiEngine
         contextSettings.majorVersion = 2;
         contextSettings.minorVersion = 1;
 
-        _window = new Window(sf::VideoMode(width, height), title, style, contextSettings);
+		sf::VideoMode videoMode;
+		if (style == sf::Style::Fullscreen)
+		{
+			videoMode = sf::VideoMode::getDesktopMode();
+		}
+		else
+		{
+			videoMode = sf::VideoMode(width, height);
+		}
+
+        _window = new Window(videoMode, title, style, contextSettings);
         _window->setVerticalSyncEnabled(false);
-        _window->setFramerateLimit(289);
+        _window->setFramerateLimit(289); // fps * 2 + 1 // FULL SMOOTHNESS
 
         contextSettings = _window->getSettings();
         Logger::out << "  >> " << glGetString(GL_VENDOR) << " | " << glGetString(GL_RENDERER) << std::endl;
@@ -44,8 +54,8 @@ namespace ImasiEngine
         if (contextSettings.majorVersion < 3)
         {
             Logger::out << std::endl << "!## No compatible graphics card found" << std::endl;
-            _window->close();
-            return;
+            //_window->close();
+            //return;
         }
 
         Logger::out << std::endl;
