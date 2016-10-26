@@ -9,10 +9,6 @@ namespace ImasiEngine
     Engine::Engine()
     {
         _window = nullptr;
-
-        Logger::out << std::endl;
-        Logger::out << " ImasiEngine" << std::endl;
-        Logger::out << " -----------------------" << std::endl << std::endl;
     }
 
     Engine::~Engine()
@@ -27,6 +23,7 @@ namespace ImasiEngine
 
     void Engine::create(const std::string& title, const unsigned int width, const unsigned int height, const unsigned int style)
     {
+        Logger::out << std::endl;
         Logger::out << " Creating context..." << std::endl << std::endl;
 
         sf::ContextSettings contextSettings;
