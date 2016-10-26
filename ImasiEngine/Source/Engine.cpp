@@ -11,7 +11,7 @@ namespace ImasiEngine
         _window = nullptr;
 
         Logger::out << std::endl;
-        Logger::out << " IscEngine" << std::endl;
+        Logger::out << " ImasiEngine" << std::endl;
         Logger::out << " -----------------------" << std::endl << std::endl;
     }
 
@@ -48,6 +48,8 @@ namespace ImasiEngine
         if (contextSettings.majorVersion < 3)
         {
             Logger::out << std::endl << "  ## No compatible graphics card found" << std::endl;
+            _window->close();
+            return;
         }
 
         Logger::out << std::endl;
@@ -76,7 +78,14 @@ namespace ImasiEngine
         }
         else
         {
-            Logger::out << "  >> Using VBO :'(" << std::endl;
+            if (GLEW_ARB_vertex_buffer_object)
+            {
+                Logger::out << "  >> Using VBO :'(" << std::endl;
+            }
+            else
+            {
+                Logger::out << "  >> Using Legacy (NOT COMPATIBLE) :'(" << std::endl;
+            }
         }
 
         Logger::out << std::endl;
