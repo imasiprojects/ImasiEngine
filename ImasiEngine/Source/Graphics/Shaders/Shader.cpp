@@ -40,8 +40,10 @@ namespace ImasiEngine
         glCompileShader(vertexShaderId);
 
         #ifdef DEBUG
-        glGetShaderiv(vertexShaderId, GL_COMPILE_STATUS, &result);
-        std::cout << "Vertex shader: " << (result ? "OK" : "ERROR") << std::endl;
+        {
+            glGetShaderiv(vertexShaderId, GL_COMPILE_STATUS, &result);
+            std::cout << "Vertex shader: " << (result ? "OK" : "ERROR") << std::endl;
+        }
         #endif
 
         // Compile fragment Shader
@@ -49,8 +51,10 @@ namespace ImasiEngine
         glCompileShader(fragmentShaderId);
 
         #ifdef DEBUG
-        glGetShaderiv(fragmentShaderId, GL_COMPILE_STATUS, &result);
-        std::cout << "Fragment shader: " << (result ? "OK" : "ERROR") << std::endl;
+        {
+            glGetShaderiv(fragmentShaderId, GL_COMPILE_STATUS, &result);
+            std::cout << "Fragment shader: " << (result ? "OK" : "ERROR") << std::endl;
+        }
         #endif
 
         // Link both shaders
@@ -64,24 +68,25 @@ namespace ImasiEngine
 
         glGetProgramiv(programId, GL_LINK_STATUS, &result);
 
-        if (!result)
+        if (result)
         {
-            #ifdef DEBUG
-            int errorLength;
-            glGetProgramiv(programId, GL_INFO_LOG_LENGTH, &errorLength);
-            std::string errorMessage(errorLength, 1);
-            glGetProgramInfoLog(programId, errorLength, nullptr, &errorMessage[0]);
-            std::cout << "Shader id " << programId << " error: " << std::endl << '\t' << errorMessage.c_str() << std::endl;
-            #endif
-
-            glDeleteProgram(programId);
-
-            return false;
+            _id = programId;
         }
         else
         {
-            _id = programId;
-            return true;
+            #ifdef DEBUG
+            {
+                int errorLength;
+                glGetProgramiv(programId, GL_INFO_LOG_LENGTH, &errorLength);
+                std::string errorMessage(errorLength, 1);
+                glGetProgramInfoLog(programId, errorLength, nullptr, &errorMessage[0]);
+                std::cout << "Shader id " << programId << " error: " << std::endl << '\t' << errorMessage.c_str() << std::endl;
+            }
+            #endif
+
+            glDeleteProgram(programId);
         }
+
+        return (bool)result;
     }
 }

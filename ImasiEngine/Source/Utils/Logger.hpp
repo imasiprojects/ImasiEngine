@@ -20,37 +20,43 @@ namespace ImasiEngine
         {
             _filename = fileName;
 
-#ifdef DEBUG
-            std::ofstream outFile(_filename, std::ios::trunc);
-            const auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-            outFile << ctime(&time);
-            outFile << "---------------------------------------------------" << std::endl << std::endl;
-            outFile.close();
-#endif
+            #ifdef DEBUG
+            {
+                std::ofstream outFile(_filename, std::ios::trunc);
+                const auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+                outFile << ctime(&time);
+                outFile << "---------------------------------------------------" << std::endl << std::endl;
+                outFile.close();
+            }
+            #endif
         }
 
         template <typename T>
         Logger& operator<<(const T& text)
         {
-#ifdef DEBUG
-            std::cout << text;
-            std::ofstream outFile(_filename, std::ios::app);
-            outFile << text;
-            outFile.close();
-#endif
+            #ifdef DEBUG
+            {
+                std::cout << text;
+                std::ofstream outFile(_filename, std::ios::app);
+                outFile << text;
+                outFile.close();
+            }
+            #endif
 
             return *this;
         }
 
         Logger& operator<<(std::ostream&(*function)(std::ostream&))
         {
-#ifdef DEBUG
-            std::cout << function;
-            std::ofstream outFile;
-            outFile.open(_filename, std::ios::app);
-            outFile << function;
-            outFile.close();
-#endif
+            #ifdef DEBUG
+            {
+                std::cout << function;
+                std::ofstream outFile;
+                outFile.open(_filename, std::ios::app);
+                outFile << function;
+                outFile.close();
+            }
+            #endif
 
             return *this;
         }
