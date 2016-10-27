@@ -14,12 +14,12 @@
     <ClInclude Include="Source\Graphics\Window.hpp" />
     <ClInclude Include="Source\Engine.hpp" />
     <ClInclude Include="Source\Utils\Preprocessor.hpp" />
-    <ClInclude Include="Source\Utils\SfmlOpengl.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\Buffer.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\VertexArray.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\BufferType.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\Shader.hpp" />
     <ClInclude Include="Source\Demo\FragmentShader.hpp" />
     <ClInclude Include="Source\Demo\VertexShader.hpp" />
+    <ClInclude Include="Source\Graphics\SfmlOpengl.hpp" />
   </ItemGroup>
 </Project>

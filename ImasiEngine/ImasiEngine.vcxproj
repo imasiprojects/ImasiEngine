@@ -46,7 +46,7 @@
     <ClInclude Include="Source\Utils\Logger.hpp" />
     <ClInclude Include="Source\Utils\OpenglDebugger.hpp" />
     <ClInclude Include="Source\Utils\Preprocessor.hpp" />
-    <ClInclude Include="Source\Utils\SfmlOpengl.hpp" />
+    <ClInclude Include="Source\Graphics\SfmlOpengl.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{b6505002-09d2-4178-ada0-b8b0429da5b5}</ProjectGuid>

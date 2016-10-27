@@ -42,7 +42,7 @@ namespace ImasiEngine
         #ifdef DEBUG
         {
             glGetShaderiv(vertexShaderId, GL_COMPILE_STATUS, &result);
-            std::cout << "Vertex shader: " << (result ? "OK" : "ERROR") << std::endl;
+            Logger::out << "Vertex shader: " << (result ? "OK" : "ERROR") << std::endl;
         }
         #endif
 
@@ -53,7 +53,7 @@ namespace ImasiEngine
         #ifdef DEBUG
         {
             glGetShaderiv(fragmentShaderId, GL_COMPILE_STATUS, &result);
-            std::cout << "Fragment shader: " << (result ? "OK" : "ERROR") << std::endl;
+            Logger::out << "Fragment shader: " << (result ? "OK" : "ERROR") << std::endl;
         }
         #endif
 
@@ -80,13 +80,13 @@ namespace ImasiEngine
                 glGetProgramiv(programId, GL_INFO_LOG_LENGTH, &errorLength);
                 std::string errorMessage(errorLength, 1);
                 glGetProgramInfoLog(programId, errorLength, nullptr, &errorMessage[0]);
-                std::cout << "Shader id " << programId << " error: " << std::endl << '\t' << errorMessage.c_str() << std::endl;
+                Logger::out << "Shader id " << programId << " error: " << std::endl << '\t' << errorMessage.c_str() << std::endl;
             }
             #endif
 
             glDeleteProgram(programId);
         }
 
-        return (bool)result;
+        return result == GL_TRUE;
     }
 }

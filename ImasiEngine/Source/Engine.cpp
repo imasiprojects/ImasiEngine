@@ -2,7 +2,7 @@
 #include "Utils/Logger.hpp"
 #include "Utils/Preprocessor.hpp"
 #include "Utils/OpenglDebugger.hpp"
-#include "Utils/SfmlOpengl.hpp"
+#include "Graphics/SfmlOpengl.hpp"
 #include "Graphics/Buffers/Buffer.hpp"
 #include "Graphics/Buffers/VertexArray.hpp"
 #include "Graphics/Shaders/Shader.hpp"
@@ -34,8 +34,8 @@ namespace ImasiEngine
         contextSettings.depthBits = 24;
         contextSettings.stencilBits = 8;
         contextSettings.antialiasingLevel = 0;
-        contextSettings.majorVersion = 2;
-        contextSettings.minorVersion = 1;
+        contextSettings.majorVersion = 3;
+        contextSettings.minorVersion = 3;
 
         sf::VideoMode videoMode;
         if (style == sf::Style::Fullscreen)
@@ -56,7 +56,7 @@ namespace ImasiEngine
         Logger::out << "  >> OpenGL " << contextSettings.majorVersion << "." << contextSettings.minorVersion << std::endl;
         Logger::out << "  >> Depth: " << contextSettings.depthBits << ", Stencil: " << contextSettings.stencilBits << ", Antialiasing: " << contextSettings.antialiasingLevel << std::endl;
 
-        if (contextSettings.majorVersion < 3)
+        if (contextSettings.majorVersion < 3 && contextSettings.minorVersion < 3)
         {
             Logger::out << std::endl << "!## No compatible graphics card found" << std::endl;
             //_window->close();

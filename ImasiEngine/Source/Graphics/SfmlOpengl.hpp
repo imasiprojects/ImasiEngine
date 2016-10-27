@@ -4,10 +4,8 @@
 
 namespace ImasiEngine
 {
-    class SfmlOpengl
+    namespace SfmlOpengl
     {
-    public:
-
         static void beginSfml(sf::RenderWindow* window)
         {
             window->pushGLStates();
