@@ -25,14 +25,8 @@
 
 namespace ImasiEngine
 {
-    class OpenglDebugger
+    namespace OpenglDebugger
     {
-    private:
-
-        OpenglDebugger();
-
-    public:
-
         static void checkOpenglError(const char* file, const int line, const char* call = nullptr)
         {
             const GLenum error = glGetError();
