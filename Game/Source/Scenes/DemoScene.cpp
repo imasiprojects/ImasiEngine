@@ -5,7 +5,6 @@
 #include "../../../ImasiEngine/Source/Graphics/Shaders/Shader.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Buffers/Buffer.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Buffers/VertexArray.hpp"
-#include "../../../ImasiEngine/Source/Utils/OpenglDebugger.hpp"
 #include "../../../ImasiEngine/Source/Utils/Preprocessor.hpp"
 #include "../../../ImasiEngine/Source/Utils/Logger.hpp"
 
@@ -57,10 +56,8 @@ namespace Imasi
 
         Shader::bind(_shader);
         VertexArray::bind(_vertexArray);
-        VertexArray::draw(_vertexArray, Vertex);
+        VertexArray::draw(_vertexArray);
         VertexArray::unbind();
         Shader::unbind();
-
-        GL_CHECK();
     }
 }

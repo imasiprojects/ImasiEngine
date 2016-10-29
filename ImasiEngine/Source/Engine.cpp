@@ -3,6 +3,7 @@
 #include "Engine.hpp"
 #include "Utils/Logger.hpp"
 #include "Utils/Preprocessor.hpp"
+#include "Utils/OpenglDebugger.hpp"
 
 namespace ImasiEngine
 {
@@ -79,6 +80,7 @@ namespace ImasiEngine
             _scene->loop();
         }
 
+        GL_CHECK();
         _window->display();
     }
 
