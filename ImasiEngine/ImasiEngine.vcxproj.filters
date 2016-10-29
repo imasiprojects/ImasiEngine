@@ -8,6 +8,7 @@
     <ClCompile Include="Source\Graphics\Buffers\VertexArray.cpp" />
     <ClCompile Include="Source\Graphics\Shaders\Shader.cpp" />
     <ClCompile Include="Source\Utils\OpenglDebugger.cpp" />
+    <ClCompile Include="Source\Engine\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\Logger.hpp" />
@@ -19,8 +20,7 @@
     <ClInclude Include="Source\Graphics\Buffers\VertexArray.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\BufferType.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\Shader.hpp" />
-    <ClInclude Include="Source\Demo\FragmentShader.hpp" />
-    <ClInclude Include="Source\Demo\VertexShader.hpp" />
     <ClInclude Include="Source\Graphics\SfmlOpengl.hpp" />
+    <ClInclude Include="Source\Engine\Scene.hpp" />
   </ItemGroup>
 </Project>

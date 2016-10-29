@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine.cpp" />
+    <ClCompile Include="Source\Engine\Scene.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\Buffer.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\VertexArray.cpp" />
     <ClCompile Include="Source\Graphics\Shaders\Shader.cpp" />
@@ -36,9 +37,8 @@
     <ClCompile Include="Source\Utils\OpenglDebugger.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Demo\FragmentShader.hpp" />
-    <ClInclude Include="Source\Demo\VertexShader.hpp" />
     <ClInclude Include="Source\Engine.hpp" />
+    <ClInclude Include="Source\Engine\Scene.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\Buffer.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\BufferType.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\VertexArray.hpp" />
