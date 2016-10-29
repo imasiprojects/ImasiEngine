@@ -27,7 +27,7 @@ namespace ImasiEngine
 {
     namespace OpenglDebugger
     {
-        static void checkOpenglError(const char* file, const int line, const char* call = nullptr)
+        void checkOpenglError(const char* file, const int line, const char* call = nullptr)
         {
             const GLenum error = glGetError();
             if (error != GL_NO_ERROR)
@@ -43,5 +43,5 @@ namespace ImasiEngine
                 }
             }
         }
-    };
+    }
 }
