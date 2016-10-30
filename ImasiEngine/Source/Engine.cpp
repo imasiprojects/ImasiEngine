@@ -1,6 +1,9 @@
 #include <GL/glew.h>
 
 #include "Engine.hpp"
+
+#include <GL/glew.h>
+
 #include "Utils/Logger.hpp"
 #include "Utils/Preprocessor.hpp"
 #include "Utils/OpenglDebugger.hpp"
