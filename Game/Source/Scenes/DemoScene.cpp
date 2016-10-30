@@ -5,7 +5,6 @@
 #include "../../../ImasiEngine/Source/Graphics/Shaders/Shader.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Buffers/Buffer.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Buffers/VertexArray.hpp"
-#include "../../../ImasiEngine/Source/Utils/Preprocessor.hpp"
 #include "../../../ImasiEngine/Source/Utils/Logger.hpp"
 
 #include "../Shaders/FragmentShader.hpp"
@@ -33,8 +32,8 @@ namespace Imasi
 
     DemoScene::~DemoScene()
     {
-        safeDelete(_shader);
-        safeDelete(_vertexArray);
+        delete _shader;
+        delete _vertexArray;
     }
 
     void DemoScene::processWindowEvent(const sf::Event& event)
@@ -49,7 +48,7 @@ namespace Imasi
     {
         Logger::out << "DeltaTime: " << deltaTime << "s" << std::endl;
     }
-
+    
     void DemoScene::render()
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

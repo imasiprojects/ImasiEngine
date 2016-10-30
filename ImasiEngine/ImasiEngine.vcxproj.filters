@@ -15,7 +15,6 @@
     <ClInclude Include="Source\Utils\OpenglDebugger.hpp" />
     <ClInclude Include="Source\Graphics\Window.hpp" />
     <ClInclude Include="Source\Engine.hpp" />
-    <ClInclude Include="Source\Utils\Preprocessor.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\Buffer.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\VertexArray.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\BufferType.hpp" />
