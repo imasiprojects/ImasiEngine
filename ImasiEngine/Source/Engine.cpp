@@ -1,11 +1,8 @@
-#include <GL/glew.h>
-
 #include "Engine.hpp"
 
 #include <GL/glew.h>
 
 #include "Utils/Logger.hpp"
-#include "Utils/Preprocessor.hpp"
 #include "Utils/OpenglDebugger.hpp"
 
 namespace ImasiEngine
@@ -18,8 +15,8 @@ namespace ImasiEngine
 
     Engine::~Engine()
     {
-        safeDelete(_window);
-        safeDelete(_scene);
+        delete _window;
+        delete _scene;
     }
 
     void Engine::setupGlew()
@@ -137,6 +134,12 @@ namespace ImasiEngine
 
     void Engine::setScene(Scene* scene)
     {
+        if(_scene != nullptr)
+        {
+            delete _scene;
+            _scene = nullptr;
+        }
+
         scene->setRenderTarget(_window);
         _scene = scene;
     }
