@@ -1,4 +1,4 @@
-#include "OpenglDebugger.hpp"
+#include "Opengl.hpp"
 
 #include <GL/glew.h>
 
@@ -6,9 +6,19 @@
 
 namespace ImasiEngine
 {
-    namespace OpenglDebugger
+    namespace Opengl
     {
-        void checkOpenglError(const char* file, const int line, const char* call)
+        void beginSfml(sf::RenderWindow* window)
+        {
+            window->pushGLStates();
+        }
+
+        void endSfml(sf::RenderWindow* window)
+        {
+            window->popGLStates();
+        }
+
+        void checkError(const char* file, const int line, const char* call)
         {
             const GLenum error = glGetError();
             if (error != GL_NO_ERROR)

@@ -1,6 +1,6 @@
 #include "VertexArray.hpp"
 #include <GL/glew.h>
-#include "../../Utils/OpenglDebugger.hpp"
+#include "../../Utils/Opengl.hpp"
 
 namespace ImasiEngine
 {

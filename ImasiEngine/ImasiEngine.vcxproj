@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Utils\Opengl.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\Engine\Scene.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\Buffer.cpp" />
@@ -34,9 +35,9 @@
     <ClCompile Include="Source\Graphics\Shaders\Shader.cpp" />
     <ClCompile Include="Source\Graphics\Window.cpp" />
     <ClCompile Include="Source\Utils\Logger.cpp" />
-    <ClCompile Include="Source\Utils\OpenglDebugger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Utils\Opengl.hpp" />
     <ClInclude Include="Source\Engine.hpp" />
     <ClInclude Include="Source\Engine\Scene.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\Buffer.hpp" />
@@ -45,8 +46,6 @@
     <ClInclude Include="Source\Graphics\Shaders\Shader.hpp" />
     <ClInclude Include="Source\Graphics\Window.hpp" />
     <ClInclude Include="Source\Utils\Logger.hpp" />
-    <ClInclude Include="Source\Utils\OpenglDebugger.hpp" />
-    <ClInclude Include="Source\Graphics\SfmlOpengl.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{b6505002-09d2-4178-ada0-b8b0429da5b5}</ProjectGuid>
