@@ -1,6 +1,7 @@
 #include "VertexArray.hpp"
 #include <GL/glew.h>
 #include "../../Utils/OpenglDebugger.hpp"
+#include "../../Utils/Preprocessor.hpp"
 
 namespace ImasiEngine
 {
@@ -30,9 +31,10 @@ namespace ImasiEngine
 
     VertexArray::~VertexArray()
     {
-        for (const std::pair<const BufferType, Buffer*>& buffer : _buffers)
-    	    if(buffer.second != nullptr)
-                delete buffer.second;
+        for (auto& buffer : _buffers)
+        {
+            safeDelete(buffer.second);
+        }
         GL(glDeleteVertexArrays(1, &_id));
     }
 
