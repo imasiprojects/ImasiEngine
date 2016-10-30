@@ -1,5 +1,3 @@
-#include <GL/glew.h>
-
 #include "Engine.hpp"
 
 #include <GL/glew.h>
@@ -141,6 +139,7 @@ namespace ImasiEngine
             delete _scene;
             _scene = nullptr;
         }
+
         scene->setRenderTarget(_window);
         _scene = scene;
     }

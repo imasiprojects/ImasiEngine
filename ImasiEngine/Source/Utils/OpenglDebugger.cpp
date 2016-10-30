@@ -1,6 +1,7 @@
 #include "OpenglDebugger.hpp"
 
 #include <GL/glew.h>
+
 #include "Logger.hpp"
 
 namespace ImasiEngine
