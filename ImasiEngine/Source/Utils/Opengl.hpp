@@ -5,20 +5,20 @@
 
 #ifdef DEBUG
 
-#define GL(glCall) do { \
-        glCall; \
-        ImasiEngine::Opengl::checkError(__FILE__, __LINE__, #glCall); \
-    } while (false)
+    #define GL(glCall) do { \
+            glCall; \
+            ImasiEngine::Opengl::checkError(__FILE__, __LINE__, #glCall); \
+        } while (false)
 
-#define GL_CHECK() do { \
-        ImasiEngine::Opengl::checkError(__FILE__, __LINE__); \
-    } while (false)
+    #define GL_CHECK() do { \
+            ImasiEngine::Opengl::checkError(__FILE__, __LINE__); \
+        } while (false)
 
 #else
 
-#define GL(glCall) glCall
+    #define GL(glCall) glCall
 
-#define GL_CHECK() 
+    #define GL_CHECK() 
 
 #endif
 
