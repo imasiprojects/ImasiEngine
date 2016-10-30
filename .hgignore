@@ -17,6 +17,7 @@ ImasiEngine.lib
 *.*db
 *.tlog
 *.iobj
+*.*enc
 
 ## User-specific files
 

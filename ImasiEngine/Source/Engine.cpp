@@ -1,3 +1,5 @@
+#include <GL/glew.h>
+
 #include "Engine.hpp"
 
 #include <GL/glew.h>
@@ -5,71 +7,19 @@
 #include "Utils/Logger.hpp"
 #include "Utils/Preprocessor.hpp"
 #include "Utils/OpenglDebugger.hpp"
-#include "Graphics/SfmlOpengl.hpp"
-#include "Graphics/Buffers/Buffer.hpp"
-#include "Graphics/Buffers/VertexArray.hpp"
-#include "Graphics/Shaders/Shader.hpp"
-#include "Demo/FragmentShader.hpp"
-#include "Demo/VertexShader.hpp"
 
 namespace ImasiEngine
 {
     Engine::Engine()
     {
         _window = nullptr;
+        _scene = nullptr;
     }
 
     Engine::~Engine()
     {
         safeDelete(_window);
-    }
-
-    Window* Engine::getWindow() const
-    {
-        return _window;
-    }
-
-    void Engine::create(const std::string& title, const unsigned int style, const unsigned int width, const unsigned int height)
-    {
-        Logger::out << "Creating context..." << std::endl << std::endl;
-
-        sf::ContextSettings contextSettings;
-        contextSettings.depthBits = 24;
-        contextSettings.stencilBits = 8;
-        contextSettings.antialiasingLevel = 0;
-        contextSettings.majorVersion = 3;
-        contextSettings.minorVersion = 3;
-
-        sf::VideoMode videoMode;
-        if (style == sf::Style::Fullscreen)
-        {
-            videoMode = sf::VideoMode::getDesktopMode();
-        }
-        else
-        {
-            videoMode = sf::VideoMode(width, height);
-        }
-
-        _window = new Window(videoMode, title, style, contextSettings);
-        _window->setVerticalSyncEnabled(false);
-        _window->setFramerateLimit(289); // fps * 2 + 1 // FULL SMOOTHNESS
-
-        contextSettings = _window->getSettings();
-        Logger::out << "  >> " << glGetString(GL_VENDOR) << " | " << glGetString(GL_RENDERER) << std::endl;
-        Logger::out << "  >> OpenGL " << contextSettings.majorVersion << "." << contextSettings.minorVersion << std::endl;
-        Logger::out << "  >> Depth: " << contextSettings.depthBits << ", Stencil: " << contextSettings.stencilBits << ", Antialiasing: " << contextSettings.antialiasingLevel << std::endl;
-
-        if (contextSettings.majorVersion < 3 && contextSettings.minorVersion < 3)
-        {
-            Logger::out << std::endl << "!## No compatible graphics card found" << std::endl;
-            //_window->close();
-            //return;
-        }
-
-        Logger::out << std::endl;
-
-        setupGlew();
-        setupOpenGL();
+        safeDelete(_scene);
     }
 
     void Engine::setupGlew()
@@ -124,43 +74,30 @@ namespace ImasiEngine
         //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
+    void Engine::loop()
+    {
+        processWindowEvents();
+
+        if (_scene != nullptr)
+        {
+            _scene->loop();
+        }
+
+        GL_CHECK();
+        _window->display();
+    }
+
     void Engine::processWindowEvents()
     {
         sf::Event windowEvent;
         while (_window->pollEvent(windowEvent))
         {
             processWindowEvent(windowEvent);
+            if (_scene != nullptr)
+            {
+                _scene->processWindowEvent(windowEvent);
+            }
         }
-    }
-
-    void Engine::loop()
-    {
-        processWindowEvents();
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        Shader shader;
-        shader.loadFromStrings(Shaders::vertexShader, Shaders::fragmentShader);
-
-        static GLfloat g_vertex_buffer_data[] = {
-            -1.0f, -1.0f, 0.0f,
-            1.0f, -1.0f, 0.0f,
-            0.0f, 1.0f, 0.0f,
-        };
-
-        Buffer* buffer = new Buffer(g_vertex_buffer_data, 3, 3);
-
-        VertexArray vertexArray;
-        vertexArray.addBuffer(buffer, Vertex);
-
-        Shader::bind(&shader);
-        VertexArray::bind(&vertexArray);
-        VertexArray::draw(&vertexArray);
-        VertexArray::unbind();
-        Shader::unbind();
-
-        GL_CHECK();
-        _window->display();
     }
 
     void Engine::processWindowEvent(const sf::Event event)
@@ -196,6 +133,55 @@ namespace ImasiEngine
                 break;
             }
         }
+    }
+
+    void Engine::setScene(Scene* scene)
+    {
+        scene->setRenderTarget(_window);
+        _scene = scene;
+    }
+
+    void Engine::create(const std::string& title, const unsigned int style, const unsigned int width, const unsigned int height)
+    {
+        Logger::out << "Creating context..." << std::endl << std::endl;
+
+        sf::ContextSettings contextSettings;
+        contextSettings.depthBits = 24;
+        contextSettings.stencilBits = 8;
+        contextSettings.antialiasingLevel = 0;
+        contextSettings.majorVersion = 3;
+        contextSettings.minorVersion = 3;
+
+        sf::VideoMode videoMode;
+        if (style == sf::Style::Fullscreen)
+        {
+            videoMode = sf::VideoMode::getDesktopMode();
+        }
+        else
+        {
+            videoMode = sf::VideoMode(width, height);
+        }
+
+        _window = new Window(videoMode, title, style, contextSettings);
+        _window->setVerticalSyncEnabled(false);
+        _window->setFramerateLimit(160);
+
+        contextSettings = _window->getSettings();
+        Logger::out << "  >> " << glGetString(GL_VENDOR) << " | " << glGetString(GL_RENDERER) << std::endl;
+        Logger::out << "  >> OpenGL " << contextSettings.majorVersion << "." << contextSettings.minorVersion << std::endl;
+        Logger::out << "  >> Depth: " << contextSettings.depthBits << ", Stencil: " << contextSettings.stencilBits << ", Antialiasing: " << contextSettings.antialiasingLevel << std::endl;
+
+        if (contextSettings.majorVersion < 3 && contextSettings.minorVersion < 3)
+        {
+            Logger::out << std::endl << "!## No compatible graphics card found" << std::endl;
+            _window->close();
+            return;
+        }
+
+        Logger::out << std::endl;
+
+        setupGlew();
+        setupOpenGL();
     }
 
     void Engine::run()

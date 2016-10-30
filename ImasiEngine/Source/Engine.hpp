@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Graphics/Window.hpp"
+#include "Engine/Scene.hpp"
 
 namespace ImasiEngine
 {
@@ -9,6 +10,7 @@ namespace ImasiEngine
     protected:
 
         Window* _window;
+        Scene* _scene;
 
         virtual void setupGlew();
         virtual void setupOpenGL();
@@ -22,7 +24,7 @@ namespace ImasiEngine
         Engine();
         virtual ~Engine();
 
-        Window* getWindow() const;
+        void setScene(Scene* scene);
 
         void create(const std::string& title, const unsigned int style = sf::Style::Close, const unsigned int width = 800, const unsigned int height = 600);
         void run();
