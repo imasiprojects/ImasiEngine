@@ -7,19 +7,18 @@
     <ClCompile Include="Source\Graphics\Buffers\Buffer.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\VertexArray.cpp" />
     <ClCompile Include="Source\Graphics\Shaders\Shader.cpp" />
-    <ClCompile Include="Source\Utils\OpenglDebugger.cpp" />
     <ClCompile Include="Source\Engine\Scene.cpp" />
+    <ClCompile Include="Source\Utils\Opengl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\Logger.hpp" />
-    <ClInclude Include="Source\Utils\OpenglDebugger.hpp" />
     <ClInclude Include="Source\Graphics\Window.hpp" />
     <ClInclude Include="Source\Engine.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\Buffer.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\VertexArray.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\BufferType.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\Shader.hpp" />
-    <ClInclude Include="Source\Graphics\SfmlOpengl.hpp" />
     <ClInclude Include="Source\Engine\Scene.hpp" />
+    <ClInclude Include="Source\Utils\Opengl.hpp" />
   </ItemGroup>
 </Project>

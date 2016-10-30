@@ -1,7 +1,7 @@
 #include <GL/glew.h>
 
 #include "Buffer.hpp"
-#include "../../Utils/OpenglDebugger.hpp"
+#include "../../Utils/Opengl.hpp"
 
 namespace ImasiEngine
 {
