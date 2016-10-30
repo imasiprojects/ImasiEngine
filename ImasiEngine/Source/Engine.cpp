@@ -148,10 +148,10 @@ namespace ImasiEngine
             0.0f, 1.0f, 0.0f,
         };
 
-        Buffer buffer(g_vertex_buffer_data, 3, 3);
+        Buffer* buffer = new Buffer(g_vertex_buffer_data, 3, 3);
 
         VertexArray vertexArray;
-        vertexArray.addBuffer(&buffer, Vertex);
+        vertexArray.addBuffer(buffer, Vertex);
 
         Shader::bind(&shader);
         VertexArray::bind(&vertexArray);
