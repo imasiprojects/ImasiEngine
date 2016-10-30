@@ -30,7 +30,9 @@ namespace ImasiEngine
 
     VertexArray::~VertexArray()
     {
-        // TODO: delete pointers inside map
+		for (const std::pair<const BufferType, Buffer*>& buffer : _buffers)
+			if(buffer.second != nullptr)
+				delete buffer.second;
         GL(glDeleteVertexArrays(1, &_id));
     }
 
