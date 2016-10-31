@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Graphics/Window.hpp"
+#include "Engine/Window.hpp"
 #include "Engine/Scene.hpp"
 
 namespace ImasiEngine
