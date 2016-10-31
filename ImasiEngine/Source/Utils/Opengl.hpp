@@ -3,6 +3,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 
+#define UNBIND 0
+
 #ifdef DEBUG
 
     #define GL(glCall) do { \

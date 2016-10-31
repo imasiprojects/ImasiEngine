@@ -14,7 +14,7 @@ namespace ImasiEngine
 
     void Shader::unbind()
     {
-        GL(glUseProgram(0));
+        GL(glUseProgram(UNBIND));
     }
 
     Shader::Shader()
