@@ -34,6 +34,7 @@ namespace ImasiEngine
         {
             delete buffer.second;
         }
+
         GL(glDeleteVertexArrays(1, &_id));
     }
 
@@ -60,5 +61,4 @@ namespace ImasiEngine
 
         return nullptr;
     }
-
 }

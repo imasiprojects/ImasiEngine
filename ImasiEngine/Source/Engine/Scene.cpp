@@ -4,17 +4,12 @@ namespace ImasiEngine
 {
     Scene::Scene()
     {
-        _renderTarget = nullptr;
+
     }
 
     Scene::~Scene()
     {
 
-    }
-
-    void Scene::setRenderTarget(sf::RenderTarget* renderTarget)
-    {
-        _renderTarget = renderTarget;
     }
 
     void Scene::loop()

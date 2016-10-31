@@ -1,12 +1,10 @@
 #include "../../ImasiEngine/Source/Engine.hpp"
-#include "Scenes/DemoScene.hpp"
-#include "Game.hpp"
+
+#include "Game/GameEngine.hpp"
 
 int main()
 {
-    Imasi::Game game;
-    game.create("Woo");
-    game.setScene(new Imasi::DemoScene());
+    Imasi::GameEngine game;
     game.run();
 
     return 0;

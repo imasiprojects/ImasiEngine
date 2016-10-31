@@ -75,7 +75,7 @@ namespace ImasiEngine
     {
         processWindowEvents();
 
-        if (_scene != nullptr)
+        if (_scene != nullptr && _window->isOpen())
         {
             _scene->loop();
         }
@@ -134,17 +134,16 @@ namespace ImasiEngine
 
     void Engine::setScene(Scene* scene)
     {
-        if(_scene != nullptr)
+        if(_scene != scene && _scene != nullptr)
         {
             delete _scene;
             _scene = nullptr;
         }
 
-        scene->setRenderTarget(_window);
         _scene = scene;
     }
 
-    void Engine::create(const std::string& title, const unsigned int style, const unsigned int width, const unsigned int height)
+    void Engine::setupWindow(const std::string& title, const unsigned int style, const unsigned int width, const unsigned int height)
     {
         Logger::out << "Creating context..." << std::endl << std::endl;
 
