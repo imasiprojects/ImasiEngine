@@ -18,6 +18,7 @@ namespace ImasiEngine
     {
         delete _window;
         delete _scene;
+        delete _context;
     }
 
     void Engine::setupGlew()
@@ -131,11 +132,6 @@ namespace ImasiEngine
                 break;
             }
         }
-    }
-
-    void Engine::setContext(EngineContext* context)
-    {
-        _context = context;
     }
 
     void Engine::setScene(Scene* scene)

@@ -26,7 +26,6 @@ namespace ImasiEngine
         Engine();
         virtual ~Engine();
 
-        void setContext(EngineContext* context);
         void setScene(Scene* scene);
 
         void create(const std::string& title, const unsigned int style = sf::Style::Close, const unsigned int width = 800, const unsigned int height = 600);

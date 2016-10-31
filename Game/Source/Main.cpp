@@ -6,16 +6,10 @@
 
 int main()
 {
-    Imasi::GameContext* context = new Imasi::GameContext();
-    context->level = 334;
-
     Imasi::Game game;
     game.create("Woo");
-    game.setContext(context);
     game.setScene(new Imasi::DemoScene());
     game.run();
-
-    delete context;
 
     return 0;
 }
