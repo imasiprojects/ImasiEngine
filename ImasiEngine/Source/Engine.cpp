@@ -11,14 +11,12 @@ namespace ImasiEngine
     {
         _window = nullptr;
         _scene = nullptr;
-        _context = nullptr;
     }
 
     Engine::~Engine()
     {
         delete _window;
         delete _scene;
-        delete _context;
     }
 
     void Engine::setupGlew()
@@ -142,11 +140,10 @@ namespace ImasiEngine
             _scene = nullptr;
         }
 
-        scene->setContext(_context);
         _scene = scene;
     }
 
-    void Engine::create(const std::string& title, const unsigned int style, const unsigned int width, const unsigned int height)
+    void Engine::setupWindow(const std::string& title, const unsigned int style, const unsigned int width, const unsigned int height)
     {
         Logger::out << "Creating context..." << std::endl << std::endl;
 

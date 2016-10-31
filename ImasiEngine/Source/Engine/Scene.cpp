@@ -4,17 +4,12 @@ namespace ImasiEngine
 {
     Scene::Scene()
     {
-        _context = nullptr;
+
     }
 
     Scene::~Scene()
     {
 
-    }
-
-    void Scene::setContext(EngineContext* context)
-    {
-        _context = context;
     }
 
     void Scene::loop()

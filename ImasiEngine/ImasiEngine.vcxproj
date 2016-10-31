@@ -37,7 +37,6 @@
     <ClCompile Include="Source\Utils\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Engine\EngineContext.hpp" />
     <ClInclude Include="Source\Utils\Opengl.hpp" />
     <ClInclude Include="Source\Engine.hpp" />
     <ClInclude Include="Source\Engine\Scene.hpp" />

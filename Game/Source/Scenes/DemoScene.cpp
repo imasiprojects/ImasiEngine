@@ -14,8 +14,10 @@ using namespace ImasiEngine;
 
 namespace Imasi
 {
-    DemoScene::DemoScene() : Scene()
+    DemoScene::DemoScene(GameContext* context) : Scene()
     {
+        _context = context;
+
         _shader = new Shader();
         _shader->loadFromStrings(Shaders::vertexShader, Shaders::fragmentShader);
 
@@ -36,11 +38,6 @@ namespace Imasi
         delete _vertexArray;
     }
 
-    GameContext* DemoScene::getContext() const
-    {
-        return (GameContext*)_context;
-    }
-
     void DemoScene::processWindowEvent(const sf::Event& event)
     {
         if (event.type == sf::Event::KeyPressed)
@@ -52,7 +49,7 @@ namespace Imasi
     void DemoScene::update(const double deltaTime)
     {
         Logger::out << "DeltaTime: " << deltaTime << "s" << std::endl;
-        Logger::out << "Context: " << getContext()->level << std::endl;
+        Logger::out << "Context: " << _context->level << std::endl;
     }
     
     void DemoScene::render()
