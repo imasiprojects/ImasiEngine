@@ -10,5 +10,6 @@
     <ClInclude Include="Source\Shaders\FragmentShader.hpp" />
     <ClInclude Include="Source\Shaders\VertexShader.hpp" />
     <ClInclude Include="Source\Game.hpp" />
+    <ClInclude Include="Source\Game\GameContext.hpp" />
   </ItemGroup>
 </Project>

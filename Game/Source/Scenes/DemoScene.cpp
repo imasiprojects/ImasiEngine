@@ -36,17 +36,23 @@ namespace Imasi
         delete _vertexArray;
     }
 
+    GameContext* DemoScene::getContext() const
+    {
+        return (GameContext*)_context;
+    }
+
     void DemoScene::processWindowEvent(const sf::Event& event)
     {
         if (event.type == sf::Event::KeyPressed)
         {
             Logger::out << "Key Pressed!" << std::endl;
         }
-    }
+    }    
 
     void DemoScene::update(const double deltaTime)
     {
         Logger::out << "DeltaTime: " << deltaTime << "s" << std::endl;
+        Logger::out << "Context: " << getContext()->level << std::endl;
     }
     
     void DemoScene::render()

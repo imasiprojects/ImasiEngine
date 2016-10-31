@@ -11,12 +11,14 @@ namespace ImasiEngine
     {
         _window = nullptr;
         _scene = nullptr;
+        _context = nullptr;
     }
 
     Engine::~Engine()
     {
         delete _window;
         delete _scene;
+        delete _context;
     }
 
     void Engine::setupGlew()
@@ -132,15 +134,26 @@ namespace ImasiEngine
         }
     }
 
+    void Engine::setContext(EngineContext* context)
+    {
+        if (_context != context && _context != nullptr)
+        {
+            delete _context;
+            _context = nullptr;
+        }
+
+        _context = context;
+    }
+
     void Engine::setScene(Scene* scene)
     {
-        if(_scene != nullptr)
+        if(_scene != scene && _scene != nullptr)
         {
             delete _scene;
             _scene = nullptr;
         }
 
-        scene->setRenderTarget(_window);
+        scene->setContext(_context);
         _scene = scene;
     }
 

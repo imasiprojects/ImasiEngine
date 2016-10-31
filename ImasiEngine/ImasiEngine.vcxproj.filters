@@ -20,5 +20,6 @@
     <ClInclude Include="Source\Engine\Scene.hpp" />
     <ClInclude Include="Source\Utils\Opengl.hpp" />
     <ClInclude Include="Source\Engine\Window.hpp" />
+    <ClInclude Include="Source\Engine\EngineContext.hpp" />
   </ItemGroup>
 </Project>

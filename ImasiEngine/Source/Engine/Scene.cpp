@@ -4,7 +4,7 @@ namespace ImasiEngine
 {
     Scene::Scene()
     {
-        _renderTarget = nullptr;
+        _context = nullptr;
     }
 
     Scene::~Scene()
@@ -12,9 +12,9 @@ namespace ImasiEngine
 
     }
 
-    void Scene::setRenderTarget(sf::RenderTarget* renderTarget)
+    void Scene::setContext(EngineContext* context)
     {
-        _renderTarget = renderTarget;
+        _context = context;
     }
 
     void Scene::loop()

@@ -2,7 +2,8 @@
 
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
+
+#include "EngineContext.hpp"
 
 namespace ImasiEngine
 {
@@ -10,7 +11,7 @@ namespace ImasiEngine
     {
     protected:
 
-        sf::RenderTarget* _renderTarget;
+        EngineContext* _context;
         sf::Clock _sceneClock, _frameClock;
 
     public:
@@ -18,7 +19,7 @@ namespace ImasiEngine
         Scene();
         virtual ~Scene();
 
-        void setRenderTarget(sf::RenderTarget* renderTarget);
+        virtual void setContext(EngineContext* renderTarget);
 
         virtual void processWindowEvent(const sf::Event& event) = 0;
         
