@@ -14,15 +14,6 @@ namespace ImasiEngine
         GL(glBindVertexArray(0));
     }
 
-    void VertexArray::draw(VertexArray* vertexArray)
-    {
-        Buffer* vertexBuffer = vertexArray->getBuffer(Vertex);
-        if (vertexBuffer != nullptr)
-        {
-            glDrawArrays(GL_TRIANGLES, 0, vertexBuffer->getComponentCount());
-        }
-    }
-
     VertexArray::VertexArray()
     {
         GL(glGenVertexArrays(1, &_id));
@@ -60,5 +51,19 @@ namespace ImasiEngine
         }
 
         return nullptr;
+    }
+
+
+    void VertexArray::draw(BufferType bufferType, GLenum mode)
+    {
+        VertexArray::bind(this);
+
+        Buffer* vertexBuffer = this->getBuffer(bufferType);
+        if (vertexBuffer != nullptr)
+        {
+            glDrawArrays(mode, 0, vertexBuffer->getComponentCount());
+        }
+
+        VertexArray::unbind();
     }
 }

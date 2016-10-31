@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <GL/glew.h>
 
 #include "Buffer.hpp"
 #include "BufferType.hpp"
@@ -18,12 +19,13 @@ namespace ImasiEngine
 
         static void bind(VertexArray* vertexArray);
         static void unbind();
-        static void draw(VertexArray* vertexArray);
 
         VertexArray();
         ~VertexArray();
 
         void addBuffer(Buffer* buffer, BufferType type);
         Buffer* getBuffer(BufferType type);
+
+        void draw(BufferType bufferType = Vertex, GLenum drawMode = GL_TRIANGLES);
     };
 }

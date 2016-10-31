@@ -57,9 +57,7 @@ namespace Imasi
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         Shader::bind(_shader);
-        VertexArray::bind(_vertexArray);
-        VertexArray::draw(_vertexArray);
-        VertexArray::unbind();
+        _vertexArray->draw();
         Shader::unbind();
     }
 }
