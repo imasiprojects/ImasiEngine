@@ -58,7 +58,6 @@ namespace Imasi
 
         Shader::bind(_shader);
         _vertexArray->draw();
-        VertexArray::unbind();
         Shader::unbind();
     }
 }

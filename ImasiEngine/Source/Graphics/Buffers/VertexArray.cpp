@@ -63,5 +63,7 @@ namespace ImasiEngine
         {
             glDrawArrays(mode, 0, vertexBuffer->getComponentCount());
         }
+
+        VertexArray::unbind();
     }
 }
