@@ -27,13 +27,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\Game\Game.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Scenes\DemoScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game\GameContext.hpp" />
-    <ClInclude Include="Source\Game.hpp" />
+    <ClInclude Include="Source\Game\Game.hpp" />
     <ClInclude Include="Source\Scenes\DemoScene.hpp" />
     <ClInclude Include="Source\Shaders\FragmentShader.hpp" />
     <ClInclude Include="Source\Shaders\VertexShader.hpp" />

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../ImasiEngine/Source/Engine.hpp"
-#include "Game/GameContext.hpp"
+#include "GameContext.hpp"
 
 namespace Imasi
 {

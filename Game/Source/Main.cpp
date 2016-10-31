@@ -1,8 +1,7 @@
 #include "../../ImasiEngine/Source/Engine.hpp"
 
 #include "Scenes/DemoScene.hpp"
-#include "Game/GameContext.hpp"
-#include "Game.hpp"
+#include "Game/Game.hpp"
 
 int main()
 {
