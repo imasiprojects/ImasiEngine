@@ -11,7 +11,7 @@ namespace Imasi
         _context = new GameContext();
         _context->level = 666;
 
-        setScene(new DemoScene(_context));
+        _scene = new DemoScene(_context);
     }
 
     GameEngine::~GameEngine()
