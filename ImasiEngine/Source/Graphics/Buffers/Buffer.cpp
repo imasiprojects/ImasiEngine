@@ -12,7 +12,7 @@ namespace ImasiEngine
 
     void Buffer::unbind()
     {
-        GL(glBindBuffer(GL_ARRAY_BUFFER, 0));
+        GL(glBindBuffer(GL_ARRAY_BUFFER, UNBIND));
     }
 
     Buffer::Buffer(float* data, unsigned int componentCount, unsigned int membersPerComponent)

@@ -11,7 +11,7 @@ namespace ImasiEngine
 
     void VertexArray::unbind()
     {
-        GL(glBindVertexArray(0));
+        GL(glBindVertexArray(UNBIND));
     }
 
     VertexArray::VertexArray()
