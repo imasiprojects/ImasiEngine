@@ -14,12 +14,12 @@ namespace Imasi
         ImasiEngine::Shader* _shader;
         ImasiEngine::VertexArray* _vertexArray;
 
+        GameContext* getContext() const;
+
     public:
 
         DemoScene();
         ~DemoScene();
-
-        GameContext* getContext() const;
 
         void processWindowEvent(const sf::Event& event) override;
 
