@@ -47,7 +47,7 @@ namespace Imasi
         {
             Logger::out << "Key Pressed!" << std::endl;
         }
-    }    
+    }
 
     void DemoScene::update(const double deltaTime)
     {

@@ -18,7 +18,6 @@ namespace ImasiEngine
     {
         delete _window;
         delete _scene;
-        delete _context;
     }
 
     void Engine::setupGlew()
@@ -77,7 +76,7 @@ namespace ImasiEngine
     {
         processWindowEvents();
 
-        if (_scene != nullptr)
+        if (_scene != nullptr && _window->isOpen())
         {
             _scene->loop();
         }
@@ -136,12 +135,6 @@ namespace ImasiEngine
 
     void Engine::setContext(EngineContext* context)
     {
-        if (_context != context && _context != nullptr)
-        {
-            delete _context;
-            _context = nullptr;
-        }
-
         _context = context;
     }
 

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../../../ImasiEngine/Source/Engine/EngineContext.hpp"
 
 namespace Imasi

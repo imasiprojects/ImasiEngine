@@ -15,5 +15,7 @@ int main()
     game.setScene(new Imasi::DemoScene());
     game.run();
 
+    delete context;
+
     return 0;
 }
