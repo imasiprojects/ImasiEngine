@@ -40,6 +40,7 @@ namespace ImasiEngine
         Buffer::unbind();
         unbind();
 
+        removeBuffer(type);
         _buffers[type] = buffer;
     }
 
