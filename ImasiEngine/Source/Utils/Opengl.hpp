@@ -6,14 +6,10 @@
 
 #ifdef DEBUG
 
-    #define GL(glCall) do { \
-        glCall; \
-        ImasiEngine::Opengl::checkError(__FILE__, __LINE__, #glCall); \
-    } while (false)
+    #define GL(glCall) glCall; \
+        do {} while (ImasiEngine::Opengl::checkError(__FILE__, __LINE__, #glCall))
 
-    #define GL_CHECK() do { \
-        ImasiEngine::Opengl::checkError(__FILE__, __LINE__); \
-    } while (false)
+    #define GL_CHECK() do {} while (ImasiEngine::Opengl::checkError(__FILE__, __LINE__))
 
 #else
 
@@ -30,6 +26,6 @@ namespace ImasiEngine
         void beginSfml(sf::RenderWindow* window);
         void endSfml(sf::RenderWindow* window);
 
-        void checkError(const char* file, const int line, const char* call = nullptr);
+        bool checkError(const char* file, const int line, const char* call = nullptr);
     }
 }
