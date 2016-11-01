@@ -48,6 +48,7 @@ namespace ImasiEngine
         auto it = _buffers.find(type);
         if(it != _buffers.end())
         {
+            delete it->second;
             _buffers.erase(it);
         }
     }
