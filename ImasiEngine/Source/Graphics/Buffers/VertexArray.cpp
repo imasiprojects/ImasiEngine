@@ -65,7 +65,6 @@ namespace ImasiEngine
         return nullptr;
     }
 
-
     void VertexArray::draw(BufferType bufferType, GLenum mode)
     {
         VertexArray::bind(this);
