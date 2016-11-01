@@ -72,7 +72,7 @@ namespace ImasiEngine
         Buffer* vertexBuffer = this->getBuffer(bufferType);
         if (vertexBuffer != nullptr)
         {
-            glDrawArrays(mode, 0, vertexBuffer->getComponentCount());
+            GL(glDrawArrays(mode, 0, vertexBuffer->getComponentCount()));
         }
 
         VertexArray::unbind();

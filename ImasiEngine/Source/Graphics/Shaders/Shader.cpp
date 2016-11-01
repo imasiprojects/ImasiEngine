@@ -33,7 +33,7 @@ namespace ImasiEngine
             _id = UNSET;
         }
 
-        unsigned int shaderId = glCreateShader(type);
+        unsigned int shaderId = GL(glCreateShader(type));
 
         GL(glShaderSource(shaderId, 1, &shaderSourceCode, nullptr));
         GL(glCompileShader(shaderId));
