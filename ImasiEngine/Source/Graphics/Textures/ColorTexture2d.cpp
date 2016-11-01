@@ -30,6 +30,8 @@ namespace ImasiEngine
 
     void ColorTexture2d::create(unsigned int width, unsigned int height)
     {
+        GL(glGenTextures(1, &_id));
+
         Texture::bind(this);
 
         GL(glTexImage2D(_type, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr));
@@ -53,14 +55,16 @@ namespace ImasiEngine
 
         sf::Vector2u imageSize = image.getSize();
 
+        GL(glGenTextures(1, &_id));
+
         Texture::bind(this);
 
-        glTexImage2D(_type, 0, GL_RGBA, imageSize.x, imageSize.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr());
-        glTexParameteri(_type, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(_type, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glGenerateMipmap(_type);
+        GL(glTexImage2D(_type, 0, GL_RGBA, imageSize.x, imageSize.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr()));
+        GL(glTexParameteri(_type, GL_TEXTURE_WRAP_S, GL_REPEAT));
+        GL(glTexParameteri(_type, GL_TEXTURE_WRAP_T, GL_REPEAT));
+        GL(glTexParameteri(_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+        GL(glTexParameteri(_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
+        GL(glGenerateMipmap(_type));
 
         Texture::unbind();
 

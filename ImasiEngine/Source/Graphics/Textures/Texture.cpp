@@ -17,23 +17,31 @@ namespace ImasiEngine
 
     void Texture::unbind(unsigned int index)
     {
-        unsigned int type = _indexTypes[index];
+        auto indexIterator = _indexTypes.find(index);
 
-        GL(glActiveTexture(GL_TEXTURE0 + index));
-        GL(glBindTexture(type, UNBIND));
-        GL(glDisable(type));
+        if (indexIterator != _indexTypes.end())
+        {
+            unsigned int type = indexIterator->second;
 
-        _indexTypes.erase(_indexTypes.find(index));
+            GL(glActiveTexture(GL_TEXTURE0 + index));
+            GL(glBindTexture(type, UNBIND));
+            GL(glDisable(type));
+
+            _indexTypes.erase(indexIterator);
+        }
     }
 
     Texture::Texture() :
+        _id(UNSET),
         _type(UNSET)
     {
-        glGenTextures(1, &_id);
     }
 
     Texture::~Texture()
     {
-        glDeleteTextures(1, &_id);
+        if (_id != UNSET)
+        {
+            glDeleteTextures(1, &_id);
+        }
     }
 }
