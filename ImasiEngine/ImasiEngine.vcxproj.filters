@@ -9,6 +9,8 @@
     <ClCompile Include="Source\Engine\Scene.cpp" />
     <ClCompile Include="Source\Utils\Opengl.cpp" />
     <ClCompile Include="Source\Engine\Window.cpp" />
+    <ClCompile Include="Source\Graphics\Textures\Texture.cpp" />
+    <ClCompile Include="Source\Graphics\Textures\ColorTexture2d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\Logger.hpp" />
@@ -20,5 +22,7 @@
     <ClInclude Include="Source\Engine\Scene.hpp" />
     <ClInclude Include="Source\Utils\Opengl.hpp" />
     <ClInclude Include="Source\Engine\Window.hpp" />
+    <ClInclude Include="Source\Graphics\Textures\Texture.hpp" />
+    <ClInclude Include="Source\Graphics\Textures\ColorTexture2d.hpp" />
   </ItemGroup>
 </Project>
