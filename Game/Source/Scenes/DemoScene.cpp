@@ -2,13 +2,14 @@
 
 #include <GL/glew.h>
 
-#include "../../../ImasiEngine/Source/Graphics/Shaders/Shader.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Buffers/Buffer.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Buffers/VertexArray.hpp"
 #include "../../../ImasiEngine/Source/Utils/Logger.hpp"
 
 #include "../Shaders/FragmentShader.hpp"
 #include "../Shaders/VertexShader.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Shaders/VertexShader.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Shaders/FragmentShader.h"
 
 using namespace ImasiEngine;
 
@@ -18,8 +19,20 @@ namespace Imasi
     {
         _context = context;
 
-        _shader = new Shader();
-        _shader->loadFromStrings(Shaders::vertexShader, Shaders::fragmentShader);
+        _program = new Program();
+
+        // Example with pointers
+        VertexShader* vertexShader = new VertexShader();
+        vertexShader->load(Shaders::vertexShader);
+        _program->attach(*vertexShader);
+
+        // Example without pointers
+        _program->attach(FragmentShader(Shaders::fragmentShader));
+
+        if(!_program->link())
+        {
+            Logger::out << "Error linking program" << std::endl;
+        }
 
         static float vertices[] =
         {
@@ -34,7 +47,7 @@ namespace Imasi
 
     DemoScene::~DemoScene()
     {
-        delete _shader;
+        delete _program;
         delete _vertexArray;
     }
 
@@ -56,8 +69,8 @@ namespace Imasi
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        Shader::bind(_shader);
+        Program::bind(_program);
         _vertexArray->draw();
-        Shader::unbind();
+        Program::unbind();
     }
 }

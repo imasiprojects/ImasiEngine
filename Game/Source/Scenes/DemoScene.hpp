@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../../../ImasiEngine/Source/Engine/Scene.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Shaders/Shader.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Buffers/VertexArray.hpp"
 #include "../Game/GameContext.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Program.hpp"
 
 namespace Imasi
 {
@@ -13,7 +13,7 @@ namespace Imasi
 
         GameContext* _context;
 
-        ImasiEngine::Shader* _shader;
+        ImasiEngine::Program* _program;
         ImasiEngine::VertexArray* _vertexArray;
 
     public:

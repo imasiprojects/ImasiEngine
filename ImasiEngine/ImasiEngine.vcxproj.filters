@@ -5,10 +5,13 @@
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\Buffer.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\VertexArray.cpp" />
-    <ClCompile Include="Source\Graphics\Shaders\Shader.cpp" />
     <ClCompile Include="Source\Engine\Scene.cpp" />
     <ClCompile Include="Source\Utils\Opengl.cpp" />
     <ClCompile Include="Source\Engine\Window.cpp" />
+    <ClCompile Include="Source\Graphics\Shaders\Shader.cpp" />
+    <ClCompile Include="Source\Graphics\Shaders\VertexShader.cpp" />
+    <ClCompile Include="Source\Graphics\Program.cpp" />
+    <ClCompile Include="Source\Graphics\Shaders\FragmentShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\Logger.hpp" />
@@ -16,9 +19,12 @@
     <ClInclude Include="Source\Graphics\Buffers\Buffer.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\VertexArray.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\BufferType.hpp" />
-    <ClInclude Include="Source\Graphics\Shaders\Shader.hpp" />
     <ClInclude Include="Source\Engine\Scene.hpp" />
     <ClInclude Include="Source\Utils\Opengl.hpp" />
     <ClInclude Include="Source\Engine\Window.hpp" />
+    <ClInclude Include="Source\Graphics\Shaders\Shader.hpp" />
+    <ClInclude Include="Source\Graphics\Shaders\VertexShader.hpp" />
+    <ClInclude Include="Source\Graphics\Program.hpp" />
+    <ClInclude Include="Source\Graphics\Shaders\FragmentShader.h" />
   </ItemGroup>
 </Project>
