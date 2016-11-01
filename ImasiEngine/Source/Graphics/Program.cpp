@@ -70,7 +70,7 @@ namespace ImasiEngine
 
         GL(glGetProgramiv(_id, GL_LINK_STATUS, &result));
 
-        if (result != GL_TRUE)
+        if (result == GL_FALSE)
         {
             #ifdef DEBUG
             {

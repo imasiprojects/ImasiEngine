@@ -35,6 +35,12 @@ namespace Imasi
             Logger::out << "Error linking program" << std::endl;
         }
 
+        _texture = new ColorTexture2D();
+        if (!_texture->loadFromFile("texture.png"))
+        {
+            Logger::out << "Error loading Texture" << std::endl;
+        }
+
         static float vertices[] =
         {
             -1.0f, -1.0f, 0.0f,
@@ -44,9 +50,9 @@ namespace Imasi
 
         static float uvs[] =
         {
-            0.f, 0.f,
+            0.f, 1.f,
             1.f, 1.f,
-            0.5f, 0.5f
+            0.5f, 0.f
         };
 
         _vertexArray = new VertexArray();
@@ -58,6 +64,7 @@ namespace Imasi
     {
         delete _program;
         delete _vertexArray;
+        delete _texture;
     }
 
     void DemoScene::processWindowEvent(const sf::Event& event)
@@ -76,11 +83,14 @@ namespace Imasi
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        ColorTexture2D myTexture;
-        myTexture.loadFromFile("texture.png");
-
         Program::bind(_program);
-        _vertexArray->draw();
+        {
+            Texture::bind(_texture);
+            {
+                _vertexArray->draw();
+            }
+            Texture::unbind();
+        }
         Program::unbind();
     }
 }

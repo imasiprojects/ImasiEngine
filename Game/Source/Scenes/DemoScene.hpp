@@ -5,6 +5,7 @@
 #include "../../../ImasiEngine/Source/Graphics/Program.hpp"
 
 #include "../Game/GameContext.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Textures/ColorTexture2D.hpp"
 
 namespace Imasi
 {
@@ -16,6 +17,7 @@ namespace Imasi
 
         ImasiEngine::Program* _program;
         ImasiEngine::VertexArray* _vertexArray;
+        ImasiEngine::ColorTexture2D* _texture;
 
     public:
 
