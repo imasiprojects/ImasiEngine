@@ -12,12 +12,13 @@ namespace ImasiEngine
         unsigned int _id;
         unsigned int _type;
 
+        Texture();
+
     public:
 
         static void bind(Texture* texture, unsigned int index = 0);
         static void unbind(unsigned int index = 0);
 
-        Texture();
         virtual ~Texture();
     };
 }
