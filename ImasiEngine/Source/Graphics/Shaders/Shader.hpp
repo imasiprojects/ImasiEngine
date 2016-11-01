@@ -1,21 +1,25 @@
 #pragma once
 
+#include "GL/glew.h"
+
 namespace ImasiEngine
 {
     class Shader
     {
-    private:
+    protected:
 
         unsigned int _id;
 
+        Shader();
+        Shader(const Shader&) = delete;
+        Shader(Shader&&) noexcept;
+        virtual ~Shader();
+
+        bool compile(const char* shaderSourceCode, GLenum type);
+
     public:
 
-        static void bind(Shader* shader);
-        static void unbind();
+        unsigned int getId() const;
 
-        Shader();
-        ~Shader();
-
-        bool loadFromStrings(const char* vertexShader, const char* fragmentShader);
     };
 }

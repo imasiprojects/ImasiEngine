@@ -3,6 +3,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #define UNBIND 0
+#define UNSET -1
 
 #ifdef DEBUG
 
