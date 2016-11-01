@@ -10,6 +10,7 @@
 
 #include "../Shaders/FragmentShader.hpp"
 #include "../Shaders/VertexShader.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Textures/ColorTexture2D.hpp"
 
 using namespace ImasiEngine;
 
@@ -41,8 +42,16 @@ namespace Imasi
             0.0f, 1.0f, 0.0f,
         };
 
+        static float uvs[] =
+        {
+            0.f, 0.f,
+            1.f, 1.f,
+            0.5f, 0.5f
+        };
+
         _vertexArray = new VertexArray();
         _vertexArray->addBuffer(new Buffer(vertices, 3, 3), Vertex);
+        _vertexArray->addBuffer(new Buffer(uvs, 3, 2), UV);
     }
 
     DemoScene::~DemoScene()
@@ -61,13 +70,14 @@ namespace Imasi
 
     void DemoScene::update(const double deltaTime)
     {
-        Logger::out << "DeltaTime: " << deltaTime << "s" << std::endl;
-        Logger::out << "Context: " << _context->level << std::endl;
     }
     
     void DemoScene::render()
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        ColorTexture2D myTexture;
+        myTexture.loadFromFile("texture.png");
 
         Program::bind(_program);
         _vertexArray->draw();
