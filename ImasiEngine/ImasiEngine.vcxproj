@@ -29,6 +29,8 @@
   <ItemGroup>
     <ClCompile Include="Source\Graphics\Shaders\FragmentShader.cpp" />
     <ClCompile Include="Source\Graphics\Program.cpp" />
+    <ClCompile Include="Source\Graphics\Textures\ColorTexture2D.cpp" />
+    <ClCompile Include="Source\Graphics\Textures\Texture.cpp" />
     <ClCompile Include="Source\Graphics\Shaders\Shader.cpp" />
     <ClCompile Include="Source\Utils\Opengl.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
@@ -42,6 +44,8 @@
   <ItemGroup>
     <ClInclude Include="Source\Graphics\Shaders\FragmentShader.hpp" />
     <ClInclude Include="Source\Graphics\Program.hpp" />
+    <ClInclude Include="Source\Graphics\Textures\ColorTexture2D.hpp" />
+    <ClInclude Include="Source\Graphics\Textures\Texture.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\Shader.hpp" />
     <ClInclude Include="Source\Utils\Opengl.hpp" />
     <ClInclude Include="Source\Engine.hpp" />

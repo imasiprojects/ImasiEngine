@@ -10,6 +10,8 @@
     <ClCompile Include="Source\Engine\Window.cpp" />
     <ClCompile Include="Source\Graphics\Shaders\Shader.cpp" />
     <ClCompile Include="Source\Graphics\Shaders\VertexShader.cpp" />
+    <ClCompile Include="Source\Graphics\Textures\Texture.cpp" />
+    <ClCompile Include="Source\Graphics\Textures\ColorTexture2D.cpp" />
     <ClCompile Include="Source\Graphics\Program.cpp" />
     <ClCompile Include="Source\Graphics\Shaders\FragmentShader.cpp" />
   </ItemGroup>
@@ -24,6 +26,8 @@
     <ClInclude Include="Source\Engine\Window.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\Shader.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\VertexShader.hpp" />
+    <ClInclude Include="Source\Graphics\Textures\Texture.hpp" />
+    <ClInclude Include="Source\Graphics\Textures\ColorTexture2D.hpp" />
     <ClInclude Include="Source\Graphics\Program.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\FragmentShader.hpp" />
   </ItemGroup>
