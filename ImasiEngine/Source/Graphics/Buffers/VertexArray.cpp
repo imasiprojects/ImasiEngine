@@ -45,9 +45,10 @@ namespace ImasiEngine
 
     Buffer* VertexArray::getBuffer(BufferType type)
     {
-        if (_buffers.find(type) != _buffers.end())
+        auto it = _buffers.find(type);
+        if(it != _buffers.end())
         {
-            return _buffers[type];
+            return it->second;
         }
 
         return nullptr;
