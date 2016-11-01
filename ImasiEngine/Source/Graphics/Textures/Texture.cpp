@@ -31,9 +31,9 @@ namespace ImasiEngine
         }
     }
 
-    Texture::Texture() :
-        _id(UNSET),
-        _type(UNSET)
+    Texture::Texture()
+        : _id(UNSET)
+        , _type(UNSET)
     {
     }
 

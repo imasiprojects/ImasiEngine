@@ -6,9 +6,10 @@
 
 namespace ImasiEngine
 {
-    ColorTexture2D::ColorTexture2D() : Texture(),
-        _width(0),
-        _height(0)
+    ColorTexture2D::ColorTexture2D()
+        : Texture()
+        , _width(0)
+        , _height(0)
     {
         _type = GL_TEXTURE_2D;
     }
