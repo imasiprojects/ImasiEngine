@@ -17,7 +17,10 @@ namespace ImasiEngine
         compile(shaderSourceCode);
     }
 
-    FragmentShader::FragmentShader(FragmentShader&& shader) noexcept : Shader(std::move(shader)) {}
+    FragmentShader::FragmentShader(FragmentShader&& shader) noexcept : Shader(std::move(shader))
+    {
+        
+    }
 
     bool FragmentShader::compile(const char* code)
     {

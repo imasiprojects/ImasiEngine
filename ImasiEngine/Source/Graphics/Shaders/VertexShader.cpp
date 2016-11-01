@@ -16,7 +16,10 @@ namespace ImasiEngine
         compile(shaderSourceCode);
     }
 
-    VertexShader::VertexShader(VertexShader&& shader) noexcept : Shader(std::move(shader)){}
+    VertexShader::VertexShader(VertexShader&& shader) noexcept : Shader(std::move(shader))
+    {
+        
+    }
 
     bool VertexShader::compile(const char* code)
     {
