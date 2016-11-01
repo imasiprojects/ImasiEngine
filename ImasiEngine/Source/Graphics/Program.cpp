@@ -7,6 +7,15 @@
 
 namespace ImasiEngine
 {
+    void Program::bind(Program* program)
+    {
+        GL(glUseProgram(program->getId()));
+    }
+
+    void Program::unbind()
+    {
+        GL(glUseProgram(UNBIND));
+    }
 
     Program::Program()
         : _id(UNSET),
@@ -57,23 +66,23 @@ namespace ImasiEngine
 
         int result;
 
-        glLinkProgram(_id);
+        GL(glLinkProgram(_id));
 
-        glGetProgramiv(_id, GL_LINK_STATUS, &result);
+        GL(glGetProgramiv(_id, GL_LINK_STATUS, &result));
 
         if (result == GL_FALSE)
         {
             #ifdef DEBUG
             {
                 int errorLength;
-                glGetProgramiv(_id, GL_INFO_LOG_LENGTH, &errorLength);
+                GL(glGetProgramiv(_id, GL_INFO_LOG_LENGTH, &errorLength));
                 std::string errorMessage(errorLength, '\0');
-                glGetProgramInfoLog(_id, errorLength, nullptr, &errorMessage[0]);
+                GL(glGetProgramInfoLog(_id, errorLength, nullptr, &errorMessage[0]));
                 Logger::out << "Shader id " << _id << " error: " << std::endl << '\t' << errorMessage.c_str() << std::endl;
             }
             #endif
 
-            glDeleteProgram(_id);
+            GL(glDeleteProgram(_id));
             _id = glCreateProgram();
 
             return false;
@@ -91,15 +100,5 @@ namespace ImasiEngine
     bool Program::isLinked() const
     {
         return _isLinked;
-    }
-
-    void Program::bind(Program* program)
-    {
-        GL(glUseProgram(program->getId()));
-    }
-
-    void Program::unbind()
-    {
-        GL(glUseProgram(UNBIND));
     }
 }
