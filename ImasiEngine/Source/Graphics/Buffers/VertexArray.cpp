@@ -47,7 +47,7 @@ namespace ImasiEngine
     void VertexArray::removeBuffer(BufferType type)
     {
         auto it = _buffers.find(type);
-        if(it != _buffers.end())
+        if (it != _buffers.end())
         {
             delete it->second;
             _buffers.erase(it);
@@ -57,7 +57,7 @@ namespace ImasiEngine
     Buffer* VertexArray::getBuffer(BufferType type)
     {
         auto it = _buffers.find(type);
-        if(it != _buffers.end())
+        if (it != _buffers.end())
         {
             return it->second;
         }
