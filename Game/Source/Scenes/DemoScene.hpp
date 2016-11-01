@@ -2,8 +2,9 @@
 
 #include "../../../ImasiEngine/Source/Engine/Scene.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Buffers/VertexArray.hpp"
-#include "../Game/GameContext.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Program.hpp"
+
+#include "../Game/GameContext.hpp"
 
 namespace Imasi
 {
