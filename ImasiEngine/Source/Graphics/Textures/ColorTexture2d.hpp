@@ -4,7 +4,7 @@
 
 namespace ImasiEngine
 {
-    class ColorTexture2d : public Texture
+    class ColorTexture2D : public Texture
     {
     private:
 
@@ -15,8 +15,8 @@ namespace ImasiEngine
         unsigned int getWidth() const;
         unsigned int getHeight() const;
 
-        ColorTexture2d();
-        ~ColorTexture2d();
+        ColorTexture2D();
+        ~ColorTexture2D();
 
         void create(unsigned int width, unsigned int height);
         bool loadFromFile(const char* fileName);

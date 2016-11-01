@@ -1,4 +1,4 @@
-#include "ColorTexture2d.hpp"
+#include "ColorTexture2D.hpp"
 
 #include <GL/glew.h>
 
@@ -6,29 +6,29 @@
 
 namespace ImasiEngine
 {
-    ColorTexture2d::ColorTexture2d() : Texture(),
+    ColorTexture2D::ColorTexture2D() : Texture(),
         _width(0),
         _height(0)
     {
         _type = GL_TEXTURE_2D;
     }
 
-    ColorTexture2d::~ColorTexture2d()
+    ColorTexture2D::~ColorTexture2D()
     {
         
     }
 
-    unsigned int ColorTexture2d::getWidth() const
+    unsigned int ColorTexture2D::getWidth() const
     {
         return _width;
     }
 
-    unsigned ColorTexture2d::getHeight() const
+    unsigned ColorTexture2D::getHeight() const
     {
         return _height;
     }
 
-    void ColorTexture2d::create(unsigned int width, unsigned int height)
+    void ColorTexture2D::create(unsigned int width, unsigned int height)
     {
         GL(glGenTextures(1, &_id));
 
@@ -45,7 +45,7 @@ namespace ImasiEngine
         _height = height;
     }
 
-    bool ColorTexture2d::loadFromFile(const char* fileName)
+    bool ColorTexture2D::loadFromFile(const char* fileName)
     {
         sf::Image image;
         if (!image.loadFromFile(fileName))
