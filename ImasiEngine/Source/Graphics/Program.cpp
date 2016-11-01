@@ -19,9 +19,9 @@ namespace ImasiEngine
 
     Program::Program()
         : _id(UNSET),
-        _isLinked(false)
+          _isLinked(false)
     {
-        _id = glCreateProgram();
+        _id = GL(glCreateProgram());
     }
 
     Program::Program(Program&& program) noexcept
@@ -83,7 +83,7 @@ namespace ImasiEngine
             #endif
 
             GL(glDeleteProgram(_id));
-            _id = glCreateProgram();
+            _id = GL(glCreateProgram());
 
             return false;
         }

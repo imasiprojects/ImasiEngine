@@ -55,20 +55,20 @@ namespace ImasiEngine
     void Engine::setupOpenGL()
     {
         // Clear color
-        glClearColor(1.0f, 0.7f, 0.1f, 1.0f);
+        GL(glClearColor(1.0f, 0.7f, 0.1f, 1.0f));
 
         // Backface culling
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
-        glFrontFace(GL_CCW);
+        GL(glEnable(GL_CULL_FACE));
+        GL(glCullFace(GL_BACK));
+        GL(glFrontFace(GL_CCW));
 
         // Depth control
-        glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_LEQUAL);
+        GL(glEnable(GL_DEPTH_TEST));
+        GL(glDepthFunc(GL_LEQUAL));
 
         // Transparency
-        //glEnable(GL_BLEND);
-        //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        //GL(glEnable(GL_BLEND));
+        //GL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
     }
 
     void Engine::loop()
@@ -109,7 +109,7 @@ namespace ImasiEngine
 
             case sf::Event::Resized:
             {
-                glViewport(0, 0, event.size.width, event.size.height);
+                GL(glViewport(0, 0, event.size.width, event.size.height));
                 break;
             }
 
