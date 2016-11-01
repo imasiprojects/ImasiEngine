@@ -6,18 +6,21 @@
 
 namespace ImasiEngine
 {
-
-    VertexShader::VertexShader(){}
-    VertexShader::VertexShader(const char* code)
+    VertexShader::VertexShader()
     {
-        load(code);
+        
+    }
+
+    VertexShader::VertexShader(const char* shaderSourceCode)
+    {
+        compile(shaderSourceCode);
     }
 
     VertexShader::VertexShader(VertexShader&& shader) noexcept : Shader(std::move(shader)){}
 
-    bool VertexShader::load(const char* code)
+    bool VertexShader::compile(const char* code)
     {
-        bool result = Shader::load(code, GL_VERTEX_SHADER);
+        bool result = Shader::compile(code, GL_VERTEX_SHADER);
 
         #ifdef DEBUG
         {

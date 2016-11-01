@@ -4,33 +4,38 @@
 
 namespace ImasiEngine
 {
-    Shader::Shader() : _id(0) {}
-
-    Shader::Shader(Shader&& shader)
+    Shader::Shader()
+        : _id(UNSET)
     {
-        _id = shader._id;
-        shader._id = 0;
+
     }
 
-    Shader::~Shader(){
-        if (_id != 0)
+    Shader::Shader(Shader&& shader) noexcept
+    {
+        _id = shader._id;
+        shader._id = UNSET;
+    }
+
+    Shader::~Shader()
+    {
+        if (_id != UNSET)
         {
             GL(glDeleteShader(_id));
         }
     }
 
-    bool Shader::load(const char* code, GLenum type)
+    bool Shader::compile(const char* shaderSourceCode, GLenum type)
     {
 
-        if (_id != 0)
+        if (_id != UNSET)
         {
             GL(glDeleteShader(_id));
-            _id = 0;
+            _id = UNSET;
         }
 
         unsigned int shaderId = glCreateShader(type);
 
-        GL(glShaderSource(shaderId, 1, &code, nullptr));
+        GL(glShaderSource(shaderId, 1, &shaderSourceCode, nullptr));
         GL(glCompileShader(shaderId));
 
         int result = GL_FALSE;
@@ -40,6 +45,7 @@ namespace ImasiEngine
         if (result == GL_TRUE)
         {
             _id = shaderId;
+
             return true;
         }
 

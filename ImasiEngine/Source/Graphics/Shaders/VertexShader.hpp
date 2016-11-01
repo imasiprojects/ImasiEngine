@@ -7,11 +7,12 @@ namespace ImasiEngine
     class VertexShader : public Shader
     {
     public:
+
         VertexShader();
-        VertexShader(const char* code);
+        VertexShader(const char* shaderSourceCode);
         VertexShader(const VertexShader&) = delete;
         VertexShader(VertexShader&& shader) noexcept;
 
-        bool load(const char* code);
+        bool compile(const char* code);
     };
 }

@@ -5,7 +5,7 @@
 #include "../../../ImasiEngine/Source/Graphics/Buffers/Buffer.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Buffers/VertexArray.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Shaders/VertexShader.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Shaders/FragmentShader.h"
+#include "../../../ImasiEngine/Source/Graphics/Shaders/FragmentShader.hpp"
 #include "../../../ImasiEngine/Source/Utils/Logger.hpp"
 
 #include "../Shaders/FragmentShader.hpp"
@@ -23,7 +23,7 @@ namespace Imasi
 
         // Example with pointers
         VertexShader* vertexShader = new VertexShader();
-        vertexShader->load(Shaders::vertexShader);
+        vertexShader->compile(Shaders::vertexShader);
         _program->attach(*vertexShader);
 
         // Example without pointers

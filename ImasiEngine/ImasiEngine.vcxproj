@@ -40,7 +40,7 @@
     <ClCompile Include="Source\Graphics\Shaders\VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Graphics\Shaders\FragmentShader.h" />
+    <ClInclude Include="Source\Graphics\Shaders\FragmentShader.hpp" />
     <ClInclude Include="Source\Graphics\Program.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\Shader.hpp" />
     <ClInclude Include="Source\Utils\Opengl.hpp" />

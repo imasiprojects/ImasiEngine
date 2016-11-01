@@ -8,7 +8,9 @@
 namespace ImasiEngine
 {
 
-    Program::Program() : _id(0), _isLinked(false)
+    Program::Program()
+        : _id(UNSET),
+        _isLinked(false)
     {
         _id = glCreateProgram();
     }
@@ -16,16 +18,15 @@ namespace ImasiEngine
     Program::Program(Program&& program) noexcept
     {
         _id = program._id;
-        program._id = 0;
+        program._id = UNSET;
 
         _isLinked = program._isLinked;
         program._isLinked = false;
-
     }
 
     Program::~Program()
     {
-        if (_id != 0)
+        if (_id != UNSET)
         {
             GL(glDeleteProgram(_id));
         }
@@ -33,7 +34,7 @@ namespace ImasiEngine
 
     void Program::attach(const Shader& shader)
     {
-        if (!_isLinked && shader.getId() != 0)
+        if (!_isLinked)
         {
             GL(glAttachShader(_id, shader.getId()));
         }
@@ -41,7 +42,7 @@ namespace ImasiEngine
 
     void Program::detach(const Shader& shader)
     {
-        if (!_isLinked && shader.getId() != 0)
+        if (!_isLinked)
         {
             GL(glDetachShader(_id, shader.getId()));
         }
@@ -49,7 +50,7 @@ namespace ImasiEngine
 
     bool Program::link()
     {
-        if (_id == 0 || _isLinked)
+        if (_isLinked)
         {
             return false;
         }

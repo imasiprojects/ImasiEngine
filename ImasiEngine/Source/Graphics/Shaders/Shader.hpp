@@ -12,10 +12,10 @@ namespace ImasiEngine
 
         Shader();
         Shader(const Shader&) = delete;
-        Shader(Shader&&);
+        Shader(Shader&&) noexcept;
         virtual ~Shader();
 
-        bool load(const char* code, GLenum type);
+        bool compile(const char* shaderSourceCode, GLenum type);
 
     public:
 

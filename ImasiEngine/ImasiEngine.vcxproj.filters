@@ -25,6 +25,6 @@
     <ClInclude Include="Source\Graphics\Shaders\Shader.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\VertexShader.hpp" />
     <ClInclude Include="Source\Graphics\Program.hpp" />
-    <ClInclude Include="Source\Graphics\Shaders\FragmentShader.h" />
+    <ClInclude Include="Source\Graphics\Shaders\FragmentShader.hpp" />
   </ItemGroup>
 </Project>

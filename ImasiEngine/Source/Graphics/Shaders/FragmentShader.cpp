@@ -1,4 +1,4 @@
-#include "FragmentShader.h"
+#include "FragmentShader.hpp"
 
 #include <GL/glew.h>
 
@@ -7,18 +7,21 @@
 namespace ImasiEngine
 {
 
-    FragmentShader::FragmentShader(){}
-
-    FragmentShader::FragmentShader(const char* code)
+    FragmentShader::FragmentShader()
     {
-        load(code);
+        
+    }
+
+    FragmentShader::FragmentShader(const char* shaderSourceCode)
+    {
+        compile(shaderSourceCode);
     }
 
     FragmentShader::FragmentShader(FragmentShader&& shader) noexcept : Shader(std::move(shader)) {}
 
-    bool FragmentShader::load(const char* code)
+    bool FragmentShader::compile(const char* code)
     {
-        bool result = Shader::load(code, GL_FRAGMENT_SHADER);
+        bool result = Shader::compile(code, GL_FRAGMENT_SHADER);
 
         #ifdef DEBUG
         {

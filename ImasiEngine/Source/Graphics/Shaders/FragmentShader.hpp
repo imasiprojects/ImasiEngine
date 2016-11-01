@@ -7,11 +7,12 @@ namespace ImasiEngine
     class FragmentShader : public Shader
     {
     public:
+
         FragmentShader();
-        FragmentShader(const char* code);
+        FragmentShader(const char* shaderSourceCode);
         FragmentShader(const FragmentShader&) = delete;
         FragmentShader(FragmentShader&& shader) noexcept;
 
-        bool load(const char* code);
+        bool compile(const char* code);
     };
 }
