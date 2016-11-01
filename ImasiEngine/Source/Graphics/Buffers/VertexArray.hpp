@@ -24,6 +24,7 @@ namespace ImasiEngine
         ~VertexArray();
 
         void addBuffer(Buffer* buffer, BufferType type);
+        void removeBuffer(BufferType type);
         Buffer* getBuffer(BufferType type);
 
         void draw(BufferType bufferType = Vertex, GLenum drawMode = GL_TRIANGLES);

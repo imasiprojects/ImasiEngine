@@ -43,6 +43,16 @@ namespace ImasiEngine
         _buffers[type] = buffer;
     }
 
+    void VertexArray::removeBuffer(BufferType type)
+    {
+        auto it = _buffers.find(type);
+        if(it != _buffers.end())
+        {
+            delete it->second;
+            _buffers.erase(it);
+        }
+    }
+
     Buffer* VertexArray::getBuffer(BufferType type)
     {
         auto it = _buffers.find(type);
