@@ -1,11 +1,13 @@
 #pragma once
 
+#include "SFML/Graphics/RenderWindow.hpp"
+
 namespace Imasi
 {
     class GameContext
     {
     public:
 
-        unsigned int level;
+        sf::RenderWindow* window;
     };
 }

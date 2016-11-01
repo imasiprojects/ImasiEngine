@@ -2,15 +2,12 @@
 
 #include <GL/glew.h>
 
-#include "../../../ImasiEngine/Source/Graphics/Buffers/Buffer.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Buffers/VertexArray.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Shaders/VertexShader.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Shaders/FragmentShader.hpp"
 #include "../../../ImasiEngine/Source/Utils/Logger.hpp"
 
 #include "../Shaders/FragmentShader.hpp"
 #include "../Shaders/VertexShader.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Textures/ColorTexture2D.hpp"
 
 using namespace ImasiEngine;
 
@@ -71,7 +68,10 @@ namespace Imasi
     {
         if (event.type == sf::Event::KeyPressed)
         {
-            Logger::out << "Key Pressed!" << std::endl;
+            if (event.key.code == sf::Keyboard::Escape)
+            {
+                _context->window->close();
+            }
         }
     }
 
