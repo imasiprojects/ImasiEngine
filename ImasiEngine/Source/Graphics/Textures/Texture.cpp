@@ -27,7 +27,7 @@ namespace ImasiEngine
     }
 
     Texture::Texture() :
-        _type(ERROR)
+        _type(UNSET)
     {
         glGenTextures(1, &_id);
     }
