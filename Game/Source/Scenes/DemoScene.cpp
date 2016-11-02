@@ -27,9 +27,11 @@ namespace Imasi
         // Example without pointers
         _program->attach(FragmentShader(Shaders::fragmentShader));
 
-        if(!_program->link())
+        if (!_program->link())
         {
             Logger::out << "Error linking program" << std::endl;
+            _context->window->close();
+            return;
         }
 
         _texture = new ColorTexture2D();
@@ -78,22 +80,20 @@ namespace Imasi
     void DemoScene::update(const double deltaTime)
     {
     }
-    
+
     void DemoScene::render()
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        if (_program->isLinked())
+        Program::bind(_program);
         {
-            Program::bind(_program);
+            Texture::bind(_texture);
             {
-                Texture::bind(_texture);
-                {
-                    _vertexArray->draw();
-                }
-                Texture::unbind();
+                _vertexArray->draw();
             }
-            Program::unbind();
+            Texture::unbind();
         }
+        Program::unbind();
     }
+
 }

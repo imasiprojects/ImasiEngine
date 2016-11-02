@@ -67,4 +67,9 @@ namespace ImasiEngine
         return _id;
     }
 
+    bool Shader::isValid() const
+    {
+        return _id != UNSET;
+    }
+
 }

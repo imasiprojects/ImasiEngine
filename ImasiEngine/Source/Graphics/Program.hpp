@@ -8,6 +8,7 @@ namespace ImasiEngine
     {
         unsigned int _id;
         bool _isLinked;
+        bool _invalidAttachPerformed;
 
     public:
 
@@ -23,8 +24,11 @@ namespace ImasiEngine
         void detach(const Shader& shader);
         bool link();
 
+        void reset();
+
         unsigned int getId() const;
         bool isLinked() const;
+        bool invalidAttachPerformed() const;
     };
 }
 
