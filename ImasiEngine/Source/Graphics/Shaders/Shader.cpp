@@ -51,7 +51,7 @@ namespace ImasiEngine
                 glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &errorLength);
                 std::string errorMessage(errorLength, '\0');
                 glGetShaderInfoLog(shaderId, errorLength, nullptr, &errorMessage[0]);
-                Logger::out << "Shader id " << shaderId << " error: " << std::endl << '\t' << errorMessage.c_str() << std::endl;
+                Logger::out << "Shader id " << shaderId << " error: " << std::endl << errorMessage.c_str() << std::endl;
             }
             #endif
 

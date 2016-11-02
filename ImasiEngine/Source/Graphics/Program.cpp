@@ -96,7 +96,7 @@ namespace ImasiEngine
                 GL(glGetProgramiv(_id, GL_INFO_LOG_LENGTH, &errorLength));
                 std::string errorMessage(errorLength, '\0');
                 GL(glGetProgramInfoLog(_id, errorLength, nullptr, &errorMessage[0]));
-                Logger::out << "Program id " << _id << " error: " << std::endl << '\t' << errorMessage.c_str() << std::endl;
+                Logger::out << "Program id " << _id << " error: " << std::endl << errorMessage.c_str() << std::endl;
             }
             #endif
 
