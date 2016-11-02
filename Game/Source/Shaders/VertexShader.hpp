@@ -13,7 +13,7 @@ namespace Shaders
 
         void main()
         {
-            gl_Position = vec4(vertexPosition_modelspace, 1.0);
+            gl_Position = vec4(vertexPosition_modelspace, 1);
             UV = vertexUV;
         }
 
