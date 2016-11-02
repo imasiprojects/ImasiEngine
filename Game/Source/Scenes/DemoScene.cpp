@@ -26,7 +26,6 @@ namespace Imasi
 
         // Example without pointers
         _program->attach(FragmentShader(Shaders::fragmentShader));
-        _program->attach(FragmentShader(Shaders::fragmentShader));
 
         if(!_program->link())
         {
