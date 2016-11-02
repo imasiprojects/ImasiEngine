@@ -26,6 +26,7 @@ namespace Imasi
 
         // Example without pointers
         _program->attach(FragmentShader(Shaders::fragmentShader));
+        _program->attach(FragmentShader(Shaders::fragmentShader));
 
         if(!_program->link())
         {
@@ -83,14 +84,17 @@ namespace Imasi
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        Program::bind(_program);
+        if (_program->isLinked())
         {
-            Texture::bind(_texture);
+            Program::bind(_program);
             {
-                _vertexArray->draw();
+                Texture::bind(_texture);
+                {
+                    _vertexArray->draw();
+                }
+                Texture::unbind();
             }
-            Texture::unbind();
+            Program::unbind();
         }
-        Program::unbind();
     }
 }
