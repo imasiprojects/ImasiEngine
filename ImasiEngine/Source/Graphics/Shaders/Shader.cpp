@@ -1,6 +1,7 @@
 #include "Shader.hpp"
 
 #include "../../Utils/Opengl.hpp"
+#include "../../Utils/Logger.hpp"
 
 namespace ImasiEngine
 {
@@ -42,15 +43,23 @@ namespace ImasiEngine
 
         GL(glGetShaderiv(shaderId, GL_COMPILE_STATUS, &result));
 
-        if (result == GL_TRUE)
+        if (result == GL_FALSE)
         {
-            _id = shaderId;
+            #ifdef DEBUG
+            {
+                int errorLength;
+                glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &errorLength);
+                std::string errorMessage(errorLength, '\0');
+                glGetShaderInfoLog(shaderId, errorLength, nullptr, &errorMessage[0]);
+                Logger::out << "Shader id " << shaderId << " error: " << std::endl << '\t' << errorMessage.c_str() << std::endl;
+            }
+            #endif
 
-            return true;
+            return false;
         }
 
-        return false;
-
+        _id = shaderId;
+        return true;
     }
 
     unsigned int Shader::getId() const
