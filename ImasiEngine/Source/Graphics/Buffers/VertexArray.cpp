@@ -15,6 +15,7 @@ namespace ImasiEngine
     }
 
     VertexArray::VertexArray()
+        : GpuObject()
     {
         GL(glGenVertexArrays(1, &_id));
     }

@@ -1,26 +1,20 @@
 #pragma once
 
-#include "GL/glew.h"
+#include <GL/glew.h>
+
+#include "../GpuObject.hpp"
 
 namespace ImasiEngine
 {
-    class Shader
+    class Shader : public GpuObject
     {
     protected:
 
-        unsigned int _id;
-
         Shader();
-        Shader(const Shader&) = delete;
-        Shader(Shader&&) noexcept;
+        Shader(const Shader& shader) = delete;
+        Shader(Shader&& shader) noexcept;
         virtual ~Shader();
 
-        bool compile(const char* shaderSourceCode, GLenum type);
-
-    public:
-
-        unsigned int getId() const;
-        bool isValid() const;
-
+        bool compile(const char* sourceCode, GLenum type);
     };
 }

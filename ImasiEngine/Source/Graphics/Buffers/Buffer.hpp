@@ -1,12 +1,13 @@
 #pragma once
 
+#include "../GpuObject.hpp"
+
 namespace ImasiEngine
 {
-    class Buffer
+    class Buffer : public GpuObject
     {
     private:
 
-        unsigned int _id;
         unsigned int _componentCount;
         unsigned int _membersPerComponent;
 

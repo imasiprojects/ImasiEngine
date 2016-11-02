@@ -16,7 +16,7 @@ namespace ImasiEngine
 
         static Logger out;
 
-        explicit Logger(std::string fileName)
+        Logger(std::string fileName)
         {
             _filename = fileName;
 

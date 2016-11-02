@@ -9,9 +9,10 @@ namespace ImasiEngine
     public:
 
         FragmentShader();
-        FragmentShader(const char* shaderSourceCode);
-        FragmentShader(const FragmentShader&) = delete;
+        FragmentShader(const char* sourceCode);
+        FragmentShader(const FragmentShader& shader) = delete;
         FragmentShader(FragmentShader&& shader) noexcept;
+        ~FragmentShader();
 
         bool compile(const char* code);
     };

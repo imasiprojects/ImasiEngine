@@ -8,11 +8,10 @@
 
 namespace ImasiEngine
 {
-    class VertexArray
+    class VertexArray : public GpuObject
     {
     private:
 
-        unsigned int _id;
         std::map<BufferType, Buffer*> _buffers;
         
     public:

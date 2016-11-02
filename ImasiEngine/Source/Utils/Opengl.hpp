@@ -7,8 +7,7 @@
 
 #ifdef DEBUG
 
-    #define GL(glCall) glCall; \
-        do {} while (ImasiEngine::Opengl::checkError(__FILE__, __LINE__, #glCall))
+    #define GL(glCall) glCall; do {} while (ImasiEngine::Opengl::checkError(__FILE__, __LINE__, #glCall))
 
     #define GL_CHECK() do {} while (ImasiEngine::Opengl::checkError(__FILE__, __LINE__))
 

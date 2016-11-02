@@ -9,10 +9,11 @@ namespace ImasiEngine
     public:
 
         VertexShader();
-        VertexShader(const char* shaderSourceCode);
-        VertexShader(const VertexShader&) = delete;
+        VertexShader(const char* sourceCode);
+        VertexShader(const VertexShader& shader) = delete;
         VertexShader(VertexShader&& shader) noexcept;
+        ~VertexShader();
 
-        bool compile(const char* code);
+        bool compile(const char* sourceCode);
     };
 }

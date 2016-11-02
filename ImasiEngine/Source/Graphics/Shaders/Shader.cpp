@@ -6,12 +6,12 @@
 namespace ImasiEngine
 {
     Shader::Shader()
-        : _id(UNSET)
+        : GpuObject()
     {
-
     }
 
     Shader::Shader(Shader&& shader) noexcept
+        : GpuObject(std::move(shader))
     {
         _id = shader._id;
         shader._id = UNSET;
@@ -19,31 +19,28 @@ namespace ImasiEngine
 
     Shader::~Shader()
     {
-        if (_id != UNSET)
+        if (GpuObject::isValid())
         {
             GL(glDeleteShader(_id));
         }
     }
 
-    bool Shader::compile(const char* shaderSourceCode, GLenum type)
+    bool Shader::compile(const char* sourceCode, GLenum type)
     {
-
-        if (_id != UNSET)
+        if (GpuObject::isValid())
         {
             GL(glDeleteShader(_id));
             _id = UNSET;
         }
 
         unsigned int shaderId = GL(glCreateShader(type));
+        int compilationSuccess = GL_FALSE;
 
-        GL(glShaderSource(shaderId, 1, &shaderSourceCode, nullptr));
+        GL(glShaderSource(shaderId, 1, &sourceCode, nullptr));
         GL(glCompileShader(shaderId));
+        GL(glGetShaderiv(shaderId, GL_COMPILE_STATUS, &compilationSuccess));
 
-        int result = GL_FALSE;
-
-        GL(glGetShaderiv(shaderId, GL_COMPILE_STATUS, &result));
-
-        if (result == GL_FALSE)
+        if (compilationSuccess == GL_FALSE)
         {
             #ifdef DEBUG
             {
@@ -61,15 +58,4 @@ namespace ImasiEngine
         _id = shaderId;
         return true;
     }
-
-    unsigned int Shader::getId() const
-    {
-        return _id;
-    }
-
-    bool Shader::isValid() const
-    {
-        return _id != UNSET;
-    }
-
 }
