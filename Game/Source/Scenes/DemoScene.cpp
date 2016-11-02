@@ -20,9 +20,9 @@ namespace Imasi
         _program = new Program();
 
         // Example with pointers
-        VertexShader* vertexShader = new VertexShader();
-        vertexShader->compile(Shaders::vertexShader);
-        _program->attach(*vertexShader);
+        VertexShader vertexShader;
+        vertexShader.compile(Shaders::vertexShader);
+        _program->attach(vertexShader);
 
         // Example without pointers
         _program->attach(FragmentShader(Shaders::fragmentShader));
