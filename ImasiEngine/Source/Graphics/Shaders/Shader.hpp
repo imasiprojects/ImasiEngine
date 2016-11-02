@@ -11,7 +11,7 @@ namespace ImasiEngine
     protected:
 
         Shader();
-        Shader(const Shader& shader) = delete;
+        Shader(const Shader&) = delete;
         Shader(Shader&& shader) noexcept;
         virtual ~Shader();
 

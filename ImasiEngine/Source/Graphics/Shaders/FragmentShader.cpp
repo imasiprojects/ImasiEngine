@@ -27,14 +27,14 @@ namespace ImasiEngine
 
     bool FragmentShader::compile(const char* sourceCode)
     {
-        bool result = Shader::compile(sourceCode, GL_FRAGMENT_SHADER);
+        bool compilationSuccess = Shader::compile(sourceCode, GL_FRAGMENT_SHADER);
 
         #ifdef DEBUG
         {
-            Logger::out << "Fragment shader: " << (result ? "OK" : "ERROR") << std::endl;
+            Logger::out << "Fragment shader: " << (compilationSuccess ? "OK" : "ERROR") << std::endl;
         }
         #endif
 
-        return result;
+        return compilationSuccess;
     }
 }

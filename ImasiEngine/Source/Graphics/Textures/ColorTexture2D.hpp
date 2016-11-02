@@ -16,7 +16,7 @@ namespace ImasiEngine
         unsigned int getHeight() const;
 
         ColorTexture2D();
-        ColorTexture2D(const ColorTexture2D& texture) = delete;
+        ColorTexture2D(const ColorTexture2D&) = delete;
         ColorTexture2D(ColorTexture2D&& texture) noexcept;
         ~ColorTexture2D();
 

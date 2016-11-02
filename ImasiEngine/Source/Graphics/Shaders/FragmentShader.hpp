@@ -10,7 +10,7 @@ namespace ImasiEngine
 
         FragmentShader();
         FragmentShader(const char* sourceCode);
-        FragmentShader(const FragmentShader& shader) = delete;
+        FragmentShader(const FragmentShader&) = delete;
         FragmentShader(FragmentShader&& shader) noexcept;
         ~FragmentShader();
 

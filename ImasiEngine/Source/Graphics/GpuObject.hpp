@@ -9,7 +9,7 @@ namespace ImasiEngine
         unsigned int _id;
 
         GpuObject();
-        GpuObject(const GpuObject& gpuObject) = delete;
+        GpuObject(const GpuObject&) = delete;
         GpuObject(GpuObject&& gpuObject) noexcept;
         virtual ~GpuObject();
     

@@ -27,14 +27,14 @@ namespace ImasiEngine
 
     bool VertexShader::compile(const char* sourceCode)
     {
-        bool result = Shader::compile(sourceCode, GL_VERTEX_SHADER);
+        bool compilationSuccess = Shader::compile(sourceCode, GL_VERTEX_SHADER);
 
         #ifdef DEBUG
         {
-            Logger::out << "Vertex shader: " << (result ? "OK" : "ERROR") << std::endl;
+            Logger::out << "Vertex shader: " << (compilationSuccess ? "OK" : "ERROR") << std::endl;
         }
         #endif
 
-        return result;
+        return compilationSuccess;
     }
 }

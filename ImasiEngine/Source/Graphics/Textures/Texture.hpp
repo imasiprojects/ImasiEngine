@@ -15,7 +15,7 @@ namespace ImasiEngine
         unsigned int _type;
 
         Texture();
-        Texture(const Texture& texture) = delete;
+        Texture(const Texture&) = delete;
         Texture(Texture&& texture) noexcept;
         virtual ~Texture();
 

@@ -17,7 +17,7 @@ namespace ImasiEngine
         static void unbind();
 
         Program();
-        Program(const Program& program) = delete;
+        Program(const Program&) = delete;
         Program(Program&& program) noexcept;
         ~Program();
 
