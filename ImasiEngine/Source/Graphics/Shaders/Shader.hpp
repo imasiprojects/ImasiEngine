@@ -20,6 +20,7 @@ namespace ImasiEngine
     public:
 
         unsigned int getId() const;
+        bool isValid() const;
 
     };
 }
