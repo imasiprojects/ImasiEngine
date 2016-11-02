@@ -2,8 +2,6 @@
 
 #include <GL/glew.h>
 
-#include "../../../ImasiEngine/Source/Graphics/Buffers/Buffer.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Buffers/VertexArray.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Shaders/VertexShader.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Shaders/FragmentShader.hpp"
 #include "../../../ImasiEngine/Source/Utils/Logger.hpp"
@@ -34,6 +32,12 @@ namespace Imasi
             Logger::out << "Error linking program" << std::endl;
         }
 
+        _texture = new ColorTexture2D();
+        if (!_texture->loadFromFile("texture.png"))
+        {
+            Logger::out << "Error loading Texture" << std::endl;
+        }
+
         static float vertices[] =
         {
             -1.0f, -1.0f, 0.0f,
@@ -41,28 +45,38 @@ namespace Imasi
             0.0f, 1.0f, 0.0f,
         };
 
+        static float uvs[] =
+        {
+            0.f, 1.f,
+            1.f, 1.f,
+            0.5f, 0.f
+        };
+
         _vertexArray = new VertexArray();
         _vertexArray->addBuffer(new Buffer(vertices, 3, 3), Vertex);
+        _vertexArray->addBuffer(new Buffer(uvs, 3, 2), UV);
     }
 
     DemoScene::~DemoScene()
     {
         delete _program;
         delete _vertexArray;
+        delete _texture;
     }
 
     void DemoScene::processWindowEvent(const sf::Event& event)
     {
         if (event.type == sf::Event::KeyPressed)
         {
-            Logger::out << "Key Pressed!" << std::endl;
+            if (event.key.code == sf::Keyboard::Escape)
+            {
+                _context->window->close();
+            }
         }
     }
 
     void DemoScene::update(const double deltaTime)
     {
-        Logger::out << "DeltaTime: " << deltaTime << "s" << std::endl;
-        Logger::out << "Context: " << _context->level << std::endl;
     }
     
     void DemoScene::render()
@@ -70,7 +84,13 @@ namespace Imasi
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         Program::bind(_program);
-        _vertexArray->draw();
+        {
+            Texture::bind(_texture);
+            {
+                _vertexArray->draw();
+            }
+            Texture::unbind();
+        }
         Program::unbind();
     }
 }

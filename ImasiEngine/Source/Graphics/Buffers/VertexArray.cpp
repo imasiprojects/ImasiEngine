@@ -31,14 +31,14 @@ namespace ImasiEngine
 
     void VertexArray::addBuffer(Buffer* buffer, BufferType type)
     {
-        bind(this);
+        VertexArray::bind(this);
         Buffer::bind(buffer);
 
         GL(glEnableVertexAttribArray(type));
         GL(glVertexAttribPointer(type, buffer->getMembersPerComponent(), GL_FLOAT, false, 0, nullptr));
 
         Buffer::unbind();
-        unbind();
+        VertexArray::unbind();
 
         removeBuffer(type);
         _buffers[type] = buffer;

@@ -6,6 +6,8 @@
 
 namespace ImasiEngine
 {
+    std::map<unsigned int, unsigned int> Texture::_indexTypes;
+
     void Texture::bind(Texture* texture, unsigned int index)
     {
         _indexTypes[index] = texture->_type;

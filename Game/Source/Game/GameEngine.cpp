@@ -9,7 +9,7 @@ namespace Imasi
         setupWindow("Woo");
 
         _context = new GameContext();
-        _context->level = 666;
+        _context->window = _window;
 
         _scene = new DemoScene(_context);
     }
