@@ -6,33 +6,35 @@
 
 namespace ImasiEngine
 {
-
     FragmentShader::FragmentShader()
+        : Shader()
     {
-        
     }
 
-    FragmentShader::FragmentShader(const char* shaderSourceCode)
+    FragmentShader::FragmentShader(const char* sourceCode)
     {
-        compile(shaderSourceCode);
+        compile(sourceCode);
     }
 
-    FragmentShader::FragmentShader(FragmentShader&& shader) noexcept : Shader(std::move(shader))
+    FragmentShader::FragmentShader(FragmentShader&& shader) noexcept
+        : Shader(std::move(shader))
     {
-        
     }
 
-    bool FragmentShader::compile(const char* code)
+    FragmentShader::~FragmentShader()
     {
-        bool result = Shader::compile(code, GL_FRAGMENT_SHADER);
+    }
+
+    bool FragmentShader::compile(const char* sourceCode)
+    {
+        bool compilationSuccess = Shader::compile(sourceCode, GL_FRAGMENT_SHADER);
 
         #ifdef DEBUG
         {
-            Logger::out << "Fragment shader: " << (result ? "OK" : "ERROR") << std::endl;
+            Logger::out << "Fragment shader: " << (compilationSuccess ? "OK" : "ERROR") << std::endl;
         }
         #endif
 
-        return result;
+        return compilationSuccess;
     }
-
 }

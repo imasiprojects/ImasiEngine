@@ -18,7 +18,7 @@ namespace ImasiEngine
     }
 
     Program::Program()
-        : _id(UNSET)
+        : GpuObject()
         , _isLinked(false)
         , _invalidAttachPerformed(false)
     {
@@ -26,10 +26,8 @@ namespace ImasiEngine
     }
 
     Program::Program(Program&& program) noexcept
+        : GpuObject(std::move(program))
     {
-        _id = program._id;
-        program._id = UNSET;
-
         _isLinked = program._isLinked;
         program._isLinked = false;
 
@@ -82,13 +80,12 @@ namespace ImasiEngine
             return false;
         }
 
-        int result;
+        int linkSuccess;
 
         GL(glLinkProgram(_id));
+        GL(glGetProgramiv(_id, GL_LINK_STATUS, &linkSuccess));
 
-        GL(glGetProgramiv(_id, GL_LINK_STATUS, &result));
-
-        if (result == GL_FALSE)
+        if (linkSuccess == GL_FALSE)
         {
             #ifdef DEBUG
             {
@@ -112,14 +109,10 @@ namespace ImasiEngine
     void Program::reset()
     {
         GL(glDeleteProgram(_id));
+
         _id = GL(glCreateProgram());
         _isLinked = false;
         _invalidAttachPerformed = false;
-    }
-
-    unsigned int Program::getId() const
-    {
-        return _id;
     }
 
     bool Program::isLinked() const

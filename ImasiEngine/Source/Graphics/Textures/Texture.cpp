@@ -34,14 +34,20 @@ namespace ImasiEngine
     }
 
     Texture::Texture()
-        : _id(UNSET)
+        : GpuObject()
+        , _type(UNSET)
+    {
+    }
+
+    Texture::Texture(Texture&& texture) noexcept
+        : GpuObject(std::move(texture))
         , _type(UNSET)
     {
     }
 
     Texture::~Texture()
     {
-        if (_id != UNSET)
+        if (Texture::isValid())
         {
             glDeleteTextures(1, &_id);
         }

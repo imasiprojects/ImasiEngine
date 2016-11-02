@@ -4,9 +4,10 @@
 
 namespace ImasiEngine
 {
-    class Program
+    class Program : GpuObject
     {
-        unsigned int _id;
+    private:
+
         bool _isLinked;
         bool _invalidAttachPerformed;
 
@@ -26,9 +27,7 @@ namespace ImasiEngine
 
         void reset();
 
-        unsigned int getId() const;
         bool isLinked() const;
         bool invalidAttachPerformed() const;
     };
 }
-

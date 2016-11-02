@@ -16,14 +16,15 @@ namespace ImasiEngine
     }
 
     Buffer::Buffer(float* data, unsigned int componentCount, unsigned int membersPerComponent)
+        : GpuObject()
+        , _componentCount(componentCount)
+        , _membersPerComponent(membersPerComponent)
     {
-        _membersPerComponent = membersPerComponent;
-        _componentCount = componentCount;
-
         GL(glGenBuffers(1, &_id));
-        bind(this);
+
+        Buffer::bind(this);
         GL(glBufferData(GL_ARRAY_BUFFER, componentCount * membersPerComponent * sizeof(float), data, GL_STATIC_DRAW));
-        unbind();
+        Buffer::unbind();
     }
 
     Buffer::~Buffer()

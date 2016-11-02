@@ -14,9 +14,17 @@ namespace ImasiEngine
         _type = GL_TEXTURE_2D;
     }
 
+    ColorTexture2D::ColorTexture2D(ColorTexture2D&& texture) noexcept
+        : Texture(std::move(texture))
+        , _width(0)
+        , _height(0)
+    {
+        _type = texture._type;
+        texture._type = UNSET;
+    }
+
     ColorTexture2D::~ColorTexture2D()
     {
-        
     }
 
     unsigned int ColorTexture2D::getWidth() const

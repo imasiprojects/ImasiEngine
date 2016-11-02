@@ -7,31 +7,34 @@
 namespace ImasiEngine
 {
     VertexShader::VertexShader()
+        : Shader()
     {
-        
     }
 
-    VertexShader::VertexShader(const char* shaderSourceCode)
+    VertexShader::VertexShader(const char* sourceCode)
     {
-        compile(shaderSourceCode);
+        compile(sourceCode);
     }
 
-    VertexShader::VertexShader(VertexShader&& shader) noexcept : Shader(std::move(shader))
+    VertexShader::VertexShader(VertexShader&& shader) noexcept
+        : Shader(std::move(shader))
     {
-        
     }
 
-    bool VertexShader::compile(const char* code)
+    VertexShader::~VertexShader()
     {
-        bool result = Shader::compile(code, GL_VERTEX_SHADER);
+    }
+
+    bool VertexShader::compile(const char* sourceCode)
+    {
+        bool compilationSuccess = Shader::compile(sourceCode, GL_VERTEX_SHADER);
 
         #ifdef DEBUG
         {
-            Logger::out << "Vertex shader: " << (result ? "OK" : "ERROR") << std::endl;
+            Logger::out << "Vertex shader: " << (compilationSuccess ? "OK" : "ERROR") << std::endl;
         }
         #endif
 
-        return result;
+        return compilationSuccess;
     }
-
 }
