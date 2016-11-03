@@ -24,6 +24,9 @@ namespace ImasiEngine
         VertexArray(VertexArray&& vertexArray) noexcept;
         virtual ~VertexArray();
 
+        void createGpuObject() override;
+        void destroyGpuObject() override;
+
         void addBuffer(Buffer* buffer, BufferType type);
         void removeBuffer(BufferType type);
         Buffer* getBuffer(BufferType type);

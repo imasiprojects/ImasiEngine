@@ -21,6 +21,9 @@ namespace ImasiEngine
         Buffer(Buffer&& buffer) noexcept;
         virtual ~Buffer();
 
+        void createGpuObject() override;
+        void destroyGpuObject() override;
+
         unsigned int getComponentCount() const;
         unsigned int getMembersPerComponent() const;
     };

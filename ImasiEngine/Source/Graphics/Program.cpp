@@ -9,7 +9,7 @@ namespace ImasiEngine
 {
     void Program::bind(Program* program)
     {
-        GL(glUseProgram(program->_id));
+        GL(glUseProgram(program->getGpuId()));
     }
 
     void Program::unbind()
@@ -22,7 +22,7 @@ namespace ImasiEngine
         , _isLinked(false)
         , _invalidAttachPerformed(false)
     {
-        _id = GL(glCreateProgram());
+        Program::createGpuObject();
     }
 
     Program::Program(Program&& program) noexcept
@@ -34,10 +34,19 @@ namespace ImasiEngine
 
     Program::~Program()
     {
-        if (GpuObject::isValid())
-        {
-            GL(glDeleteProgram(_id));
-        }
+        Program::destroyGpuObject();
+    }
+
+    void Program::createGpuObject()
+    {
+        unsigned int id = GL(glCreateProgram());
+        setGpuId(id);
+    }
+
+    void Program::destroyGpuObject()
+    {
+        GL(glDeleteProgram(getGpuId()));
+        unsetGpuId();
     }
 
     bool Program::isLinked() const
@@ -54,9 +63,9 @@ namespace ImasiEngine
     {
         if (!_isLinked && !_invalidAttachPerformed)
         {
-            if (shader.isValid())
+            if (shader.isValidGpuId())
             {
-                GL(glAttachShader(_id, shader.getId()));
+                GL(glAttachShader(getGpuId(), shader.getGpuId()));
             }
             else
             {
@@ -69,38 +78,40 @@ namespace ImasiEngine
     {
         if (!_isLinked && !_invalidAttachPerformed)
         {
-            GL(glDetachShader(_id, shader.getId()));
+            GL(glDetachShader(getGpuId(), shader.getGpuId()));
         }
     }
 
     bool Program::link()
     {
+        unsigned int gpuId = getGpuId();
+
         if (_isLinked)
         {
-            Logger::out << "Program id " << _id << ": This Program has been linked yet" << std::endl;
+            Logger::out << "Program id " << gpuId << ": This Program has been linked yet" << std::endl;
             return false;
         }
 
         if (_invalidAttachPerformed)
         {
-            Logger::out << "Program id " << _id << ": An attach of an invalid shader was performed" << std::endl;
+            Logger::out << "Program id " << gpuId << ": An attach of an invalid shader was performed" << std::endl;
             return false;
         }
 
         int linkSuccess = GL_FALSE;
 
-        GL(glLinkProgram(_id));
-        GL(glGetProgramiv(_id, GL_LINK_STATUS, &linkSuccess));
+        GL(glLinkProgram(gpuId));
+        GL(glGetProgramiv(gpuId, GL_LINK_STATUS, &linkSuccess));
 
         if (linkSuccess == GL_FALSE)
         {
             #ifdef DEBUG
             {
                 int errorLength;
-                GL(glGetProgramiv(_id, GL_INFO_LOG_LENGTH, &errorLength));
+                GL(glGetProgramiv(gpuId, GL_INFO_LOG_LENGTH, &errorLength));
                 std::string errorMessage(errorLength, '\0');
-                GL(glGetProgramInfoLog(_id, errorLength, nullptr, &errorMessage[0]));
-                Logger::out << "Program id " << _id << " error: " << std::endl << errorMessage.c_str() << std::endl;
+                GL(glGetProgramInfoLog(gpuId, errorLength, nullptr, &errorMessage[0]));
+                Logger::out << "Program id " << gpuId << " error: " << std::endl << errorMessage.c_str() << std::endl;
             }
             #endif
 
@@ -115,9 +126,8 @@ namespace ImasiEngine
 
     void Program::reset()
     {
-        GL(glDeleteProgram(_id));
+        resetGpuObject();
 
-        _id = GL(glCreateProgram());
         _isLinked = false;
         _invalidAttachPerformed = false;
     }

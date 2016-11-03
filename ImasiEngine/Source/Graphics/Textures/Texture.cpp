@@ -10,11 +10,13 @@ namespace ImasiEngine
 
     void Texture::bind(Texture* texture, unsigned int index)
     {
-        _indexTypes[index] = texture->_type;
+        unsigned int type = texture->getTextureType();
+
+        _indexTypes[index] = type;
 
         GL(glActiveTexture(GL_TEXTURE0 + index));
-        GL(glEnable(texture->_type));
-        GL(glBindTexture(texture->_type, texture->_id));
+        GL(glEnable(type));
+        GL(glBindTexture(type, texture->getGpuId()));
     }
 
     void Texture::unbind(unsigned int index)
@@ -35,21 +37,35 @@ namespace ImasiEngine
 
     Texture::Texture()
         : GpuObject()
-        , _type(UNSET)
     {
     }
 
     Texture::Texture(Texture&& texture) noexcept
         : GpuObject(std::move(texture))
-        , _type(texture._type)
     {
     }
 
     Texture::~Texture()
     {
-        if (Texture::isValid())
+        if (Texture::isValidGpuId())
         {
-            glDeleteTextures(1, &_id);
+            Texture::destroyGpuObject();
         }
+    }
+
+    void Texture::createGpuObject()
+    {
+        unsigned int gpuId;
+        GL(glGenTextures(1, &gpuId));
+
+        setGpuId(gpuId);
+    }
+
+    void Texture::destroyGpuObject()
+    {
+        unsigned int gpuId = getGpuId();
+        glDeleteTextures(1, &gpuId);
+
+        unsetGpuId();
     }
 }

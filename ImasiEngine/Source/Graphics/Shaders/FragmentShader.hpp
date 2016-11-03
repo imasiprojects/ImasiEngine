@@ -14,6 +14,7 @@ namespace ImasiEngine
         FragmentShader(FragmentShader&& shader) noexcept;
         virtual ~FragmentShader();
 
-        bool compile(const char* code);
+        unsigned int getShaderType() const override;
+        bool compile(const char* sourceCode) override;
     };
 }

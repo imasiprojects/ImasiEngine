@@ -17,21 +17,33 @@ namespace ImasiEngine
 
     Shader::~Shader()
     {
-        if (Shader::isValid())
+        if (Shader::isValidGpuId())
         {
-            GL(glDeleteShader(_id));
+            Shader::destroyGpuObject();
         }
     }
 
-    bool Shader::compile(const char* sourceCode, GLenum type)
+    void Shader::createGpuObject()
     {
-        if (Shader::isValid())
+        unsigned int id = GL(glCreateShader(getShaderType()));
+        setGpuId(id);
+    }
+
+    void Shader::destroyGpuObject()
+    {
+        GL(glDeleteShader(getGpuId()));
+        unsetGpuId();
+    }
+
+    bool Shader::compile(const char* sourceCode)
+    {
+        if (Shader::isValidGpuId())
         {
-            GL(glDeleteShader(_id));
-            Shader::invalidate();
+            destroyGpuObject();
         }
 
-        unsigned int shaderId = GL(glCreateShader(type));
+        createGpuObject();
+        unsigned int shaderId = getGpuId();
         int compilationSuccess = GL_FALSE;
 
         GL(glShaderSource(shaderId, 1, &sourceCode, nullptr));
@@ -50,10 +62,11 @@ namespace ImasiEngine
             }
             #endif
 
+            destroyGpuObject();
+
             return false;
         }
 
-        _id = shaderId;
         return true;
     }
 }

@@ -4,20 +4,28 @@ namespace ImasiEngine
 {
     class GpuObject
     {
-    protected:
+    private:
 
-        unsigned int _id;
+        unsigned int _gpuId;
+
+    protected:
 
         GpuObject();
         GpuObject(const GpuObject&) = delete;
         GpuObject(GpuObject&& gpuObject) noexcept;
         virtual ~GpuObject();
     
+        void setGpuId(unsigned int gpuId);
+        void unsetGpuId();
+
+        virtual void createGpuObject() = 0;
+        virtual void destroyGpuObject() = 0;
+        virtual void resetGpuObject();
+
     public:
 
-        unsigned int getId() const;
+        unsigned int getGpuId() const;
 
-        virtual bool isValid() const;
-        virtual void invalidate();
+        virtual bool isValidGpuId() const;
     };
 }

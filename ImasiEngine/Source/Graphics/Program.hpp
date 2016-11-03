@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Shaders/Shader.hpp"
+#include "GpuObject.hpp"
 
 namespace ImasiEngine
 {
@@ -20,6 +21,9 @@ namespace ImasiEngine
         Program(const Program&) = delete;
         Program(Program&& program) noexcept;
         virtual ~Program();
+
+        void createGpuObject() override;
+        void destroyGpuObject() override;
 
         bool isLinked() const;
         bool invalidAttachPerformed() const;

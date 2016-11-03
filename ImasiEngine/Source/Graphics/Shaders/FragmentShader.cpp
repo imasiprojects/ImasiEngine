@@ -12,8 +12,9 @@ namespace ImasiEngine
     }
 
     FragmentShader::FragmentShader(const char* sourceCode)
+        : Shader()
     {
-        compile(sourceCode);
+        FragmentShader::compile(sourceCode);
     }
 
     FragmentShader::FragmentShader(FragmentShader&& shader) noexcept
@@ -25,9 +26,14 @@ namespace ImasiEngine
     {
     }
 
+    unsigned FragmentShader::getShaderType() const
+    {
+        return GL_FRAGMENT_SHADER;
+    }
+
     bool FragmentShader::compile(const char* sourceCode)
     {
-        bool compilationSuccess = Shader::compile(sourceCode, GL_FRAGMENT_SHADER);
+        bool compilationSuccess = Shader::compile(sourceCode);
 
         #ifdef DEBUG
         {

@@ -20,6 +20,8 @@ namespace ImasiEngine
         ColorTexture2D(ColorTexture2D&& texture) noexcept;
         virtual ~ColorTexture2D();
 
+        unsigned int getTextureType() const override;
+
         void create(unsigned int width, unsigned int height);
         bool loadFromFile(const char* fileName);
     };

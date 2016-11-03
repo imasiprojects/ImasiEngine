@@ -15,6 +15,10 @@ namespace ImasiEngine
         Shader(Shader&& shader) noexcept;
         virtual ~Shader();
 
-        bool compile(const char* sourceCode, GLenum type);
+        void createGpuObject() override;
+        void destroyGpuObject() override;
+
+        virtual unsigned int getShaderType() const = 0;
+        virtual bool compile(const char* sourceCode);
     };
 }

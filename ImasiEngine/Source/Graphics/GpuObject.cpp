@@ -5,32 +5,47 @@
 namespace ImasiEngine
 {
     GpuObject::GpuObject()
-        : _id(UNSET)
+        : _gpuId(UNSET)
     {
     }
 
     GpuObject::GpuObject(GpuObject&& gpuObject) noexcept
-        : _id(gpuObject._id)
+        : _gpuId(gpuObject._gpuId)
     {
-        gpuObject.invalidate();
+        gpuObject.unsetGpuId();
     }
 
     GpuObject::~GpuObject()
     {
     }
 
-    unsigned GpuObject::getId() const
+    void GpuObject::setGpuId(unsigned int gpuId)
     {
-        return _id;
+        _gpuId = gpuId;
     }
 
-    bool GpuObject::isValid() const
+    void GpuObject::unsetGpuId()
     {
-        return _id != UNSET;
+        _gpuId = UNSET;
     }
 
-    void GpuObject::invalidate()
+    void GpuObject::resetGpuObject()
     {
-        _id = UNSET;
+        if (isValidGpuId())
+        {
+            destroyGpuObject();
+        }
+
+        createGpuObject();
+    }
+
+    unsigned GpuObject::getGpuId() const
+    {
+        return _gpuId;
+    }
+
+    bool GpuObject::isValidGpuId() const
+    {
+        return _gpuId != UNSET;
     }
 }

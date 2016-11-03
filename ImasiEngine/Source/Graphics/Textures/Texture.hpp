@@ -12,12 +12,15 @@ namespace ImasiEngine
 
         static std::map<unsigned int, unsigned int> _indexTypes;
 
-        unsigned int _type;
-
         Texture();
         Texture(const Texture&) = delete;
         Texture(Texture&& texture) noexcept;
         virtual ~Texture();
+
+        void createGpuObject() override;
+        void destroyGpuObject() override;
+
+        virtual unsigned int getTextureType() const = 0;
 
     public:
 
