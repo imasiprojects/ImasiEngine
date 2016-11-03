@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Shaders/Shader.hpp"
-#include "GpuObject.hpp"
+#include "GLObject.hpp"
 
 namespace ImasiEngine
 {
-    class Program : public GpuObject
+    class Program : public GLObject
     {
     private:
 
@@ -22,8 +22,8 @@ namespace ImasiEngine
         Program(Program&& program) noexcept;
         virtual ~Program();
 
-        void createGpuObject() override;
-        void destroyGpuObject() override;
+        void createGLObject() override;
+        void destroyGLObject() override;
 
         bool isLinked() const;
         bool invalidAttachPerformed() const;

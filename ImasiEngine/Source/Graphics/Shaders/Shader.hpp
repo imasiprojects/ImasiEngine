@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../GpuObject.hpp"
+#include "../GLObject.hpp"
 
 namespace ImasiEngine
 {
-    class Shader : public GpuObject
+    class Shader : public GLObject
     {
     protected:
 
@@ -13,8 +13,8 @@ namespace ImasiEngine
         Shader(Shader&& shader) noexcept;
         virtual ~Shader();
 
-        void createGpuObject() override;
-        void destroyGpuObject() override;
+        void createGLObject() override;
+        void destroyGLObject() override;
 
         virtual unsigned int getOpenglShaderType() const = 0;
 

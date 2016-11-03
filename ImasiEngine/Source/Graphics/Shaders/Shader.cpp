@@ -9,33 +9,33 @@
 namespace ImasiEngine
 {
     Shader::Shader()
-        : GpuObject()
+        : GLObject()
     {
     }
 
     Shader::Shader(Shader&& shader) noexcept
-        : GpuObject(std::move(shader))
+        : GLObject(std::move(shader))
     {
     }
 
     Shader::~Shader()
     {
-        if (Shader::isValidGpuObject())
+        if (Shader::isValidGLObject())
         {
-            Shader::destroyGpuObject();
+            Shader::destroyGLObject();
         }
     }
 
-    void Shader::createGpuObject()
+    void Shader::createGLObject()
     {
         unsigned int id = GL(glCreateShader(getOpenglShaderType()));
-        setGpuObjectId(id);
+        setGLObjectId(id);
     }
 
-    void Shader::destroyGpuObject()
+    void Shader::destroyGLObject()
     {
-        GL(glDeleteShader(getGpuObjectId()));
-        unsetGpuObjectId();
+        GL(glDeleteShader(getGLObjectId()));
+        unsetGLObjectId();
     }
 
     bool Shader::compile(const char* sourceCode)
@@ -46,13 +46,13 @@ namespace ImasiEngine
             { GL_FRAGMENT_SHADER, "Fragment" }
         };
 
-        if (Shader::isValidGpuObject())
+        if (Shader::isValidGLObject())
         {
-            destroyGpuObject();
+            destroyGLObject();
         }
 
-        createGpuObject();
-        unsigned int shaderId = getGpuObjectId();
+        createGLObject();
+        unsigned int shaderId = getGLObjectId();
         int compilationSuccess = GL_FALSE;
 
         GL(glShaderSource(shaderId, 1, &sourceCode, nullptr));
@@ -71,7 +71,7 @@ namespace ImasiEngine
             }
             #endif
 
-            destroyGpuObject();
+            destroyGLObject();
         }
 
         #ifdef DEBUG

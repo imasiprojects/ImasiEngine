@@ -9,7 +9,7 @@ namespace ImasiEngine
 {
     void Program::bind(Program* program)
     {
-        GL(glUseProgram(program->getGpuObjectId()));
+        GL(glUseProgram(program->getGLObjectId()));
     }
 
     void Program::unbind()
@@ -18,15 +18,15 @@ namespace ImasiEngine
     }
 
     Program::Program()
-        : GpuObject()
+        : GLObject()
         , _isLinked(false)
         , _invalidAttachPerformed(false)
     {
-        Program::createGpuObject();
+        Program::createGLObject();
     }
 
     Program::Program(Program&& program) noexcept
-        : GpuObject(std::move(program))
+        : GLObject(std::move(program))
         , _isLinked(program._isLinked)
         , _invalidAttachPerformed(program._invalidAttachPerformed)
     {
@@ -34,19 +34,19 @@ namespace ImasiEngine
 
     Program::~Program()
     {
-        Program::destroyGpuObject();
+        Program::destroyGLObject();
     }
 
-    void Program::createGpuObject()
+    void Program::createGLObject()
     {
         unsigned int id = GL(glCreateProgram());
-        setGpuObjectId(id);
+        setGLObjectId(id);
     }
 
-    void Program::destroyGpuObject()
+    void Program::destroyGLObject()
     {
-        GL(glDeleteProgram(getGpuObjectId()));
-        unsetGpuObjectId();
+        GL(glDeleteProgram(getGLObjectId()));
+        unsetGLObjectId();
     }
 
     bool Program::isLinked() const
@@ -63,9 +63,9 @@ namespace ImasiEngine
     {
         if (!_isLinked && !_invalidAttachPerformed)
         {
-            if (shader.isValidGpuObject())
+            if (shader.isValidGLObject())
             {
-                GL(glAttachShader(getGpuObjectId(), shader.getGpuObjectId()));
+                GL(glAttachShader(getGLObjectId(), shader.getGLObjectId()));
             }
             else
             {
@@ -78,13 +78,13 @@ namespace ImasiEngine
     {
         if (!_isLinked && !_invalidAttachPerformed)
         {
-            GL(glDetachShader(getGpuObjectId(), shader.getGpuObjectId()));
+            GL(glDetachShader(getGLObjectId(), shader.getGLObjectId()));
         }
     }
 
     bool Program::link()
     {
-        unsigned int id = getGpuObjectId();
+        unsigned int id = getGLObjectId();
 
         if (_isLinked)
         {
@@ -126,7 +126,7 @@ namespace ImasiEngine
 
     void Program::reset()
     {
-        resetGpuObject();
+        resetGLObject();
 
         _isLinked = false;
         _invalidAttachPerformed = false;

@@ -6,7 +6,7 @@ namespace ImasiEngine
 {
     void VertexArray::bind(VertexArray* vertexArray)
     {
-        GL(glBindVertexArray(vertexArray->getGpuObjectId()));
+        GL(glBindVertexArray(vertexArray->getGLObjectId()));
     }
 
     void VertexArray::unbind()
@@ -15,13 +15,13 @@ namespace ImasiEngine
     }
 
     VertexArray::VertexArray()
-        : GpuObject()
+        : GLObject()
     {
-        VertexArray::createGpuObject();
+        VertexArray::createGLObject();
     }
 
     VertexArray::VertexArray(VertexArray&& vertexArray) noexcept
-        : GpuObject(std::move(vertexArray))
+        : GLObject(std::move(vertexArray))
         , _buffers(vertexArray._buffers)
     {
         _buffers.clear();
@@ -30,23 +30,23 @@ namespace ImasiEngine
     VertexArray::~VertexArray()
     {
         _buffers.clear();
-        VertexArray::destroyGpuObject();
+        VertexArray::destroyGLObject();
     }
 
-    void VertexArray::createGpuObject()
+    void VertexArray::createGLObject()
     {
         unsigned int id;
         GL(glGenVertexArrays(1, &id));
 
-        setGpuObjectId(id);
+        setGLObjectId(id);
     }
 
-    void VertexArray::destroyGpuObject()
+    void VertexArray::destroyGLObject()
     {
-        unsigned int id = getGpuObjectId();
+        unsigned int id = getGLObjectId();
         GL(glDeleteVertexArrays(1, &id));
 
-        unsetGpuObjectId();
+        unsetGLObjectId();
     }
 
     void VertexArray::attachBuffer(Buffer* buffer, BufferType type)

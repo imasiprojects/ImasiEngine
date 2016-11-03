@@ -43,7 +43,7 @@ namespace ImasiEngine
     {
         unsigned int type = getOpenglTextureType();
 
-        createGpuObject();
+        createGLObject();
 
         Texture::bind(this);
 
@@ -70,7 +70,7 @@ namespace ImasiEngine
 
         unsigned int type = getOpenglTextureType();
 
-        createGpuObject();
+        createGLObject();
 
         Texture::bind(this);
 

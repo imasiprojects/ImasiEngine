@@ -2,11 +2,11 @@
 
 #include <map>
 
-#include "../GpuObject.hpp"
+#include "../GLObject.hpp"
 
 namespace ImasiEngine
 {
-    class Texture : public GpuObject
+    class Texture : public GLObject
     {
     protected:
 
@@ -17,8 +17,8 @@ namespace ImasiEngine
         Texture(Texture&& texture) noexcept;
         virtual ~Texture();
 
-        void createGpuObject() override;
-        void destroyGpuObject() override;
+        void createGLObject() override;
+        void destroyGLObject() override;
 
         virtual unsigned int getOpenglTextureType() const = 0;
 

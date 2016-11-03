@@ -9,7 +9,7 @@
 
 namespace ImasiEngine
 {
-    class VertexArray : public GpuObject
+    class VertexArray : public GLObject
     {
     private:
 
@@ -25,8 +25,8 @@ namespace ImasiEngine
         VertexArray(VertexArray&& vertexArray) noexcept;
         virtual ~VertexArray();
 
-        void createGpuObject() override;
-        void destroyGpuObject() override;
+        void createGLObject() override;
+        void destroyGLObject() override;
 
         void attachBuffer(Buffer* buffer, BufferType type);
         void detachBuffer(BufferType type);

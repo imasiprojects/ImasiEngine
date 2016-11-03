@@ -7,7 +7,7 @@ namespace ImasiEngine
 {
     void Buffer::bind(Buffer* buffer)
     {
-        GL(glBindBuffer(GL_ARRAY_BUFFER, buffer->getGpuObjectId()));
+        GL(glBindBuffer(GL_ARRAY_BUFFER, buffer->getGLObjectId()));
     }
 
     void Buffer::unbind()
@@ -16,11 +16,11 @@ namespace ImasiEngine
     }
 
     Buffer::Buffer(float* data, unsigned int componentCount, unsigned int membersPerComponent)
-        : GpuObject()
+        : GLObject()
         , _componentCount(componentCount)
         , _membersPerComponent(membersPerComponent)
     {
-        Buffer::createGpuObject();
+        Buffer::createGLObject();
 
         Buffer::bind(this);
         GL(glBufferData(GL_ARRAY_BUFFER, componentCount * membersPerComponent * sizeof(float), data, GL_STATIC_DRAW));
@@ -28,7 +28,7 @@ namespace ImasiEngine
     }
 
     Buffer::Buffer(Buffer&& buffer) noexcept
-        : GpuObject(std::move(buffer))
+        : GLObject(std::move(buffer))
         , _componentCount(buffer._componentCount)
         , _membersPerComponent(buffer._membersPerComponent)
     {
@@ -36,23 +36,23 @@ namespace ImasiEngine
 
     Buffer::~Buffer()
     {
-        Buffer::destroyGpuObject();
+        Buffer::destroyGLObject();
     }
 
-    void Buffer::createGpuObject()
+    void Buffer::createGLObject()
     {
         unsigned int id;
         GL(glGenBuffers(1, &id));
 
-        setGpuObjectId(id);
+        setGLObjectId(id);
     }
 
-    void Buffer::destroyGpuObject()
+    void Buffer::destroyGLObject()
     {
-        unsigned int id = getGpuObjectId();
+        unsigned int id = getGLObjectId();
         GL(glDeleteBuffers(1, &id));
 
-        unsetGpuObjectId();
+        unsetGLObjectId();
     }
 
     unsigned int Buffer::getComponentCount() const
