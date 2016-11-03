@@ -20,14 +20,24 @@ namespace ImasiEngine
         GL(glGenVertexArrays(1, &_id));
     }
 
+    VertexArray::VertexArray(VertexArray&& vertexArray) noexcept
+        : GpuObject(std::move(vertexArray))
+        , _buffers(vertexArray._buffers)
+    {
+        _buffers.clear();
+    }
+
     VertexArray::~VertexArray()
     {
-        for (auto& buffer : _buffers)
+        if (VertexArray::isValid())
         {
-            delete buffer.second;
-        }
+            for (auto& buffer : _buffers)
+            {
+                delete buffer.second;
+            }
 
-        GL(glDeleteVertexArrays(1, &_id));
+            GL(glDeleteVertexArrays(1, &_id));
+        }
     }
 
     void VertexArray::addBuffer(Buffer* buffer, BufferType type)

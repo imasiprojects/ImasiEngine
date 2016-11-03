@@ -17,7 +17,9 @@ namespace ImasiEngine
         static void unbind();
 
         Buffer(float* data, unsigned int componentCount, unsigned int membersPerComponent);
-        ~Buffer();
+        Buffer(const Buffer&) = delete;
+        Buffer(Buffer&& buffer) noexcept;
+        virtual ~Buffer();
 
         unsigned int getComponentCount() const;
         unsigned int getMembersPerComponent() const;

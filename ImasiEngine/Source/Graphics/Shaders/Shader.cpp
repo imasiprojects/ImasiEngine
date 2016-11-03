@@ -13,13 +13,11 @@ namespace ImasiEngine
     Shader::Shader(Shader&& shader) noexcept
         : GpuObject(std::move(shader))
     {
-        _id = shader._id;
-        shader._id = UNSET;
     }
 
     Shader::~Shader()
     {
-        if (GpuObject::isValid())
+        if (Shader::isValid())
         {
             GL(glDeleteShader(_id));
         }
@@ -27,10 +25,10 @@ namespace ImasiEngine
 
     bool Shader::compile(const char* sourceCode, GLenum type)
     {
-        if (GpuObject::isValid())
+        if (Shader::isValid())
         {
             GL(glDeleteShader(_id));
-            _id = UNSET;
+            Shader::invalidate();
         }
 
         unsigned int shaderId = GL(glCreateShader(type));

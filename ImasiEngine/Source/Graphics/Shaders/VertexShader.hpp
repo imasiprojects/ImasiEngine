@@ -12,7 +12,7 @@ namespace ImasiEngine
         VertexShader(const char* sourceCode);
         VertexShader(const VertexShader&) = delete;
         VertexShader(VertexShader&& shader) noexcept;
-        ~VertexShader();
+        virtual ~VertexShader();
 
         bool compile(const char* sourceCode);
     };

@@ -27,9 +27,19 @@ namespace ImasiEngine
         Buffer::unbind();
     }
 
+    Buffer::Buffer(Buffer&& buffer) noexcept
+        : GpuObject(std::move(buffer))
+        , _componentCount(buffer._componentCount)
+        , _membersPerComponent(buffer._membersPerComponent)
+    {
+    }
+
     Buffer::~Buffer()
     {
-        GL(glDeleteBuffers(1, &_id));
+        if (Buffer::isValid())
+        {
+            GL(glDeleteBuffers(1, &_id));
+        }
     }
 
     unsigned int Buffer::getComponentCount() const

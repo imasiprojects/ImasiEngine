@@ -19,15 +19,15 @@ namespace ImasiEngine
         Program();
         Program(const Program&) = delete;
         Program(Program&& program) noexcept;
-        ~Program();
+        virtual ~Program();
+
+        bool isLinked() const;
+        bool invalidAttachPerformed() const;
 
         void attach(const Shader& shader);
         void detach(const Shader& shader);
         bool link();
 
         void reset();
-
-        bool isLinked() const;
-        bool invalidAttachPerformed() const;
     };
 }
