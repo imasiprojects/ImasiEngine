@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../GpuObject.hpp"
+#include "../GLObject.hpp"
 
 namespace ImasiEngine
 {
-    class Buffer : public GpuObject
+    class Buffer : public GLObject
     {
     private:
 
@@ -20,6 +20,9 @@ namespace ImasiEngine
         Buffer(const Buffer&) = delete;
         Buffer(Buffer&& buffer) noexcept;
         virtual ~Buffer();
+
+        void createGLObject() override;
+        void destroyGLObject() override;
 
         unsigned int getComponentCount() const;
         unsigned int getMembersPerComponent() const;

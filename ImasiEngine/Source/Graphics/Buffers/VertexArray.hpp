@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+
 #include <GL/glew.h>
 
 #include "Buffer.hpp"
@@ -8,7 +9,7 @@
 
 namespace ImasiEngine
 {
-    class VertexArray : public GpuObject
+    class VertexArray : public GLObject
     {
     private:
 
@@ -24,9 +25,11 @@ namespace ImasiEngine
         VertexArray(VertexArray&& vertexArray) noexcept;
         virtual ~VertexArray();
 
-        void addBuffer(Buffer* buffer, BufferType type);
-        void removeBuffer(BufferType type);
-        Buffer* getBuffer(BufferType type);
+        void createGLObject() override;
+        void destroyGLObject() override;
+
+        void attachBuffer(Buffer* buffer, BufferType type);
+        void detachBuffer(BufferType type);
 
         void draw(BufferType bufferType = Vertex, GLenum drawMode = GL_TRIANGLES);
     };

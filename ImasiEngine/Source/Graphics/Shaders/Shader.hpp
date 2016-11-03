@@ -1,12 +1,10 @@
 #pragma once
 
-#include <GL/glew.h>
-
-#include "../GpuObject.hpp"
+#include "../GLObject.hpp"
 
 namespace ImasiEngine
 {
-    class Shader : public GpuObject
+    class Shader : public GLObject
     {
     protected:
 
@@ -15,6 +13,13 @@ namespace ImasiEngine
         Shader(Shader&& shader) noexcept;
         virtual ~Shader();
 
-        bool compile(const char* sourceCode, GLenum type);
+        void createGLObject() override;
+        void destroyGLObject() override;
+
+        virtual unsigned int getOpenglShaderType() const = 0;
+
+    public:
+
+        virtual bool compile(const char* sourceCode);
     };
 }

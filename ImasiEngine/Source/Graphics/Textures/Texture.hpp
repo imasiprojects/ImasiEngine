@@ -2,22 +2,25 @@
 
 #include <map>
 
-#include "../GpuObject.hpp"
+#include "../GLObject.hpp"
 
 namespace ImasiEngine
 {
-    class Texture : public GpuObject
+    class Texture : public GLObject
     {
     protected:
 
         static std::map<unsigned int, unsigned int> _indexTypes;
 
-        unsigned int _type;
-
         Texture();
         Texture(const Texture&) = delete;
         Texture(Texture&& texture) noexcept;
         virtual ~Texture();
+
+        void createGLObject() override;
+        void destroyGLObject() override;
+
+        virtual unsigned int getOpenglTextureType() const = 0;
 
     public:
 

@@ -16,6 +16,7 @@ namespace Imasi
         GameContext* _context;
 
         ImasiEngine::Program* _program;
+        ImasiEngine::Buffer *_vertexBuffer, *_UVBuffer;
         ImasiEngine::VertexArray* _vertexArray;
         ImasiEngine::ColorTexture2D* _texture;
 

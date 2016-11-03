@@ -14,6 +14,6 @@ namespace ImasiEngine
         VertexShader(VertexShader&& shader) noexcept;
         virtual ~VertexShader();
 
-        bool compile(const char* sourceCode);
+        unsigned int getOpenglShaderType() const override;
     };
 }

@@ -1,44 +1,65 @@
 #include "Shader.hpp"
 
+#include <map>
+#include <GL/glew.h>
+
 #include "../../Utils/Opengl.hpp"
 #include "../../Utils/Logger.hpp"
 
 namespace ImasiEngine
 {
     Shader::Shader()
-        : GpuObject()
+        : GLObject()
     {
     }
 
     Shader::Shader(Shader&& shader) noexcept
-        : GpuObject(std::move(shader))
+        : GLObject(std::move(shader))
     {
     }
 
     Shader::~Shader()
     {
-        if (Shader::isValid())
+        if (Shader::isValidGLObject())
         {
-            GL(glDeleteShader(_id));
+            Shader::destroyGLObject();
         }
     }
 
-    bool Shader::compile(const char* sourceCode, GLenum type)
+    void Shader::createGLObject()
     {
-        if (Shader::isValid())
+        unsigned int id = GL(glCreateShader(getOpenglShaderType()));
+        setGLObjectId(id);
+    }
+
+    void Shader::destroyGLObject()
+    {
+        GL(glDeleteShader(getGLObjectId()));
+        unsetGLObjectId();
+    }
+
+    bool Shader::compile(const char* sourceCode)
+    {
+        static std::map<unsigned int, std::string> shaderNames
         {
-            GL(glDeleteShader(_id));
-            Shader::invalidate();
+            { GL_VERTEX_SHADER, "Vertex" },
+            { GL_FRAGMENT_SHADER, "Fragment" }
+        };
+
+        if (Shader::isValidGLObject())
+        {
+            destroyGLObject();
         }
 
-        unsigned int shaderId = GL(glCreateShader(type));
+        createGLObject();
+        unsigned int shaderId = getGLObjectId();
         int compilationSuccess = GL_FALSE;
 
         GL(glShaderSource(shaderId, 1, &sourceCode, nullptr));
         GL(glCompileShader(shaderId));
         GL(glGetShaderiv(shaderId, GL_COMPILE_STATUS, &compilationSuccess));
 
-        if (compilationSuccess == GL_FALSE)
+        if (!compilationSuccess)
         {
             #ifdef DEBUG
             {
@@ -50,10 +71,15 @@ namespace ImasiEngine
             }
             #endif
 
-            return false;
+            destroyGLObject();
         }
 
-        _id = shaderId;
-        return true;
+        #ifdef DEBUG
+        {
+            Logger::out << shaderNames[getOpenglShaderType()] << " shader: " << (compilationSuccess ? "OK" : "ERROR") << std::endl;
+        }
+        #endif
+
+        return compilationSuccess == GL_TRUE;
     }
 }
