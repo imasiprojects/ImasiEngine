@@ -19,9 +19,9 @@ namespace ImasiEngine
     {
     }
 
-    void GpuObject::setGpuId(unsigned int gpuId)
+    void GpuObject::setGpuId(unsigned int id)
     {
-        _gpuId = gpuId;
+        _gpuId = id;
     }
 
     void GpuObject::unsetGpuId()

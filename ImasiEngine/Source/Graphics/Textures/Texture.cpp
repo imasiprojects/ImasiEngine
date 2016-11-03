@@ -55,16 +55,16 @@ namespace ImasiEngine
 
     void Texture::createGpuObject()
     {
-        unsigned int gpuId;
-        GL(glGenTextures(1, &gpuId));
+        unsigned int id;
+        GL(glGenTextures(1, &id));
 
-        setGpuId(gpuId);
+        setGpuId(id);
     }
 
     void Texture::destroyGpuObject()
     {
-        unsigned int gpuId = getGpuId();
-        glDeleteTextures(1, &gpuId);
+        unsigned int id = getGpuId();
+        glDeleteTextures(1, &id);
 
         unsetGpuId();
     }

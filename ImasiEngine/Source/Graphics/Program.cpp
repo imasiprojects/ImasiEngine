@@ -84,24 +84,24 @@ namespace ImasiEngine
 
     bool Program::link()
     {
-        unsigned int gpuId = getGpuId();
+        unsigned int id = getGpuId();
 
         if (_isLinked)
         {
-            Logger::out << "Program id " << gpuId << ": This Program has been linked yet" << std::endl;
+            Logger::out << "Program id " << id << ": This Program has been linked yet" << std::endl;
             return false;
         }
 
         if (_invalidAttachPerformed)
         {
-            Logger::out << "Program id " << gpuId << ": An attach of an invalid shader was performed" << std::endl;
+            Logger::out << "Program id " << id << ": An attach of an invalid shader was performed" << std::endl;
             return false;
         }
 
         int linkSuccess = GL_FALSE;
 
-        GL(glLinkProgram(gpuId));
-        GL(glGetProgramiv(gpuId, GL_LINK_STATUS, &linkSuccess));
+        GL(glLinkProgram(id));
+        GL(glGetProgramiv(id, GL_LINK_STATUS, &linkSuccess));
 
         if (linkSuccess == GL_FALSE)
         {
