@@ -108,10 +108,10 @@ namespace ImasiEngine
             #ifdef DEBUG
             {
                 int errorLength;
-                GL(glGetProgramiv(gpuId, GL_INFO_LOG_LENGTH, &errorLength));
+                GL(glGetProgramiv(id, GL_INFO_LOG_LENGTH, &errorLength));
                 std::string errorMessage(errorLength, '\0');
-                GL(glGetProgramInfoLog(gpuId, errorLength, nullptr, &errorMessage[0]));
-                Logger::out << "Program id " << gpuId << " error: " << std::endl << errorMessage.c_str() << std::endl;
+                GL(glGetProgramInfoLog(id, errorLength, nullptr, &errorMessage[0]));
+                Logger::out << "Program id " << id << " error: " << std::endl << errorMessage.c_str() << std::endl;
             }
             #endif
 
