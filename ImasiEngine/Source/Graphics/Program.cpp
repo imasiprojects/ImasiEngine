@@ -9,7 +9,7 @@ namespace ImasiEngine
 {
     void Program::bind(Program* program)
     {
-        GL(glUseProgram(program->getId()));
+        GL(glUseProgram(program->_id));
     }
 
     void Program::unbind()
@@ -27,20 +27,27 @@ namespace ImasiEngine
 
     Program::Program(Program&& program) noexcept
         : GpuObject(std::move(program))
+        , _isLinked(program._isLinked)
+        , _invalidAttachPerformed(program._invalidAttachPerformed)
     {
-        _isLinked = program._isLinked;
-        program._isLinked = false;
-
-        _invalidAttachPerformed = program._invalidAttachPerformed;
-        program._invalidAttachPerformed = true;
     }
 
     Program::~Program()
     {
-        if (_id != UNSET)
+        if (GpuObject::isValid())
         {
             GL(glDeleteProgram(_id));
         }
+    }
+
+    bool Program::isLinked() const
+    {
+        return _isLinked;
+    }
+
+    bool Program::invalidAttachPerformed() const
+    {
+        return _invalidAttachPerformed;
     }
 
     void Program::attach(const Shader& shader)
@@ -80,7 +87,7 @@ namespace ImasiEngine
             return false;
         }
 
-        int linkSuccess;
+        int linkSuccess = GL_FALSE;
 
         GL(glLinkProgram(_id));
         GL(glGetProgramiv(_id, GL_LINK_STATUS, &linkSuccess));
@@ -113,15 +120,5 @@ namespace ImasiEngine
         _id = GL(glCreateProgram());
         _isLinked = false;
         _invalidAttachPerformed = false;
-    }
-
-    bool Program::isLinked() const
-    {
-        return _isLinked;
-    }
-
-    bool Program::invalidAttachPerformed() const
-    {
-        return _invalidAttachPerformed;
     }
 }

@@ -16,6 +16,8 @@ namespace ImasiEngine
     public:
 
         unsigned int getId() const;
+
         virtual bool isValid() const;
+        virtual void invalidate();
     };
 }

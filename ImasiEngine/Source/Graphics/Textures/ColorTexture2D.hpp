@@ -18,7 +18,7 @@ namespace ImasiEngine
         ColorTexture2D();
         ColorTexture2D(const ColorTexture2D&) = delete;
         ColorTexture2D(ColorTexture2D&& texture) noexcept;
-        ~ColorTexture2D();
+        virtual ~ColorTexture2D();
 
         void create(unsigned int width, unsigned int height);
         bool loadFromFile(const char* fileName);

@@ -41,7 +41,7 @@ namespace ImasiEngine
 
     Texture::Texture(Texture&& texture) noexcept
         : GpuObject(std::move(texture))
-        , _type(UNSET)
+        , _type(texture._type)
     {
     }
 

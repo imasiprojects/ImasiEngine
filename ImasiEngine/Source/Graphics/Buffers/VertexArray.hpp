@@ -20,7 +20,9 @@ namespace ImasiEngine
         static void unbind();
 
         VertexArray();
-        ~VertexArray();
+        VertexArray(const VertexArray&) = delete;
+        VertexArray(VertexArray&& vertexArray) noexcept;
+        virtual ~VertexArray();
 
         void addBuffer(Buffer* buffer, BufferType type);
         void removeBuffer(BufferType type);

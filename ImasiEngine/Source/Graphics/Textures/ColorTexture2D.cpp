@@ -16,11 +16,9 @@ namespace ImasiEngine
 
     ColorTexture2D::ColorTexture2D(ColorTexture2D&& texture) noexcept
         : Texture(std::move(texture))
-        , _width(0)
-        , _height(0)
+        , _width(texture._width)
+        , _height(texture._height)
     {
-        _type = texture._type;
-        texture._type = UNSET;
     }
 
     ColorTexture2D::~ColorTexture2D()

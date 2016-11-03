@@ -10,9 +10,9 @@ namespace ImasiEngine
     }
 
     GpuObject::GpuObject(GpuObject&& gpuObject) noexcept
+        : _id(gpuObject._id)
     {
-        _id = gpuObject._id;
-        gpuObject._id = UNSET;
+        gpuObject.invalidate();
     }
 
     GpuObject::~GpuObject()
@@ -27,5 +27,10 @@ namespace ImasiEngine
     bool GpuObject::isValid() const
     {
         return _id != UNSET;
+    }
+
+    void GpuObject::invalidate()
+    {
+        _id = UNSET;
     }
 }
