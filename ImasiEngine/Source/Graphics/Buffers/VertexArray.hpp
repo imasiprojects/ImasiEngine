@@ -28,8 +28,8 @@ namespace ImasiEngine
         void createGpuObject() override;
         void destroyGpuObject() override;
 
-        void setBuffer(Buffer* buffer, BufferType type);
-        void unsetBuffer(BufferType type);
+        void attachBuffer(Buffer* buffer, BufferType type);
+        void detachBuffer(BufferType type);
 
         void draw(BufferType bufferType = Vertex, GLenum drawMode = GL_TRIANGLES);
     };

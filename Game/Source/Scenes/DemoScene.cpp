@@ -58,8 +58,8 @@ namespace Imasi
         _UVBuffer = new Buffer(uvs, 3, 2);
 
         _vertexArray = new VertexArray();
-        _vertexArray->setBuffer(_vertexBuffer, Vertex);
-        _vertexArray->setBuffer(_UVBuffer, UV);
+        _vertexArray->attachBuffer(_vertexBuffer, Vertex);
+        _vertexArray->attachBuffer(_UVBuffer, UV);
     }
 
     DemoScene::~DemoScene()

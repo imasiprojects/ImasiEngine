@@ -49,7 +49,7 @@ namespace ImasiEngine
         unsetGpuObjectId();
     }
 
-    void VertexArray::setBuffer(Buffer* buffer, BufferType type)
+    void VertexArray::attachBuffer(Buffer* buffer, BufferType type)
     {
         VertexArray::bind(this);
         {
@@ -66,7 +66,7 @@ namespace ImasiEngine
         _buffers[type] = buffer;
     }
 
-    void VertexArray::unsetBuffer(BufferType type)
+    void VertexArray::detachBuffer(BufferType type)
     {
         VertexArray::bind(this);
         {
