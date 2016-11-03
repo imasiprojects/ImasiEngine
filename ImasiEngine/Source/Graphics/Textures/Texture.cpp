@@ -10,13 +10,13 @@ namespace ImasiEngine
 
     void Texture::bind(Texture* texture, unsigned int index)
     {
-        unsigned int type = texture->getTextureType();
+        unsigned int type = texture->getOpenglTextureType();
 
         _indexTypes[index] = type;
 
         GL(glActiveTexture(GL_TEXTURE0 + index));
         GL(glEnable(type));
-        GL(glBindTexture(type, texture->getGpuId()));
+        GL(glBindTexture(type, texture->getGpuObjectId()));
     }
 
     void Texture::unbind(unsigned int index)
@@ -28,7 +28,7 @@ namespace ImasiEngine
             unsigned int type = indexIterator->second;
 
             GL(glActiveTexture(GL_TEXTURE0 + index));
-            GL(glBindTexture(type, UNBIND));
+            GL(glBindTexture(type, NULL_ID));
             GL(glDisable(type));
 
             _indexTypes.erase(indexIterator);
@@ -47,7 +47,7 @@ namespace ImasiEngine
 
     Texture::~Texture()
     {
-        if (Texture::isValidGpuId())
+        if (Texture::isValidGpuObject())
         {
             Texture::destroyGpuObject();
         }
@@ -58,14 +58,14 @@ namespace ImasiEngine
         unsigned int id;
         GL(glGenTextures(1, &id));
 
-        setGpuId(id);
+        setGpuObjectId(id);
     }
 
     void Texture::destroyGpuObject()
     {
-        unsigned int id = getGpuId();
+        unsigned int id = getGpuObjectId();
         glDeleteTextures(1, &id);
 
-        unsetGpuId();
+        unsetGpuObjectId();
     }
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+
 #include <GL/glew.h>
 
 #include "Buffer.hpp"
@@ -27,9 +28,8 @@ namespace ImasiEngine
         void createGpuObject() override;
         void destroyGpuObject() override;
 
-        void addBuffer(Buffer* buffer, BufferType type);
-        void removeBuffer(BufferType type);
-        Buffer* getBuffer(BufferType type);
+        void setBuffer(Buffer* buffer, BufferType type);
+        void unsetBuffer(BufferType type);
 
         void draw(BufferType bufferType = Vertex, GLenum drawMode = GL_TRIANGLES);
     };

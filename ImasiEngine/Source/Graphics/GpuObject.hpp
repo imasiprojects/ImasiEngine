@@ -15,8 +15,8 @@ namespace ImasiEngine
         GpuObject(GpuObject&& gpuObject) noexcept;
         virtual ~GpuObject();
     
-        void setGpuId(unsigned int id);
-        void unsetGpuId();
+        void setGpuObjectId(unsigned int id);
+        void unsetGpuObjectId();
 
         virtual void createGpuObject() = 0;
         virtual void destroyGpuObject() = 0;
@@ -24,8 +24,7 @@ namespace ImasiEngine
 
     public:
 
-        unsigned int getGpuId() const;
-
-        virtual bool isValidGpuId() const;
+        unsigned int getGpuObjectId() const;
+        virtual bool isValidGpuObject() const;
     };
 }

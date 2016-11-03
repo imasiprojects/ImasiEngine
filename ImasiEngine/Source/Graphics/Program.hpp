@@ -5,7 +5,7 @@
 
 namespace ImasiEngine
 {
-    class Program : GpuObject
+    class Program : public GpuObject
     {
     private:
 

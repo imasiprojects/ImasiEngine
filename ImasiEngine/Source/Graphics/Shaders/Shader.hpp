@@ -1,7 +1,5 @@
 #pragma once
 
-#include <GL/glew.h>
-
 #include "../GpuObject.hpp"
 
 namespace ImasiEngine
@@ -18,7 +16,10 @@ namespace ImasiEngine
         void createGpuObject() override;
         void destroyGpuObject() override;
 
-        virtual unsigned int getShaderType() const = 0;
+        virtual unsigned int getOpenglShaderType() const = 0;
+
+    public:
+
         virtual bool compile(const char* sourceCode);
     };
 }

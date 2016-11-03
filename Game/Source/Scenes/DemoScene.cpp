@@ -42,9 +42,9 @@ namespace Imasi
 
         static float vertices[] =
         {
-            -1.0f, -1.0f, 0.0f,
-            1.0f, -1.0f, 0.0f,
-            0.0f, 1.0f, 0.0f,
+            -0.8f, -0.8f, 0.0f,
+            0.8f, -0.8f, 0.0f,
+            0.0f, 0.8f, 0.0f,
         };
 
         static float uvs[] =
@@ -54,14 +54,19 @@ namespace Imasi
             0.5f, 0.f
         };
 
+        _vertexBuffer = new Buffer(vertices, 3, 3);
+        _UVBuffer = new Buffer(uvs, 3, 2);
+
         _vertexArray = new VertexArray();
-        _vertexArray->addBuffer(new Buffer(vertices, 3, 3), Vertex);
-        _vertexArray->addBuffer(new Buffer(uvs, 3, 2), UV);
+        _vertexArray->setBuffer(_vertexBuffer, Vertex);
+        _vertexArray->setBuffer(_UVBuffer, UV);
     }
 
     DemoScene::~DemoScene()
     {
         delete _program;
+        delete _vertexBuffer;
+        delete _UVBuffer;
         delete _vertexArray;
         delete _texture;
     }
@@ -95,5 +100,4 @@ namespace Imasi
         }
         Program::unbind();
     }
-
 }

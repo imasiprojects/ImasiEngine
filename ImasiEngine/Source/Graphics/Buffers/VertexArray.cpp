@@ -6,12 +6,12 @@ namespace ImasiEngine
 {
     void VertexArray::bind(VertexArray* vertexArray)
     {
-        GL(glBindVertexArray(vertexArray->getGpuId()));
+        GL(glBindVertexArray(vertexArray->getGpuObjectId()));
     }
 
     void VertexArray::unbind()
     {
-        GL(glBindVertexArray(UNBIND));
+        GL(glBindVertexArray(NULL_ID));
     }
 
     VertexArray::VertexArray()
@@ -29,11 +29,7 @@ namespace ImasiEngine
 
     VertexArray::~VertexArray()
     {
-        for (auto& buffer : _buffers)
-        {
-            delete buffer.second;
-        }
-
+        _buffers.clear();
         VertexArray::destroyGpuObject();
     }
 
@@ -42,63 +38,55 @@ namespace ImasiEngine
         unsigned int id;
         GL(glGenVertexArrays(1, &id));
 
-        setGpuId(id);
+        setGpuObjectId(id);
     }
 
     void VertexArray::destroyGpuObject()
     {
-        unsigned int id = getGpuId();
+        unsigned int id = getGpuObjectId();
         GL(glDeleteVertexArrays(1, &id));
 
-        unsetGpuId();
+        unsetGpuObjectId();
     }
 
-    void VertexArray::addBuffer(Buffer* buffer, BufferType type)
+    void VertexArray::setBuffer(Buffer* buffer, BufferType type)
     {
         VertexArray::bind(this);
-        Buffer::bind(buffer);
+        {
+            GL(glEnableVertexAttribArray(type));
 
-        GL(glEnableVertexAttribArray(type));
-        GL(glVertexAttribPointer(type, buffer->getMembersPerComponent(), GL_FLOAT, false, 0, nullptr));
-
-        Buffer::unbind();
+            Buffer::bind(buffer);
+            {
+                GL(glVertexAttribPointer(type, buffer->getMembersPerComponent(), GL_FLOAT, false, 0, nullptr));
+            }
+            Buffer::unbind();
+        }
         VertexArray::unbind();
 
-        removeBuffer(type);
         _buffers[type] = buffer;
     }
 
-    void VertexArray::removeBuffer(BufferType type)
+    void VertexArray::unsetBuffer(BufferType type)
     {
-        auto it = _buffers.find(type);
-        if (it != _buffers.end())
+        VertexArray::bind(this);
         {
-            delete it->second;
-            _buffers.erase(it);
+            GL(glDisableVertexAttribArray(type));
         }
-    }
+        VertexArray::unbind();
 
-    Buffer* VertexArray::getBuffer(BufferType type)
-    {
-        auto it = _buffers.find(type);
-        if (it != _buffers.end())
-        {
-            return it->second;
-        }
-
-        return nullptr;
+        _buffers.erase(type);
     }
 
     void VertexArray::draw(BufferType bufferType, GLenum mode)
     {
         VertexArray::bind(this);
-
-        Buffer* vertexBuffer = this->getBuffer(bufferType);
-        if (vertexBuffer != nullptr)
         {
-            GL(glDrawArrays(mode, 0, vertexBuffer->getComponentCount()));
+            auto it = _buffers.find(bufferType);
+            if (it != _buffers.end())
+            {
+                glDrawArrays(mode, 0, it->second->getComponentCount());
+            }
         }
-
         VertexArray::unbind();
     }
 }

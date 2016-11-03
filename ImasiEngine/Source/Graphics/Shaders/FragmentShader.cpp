@@ -26,21 +26,8 @@ namespace ImasiEngine
     {
     }
 
-    unsigned FragmentShader::getShaderType() const
+    unsigned FragmentShader::getOpenglShaderType() const
     {
         return GL_FRAGMENT_SHADER;
-    }
-
-    bool FragmentShader::compile(const char* sourceCode)
-    {
-        bool compilationSuccess = Shader::compile(sourceCode);
-
-        #ifdef DEBUG
-        {
-            Logger::out << "Fragment shader: " << (compilationSuccess ? "OK" : "ERROR") << std::endl;
-        }
-        #endif
-
-        return compilationSuccess;
     }
 }
