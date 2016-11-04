@@ -103,6 +103,8 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\Libraries\SFML-2.4.0\include;$(SolutionDir)\Libraries\glew-2.0.0\include;$(SolutionDir)\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\Libraries\glew-2.0.0\lib\Release\x64;$(SolutionDir)\Libraries\SFML-2.4.0\lib;$(SolutionDir)\x64\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -118,6 +120,8 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\Libraries\SFML-2.4.0\include;$(SolutionDir)\Libraries\glew-2.0.0\include;$(SolutionDir)\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\Libraries\glew-2.0.0\lib\Release\x64;$(SolutionDir)\Libraries\SFML-2.4.0\lib;$(SolutionDir)\x64\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -135,6 +139,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\Libraries\SFML-2.4.0\include;$(SolutionDir)\Libraries\glew-2.0.0\include;$(SolutionDir)\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -154,6 +159,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\Libraries\SFML-2.4.0\include;$(SolutionDir)\Libraries\glew-2.0.0\include;$(SolutionDir)\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -168,6 +174,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\Libraries\SFML-2.4.0\include;$(SolutionDir)\Libraries\glew-2.0.0\include;$(SolutionDir)\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;RELEASE;SFML_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\Libraries\glew-2.0.0\lib\Release\x64;$(SolutionDir)\Libraries\SFML-2.4.0\lib;$(SolutionDir)\x64\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -180,6 +187,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\Libraries\SFML-2.4.0\include;$(SolutionDir)\Libraries\glew-2.0.0\include;$(SolutionDir)\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;RELEASE;STATIC;SFML_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\Libraries\glew-2.0.0\lib\Release\x64;$(SolutionDir)\Libraries\SFML-2.4.0\lib;$(SolutionDir)\x64\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
