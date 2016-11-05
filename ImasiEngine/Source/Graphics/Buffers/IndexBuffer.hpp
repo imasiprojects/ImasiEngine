@@ -13,6 +13,7 @@ namespace ImasiEngine
     public:
 
         IndexBuffer(unsigned int* data, unsigned int componentCount, unsigned int membersPerComponent);
+        IndexBuffer(unsigned short* data, unsigned int componentCount, unsigned int membersPerComponent);
         IndexBuffer(const IndexBuffer&) = delete;
         IndexBuffer(IndexBuffer&& buffer) noexcept;
         virtual ~IndexBuffer();

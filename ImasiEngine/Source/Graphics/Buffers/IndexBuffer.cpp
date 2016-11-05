@@ -10,6 +10,11 @@ namespace ImasiEngine
     {
     }
 
+    IndexBuffer::IndexBuffer(unsigned short* data, unsigned int componentCount, unsigned int membersPerComponent)
+        : Buffer(data, componentCount, membersPerComponent)
+    {
+    }
+
     IndexBuffer::IndexBuffer(IndexBuffer&& buffer) noexcept
         : Buffer(std::move(buffer))
     {

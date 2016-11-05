@@ -41,18 +41,18 @@ namespace Imasi
             Logger::out << "Error loading Texture" << std::endl;
         }
 
-        static unsigned int indices[] =
+        static unsigned short indices[] =
         {
             0, 1, 2,
             0, 2, 3,
         };
 
-        static float vertices[] =
+        static double vertices[] =
         {
-            -1.0f, -1.0f, 0.0f,
-            1.0f, -1.0f, 0.0f,
-            1.0f, 1.0f, 0.0f,
-            -1.0f, 1.0f, 0.0f,
+            -1.0, -1.0, 0.0,
+            1.0, -1.0, 0.0,
+            1.0, 1.0, 0.0,
+            -1.0, 1.0, 0.0,
         };
 
         static float uvs[] =
