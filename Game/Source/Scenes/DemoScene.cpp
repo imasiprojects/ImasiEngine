@@ -44,31 +44,31 @@ namespace Imasi
         static unsigned int indices[] =
         {
             0, 1, 2,
-            1, 2, 3,
+            0, 2, 3,
         };
 
         static float vertices[] =
         {
-            -0.8f, -0.8f, 0.0f,
-            0.8f, -0.8f, 0.0f,
-            0.8f, 0.8f, 0.0f,
-            -0.8f, 0.8f, 0.0f,
+            -1.0f, -1.0f, 0.0f,
+            1.0f, -1.0f, 0.0f,
+            1.0f, 1.0f, 0.0f,
+            -1.0f, 1.0f, 0.0f,
         };
 
         static float uvs[] =
         {
             0.f, 1.f,
             1.f, 1.f,
-            0.5f, 0.f,
-            0.5f, 0.f,
+            1.f, 0.f,
+            0.f, 0.f,
         };
 
-        //_indexBuffer = new IndexBuffer(indices, 2, 3);
+        _indexBuffer = new IndexBuffer(indices, 2, 3);
         _vertexBuffer = new Buffer(vertices, 4, 3);
-        _UVBuffer = new Buffer(uvs, 3, 2);
+        _UVBuffer = new Buffer(uvs, 4, 2);
 
         _vertexArray = new VertexArray();
-        //_vertexArray->attach(_indexBuffer);
+        _vertexArray->attach(_indexBuffer);
         _vertexArray->attach(_vertexBuffer, Vertex);
         _vertexArray->attach(_UVBuffer, UV);
     }

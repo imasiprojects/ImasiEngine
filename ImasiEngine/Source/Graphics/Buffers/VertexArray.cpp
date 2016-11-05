@@ -91,7 +91,7 @@ namespace ImasiEngine
             if (_indexBuffer != nullptr)
             {
                 _indexBuffer->bind();
-                glDrawElements(mode, _indexBuffer->getComponentCount(), _indexBuffer->getGLComponentType(), nullptr);
+                glDrawElements(mode, _indexBuffer->getComponentCount() * _indexBuffer->getMembersPerComponent(), _indexBuffer->getGLComponentType(), nullptr);
                 _indexBuffer->unbind();
             }
             else
