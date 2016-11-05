@@ -68,7 +68,7 @@ namespace Imasi
         _UVBuffer = new Buffer(uvs, 4, 2);
 
         _vertexArray = new VertexArray();
-        _vertexArray->attach(_indexBuffer);
+        _vertexArray->attach(_indexBuffer, Index);
         _vertexArray->attach(_vertexBuffer, Vertex);
         _vertexArray->attach(_UVBuffer, UV);
     }

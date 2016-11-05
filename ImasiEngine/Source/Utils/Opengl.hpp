@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics/RenderWindow.hpp>
+
 #define NULL_ID 0
 
 #ifdef DEBUG
@@ -20,8 +22,8 @@ namespace ImasiEngine
 {
     namespace Opengl
     {
-        //void beginSfml(sf::RenderWindow* window);
-        //void endSfml(sf::RenderWindow* window);
+        void beginSfml(sf::RenderWindow* window);
+        void endSfml(sf::RenderWindow* window);
 
         bool checkError(const char* file, const int line, const char* call = nullptr);
     }

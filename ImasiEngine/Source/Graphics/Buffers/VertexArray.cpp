@@ -16,14 +16,12 @@ namespace ImasiEngine
 
     VertexArray::VertexArray()
         : GLObject()
-        , _indexBuffer(nullptr)
     {
         VertexArray::createGLObject();
     }
 
     VertexArray::VertexArray(VertexArray&& vertexArray) noexcept
         : GLObject(std::move(vertexArray))
-        , _indexBuffer(vertexArray._indexBuffer)
         , _buffers(vertexArray._buffers)
     {
         _buffers.clear();
@@ -53,57 +51,64 @@ namespace ImasiEngine
 
     void VertexArray::attach(Buffer* buffer, BufferType type)
     {
-        VertexArray::bind(this);
+        if (type != Index)
         {
-            GL(glEnableVertexAttribArray(type));
-
-            buffer->bind();
+            VertexArray::bind(this);
             {
-                GL(glVertexAttribPointer(type, buffer->getMembersPerComponent(), buffer->getGLComponentType(), false, 0, nullptr));
+                GL(glEnableVertexAttribArray(type));
+
+                buffer->bind();
+                {
+                    GL(glVertexAttribPointer(type, buffer->getMembersPerComponent(), buffer->getGLComponentType(), false, 0, nullptr));
+                }
+                buffer->unbind();
             }
-            buffer->unbind();
+            VertexArray::unbind();
         }
-        VertexArray::unbind();
 
         _buffers[type] = buffer;
     }
 
-    void VertexArray::attach(IndexBuffer* indexBuffer)
-    {
-        _indexBuffer = indexBuffer;
-    }
-
     void VertexArray::detach(BufferType type)
     {
-        VertexArray::bind(this);
+        if (type != Index)
         {
-            GL(glDisableVertexAttribArray(type));
+            VertexArray::bind(this);
+            {
+                GL(glDisableVertexAttribArray(type));
+            }
+            VertexArray::unbind();
         }
-        VertexArray::unbind();
 
         _buffers.erase(type);
     }
 
-    void VertexArray::render(GLenum mode)
+    void VertexArray::render(GLenum drawMode)
     {
-        VertexArray::bind(this);
+        auto indexBuffer = _buffers.find(Index);
+        if (indexBuffer != _buffers.end())
         {
-            if (_indexBuffer != nullptr)
+            VertexArray::bind(this);
             {
-                _indexBuffer->bind();
-                glDrawElements(mode, _indexBuffer->getComponentCount() * _indexBuffer->getMembersPerComponent(), _indexBuffer->getGLComponentType(), nullptr);
-                _indexBuffer->unbind();
-            }
-            else
-            {
-                auto it = _buffers.find(Vertex);
-                if (it != _buffers.end())
+                indexBuffer->second->bind();
                 {
-                    glDrawArrays(mode, 0, it->second->getComponentCount());
+                    glDrawElements(drawMode, indexBuffer->second->getComponentCount() * indexBuffer->second->getMembersPerComponent(), indexBuffer->second->getGLComponentType(), nullptr);
                 }
-
+                indexBuffer->second->unbind();
+            }
+            VertexArray::unbind();
+        }
+        else
+        {
+            auto vertexBuffer = _buffers.find(Vertex);
+            if (vertexBuffer != _buffers.end())
+            {
+                VertexArray::bind(this);
+                {
+                    glDrawArrays(drawMode, 0, vertexBuffer->second->getComponentCount());
+                }
+                VertexArray::unbind();
             }
         }
-        VertexArray::unbind();
     }
 }
