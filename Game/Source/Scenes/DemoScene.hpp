@@ -6,6 +6,7 @@
 #include "../../../ImasiEngine/Source/Graphics/Textures/ColorTexture2D.hpp"
 
 #include "../Game/GameContext.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Buffers/IndexBuffer.hpp"
 
 namespace Imasi
 {
@@ -16,6 +17,7 @@ namespace Imasi
         GameContext* _context;
 
         ImasiEngine::Program* _program;
+        ImasiEngine::IndexBuffer* _indexBuffer;
         ImasiEngine::Buffer *_vertexBuffer, *_UVBuffer;
         ImasiEngine::VertexArray* _vertexArray;
         ImasiEngine::ColorTexture2D* _texture;

@@ -15,6 +15,7 @@
     <ClCompile Include="Source\Graphics\Program.cpp" />
     <ClCompile Include="Source\Graphics\Shaders\FragmentShader.cpp" />
     <ClCompile Include="Source\Graphics\GLObject.cpp" />
+    <ClCompile Include="Source\Graphics\Buffers\IndexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\Logger.hpp" />
@@ -32,5 +33,6 @@
     <ClInclude Include="Source\Graphics\Program.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\FragmentShader.hpp" />
     <ClInclude Include="Source\Graphics\GLObject.hpp" />
+    <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.hpp" />
   </ItemGroup>
 </Project>

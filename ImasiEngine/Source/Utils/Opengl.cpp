@@ -8,7 +8,7 @@ namespace ImasiEngine
 {
     namespace Opengl
     {
-        void beginSfml(sf::RenderWindow* window)
+        /*void beginSfml(sf::RenderWindow* window)
         {
             window->pushGLStates();
         }
@@ -16,7 +16,7 @@ namespace ImasiEngine
         void endSfml(sf::RenderWindow* window)
         {
             window->popGLStates();
-        }
+        }*/
 
         bool checkError(const char* file, const int line, const char* call)
         {

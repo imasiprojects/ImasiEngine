@@ -40,31 +40,42 @@ namespace Imasi
             Logger::out << "Error loading Texture" << std::endl;
         }
 
+        static unsigned int indices[] =
+        {
+            0, 1, 2,
+            1, 2, 3,
+        };
+
         static float vertices[] =
         {
             -0.8f, -0.8f, 0.0f,
             0.8f, -0.8f, 0.0f,
-            0.0f, 0.8f, 0.0f,
+            0.8f, 0.8f, 0.0f,
+            -0.8f, 0.8f, 0.0f,
         };
 
         static float uvs[] =
         {
             0.f, 1.f,
             1.f, 1.f,
-            0.5f, 0.f
+            0.5f, 0.f,
+            0.5f, 0.f,
         };
 
-        _vertexBuffer = new Buffer(vertices, 3, 3);
+        //_indexBuffer = new IndexBuffer(indices, 2, 3);
+        _vertexBuffer = new Buffer(vertices, 4, 3);
         _UVBuffer = new Buffer(uvs, 3, 2);
 
         _vertexArray = new VertexArray();
-        _vertexArray->attachBuffer(_vertexBuffer, Vertex);
-        _vertexArray->attachBuffer(_UVBuffer, UV);
+        //_vertexArray->attach(_indexBuffer);
+        _vertexArray->attach(_vertexBuffer, Vertex);
+        _vertexArray->attach(_UVBuffer, UV);
     }
 
     DemoScene::~DemoScene()
     {
         delete _program;
+        delete _indexBuffer;
         delete _vertexBuffer;
         delete _UVBuffer;
         delete _vertexArray;
@@ -94,7 +105,7 @@ namespace Imasi
         {
             Texture::bind(_texture);
             {
-                _vertexArray->draw();
+                _vertexArray->render();
             }
             Texture::unbind();
         }

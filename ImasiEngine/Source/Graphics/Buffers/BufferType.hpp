@@ -2,7 +2,7 @@
 
 namespace ImasiEngine
 {
-    enum BufferType : unsigned int
+    enum BufferType
     {
         Vertex = 0,
         UV = 1,

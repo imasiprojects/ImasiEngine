@@ -1,6 +1,7 @@
 #include "ColorTexture2D.hpp"
 
 #include <GL/glew.h>
+#include <SFML/Graphics.hpp>
 
 #include "../../Utils/Opengl.hpp"
 

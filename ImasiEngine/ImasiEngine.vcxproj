@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Source\Graphics\GLObject.cpp" />
     <ClCompile Include="Source\Graphics\Shaders\FragmentShader.cpp" />
     <ClCompile Include="Source\Graphics\Program.cpp" />
@@ -43,6 +44,7 @@
     <ClCompile Include="Source\Graphics\Shaders\VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.hpp" />
     <ClInclude Include="Source\Graphics\GLObject.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\FragmentShader.hpp" />
     <ClInclude Include="Source\Graphics\Program.hpp" />

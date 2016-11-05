@@ -6,6 +6,7 @@
 
 #include "Buffer.hpp"
 #include "BufferType.hpp"
+#include "IndexBuffer.hpp"
 
 namespace ImasiEngine
 {
@@ -13,6 +14,7 @@ namespace ImasiEngine
     {
     private:
 
+        IndexBuffer* _indexBuffer;
         std::map<BufferType, Buffer*> _buffers;
         
     public:
@@ -28,9 +30,10 @@ namespace ImasiEngine
         void createGLObject() override;
         void destroyGLObject() override;
 
-        void attachBuffer(Buffer* buffer, BufferType type);
-        void detachBuffer(BufferType type);
+        void attach(Buffer* buffer, BufferType type);
+        void attach(IndexBuffer* buffer);
+        void detach(BufferType type);
 
-        void draw(BufferType bufferType = Vertex, GLenum drawMode = GL_TRIANGLES);
+        void render(GLenum drawMode = GL_TRIANGLES);
     };
 }
