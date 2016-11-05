@@ -10,7 +10,7 @@ namespace ImasiEngine
 
     void Texture::bind(Texture* texture, unsigned int index)
     {
-        unsigned int type = texture->getOpenglTextureType();
+        unsigned int type = texture->getGLTextureType();
 
         _indexTypes[index] = type;
 

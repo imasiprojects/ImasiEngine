@@ -20,7 +20,7 @@ namespace ImasiEngine
         ColorTexture2D(ColorTexture2D&& texture) noexcept;
         virtual ~ColorTexture2D();
 
-        unsigned int getOpenglTextureType() const override;
+        unsigned int getGLTextureType() const override;
 
         void create(unsigned int width, unsigned int height);
         bool loadFromFile(const char* fileName);

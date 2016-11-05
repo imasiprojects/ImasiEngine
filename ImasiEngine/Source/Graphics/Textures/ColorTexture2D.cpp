@@ -24,7 +24,7 @@ namespace ImasiEngine
     {
     }
 
-    unsigned int ColorTexture2D::getOpenglTextureType() const
+    unsigned int ColorTexture2D::getGLTextureType() const
     {
         return GL_TEXTURE_2D;
     }
@@ -41,7 +41,7 @@ namespace ImasiEngine
 
     void ColorTexture2D::create(unsigned int width, unsigned int height)
     {
-        unsigned int type = getOpenglTextureType();
+        unsigned int type = getGLTextureType();
 
         createGLObject();
 
@@ -68,7 +68,7 @@ namespace ImasiEngine
 
         sf::Vector2u imageSize = image.getSize();
 
-        unsigned int type = getOpenglTextureType();
+        unsigned int type = getGLTextureType();
 
         createGLObject();
 

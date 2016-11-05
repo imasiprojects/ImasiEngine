@@ -20,7 +20,7 @@ namespace ImasiEngine
         void createGLObject() override;
         void destroyGLObject() override;
 
-        virtual unsigned int getOpenglTextureType() const = 0;
+        virtual unsigned int getGLTextureType() const = 0;
 
     public:
 
