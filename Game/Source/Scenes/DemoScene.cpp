@@ -64,13 +64,13 @@ namespace Imasi
         };
 
         _indexBuffer = new IndexBuffer(indices, 2, 3);
-        _vertexBuffer = new Buffer(vertices, 4, 3);
-        _UVBuffer = new Buffer(uvs, 4, 2);
+        _vertexBuffer = new ArrayBuffer(vertices, 4, 3);
+        _UVBuffer = new ArrayBuffer(uvs, 4, 2);
 
         _vertexArray = new VertexArray();
-        _vertexArray->attach(_indexBuffer, Index);
-        _vertexArray->attach(_vertexBuffer, Vertex);
-        _vertexArray->attach(_UVBuffer, UV);
+        _vertexArray->attachIndexBuffer(_indexBuffer);
+        _vertexArray->attachArrayBuffer(_vertexBuffer, Vertex);
+        _vertexArray->attachArrayBuffer(_UVBuffer, UV);
     }
 
     DemoScene::~DemoScene()

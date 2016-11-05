@@ -7,82 +7,13 @@
 
 namespace ImasiEngine
 {
-    Buffer::Buffer(float* data, unsigned int componentCount, unsigned int membersPerComponent)
+    Buffer::Buffer()
         : GLObject()
-        , _glComponentType(GL_FLOAT)
-        , _componentCount(componentCount)
-        , _membersPerComponent(membersPerComponent)
+        , _glComponentType(0)
+        , _componentCount(0)
+        , _membersPerComponent(0)
     {
         Buffer::createGLObject();
-
-        bind();
-        GL(glBufferData(Buffer::getGLBufferType(), _componentCount * _membersPerComponent * sizeof(float), data, GL_STATIC_DRAW));
-        unbind();
-    }
-
-    Buffer::Buffer(double* data, unsigned int componentCount, unsigned int membersPerComponent)
-        : GLObject()
-        , _glComponentType(GL_DOUBLE)
-        , _componentCount(componentCount)
-        , _membersPerComponent(membersPerComponent)
-    {
-        Buffer::createGLObject();
-
-        bind();
-        GL(glBufferData(Buffer::getGLBufferType(), _componentCount * _membersPerComponent * sizeof(double), data, GL_STATIC_DRAW));
-        unbind();
-    }
-
-    Buffer::Buffer(int* data, unsigned int componentCount, unsigned int membersPerComponent)
-        : GLObject()
-        , _glComponentType(GL_INT)
-        , _componentCount(componentCount)
-        , _membersPerComponent(membersPerComponent)
-    {
-        Buffer::createGLObject();
-
-        bind();
-        GL(glBufferData(Buffer::getGLBufferType(), _componentCount * _membersPerComponent * sizeof(int), data, GL_STATIC_DRAW));
-        unbind();
-    }
-
-    Buffer::Buffer(unsigned int* data, unsigned int componentCount, unsigned int membersPerComponent)
-        : GLObject()
-        , _glComponentType(GL_UNSIGNED_INT)
-        , _componentCount(componentCount)
-        , _membersPerComponent(membersPerComponent)
-    {
-        Buffer::createGLObject();
-
-        bind();
-        GL(glBufferData(Buffer::getGLBufferType(), _componentCount * _membersPerComponent * sizeof(unsigned int), data, GL_STATIC_DRAW));
-        unbind();
-    }
-
-    Buffer::Buffer(short* data, unsigned int componentCount, unsigned int membersPerComponent)
-        : GLObject()
-        , _glComponentType(GL_SHORT)
-        , _componentCount(componentCount)
-        , _membersPerComponent(membersPerComponent)
-    {
-        Buffer::createGLObject();
-
-        bind();
-        GL(glBufferData(Buffer::getGLBufferType(), _componentCount * _membersPerComponent * sizeof(short), data, GL_STATIC_DRAW));
-        unbind();
-    }
-
-    Buffer::Buffer(unsigned short* data, unsigned int componentCount, unsigned int membersPerComponent)
-        : GLObject()
-        , _glComponentType(GL_UNSIGNED_SHORT)
-        , _componentCount(componentCount)
-        , _membersPerComponent(membersPerComponent)
-    {
-        Buffer::createGLObject();
-
-        bind();
-        GL(glBufferData(Buffer::getGLBufferType(), _componentCount * _membersPerComponent * sizeof(unsigned short), data, GL_STATIC_DRAW));
-        unbind();
     }
 
     Buffer::Buffer(Buffer&& buffer) noexcept
@@ -96,6 +27,72 @@ namespace ImasiEngine
     Buffer::~Buffer()
     {
         Buffer::destroyGLObject();
+    }
+
+    void Buffer::initBufferData(float* data, unsigned int componentCount, unsigned int membersPerComponent)
+    {
+        _glComponentType = GL_FLOAT;
+        _componentCount = componentCount;
+        _membersPerComponent = membersPerComponent;
+
+        bind();
+        GL(glBufferData(getGLBufferType(), _componentCount * _membersPerComponent * sizeof(float), data, GL_STATIC_DRAW));
+        unbind();
+    }
+
+    void Buffer::initBufferData(double* data, unsigned int componentCount, unsigned int membersPerComponent)
+    {
+        _glComponentType = GL_DOUBLE;
+        _componentCount = componentCount;
+        _membersPerComponent = membersPerComponent;
+
+        bind();
+        GL(glBufferData(getGLBufferType(), _componentCount * _membersPerComponent * sizeof(double), data, GL_STATIC_DRAW));
+        unbind();
+    }
+
+    void Buffer::initBufferData(int* data, unsigned int componentCount, unsigned int membersPerComponent)
+    {
+        _glComponentType = GL_INT;
+        _componentCount = componentCount;
+        _membersPerComponent = membersPerComponent;
+
+        bind();
+        GL(glBufferData(getGLBufferType(), _componentCount * _membersPerComponent * sizeof(int), data, GL_STATIC_DRAW));
+        unbind();
+    }
+
+    void Buffer::initBufferData(unsigned int* data, unsigned int componentCount, unsigned int membersPerComponent)
+    {
+        _glComponentType = GL_UNSIGNED_INT;
+        _componentCount = componentCount;
+        _membersPerComponent = membersPerComponent;
+
+        bind();
+        GL(glBufferData(getGLBufferType(), _componentCount * _membersPerComponent * sizeof(unsigned int), data, GL_STATIC_DRAW));
+        unbind();
+    }
+
+    void Buffer::initBufferData(short* data, unsigned int componentCount, unsigned int membersPerComponent)
+    {
+        _glComponentType = GL_SHORT;
+        _componentCount = componentCount;
+        _membersPerComponent = membersPerComponent;
+
+        bind();
+        GL(glBufferData(getGLBufferType(), _componentCount * _membersPerComponent * sizeof(short), data, GL_STATIC_DRAW));
+        unbind();
+    }
+
+    void Buffer::initBufferData(unsigned short* data, unsigned int componentCount, unsigned int membersPerComponent)
+    {
+        _glComponentType = GL_UNSIGNED_SHORT;
+        _componentCount = componentCount;
+        _membersPerComponent = membersPerComponent;
+
+        bind();
+        GL(glBufferData(getGLBufferType(), _componentCount * _membersPerComponent * sizeof(unsigned short), data, GL_STATIC_DRAW));
+        unbind();
     }
 
     void Buffer::createGLObject()
@@ -122,11 +119,6 @@ namespace ImasiEngine
     void Buffer::unbind() const
     {
         GL(glBindBuffer(getGLBufferType(), NULL_ID));
-    }
-
-    unsigned Buffer::getGLBufferType() const
-    {
-        return GL_ARRAY_BUFFER;
     }
 
     unsigned Buffer::getGLComponentType() const

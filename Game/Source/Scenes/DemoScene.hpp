@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../../ImasiEngine/Source/Engine/Scene.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Buffers/Buffer.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Buffers/ArrayBuffer.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Buffers/IndexBuffer.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Buffers/VertexArray.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Program.hpp"
@@ -19,7 +19,7 @@ namespace Imasi
 
         ImasiEngine::Program* _program;
         ImasiEngine::IndexBuffer* _indexBuffer;
-        ImasiEngine::Buffer *_vertexBuffer, *_UVBuffer;
+        ImasiEngine::ArrayBuffer *_vertexBuffer, *_UVBuffer;
         ImasiEngine::VertexArray* _vertexArray;
         ImasiEngine::ColorTexture2D* _texture;
 

@@ -2,10 +2,8 @@
 
 namespace ImasiEngine
 {
-    enum BufferType
+    enum ArrayBufferType
     {
-        Index = -1,
-
         Vertex = 0,
         UV = 1,
     };

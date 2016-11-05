@@ -1,6 +1,8 @@
 #include "VertexArray.hpp"
 
 #include "../../Utils/Opengl.hpp"
+#include "../../Utils/Logger.hpp"
+#include "ArrayBuffer.hpp"
 
 namespace ImasiEngine
 {
@@ -16,20 +18,22 @@ namespace ImasiEngine
 
     VertexArray::VertexArray()
         : GLObject()
+        , _indexBuffer(nullptr)
     {
         VertexArray::createGLObject();
     }
 
     VertexArray::VertexArray(VertexArray&& vertexArray) noexcept
         : GLObject(std::move(vertexArray))
-        , _buffers(vertexArray._buffers)
+        , _indexBuffer(vertexArray._indexBuffer)
+        , _arrayBuffers(vertexArray._arrayBuffers)
     {
-        _buffers.clear();
+        _arrayBuffers.clear();
     }
 
     VertexArray::~VertexArray()
     {
-        _buffers.clear();
+        _arrayBuffers.clear();
         VertexArray::destroyGLObject();
     }
 
@@ -49,65 +53,76 @@ namespace ImasiEngine
         unsetGLObjectId();
     }
 
-    void VertexArray::attach(Buffer* buffer, BufferType type)
+    void VertexArray::attachIndexBuffer(IndexBuffer* buffer)
     {
-        if (type != Index)
-        {
-            VertexArray::bind(this);
-            {
-                GL(glEnableVertexAttribArray(type));
-
-                buffer->bind();
-                {
-                    GL(glVertexAttribPointer(type, buffer->getMembersPerComponent(), buffer->getGLComponentType(), false, 0, nullptr));
-                }
-                buffer->unbind();
-            }
-            VertexArray::unbind();
-        }
-
-        _buffers[type] = buffer;
+        _indexBuffer = buffer;
     }
 
-    void VertexArray::detach(BufferType type)
+    void VertexArray::attachArrayBuffer(ArrayBuffer* buffer, ArrayBufferType type)
     {
-        if (type != Index)
+        VertexArray::bind(this);
         {
-            VertexArray::bind(this);
-            {
-                GL(glDisableVertexAttribArray(type));
-            }
-            VertexArray::unbind();
-        }
+            GL(glEnableVertexAttribArray(type));
 
-        _buffers.erase(type);
+            buffer->bind();
+            {
+                GL(glVertexAttribPointer(type, buffer->getMembersPerComponent(), buffer->getGLComponentType(), false, 0, nullptr));
+            }
+            buffer->unbind();
+        }
+        VertexArray::unbind();
+
+        _arrayBuffers[type] = buffer;
+    }
+
+    void VertexArray::detachIndexBuffer()
+    {
+        _indexBuffer = nullptr;
+    }
+
+    void VertexArray::detachArrayBuffer(ArrayBufferType type)
+    {
+        VertexArray::bind(this);
+        {
+            GL(glDisableVertexAttribArray(type));
+        }
+        VertexArray::unbind();
+
+        _arrayBuffers.erase(type);
     }
 
     void VertexArray::render(GLenum drawMode)
     {
-        auto indexBuffer = _buffers.find(Index);
-        if (indexBuffer != _buffers.end())
+        if (_indexBuffer != nullptr)
         {
             VertexArray::bind(this);
             {
-                indexBuffer->second->bind();
+                _indexBuffer->bind();
                 {
-                    glDrawElements(drawMode, indexBuffer->second->getComponentCount() * indexBuffer->second->getMembersPerComponent(), indexBuffer->second->getGLComponentType(), nullptr);
+                    glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getMembersPerComponent(), _indexBuffer->getGLComponentType(), nullptr);
                 }
-                indexBuffer->second->unbind();
+                _indexBuffer->unbind();
             }
             VertexArray::unbind();
         }
         else
         {
-            auto vertexBuffer = _buffers.find(Vertex);
-            if (vertexBuffer != _buffers.end())
+            auto vertexBuffer = _arrayBuffers.find(Vertex);
+            if (vertexBuffer != _arrayBuffers.end())
             {
                 VertexArray::bind(this);
                 {
                     glDrawArrays(drawMode, 0, vertexBuffer->second->getComponentCount());
                 }
                 VertexArray::unbind();
+            }
+            else
+            {
+                #ifdef DEBUG
+                {
+                    Logger::out << "Error: Trying to draw non-existing buffer in VAO" << std::endl;
+                }
+                #endif
             }
         }
     }

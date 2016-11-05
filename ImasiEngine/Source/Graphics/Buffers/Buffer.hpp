@@ -12,17 +12,22 @@ namespace ImasiEngine
         unsigned int _componentCount;
         unsigned int _membersPerComponent;
 
+    protected:
+
+        Buffer();
+
     public:
 
-        Buffer(float* data, unsigned int componentCount, unsigned int membersPerComponent);
-        Buffer(double* data, unsigned int componentCount, unsigned int membersPerComponent);
-        Buffer(int* data, unsigned int componentCount, unsigned int membersPerComponent);
-        Buffer(unsigned int* data, unsigned int componentCount, unsigned int membersPerComponent);
-        Buffer(short* data, unsigned int componentCount, unsigned int membersPerComponent);
-        Buffer(unsigned short* data, unsigned int componentCount, unsigned int membersPerComponent);
         Buffer(const Buffer&) = delete;
         Buffer(Buffer&& buffer) noexcept;
         virtual ~Buffer();
+
+        void initBufferData(float* data, unsigned int componentCount, unsigned int membersPerComponent);
+        void initBufferData(double* data, unsigned int componentCount, unsigned int membersPerComponent);
+        void initBufferData(int* data, unsigned int componentCount, unsigned int membersPerComponent);
+        void initBufferData(unsigned int* data, unsigned int componentCount, unsigned int membersPerComponent);
+        void initBufferData(short* data, unsigned int componentCount, unsigned int membersPerComponent);
+        void initBufferData(unsigned short* data, unsigned int componentCount, unsigned int membersPerComponent);
 
         void createGLObject() override;
         void destroyGLObject() override;
@@ -30,7 +35,7 @@ namespace ImasiEngine
         void bind() const;
         void unbind() const;
 
-        virtual unsigned int getGLBufferType() const;
+        virtual unsigned int getGLBufferType() const = 0;
         virtual unsigned int getGLComponentType() const;
 
         unsigned int getComponentCount() const;

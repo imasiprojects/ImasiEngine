@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "../../ImasiEngine/Source/Engine.hpp"
 
 #include "Game/GameEngine.hpp"
