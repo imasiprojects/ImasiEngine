@@ -1,12 +1,13 @@
 #pragma once
 
 #include "../../../ImasiEngine/Source/Engine/Scene.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Buffers/Buffer.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Buffers/IndexBuffer.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Buffers/VertexArray.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Program.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Textures/ColorTexture2D.hpp"
 
 #include "../Game/GameContext.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Buffers/IndexBuffer.hpp"
 
 namespace Imasi
 {

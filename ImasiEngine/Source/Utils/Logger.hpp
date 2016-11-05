@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <chrono>
@@ -61,4 +62,6 @@ namespace ImasiEngine
             return *this;
         }
     };
+
+    
 }
