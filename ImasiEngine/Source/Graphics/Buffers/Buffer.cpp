@@ -1,17 +1,25 @@
 #include "Buffer.hpp"
 
-#include <algorithm>
 #include <GL/glew.h>
 
 #include "../../Utils/Opengl.hpp"
 
 namespace ImasiEngine
 {
-    Buffer::Buffer()
+    void Buffer::initBufferData(unsigned int componentGLType, std::size_t componentTypeSize, void* data)
+    {
+        _glComponentType = componentGLType;
+
+        bind();
+        GL(glBufferData(getGLBufferType(), _componentCount * _membersPerComponent * componentTypeSize, data, GL_STATIC_DRAW));
+        unbind();
+    }
+
+    Buffer::Buffer(unsigned int componentCount, unsigned int membersPerComponent)
         : GLObject()
         , _glComponentType(0)
-        , _componentCount(0)
-        , _membersPerComponent(0)
+        , _componentCount(componentCount)
+        , _membersPerComponent(membersPerComponent)
     {
         Buffer::createGLObject();
     }
@@ -29,70 +37,34 @@ namespace ImasiEngine
         Buffer::destroyGLObject();
     }
 
-    void Buffer::initBufferData(float* data, unsigned int componentCount, unsigned int membersPerComponent)
+    void Buffer::initBufferData(float* data)
     {
-        _glComponentType = GL_FLOAT;
-        _componentCount = componentCount;
-        _membersPerComponent = membersPerComponent;
-
-        bind();
-        GL(glBufferData(getGLBufferType(), _componentCount * _membersPerComponent * sizeof(float), data, GL_STATIC_DRAW));
-        unbind();
+        initBufferData(GL_FLOAT, sizeof(float), data);
     }
 
-    void Buffer::initBufferData(double* data, unsigned int componentCount, unsigned int membersPerComponent)
+    void Buffer::initBufferData(double* data)
     {
-        _glComponentType = GL_DOUBLE;
-        _componentCount = componentCount;
-        _membersPerComponent = membersPerComponent;
-
-        bind();
-        GL(glBufferData(getGLBufferType(), _componentCount * _membersPerComponent * sizeof(double), data, GL_STATIC_DRAW));
-        unbind();
+        initBufferData(GL_DOUBLE, sizeof(double), data);
     }
 
-    void Buffer::initBufferData(int* data, unsigned int componentCount, unsigned int membersPerComponent)
+    void Buffer::initBufferData(int* data)
     {
-        _glComponentType = GL_INT;
-        _componentCount = componentCount;
-        _membersPerComponent = membersPerComponent;
-
-        bind();
-        GL(glBufferData(getGLBufferType(), _componentCount * _membersPerComponent * sizeof(int), data, GL_STATIC_DRAW));
-        unbind();
+        initBufferData(GL_INT, sizeof(int), data);
     }
 
-    void Buffer::initBufferData(unsigned int* data, unsigned int componentCount, unsigned int membersPerComponent)
+    void Buffer::initBufferData(unsigned int* data)
     {
-        _glComponentType = GL_UNSIGNED_INT;
-        _componentCount = componentCount;
-        _membersPerComponent = membersPerComponent;
-
-        bind();
-        GL(glBufferData(getGLBufferType(), _componentCount * _membersPerComponent * sizeof(unsigned int), data, GL_STATIC_DRAW));
-        unbind();
+        initBufferData(GL_UNSIGNED_INT, sizeof(unsigned int), data);
     }
 
-    void Buffer::initBufferData(short* data, unsigned int componentCount, unsigned int membersPerComponent)
+    void Buffer::initBufferData(short* data)
     {
-        _glComponentType = GL_SHORT;
-        _componentCount = componentCount;
-        _membersPerComponent = membersPerComponent;
-
-        bind();
-        GL(glBufferData(getGLBufferType(), _componentCount * _membersPerComponent * sizeof(short), data, GL_STATIC_DRAW));
-        unbind();
+        initBufferData(GL_SHORT, sizeof(short), data);
     }
 
-    void Buffer::initBufferData(unsigned short* data, unsigned int componentCount, unsigned int membersPerComponent)
+    void Buffer::initBufferData(unsigned short* data)
     {
-        _glComponentType = GL_UNSIGNED_SHORT;
-        _componentCount = componentCount;
-        _membersPerComponent = membersPerComponent;
-
-        bind();
-        GL(glBufferData(getGLBufferType(), _componentCount * _membersPerComponent * sizeof(unsigned short), data, GL_STATIC_DRAW));
-        unbind();
+        initBufferData(GL_UNSIGNED_SHORT, sizeof(unsigned short), data);
     }
 
     void Buffer::createGLObject()

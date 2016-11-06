@@ -6,15 +6,15 @@
 namespace ImasiEngine
 {
     IndexBuffer::IndexBuffer(unsigned int* data, unsigned int componentCount, unsigned int membersPerComponent)
-        : Buffer()
+        : Buffer(componentCount, membersPerComponent)
     {
-        initBufferData(data, componentCount, membersPerComponent);
+        initBufferData(data);
     }
 
     IndexBuffer::IndexBuffer(unsigned short* data, unsigned int componentCount, unsigned int membersPerComponent)
-        : Buffer()
+        : Buffer(componentCount, membersPerComponent)
     {
-        initBufferData(data, componentCount, membersPerComponent);
+        initBufferData(data);
     }
 
     IndexBuffer::IndexBuffer(IndexBuffer&& buffer) noexcept

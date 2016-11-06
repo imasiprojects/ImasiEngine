@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 #include "../GLObject.hpp"
 
 namespace ImasiEngine
@@ -12,16 +14,18 @@ namespace ImasiEngine
         unsigned int _componentCount;
         unsigned int _membersPerComponent;
 
+        void initBufferData(unsigned int componentGLType, std::size_t componentTypeSize, void* data);
+
     protected:
 
-        Buffer();
+        Buffer(unsigned int componentCount, unsigned int membersPerComponent);
 
-        void initBufferData(float* data, unsigned int componentCount, unsigned int membersPerComponent);
-        void initBufferData(double* data, unsigned int componentCount, unsigned int membersPerComponent);
-        void initBufferData(int* data, unsigned int componentCount, unsigned int membersPerComponent);
-        void initBufferData(unsigned int* data, unsigned int componentCount, unsigned int membersPerComponent);
-        void initBufferData(short* data, unsigned int componentCount, unsigned int membersPerComponent);
-        void initBufferData(unsigned short* data, unsigned int componentCount, unsigned int membersPerComponent);
+        void initBufferData(float* data);
+        void initBufferData(double* data);
+        void initBufferData(int* data);
+        void initBufferData(unsigned int* data);
+        void initBufferData(short* data);
+        void initBufferData(unsigned short* data);
 
     public:
 
