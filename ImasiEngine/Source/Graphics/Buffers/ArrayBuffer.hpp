@@ -1,5 +1,7 @@
 #pragma once
 
+#include <GL/glew.h>
+
 #include "Buffer.hpp"
 
 namespace ImasiEngine
@@ -7,6 +9,9 @@ namespace ImasiEngine
     class ArrayBuffer : public Buffer
     {
     public:
+
+        static void bind(ArrayBuffer* buffer);
+        static void unbind();
 
         template<typename T,
             typename = typename std::enable_if<
@@ -21,13 +26,13 @@ namespace ImasiEngine
         ArrayBuffer(T* data, unsigned int componentCount, unsigned int membersPerComponent)
             : Buffer(componentCount, membersPerComponent)
         {
-            initBufferData(data);
+            ArrayBuffer::bind(this);
+            initBufferData(GL_ARRAY_BUFFER, data);
+            ArrayBuffer::unbind();
         }
 
         ArrayBuffer(const ArrayBuffer&) = delete;
         ArrayBuffer(ArrayBuffer&& buffer) noexcept;
         virtual ~ArrayBuffer();
-
-        unsigned int getGLBufferType() const override;
     };
 }

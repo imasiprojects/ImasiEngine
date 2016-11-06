@@ -14,18 +14,18 @@ namespace ImasiEngine
         unsigned int _componentCount;
         unsigned int _membersPerComponent;
 
-        void initBufferData(unsigned int componentGLType, std::size_t componentTypeSize, void* data);
+        void initBufferData(unsigned int bufferGLType, unsigned int componentGLType, std::size_t componentTypeSize, void* data);
 
     protected:
 
         Buffer(unsigned int componentCount, unsigned int membersPerComponent);
 
-        void initBufferData(float* data);
-        void initBufferData(double* data);
-        void initBufferData(int* data);
-        void initBufferData(unsigned int* data);
-        void initBufferData(short* data);
-        void initBufferData(unsigned short* data);
+        void initBufferData(unsigned int bufferGLType, float* data);
+        void initBufferData(unsigned int bufferGLType, double* data);
+        void initBufferData(unsigned int bufferGLType, int* data);
+        void initBufferData(unsigned int bufferGLType, unsigned int* data);
+        void initBufferData(unsigned int bufferGLType, short* data);
+        void initBufferData(unsigned int bufferGLType, unsigned short* data);
 
     public:
 
@@ -36,10 +36,6 @@ namespace ImasiEngine
         void createGLObject() override;
         void destroyGLObject() override;
 
-        void bind() const;
-        void unbind() const;
-
-        virtual unsigned int getGLBufferType() const = 0;
         virtual unsigned int getGLComponentType() const;
 
         unsigned int getComponentCount() const;

@@ -70,11 +70,11 @@ namespace ImasiEngine
         {
             GL(glEnableVertexAttribArray(type));
 
-            buffer->bind();
+            ArrayBuffer::bind(buffer);
             {
                 GL(glVertexAttribPointer(type, buffer->getMembersPerComponent(), buffer->getGLComponentType(), false, 0, nullptr));
             }
-            buffer->unbind();
+            ArrayBuffer::unbind();
         }
         VertexArray::unbind();
 
@@ -103,11 +103,11 @@ namespace ImasiEngine
         {
             VertexArray::bind(this);
             {
-                _indexBuffer->bind();
+                IndexBuffer::bind(_indexBuffer);
                 {
                     glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getMembersPerComponent(), _indexBuffer->getGLComponentType(), nullptr);
                 }
-                _indexBuffer->unbind();
+                IndexBuffer::unbind();
             }
             VertexArray::unbind();
         }

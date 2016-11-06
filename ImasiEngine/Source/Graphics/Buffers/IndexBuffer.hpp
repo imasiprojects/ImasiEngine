@@ -1,16 +1,17 @@
 #pragma once
 
+#include <GL/glew.h>
+
 #include "Buffer.hpp"
 
 namespace ImasiEngine
 {
     class IndexBuffer : public Buffer
     {
-    protected:
-
-        unsigned getGLBufferType() const override;
-
     public:
+
+        static void bind(IndexBuffer* buffer);
+        static void unbind();
 
         template<typename T,
             typename = typename std::enable_if<
@@ -21,7 +22,9 @@ namespace ImasiEngine
         IndexBuffer(T* data, unsigned int componentCount, unsigned int membersPerComponent)
             : Buffer(componentCount, membersPerComponent)
         {
-            initBufferData(data);
+            IndexBuffer::bind(this);
+            initBufferData(GL_ELEMENT_ARRAY_BUFFER, data);
+            IndexBuffer::unbind();
         }
 
         IndexBuffer(const IndexBuffer&) = delete;
