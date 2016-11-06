@@ -12,10 +12,10 @@ namespace ImasiEngine
 
     public:
 
-        template<class T,
+        template<typename T,
             typename = typename std::enable_if<
-                std::is_same<unsigned int,   T>::value ||
-                std::is_same<unsigned short, T>::value
+                std::is_same<unsigned int, T>::value
+                || std::is_same<unsigned short, T>::value
             >::type
         >
         IndexBuffer(T* data, unsigned int componentCount, unsigned int membersPerComponent)
