@@ -8,12 +8,13 @@ namespace ImasiEngine
     {
     public:
 
-        ArrayBuffer(float* data, unsigned int componentCount, unsigned int membersPerComponent);
-        ArrayBuffer(double* data, unsigned int componentCount, unsigned int membersPerComponent);
-        ArrayBuffer(int* data, unsigned int componentCount, unsigned int membersPerComponent);
-        ArrayBuffer(unsigned int* data, unsigned int componentCount, unsigned int membersPerComponent);
-        ArrayBuffer(short* data, unsigned int componentCount, unsigned int membersPerComponent);
-        ArrayBuffer(unsigned short* data, unsigned int componentCount, unsigned int membersPerComponent);
+        template<class T>
+        ArrayBuffer(T* data, unsigned int componentCount, unsigned int membersPerComponent)
+            : Buffer(componentCount, membersPerComponent)
+        {
+            initBufferData(data);
+        }
+
         ArrayBuffer(const ArrayBuffer&) = delete;
         ArrayBuffer(ArrayBuffer&& buffer) noexcept;
         virtual ~ArrayBuffer();
