@@ -17,6 +17,7 @@
     <ClCompile Include="Source\Graphics\GLObject.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\ArrayBuffer.cpp" />
+    <ClCompile Include="Source\Graphics\Mesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\Logger.hpp" />
@@ -36,5 +37,6 @@
     <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\ArrayBuffer.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\ArrayBufferType.hpp" />
+    <ClInclude Include="Source\Graphics\Mesh.hpp" />
   </ItemGroup>
 </Project>
