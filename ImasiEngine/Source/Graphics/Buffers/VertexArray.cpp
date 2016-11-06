@@ -120,7 +120,7 @@ namespace ImasiEngine
             {
                 #ifdef DEBUG
                 {
-                    Logger::out << "Error: Trying to draw non-existing buffer in VAO" << std::endl;
+                    Logger::out << "Error: Trying to draw VAO without VertexBuffer attached" << std::endl;
                 }
                 #endif
             }
