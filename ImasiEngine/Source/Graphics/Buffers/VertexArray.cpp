@@ -1,6 +1,8 @@
 #include "VertexArray.hpp"
-#include <GL/glew.h>
+
 #include "../../Utils/Opengl.hpp"
+#include "../../Utils/Logger.hpp"
+#include "ArrayBuffer.hpp"
 
 namespace ImasiEngine
 {
@@ -16,20 +18,22 @@ namespace ImasiEngine
 
     VertexArray::VertexArray()
         : GLObject()
+        , _indexBuffer(nullptr)
     {
         VertexArray::createGLObject();
     }
 
     VertexArray::VertexArray(VertexArray&& vertexArray) noexcept
         : GLObject(std::move(vertexArray))
-        , _buffers(vertexArray._buffers)
+        , _indexBuffer(vertexArray._indexBuffer)
+        , _arrayBuffers(vertexArray._arrayBuffers)
     {
-        _buffers.clear();
+        _arrayBuffers.clear();
     }
 
     VertexArray::~VertexArray()
     {
-        _buffers.clear();
+        _arrayBuffers.clear();
         VertexArray::destroyGLObject();
     }
 
@@ -49,24 +53,34 @@ namespace ImasiEngine
         unsetGLObjectId();
     }
 
-    void VertexArray::attachBuffer(Buffer* buffer, BufferType type)
+    void VertexArray::attachIndexBuffer(IndexBuffer* buffer)
+    {
+        _indexBuffer = buffer;
+    }
+
+    void VertexArray::attachArrayBuffer(ArrayBuffer* buffer, ArrayBufferType type)
     {
         VertexArray::bind(this);
         {
             GL(glEnableVertexAttribArray(type));
 
-            Buffer::bind(buffer);
+            buffer->bind();
             {
-                GL(glVertexAttribPointer(type, buffer->getMembersPerComponent(), GL_FLOAT, false, 0, nullptr));
+                GL(glVertexAttribPointer(type, buffer->getMembersPerComponent(), buffer->getGLComponentType(), false, 0, nullptr));
             }
-            Buffer::unbind();
+            buffer->unbind();
         }
         VertexArray::unbind();
 
-        _buffers[type] = buffer;
+        _arrayBuffers[type] = buffer;
     }
 
-    void VertexArray::detachBuffer(BufferType type)
+    void VertexArray::detachIndexBuffer()
+    {
+        _indexBuffer = nullptr;
+    }
+
+    void VertexArray::detachArrayBuffer(ArrayBufferType type)
     {
         VertexArray::bind(this);
         {
@@ -74,19 +88,42 @@ namespace ImasiEngine
         }
         VertexArray::unbind();
 
-        _buffers.erase(type);
+        _arrayBuffers.erase(type);
     }
 
-    void VertexArray::draw(BufferType bufferType, GLenum mode)
+    void VertexArray::render(GLenum drawMode)
     {
-        VertexArray::bind(this);
+        if (_indexBuffer != nullptr)
         {
-            auto it = _buffers.find(bufferType);
-            if (it != _buffers.end())
+            VertexArray::bind(this);
             {
-                glDrawArrays(mode, 0, it->second->getComponentCount());
+                _indexBuffer->bind();
+                {
+                    glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getMembersPerComponent(), _indexBuffer->getGLComponentType(), nullptr);
+                }
+                _indexBuffer->unbind();
+            }
+            VertexArray::unbind();
+        }
+        else
+        {
+            auto vertexBuffer = _arrayBuffers.find(Vertex);
+            if (vertexBuffer != _arrayBuffers.end())
+            {
+                VertexArray::bind(this);
+                {
+                    glDrawArrays(drawMode, 0, vertexBuffer->second->getComponentCount());
+                }
+                VertexArray::unbind();
+            }
+            else
+            {
+                #ifdef DEBUG
+                {
+                    Logger::out << "Error: Trying to draw VAO without VertexBuffer attached" << std::endl;
+                }
+                #endif
             }
         }
-        VertexArray::unbind();
     }
 }

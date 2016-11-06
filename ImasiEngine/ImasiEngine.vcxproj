@@ -27,6 +27,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Graphics\Buffers\ArrayBuffer.cpp" />
+    <ClCompile Include="Source\Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Source\Graphics\GLObject.cpp" />
     <ClCompile Include="Source\Graphics\Shaders\FragmentShader.cpp" />
     <ClCompile Include="Source\Graphics\Program.cpp" />
@@ -43,6 +45,8 @@
     <ClCompile Include="Source\Graphics\Shaders\VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Graphics\Buffers\ArrayBuffer.hpp" />
+    <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.hpp" />
     <ClInclude Include="Source\Graphics\GLObject.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\FragmentShader.hpp" />
     <ClInclude Include="Source\Graphics\Program.hpp" />
@@ -53,7 +57,7 @@
     <ClInclude Include="Source\Engine.hpp" />
     <ClInclude Include="Source\Engine\Scene.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\Buffer.hpp" />
-    <ClInclude Include="Source\Graphics\Buffers\BufferType.hpp" />
+    <ClInclude Include="Source\Graphics\Buffers\ArrayBufferType.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\VertexArray.hpp" />
     <ClInclude Include="Source\Engine\Window.hpp" />
     <ClInclude Include="Source\Utils\Logger.hpp" />

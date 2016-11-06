@@ -4,8 +4,9 @@
 
 #include <GL/glew.h>
 
-#include "Buffer.hpp"
-#include "BufferType.hpp"
+#include "ArrayBuffer.hpp"
+#include "ArrayBufferType.hpp"
+#include "IndexBuffer.hpp"
 
 namespace ImasiEngine
 {
@@ -13,7 +14,8 @@ namespace ImasiEngine
     {
     private:
 
-        std::map<BufferType, Buffer*> _buffers;
+        IndexBuffer* _indexBuffer;
+        std::map<ArrayBufferType, ArrayBuffer*> _arrayBuffers;
         
     public:
 
@@ -28,9 +30,11 @@ namespace ImasiEngine
         void createGLObject() override;
         void destroyGLObject() override;
 
-        void attachBuffer(Buffer* buffer, BufferType type);
-        void detachBuffer(BufferType type);
+        void attachIndexBuffer(IndexBuffer* buffer);
+        void attachArrayBuffer(ArrayBuffer* buffer, ArrayBufferType type);
+        void detachIndexBuffer();
+        void detachArrayBuffer(ArrayBufferType type);
 
-        void draw(BufferType bufferType = Vertex, GLenum drawMode = GL_TRIANGLES);
+        void render(GLenum drawMode = GL_TRIANGLES);
     };
 }

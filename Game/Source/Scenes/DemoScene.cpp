@@ -2,10 +2,9 @@
 
 #include <GL/glew.h>
 
+#include "../../../ImasiEngine/Source/Utils/Logger.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Shaders/VertexShader.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Shaders/FragmentShader.hpp"
-#include "../../../ImasiEngine/Source/Utils/Logger.hpp"
-
 #include "../Shaders/FragmentShader.hpp"
 #include "../Shaders/VertexShader.hpp"
 
@@ -40,31 +39,42 @@ namespace Imasi
             Logger::out << "Error loading Texture" << std::endl;
         }
 
-        static float vertices[] =
+        static unsigned short indices[] =
         {
-            -0.8f, -0.8f, 0.0f,
-            0.8f, -0.8f, 0.0f,
-            0.0f, 0.8f, 0.0f,
+            0, 1, 2,
+            0, 2, 3,
+        };
+
+        static double vertices[] =
+        {
+            -1.0, -1.0, 0.0,
+            1.0, -1.0, 0.0,
+            1.0, 1.0, 0.0,
+            -1.0, 1.0, 0.0,
         };
 
         static float uvs[] =
         {
             0.f, 1.f,
             1.f, 1.f,
-            0.5f, 0.f
+            1.f, 0.f,
+            0.f, 0.f,
         };
 
-        _vertexBuffer = new Buffer(vertices, 3, 3);
-        _UVBuffer = new Buffer(uvs, 3, 2);
+        _indexBuffer = new IndexBuffer(indices, 2, 3);
+        _vertexBuffer = new ArrayBuffer(vertices, 4, 3);
+        _UVBuffer = new ArrayBuffer(uvs, 4, 2);
 
         _vertexArray = new VertexArray();
-        _vertexArray->attachBuffer(_vertexBuffer, Vertex);
-        _vertexArray->attachBuffer(_UVBuffer, UV);
+        _vertexArray->attachIndexBuffer(_indexBuffer);
+        _vertexArray->attachArrayBuffer(_vertexBuffer, Vertex);
+        _vertexArray->attachArrayBuffer(_UVBuffer, UV);
     }
 
     DemoScene::~DemoScene()
     {
         delete _program;
+        delete _indexBuffer;
         delete _vertexBuffer;
         delete _UVBuffer;
         delete _vertexArray;
@@ -94,7 +104,7 @@ namespace Imasi
         {
             Texture::bind(_texture);
             {
-                _vertexArray->draw();
+                _vertexArray->render();
             }
             Texture::unbind();
         }
