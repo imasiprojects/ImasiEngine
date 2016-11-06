@@ -30,9 +30,12 @@ namespace ImasiEngine
         void createGLObject() override;
         void destroyGLObject() override;
 
+        void detachAllBuffers();
+
         void attachIndexBuffer(IndexBuffer* buffer);
-        void attachArrayBuffer(ArrayBuffer* buffer, ArrayBufferType type);
         void detachIndexBuffer();
+
+        void attachArrayBuffer(ArrayBuffer* buffer, ArrayBufferType type);
         void detachArrayBuffer(ArrayBufferType type);
 
         void render(GLenum drawMode = GL_TRIANGLES);

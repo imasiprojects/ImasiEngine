@@ -53,6 +53,12 @@ namespace ImasiEngine
         unsetGLObjectId();
     }
 
+    void VertexArray::detachAllBuffers()
+    {
+        _indexBuffer = nullptr;
+        _arrayBuffers.clear();
+    }
+
     void VertexArray::attachIndexBuffer(IndexBuffer* buffer)
     {
         _indexBuffer = buffer;
