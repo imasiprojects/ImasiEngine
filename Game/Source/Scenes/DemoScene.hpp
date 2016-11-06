@@ -17,10 +17,12 @@ namespace Imasi
 
         GameContext* _context;
 
-        ImasiEngine::Program* _program;
         ImasiEngine::IndexBuffer* _indexBuffer;
-        ImasiEngine::ArrayBuffer *_vertexBuffer, *_UVBuffer;
+        ImasiEngine::ArrayBuffer* _vertexBuffer;
+        ImasiEngine::ArrayBuffer* _UVBuffer;
         ImasiEngine::VertexArray* _vertexArray;
+
+        ImasiEngine::Program* _program;
         ImasiEngine::ColorTexture2D* _texture;
 
     public:

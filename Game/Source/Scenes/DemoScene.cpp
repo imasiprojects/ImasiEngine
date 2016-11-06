@@ -3,10 +3,8 @@
 #include <GL/glew.h>
 
 #include "../../../ImasiEngine/Source/Utils/Logger.hpp"
-
 #include "../../../ImasiEngine/Source/Graphics/Shaders/VertexShader.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Shaders/FragmentShader.hpp"
-
 #include "../Shaders/FragmentShader.hpp"
 #include "../Shaders/VertexShader.hpp"
 
