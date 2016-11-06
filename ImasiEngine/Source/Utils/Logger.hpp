@@ -1,7 +1,5 @@
 #pragma once
 
-// ReSharper disable once CppUnusedIncludeDirective
-#include <string>
 #include <iostream>
 #include <fstream>
 #include <chrono>
