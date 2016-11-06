@@ -17,7 +17,6 @@ namespace ImasiEngine
 
     Buffer::Buffer(unsigned int componentCount, unsigned int membersPerComponent)
         : GLObject()
-        , _glComponentType(0)
         , _componentCount(componentCount)
         , _membersPerComponent(membersPerComponent)
     {
