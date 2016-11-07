@@ -6,6 +6,10 @@ namespace ImasiEngine
 {
     class VertexShader : public Shader
     {
+    protected:
+
+        unsigned int getOpenglShaderType() const override;
+
     public:
 
         VertexShader();
@@ -13,7 +17,5 @@ namespace ImasiEngine
         VertexShader(const VertexShader&) = delete;
         VertexShader(VertexShader&& shader) noexcept;
         virtual ~VertexShader();
-
-        unsigned int getOpenglShaderType() const override;
     };
 }

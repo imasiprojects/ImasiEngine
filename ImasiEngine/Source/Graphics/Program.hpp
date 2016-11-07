@@ -12,6 +12,11 @@ namespace ImasiEngine
         bool _isLinked;
         bool _invalidAttachPerformed;
 
+    protected:
+
+        void createGLObject() override;
+        void destroyGLObject() override;
+
     public:
 
         static void bind(Program* program);
@@ -21,9 +26,6 @@ namespace ImasiEngine
         Program(const Program&) = delete;
         Program(Program&& program) noexcept;
         virtual ~Program();
-
-        void createGLObject() override;
-        void destroyGLObject() override;
 
         bool isLinked() const;
         bool invalidAttachPerformed() const;
