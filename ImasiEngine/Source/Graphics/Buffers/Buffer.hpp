@@ -10,15 +10,16 @@ namespace ImasiEngine
     {
     private:
 
+        unsigned int _glBufferType;
         unsigned int _glComponentType;
         unsigned int _componentCount;
         unsigned int _membersPerComponent;
 
-        void initBufferData(unsigned int componentGLType, std::size_t componentTypeSize, void* data);
+        void initBufferData(unsigned int glComponentType, std::size_t componentTypeSize, void* data);
 
     protected:
 
-        Buffer(unsigned int componentCount, unsigned int membersPerComponent);
+        Buffer(unsigned int glBufferType, unsigned int componentCount, unsigned int membersPerComponent);
 
         void createGLObject() override;
         void destroyGLObject() override;
@@ -36,11 +37,8 @@ namespace ImasiEngine
         Buffer(Buffer&& buffer) noexcept;
         virtual ~Buffer();
 
-        void bind() const;
-        void unbind() const;
-
-        virtual unsigned int getGLBufferType() const = 0;
-        virtual unsigned int getGLComponentType() const;
+        unsigned int getGLBufferType() const;
+        unsigned int getGLComponentType() const;
 
         unsigned int getComponentCount() const;
         unsigned int getMembersPerComponent() const;

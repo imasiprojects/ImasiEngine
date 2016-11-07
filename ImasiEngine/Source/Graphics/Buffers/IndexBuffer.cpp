@@ -1,10 +1,21 @@
 #include "IndexBuffer.hpp"
 
-#include <algorithm>
 #include <GL/glew.h>
+
+#include "../../Utils/Opengl.hpp"
 
 namespace ImasiEngine
 {
+    void IndexBuffer::bind(IndexBuffer* buffer)
+    {
+        GL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer->getGLObjectId()));
+    }
+
+    void IndexBuffer::unbind()
+    {
+        GL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, NULL_ID));
+    }
+
     IndexBuffer::IndexBuffer(IndexBuffer&& buffer) noexcept
         : Buffer(std::move(buffer))
     {
@@ -12,10 +23,5 @@ namespace ImasiEngine
 
     IndexBuffer::~IndexBuffer()
     {
-    }
-
-    unsigned int IndexBuffer::getGLBufferType() const
-    {
-        return GL_ELEMENT_ARRAY_BUFFER;
     }
 }
