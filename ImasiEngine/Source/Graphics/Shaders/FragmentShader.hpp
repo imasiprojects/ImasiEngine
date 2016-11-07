@@ -8,7 +8,7 @@ namespace ImasiEngine
     {
     protected:
 
-        unsigned int getOpenglShaderType() const override;
+        unsigned int getGLShaderType() const override;
 
     public:
 

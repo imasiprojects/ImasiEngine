@@ -28,7 +28,7 @@ namespace ImasiEngine
 
     void Shader::createGLObject()
     {
-        unsigned int id = GL(glCreateShader(getOpenglShaderType()));
+        unsigned int id = GL(glCreateShader(getGLShaderType()));
         setGLObjectId(id);
     }
 
@@ -76,7 +76,7 @@ namespace ImasiEngine
 
         #ifdef DEBUG
         {
-            Logger::out << shaderNames[getOpenglShaderType()] << " shader: " << (compilationSuccess ? "OK" : "ERROR") << std::endl;
+            Logger::out << shaderNames[getGLShaderType()] << " shader: " << (compilationSuccess ? "OK" : "ERROR") << std::endl;
         }
         #endif
 

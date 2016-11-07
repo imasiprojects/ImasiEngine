@@ -16,7 +16,7 @@ namespace ImasiEngine
         void createGLObject() override;
         void destroyGLObject() override;
 
-        virtual unsigned int getOpenglShaderType() const = 0;
+        virtual unsigned int getGLShaderType() const = 0;
 
     public:
 
