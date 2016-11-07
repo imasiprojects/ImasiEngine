@@ -24,17 +24,17 @@ namespace ImasiEngine
             >::type
         >
         ArrayBuffer(T* data, unsigned int componentCount, unsigned int membersPerComponent)
-            : Buffer(componentCount, membersPerComponent)
+            : Buffer(GL_ARRAY_BUFFER, componentCount, membersPerComponent)
         {
             ArrayBuffer::bind(this);
-            initBufferData(GL_ARRAY_BUFFER, data);
+            {
+                initBufferData(data);
+            }
             ArrayBuffer::unbind();
         }
 
         ArrayBuffer(const ArrayBuffer&) = delete;
         ArrayBuffer(ArrayBuffer&& buffer) noexcept;
         virtual ~ArrayBuffer();
-
-        unsigned int getGLBufferType() const override;
     };
 }

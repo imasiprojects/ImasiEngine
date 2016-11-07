@@ -20,17 +20,17 @@ namespace ImasiEngine
             >::type
         >
         IndexBuffer(T* data, unsigned int componentCount, unsigned int membersPerComponent)
-            : Buffer(componentCount, membersPerComponent)
+            : Buffer(GL_ELEMENT_ARRAY_BUFFER, componentCount, membersPerComponent)
         {
             IndexBuffer::bind(this);
-            initBufferData(GL_ELEMENT_ARRAY_BUFFER, data);
+            {
+                initBufferData(data);
+            }
             IndexBuffer::unbind();
         }
 
         IndexBuffer(const IndexBuffer&) = delete;
         IndexBuffer(IndexBuffer&& buffer) noexcept;
         virtual ~IndexBuffer();
-
-        unsigned int getGLBufferType() const override;
     };
 }

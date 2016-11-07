@@ -6,14 +6,15 @@
 
 namespace ImasiEngine
 {
-    void Buffer::initBufferData(unsigned int bufferGLType, unsigned int componentGLType, std::size_t componentTypeSize, void* data)
+    void Buffer::initBufferData(unsigned int componentGLType, std::size_t componentTypeSize, void* data)
     {
         _glComponentType = componentGLType;
-        GL(glBufferData(bufferGLType, _componentCount * _membersPerComponent * componentTypeSize, data, GL_STATIC_DRAW));
+        GL(glBufferData(_glBufferType, _componentCount * _membersPerComponent * componentTypeSize, data, GL_STATIC_DRAW));
     }
 
-    Buffer::Buffer(unsigned int componentCount, unsigned int membersPerComponent)
+    Buffer::Buffer(unsigned int glBufferType, unsigned int componentCount, unsigned int membersPerComponent)
         : GLObject()
+        , _glBufferType(glBufferType)
         , _componentCount(componentCount)
         , _membersPerComponent(membersPerComponent)
     {
@@ -22,6 +23,7 @@ namespace ImasiEngine
 
     Buffer::Buffer(Buffer&& buffer) noexcept
         : GLObject(std::move(buffer))
+        , _glBufferType(buffer._glBufferType)
         , _glComponentType(buffer._glComponentType)
         , _componentCount(buffer._componentCount)
         , _membersPerComponent(buffer._membersPerComponent)
@@ -33,34 +35,34 @@ namespace ImasiEngine
         Buffer::destroyGLObject();
     }
 
-    void Buffer::initBufferData(unsigned int bufferGLType, float* data)
+    void Buffer::initBufferData(float* data)
     {
-        initBufferData(bufferGLType, GL_FLOAT, sizeof(float), data);
+        initBufferData(GL_FLOAT, sizeof(float), data);
     }
 
-    void Buffer::initBufferData(unsigned int bufferGLType, double* data)
+    void Buffer::initBufferData(double* data)
     {
-        initBufferData(bufferGLType, GL_DOUBLE, sizeof(double), data);
+        initBufferData(GL_DOUBLE, sizeof(double), data);
     }
 
-    void Buffer::initBufferData(unsigned int bufferGLType, int* data)
+    void Buffer::initBufferData(int* data)
     {
-        initBufferData(bufferGLType, GL_INT, sizeof(int), data);
+        initBufferData(GL_INT, sizeof(int), data);
     }
 
-    void Buffer::initBufferData(unsigned int bufferGLType, unsigned int* data)
+    void Buffer::initBufferData(unsigned int* data)
     {
-        initBufferData(bufferGLType, GL_UNSIGNED_INT, sizeof(unsigned int), data);
+        initBufferData(GL_UNSIGNED_INT, sizeof(unsigned int), data);
     }
 
-    void Buffer::initBufferData(unsigned int bufferGLType, short* data)
+    void Buffer::initBufferData(short* data)
     {
-        initBufferData(bufferGLType, GL_SHORT, sizeof(short), data);
+        initBufferData(GL_SHORT, sizeof(short), data);
     }
 
-    void Buffer::initBufferData(unsigned int bufferGLType, unsigned short* data)
+    void Buffer::initBufferData(unsigned short* data)
     {
-        initBufferData(bufferGLType, GL_UNSIGNED_SHORT, sizeof(unsigned short), data);
+        initBufferData(GL_UNSIGNED_SHORT, sizeof(unsigned short), data);
     }
 
     void Buffer::createGLObject()
@@ -79,7 +81,12 @@ namespace ImasiEngine
         unsetGLObjectId();
     }
 
-    unsigned Buffer::getGLComponentType() const
+    unsigned int Buffer::getGLBufferType() const
+    {
+        return _glBufferType;
+    }
+
+    unsigned int Buffer::getGLComponentType() const
     {
         return _glComponentType;
     }

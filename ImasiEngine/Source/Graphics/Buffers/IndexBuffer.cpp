@@ -24,9 +24,4 @@ namespace ImasiEngine
     IndexBuffer::~IndexBuffer()
     {
     }
-
-    unsigned int IndexBuffer::getGLBufferType() const
-    {
-        return GL_ELEMENT_ARRAY_BUFFER;
-    }
 }
