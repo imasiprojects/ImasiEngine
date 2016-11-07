@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 
 #include "Buffer.hpp"
+#include "../../Utils/Opengl.hpp"
 
 namespace ImasiEngine
 {
@@ -26,11 +27,11 @@ namespace ImasiEngine
         ArrayBuffer(T* data, unsigned int componentCount, unsigned int membersPerComponent)
             : Buffer(GL_ARRAY_BUFFER, componentCount, membersPerComponent)
         {
-            ArrayBuffer::bind(this);
+            BIND(ArrayBuffer, this);
             {
                 initBufferData(data);
             }
-            ArrayBuffer::unbind();
+            UNBIND(ArrayBuffer);
         }
 
         ArrayBuffer(const ArrayBuffer&) = delete;

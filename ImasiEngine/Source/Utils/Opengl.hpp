@@ -4,17 +4,23 @@
 
 #define NULL_ID 0
 
+#define BIND(glObjectType, glObject, ...) glObjectType::bind(glObject, __VA_ARGS__)
+
 #ifdef DEBUG
 
     #define GL(glCall) glCall; do {} while (ImasiEngine::Opengl::checkError(__FILE__, __LINE__, #glCall))
 
     #define GL_CHECK() do {} while (ImasiEngine::Opengl::checkError(__FILE__, __LINE__))
 
+    #define UNBIND(glObjectType, ...) glObjectType::unbind(__VA_ARGS__)
+
 #else
 
     #define GL(glCall) glCall
 
     #define GL_CHECK() 
+
+    #define UNBIND(glObjectType, ...) 
 
 #endif
 

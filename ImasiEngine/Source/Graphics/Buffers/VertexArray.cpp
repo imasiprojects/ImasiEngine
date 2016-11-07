@@ -85,17 +85,17 @@ namespace ImasiEngine
 
     void VertexArray::attachArrayBuffer(ArrayBuffer* buffer, ArrayBufferType type)
     {
-        VertexArray::bind(this);
+        BIND(VertexArray, this);
         {
             GL(glEnableVertexAttribArray(type));
 
-            ArrayBuffer::bind(buffer);
+            BIND(ArrayBuffer, buffer);
             {
                 GL(glVertexAttribPointer(type, buffer->getMembersPerComponent(), buffer->getGLComponentType(), false, 0, nullptr));
             }
-            ArrayBuffer::unbind();
+            UNBIND(ArrayBuffer);
         }
-        VertexArray::unbind();
+        UNBIND(VertexArray);
 
         _arrayBuffers[type] = buffer;
     }
@@ -107,11 +107,11 @@ namespace ImasiEngine
 
     void VertexArray::detachArrayBuffer(ArrayBufferType type)
     {
-        VertexArray::bind(this);
+        BIND(VertexArray, this);
         {
             GL(glDisableVertexAttribArray(type));
         }
-        VertexArray::unbind();
+        UNBIND(VertexArray);
 
         _arrayBuffers.erase(type);
     }
@@ -126,26 +126,26 @@ namespace ImasiEngine
     {
         if (_indexBuffer != nullptr)
         {
-            VertexArray::bind(this);
+            BIND(VertexArray, this);
             {
-                IndexBuffer::bind(_indexBuffer);
+                BIND(IndexBuffer, _indexBuffer);
                 {
                     glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getMembersPerComponent(), _indexBuffer->getGLComponentType(), nullptr);
                 }
-                IndexBuffer::unbind();
+                UNBIND(IndexBuffer);
             }
-            VertexArray::unbind();
+            UNBIND(VertexArray);
         }
         else
         {
             auto vertexBuffer = _arrayBuffers.find(Vertex);
             if (vertexBuffer != _arrayBuffers.end())
             {
-                VertexArray::bind(this);
+                BIND(VertexArray, this);
                 {
                     glDrawArrays(drawMode, 0, vertexBuffer->second->getComponentCount());
                 }
-                VertexArray::unbind();
+                UNBIND(VertexArray);
             }
             else
             {
