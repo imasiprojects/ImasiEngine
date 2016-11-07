@@ -61,23 +61,20 @@ namespace Imasi
             0.f, 0.f,
         };
 
-        _indexBuffer = new IndexBuffer(indices, 2, 3);
-        _vertexBuffer = new ArrayBuffer(vertices, 4, 3);
-        _UVBuffer = new ArrayBuffer(uvs, 4, 2);
+        _mesh = new Mesh();
+        _mesh->setIndexBuffer(IndexBuffer(indices, 2, 3));
+        _mesh->setVertexBuffer(ArrayBuffer(vertices, 4, 3));
+        _mesh->setUVBuffer(ArrayBuffer(uvs, 4, 2));
 
         _vertexArray = new VertexArray();
-        _vertexArray->attachIndexBuffer(_indexBuffer);
-        _vertexArray->attachArrayBuffer(_vertexBuffer, Vertex);
-        _vertexArray->attachArrayBuffer(_UVBuffer, UV);
+        _vertexArray->attachMesh(_mesh);
     }
 
     DemoScene::~DemoScene()
     {
-        delete _program;
-        delete _indexBuffer;
-        delete _vertexBuffer;
-        delete _UVBuffer;
+        delete _mesh;
         delete _vertexArray;
+        delete _program;
         delete _texture;
     }
 

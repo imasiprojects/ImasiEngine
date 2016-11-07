@@ -1,8 +1,7 @@
 #pragma once
 
 #include "../../../ImasiEngine/Source/Engine/Scene.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Buffers/ArrayBuffer.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Buffers/IndexBuffer.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Mesh.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Buffers/VertexArray.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Program.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Textures/ColorTexture2D.hpp"
@@ -17,11 +16,8 @@ namespace Imasi
 
         GameContext* _context;
 
-        ImasiEngine::IndexBuffer* _indexBuffer;
-        ImasiEngine::ArrayBuffer* _vertexBuffer;
-        ImasiEngine::ArrayBuffer* _UVBuffer;
+        ImasiEngine::Mesh* _mesh;
         ImasiEngine::VertexArray* _vertexArray;
-
         ImasiEngine::Program* _program;
         ImasiEngine::ColorTexture2D* _texture;
 

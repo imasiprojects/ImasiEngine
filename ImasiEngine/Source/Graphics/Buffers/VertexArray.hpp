@@ -7,6 +7,7 @@
 #include "ArrayBuffer.hpp"
 #include "ArrayBufferType.hpp"
 #include "IndexBuffer.hpp"
+#include "../Mesh.hpp"
 
 namespace ImasiEngine
 {
@@ -32,13 +33,15 @@ namespace ImasiEngine
         VertexArray(VertexArray&& vertexArray) noexcept;
         virtual ~VertexArray();
 
-        void detachAllBuffers();
+        void attachMesh(Mesh* mesh);
 
         void attachIndexBuffer(IndexBuffer* buffer);
         void detachIndexBuffer();
 
         void attachArrayBuffer(ArrayBuffer* buffer, ArrayBufferType type);
         void detachArrayBuffer(ArrayBufferType type);
+
+        void detachAllBuffers();
 
         void render(GLenum drawMode = GL_TRIANGLES);
     };
