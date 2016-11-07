@@ -24,4 +24,9 @@ namespace ImasiEngine
     ArrayBuffer::~ArrayBuffer()
     {
     }
+
+    unsigned int ArrayBuffer::getGLBufferType() const
+    {
+        return GL_ARRAY_BUFFER;
+    }
 }

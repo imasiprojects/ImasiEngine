@@ -30,5 +30,7 @@ namespace ImasiEngine
         IndexBuffer(const IndexBuffer&) = delete;
         IndexBuffer(IndexBuffer&& buffer) noexcept;
         virtual ~IndexBuffer();
+
+        unsigned int getGLBufferType() const override;
     };
 }

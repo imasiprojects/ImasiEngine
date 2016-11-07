@@ -36,7 +36,8 @@ namespace ImasiEngine
         void createGLObject() override;
         void destroyGLObject() override;
 
-        virtual unsigned int getGLComponentType() const;
+        virtual unsigned int getGLBufferType() const = 0;
+        unsigned int getGLComponentType() const;
 
         unsigned int getComponentCount() const;
         unsigned int getMembersPerComponent() const;

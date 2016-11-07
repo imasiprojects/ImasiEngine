@@ -34,5 +34,7 @@ namespace ImasiEngine
         ArrayBuffer(const ArrayBuffer&) = delete;
         ArrayBuffer(ArrayBuffer&& buffer) noexcept;
         virtual ~ArrayBuffer();
+
+        unsigned int getGLBufferType() const override;
     };
 }
