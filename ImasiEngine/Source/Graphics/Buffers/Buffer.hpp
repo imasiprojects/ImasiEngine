@@ -21,6 +21,9 @@ namespace ImasiEngine
 
         Buffer(unsigned int glBufferType, unsigned int componentCount, unsigned int membersPerComponent);
 
+        void createGLObject() override;
+        void destroyGLObject() override;
+
         void initBufferData(float* data);
         void initBufferData(double* data);
         void initBufferData(int* data);
@@ -33,9 +36,6 @@ namespace ImasiEngine
         Buffer(const Buffer&) = delete;
         Buffer(Buffer&& buffer) noexcept;
         virtual ~Buffer();
-
-        void createGLObject() override;
-        void destroyGLObject() override;
 
         unsigned int getGLBufferType() const;
         unsigned int getGLComponentType() const;
