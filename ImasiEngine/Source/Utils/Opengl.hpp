@@ -10,11 +10,15 @@
 
     #define GL_CHECK() do {} while (ImasiEngine::Opengl::checkError(__FILE__, __LINE__))
 
+    #define USING(glObject, body) glObject->bind(glObject); body glObject->unbind()
+
 #else
 
     #define GL(glCall) glCall
 
     #define GL_CHECK() 
+
+    #define USING(glObject, body) glObject->bind(glObject); body
 
 #endif
 

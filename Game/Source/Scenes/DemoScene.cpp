@@ -7,6 +7,7 @@
 #include "../../../ImasiEngine/Source/Graphics/Shaders/FragmentShader.hpp"
 #include "../Shaders/FragmentShader.hpp"
 #include "../Shaders/VertexShader.hpp"
+#include "../../../ImasiEngine/Source/Utils/Opengl.hpp"
 
 using namespace ImasiEngine;
 
@@ -100,14 +101,12 @@ namespace Imasi
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        Program::bind(_program);
+        USING(_program,
         {
-            Texture::bind(_texture);
+            USING(_texture,
             {
                 _vertexArray->render();
-            }
-            Texture::unbind();
-        }
-        Program::unbind();
+            });
+        });
     }
 }
