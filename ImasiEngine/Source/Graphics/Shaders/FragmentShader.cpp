@@ -26,7 +26,7 @@ namespace ImasiEngine
     {
     }
 
-    unsigned FragmentShader::getOpenglShaderType() const
+    unsigned int FragmentShader::getGLShaderType() const
     {
         return GL_FRAGMENT_SHADER;
     }

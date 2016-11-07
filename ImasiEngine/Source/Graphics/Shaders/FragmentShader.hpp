@@ -6,6 +6,10 @@ namespace ImasiEngine
 {
     class FragmentShader : public Shader
     {
+    protected:
+
+        unsigned int getGLShaderType() const override;
+
     public:
 
         FragmentShader();
@@ -13,7 +17,5 @@ namespace ImasiEngine
         FragmentShader(const FragmentShader&) = delete;
         FragmentShader(FragmentShader&& shader) noexcept;
         virtual ~FragmentShader();
-
-        unsigned int getOpenglShaderType() const override;
     };
 }

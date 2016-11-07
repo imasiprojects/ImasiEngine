@@ -17,6 +17,11 @@ namespace ImasiEngine
 
         IndexBuffer* _indexBuffer;
         std::map<ArrayBufferType, ArrayBuffer*> _arrayBuffers;
+
+    protected:
+
+        void createGLObject() override;
+        void destroyGLObject() override;
         
     public:
 
@@ -27,9 +32,6 @@ namespace ImasiEngine
         VertexArray(const VertexArray&) = delete;
         VertexArray(VertexArray&& vertexArray) noexcept;
         virtual ~VertexArray();
-
-        void createGLObject() override;
-        void destroyGLObject() override;
 
         void attachMesh(Mesh* mesh);
 
