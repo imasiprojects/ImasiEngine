@@ -98,12 +98,14 @@ namespace Imasi
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        USING(_program,
+        BIND(Program, _program);
         {
-            USING(_texture,
+            BIND(Texture, _texture, 0);
             {
                 _vertexArray->render();
-            });
-        });
+            }
+            UNBIND(Texture, 0);
+        }
+        UNBIND(Program);
     }
 }
