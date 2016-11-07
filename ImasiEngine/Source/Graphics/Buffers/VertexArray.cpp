@@ -53,10 +53,29 @@ namespace ImasiEngine
         unsetGLObjectId();
     }
 
-    void VertexArray::detachAllBuffers()
+    void VertexArray::attachMesh(Mesh* mesh)
     {
-        _indexBuffer = nullptr;
-        _arrayBuffers.clear();
+        _indexBuffer = mesh->getIndexBuffer();
+
+        ArrayBuffer* meshVertexBuffer = mesh->getVertexBuffer();
+        if (meshVertexBuffer != nullptr)
+        {
+            attachArrayBuffer(meshVertexBuffer, Vertex);
+        }
+        else
+        {
+            detachArrayBuffer(Vertex);
+        }
+
+        ArrayBuffer* meshUVBuffer = mesh->getUVBuffer();
+        if (meshUVBuffer != nullptr)
+        {
+            attachArrayBuffer(meshUVBuffer, UV);
+        }
+        else
+        {
+            detachArrayBuffer(UV);
+        }
     }
 
     void VertexArray::attachIndexBuffer(IndexBuffer* buffer)
@@ -70,11 +89,11 @@ namespace ImasiEngine
         {
             GL(glEnableVertexAttribArray(type));
 
-            buffer->bind();
+            ArrayBuffer::bind(buffer);
             {
                 GL(glVertexAttribPointer(type, buffer->getMembersPerComponent(), buffer->getGLComponentType(), false, 0, nullptr));
             }
-            buffer->unbind();
+            ArrayBuffer::unbind();
         }
         VertexArray::unbind();
 
@@ -97,17 +116,23 @@ namespace ImasiEngine
         _arrayBuffers.erase(type);
     }
 
+    void VertexArray::detachAllBuffers()
+    {
+        _indexBuffer = nullptr;
+        _arrayBuffers.clear();
+    }
+
     void VertexArray::render(GLenum drawMode)
     {
         if (_indexBuffer != nullptr)
         {
             VertexArray::bind(this);
             {
-                _indexBuffer->bind();
+                IndexBuffer::bind(_indexBuffer);
                 {
                     glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getMembersPerComponent(), _indexBuffer->getGLComponentType(), nullptr);
                 }
-                _indexBuffer->unbind();
+                IndexBuffer::unbind();
             }
             VertexArray::unbind();
         }

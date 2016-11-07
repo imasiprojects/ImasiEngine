@@ -30,6 +30,7 @@
     <ClCompile Include="Source\Graphics\Buffers\ArrayBuffer.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Source\Graphics\GLObject.cpp" />
+    <ClCompile Include="Source\Graphics\Mesh.cpp" />
     <ClCompile Include="Source\Graphics\Shaders\FragmentShader.cpp" />
     <ClCompile Include="Source\Graphics\Program.cpp" />
     <ClCompile Include="Source\Graphics\Textures\ColorTexture2D.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="Source\Graphics\Buffers\ArrayBuffer.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.hpp" />
     <ClInclude Include="Source\Graphics\GLObject.hpp" />
+    <ClInclude Include="Source\Graphics\Mesh.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\FragmentShader.hpp" />
     <ClInclude Include="Source\Graphics\Program.hpp" />
     <ClInclude Include="Source\Graphics\Textures\ColorTexture2D.hpp" />
