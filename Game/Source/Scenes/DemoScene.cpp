@@ -13,12 +13,16 @@ using namespace ImasiEngine;
 
 namespace Imasi
 {
-    DemoScene::DemoScene(GameContext* context) : Scene()
+    DemoScene::DemoScene(GameContext* context)
+        : Scene()
+        , _context(context)
+        , _vertexArray(new VertexArray())
+        , _program(new Program())
+        , _mesh(new Mesh())
+        , _texture(new ColorTexture2D())
+        , _material(new Material())
+        , _model(new Model())
     {
-        _context = context;
-
-        _program = new Program();
-
         // Example with pointers
         VertexShader vertexShader;
         vertexShader.compile(Shaders::vertexShader);
@@ -34,7 +38,6 @@ namespace Imasi
             return;
         }
 
-        _texture = new ColorTexture2D();
         if (!_texture->loadFromFile("texture.png"))
         {
             Logger::out << "Error loading Texture" << std::endl;
@@ -62,21 +65,24 @@ namespace Imasi
             0.f, 0.f,
         };
 
-        _mesh = new Mesh();
         _mesh->setIndexBuffer(IndexBuffer(indices, 2, 3));
         _mesh->setVertexBuffer(ArrayBuffer(vertices, 4, 3));
         _mesh->setUVBuffer(ArrayBuffer(uvs, 4, 2));
 
-        _vertexArray = new VertexArray();
-        _vertexArray->attachMesh(_mesh);
+        _material->setDiffuseMap(_texture);
+
+        _model->setMesh(_mesh);
+        _model->setMaterial(_material);
     }
 
     DemoScene::~DemoScene()
     {
-        delete _mesh;
         delete _vertexArray;
         delete _program;
+        delete _mesh;
         delete _texture;
+        delete _material;
+        delete _model;
     }
 
     void DemoScene::processWindowEvent(const sf::Event& event)
@@ -100,8 +106,9 @@ namespace Imasi
 
         BIND(Program, _program);
         {
-            BIND(Texture, _texture, 0);
+            BIND(Texture, _model->getMaterial()->getDiffuseMap(), 0);
             {
+                _vertexArray->attachMesh(_model->getMesh());
                 _vertexArray->render();
             }
             UNBIND(Texture, 0);

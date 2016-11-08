@@ -49,7 +49,9 @@
     <ClInclude Include="Source\Graphics\Buffers\ArrayBuffer.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.hpp" />
     <ClInclude Include="Source\Graphics\GLObject.hpp" />
+    <ClInclude Include="Source\Graphics\Material.hpp" />
     <ClInclude Include="Source\Graphics\Mesh.hpp" />
+    <ClInclude Include="Source\Graphics\Model.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\FragmentShader.hpp" />
     <ClInclude Include="Source\Graphics\Program.hpp" />
     <ClInclude Include="Source\Graphics\Textures\ColorTexture2D.hpp" />

@@ -38,5 +38,7 @@
     <ClInclude Include="Source\Graphics\Buffers\ArrayBuffer.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\ArrayBufferType.hpp" />
     <ClInclude Include="Source\Graphics\Mesh.hpp" />
+    <ClInclude Include="Source\Graphics\Material.hpp" />
+    <ClInclude Include="Source\Graphics\Model.hpp" />
   </ItemGroup>
 </Project>
