@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_BUFFER_HPP
+#define IMASIENGINE_BUFFER_HPP
 
 #include <iostream>
 
@@ -44,3 +45,5 @@ namespace ImasiEngine
         unsigned int getMembersPerComponent() const;
     };
 }
+
+#endif

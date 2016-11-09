@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_OPENGL_HPP
+#define IMASIENGINE_OPENGL_HPP
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -34,3 +35,5 @@ namespace ImasiEngine
         bool checkError(const char* file, const int line, const char* call = nullptr);
     }
 }
+
+#endif

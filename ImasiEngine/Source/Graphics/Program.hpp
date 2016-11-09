@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_PROGRAM_HPP
+#define IMASIENGINE_PROGRAM_HPP
 
 #include "Shaders/Shader.hpp"
 #include "GLObject.hpp"
@@ -37,3 +38,5 @@ namespace ImasiEngine
         void reset();
     };
 }
+
+#endif

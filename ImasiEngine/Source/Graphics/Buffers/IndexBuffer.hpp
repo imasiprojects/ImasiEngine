@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_INDEXBUFFER_HPP
+#define IMASIENGINE_INDEXBUFFER_HPP
 
 #include <GL/glew.h>
 
@@ -35,3 +36,5 @@ namespace ImasiEngine
         virtual ~IndexBuffer();
     };
 }
+
+#endif

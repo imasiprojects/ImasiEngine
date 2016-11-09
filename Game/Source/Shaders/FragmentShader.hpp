@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIGAME_FRAGMENTSHADER_HPP
+#define IMASIGAME_FRAGMENTSHADER_HPP
 
 namespace Shaders
 {
@@ -18,3 +19,5 @@ namespace Shaders
 
     )SHADER_END";
 }
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_GLOBJECT_HPP
+#define IMASIENGINE_GLOBJECT_HPP
 
 namespace ImasiEngine
 {
@@ -28,3 +29,5 @@ namespace ImasiEngine
         virtual bool isValidGLObject() const;
     };
 }
+
+#endif

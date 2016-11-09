@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIGAME_VERTEXSHADER_HPP
+#define IMASIGAME_VERTEXSHADER_HPP
 
 namespace Shaders
 {
@@ -19,3 +20,5 @@ namespace Shaders
 
     )SHADER_END";
 }
+
+#endif

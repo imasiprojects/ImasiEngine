@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_VERTEXSHADER_HPP
+#define IMASIENGINE_VERTEXSHADER_HPP
 
 #include "Shader.hpp"
 
@@ -19,3 +20,5 @@ namespace ImasiEngine
         virtual ~VertexShader();
     };
 }
+
+#endif

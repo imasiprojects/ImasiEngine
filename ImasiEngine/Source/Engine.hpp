@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_ENGINE_HPP
+#define IMASIENGINE_ENGINE_HPP
 
 #include "Engine/Window.hpp"
 #include "Engine/Scene.hpp"
@@ -29,3 +30,5 @@ namespace ImasiEngine
         void run();
     };
 }
+
+#endif
