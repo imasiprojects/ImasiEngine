@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_FRAGMENTSHADER_HPP
+#define IMASIENGINE_FRAGMENTSHADER_HPP
 
 #include "Shader.hpp"
 
@@ -19,3 +20,5 @@ namespace ImasiEngine
         virtual ~FragmentShader();
     };
 }
+
+#endif

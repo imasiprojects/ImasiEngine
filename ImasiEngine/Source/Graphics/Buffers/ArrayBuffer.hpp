@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_ARRAYBUFFER_HPP
+#define IMASIENGINE_ARRAYBUFFER_HPP
 
 #include <GL/glew.h>
 
@@ -39,3 +40,5 @@ namespace ImasiEngine
         virtual ~ArrayBuffer();
     };
 }
+
+#endif

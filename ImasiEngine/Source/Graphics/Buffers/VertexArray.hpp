@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_VERTEXARRAY_HPP
+#define IMASIENGINE_VERTEXARRAY_HPP
 
 #include <map>
 
@@ -46,3 +47,5 @@ namespace ImasiEngine
         void render(GLenum drawMode = GL_TRIANGLES);
     };
 }
+
+#endif

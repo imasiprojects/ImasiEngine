@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_SHADER_HPP
+#define IMASIENGINE_SHADER_HPP
 
 #include "../GLObject.hpp"
 
@@ -23,3 +24,5 @@ namespace ImasiEngine
         virtual bool compile(const char* sourceCode);
     };
 }
+
+#endif

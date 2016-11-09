@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_COLORTEXTURE2D_HPP
+#define IMASIENGINE_COLORTEXTURE2D_HPP
 
 #include "Texture.hpp"
 
@@ -26,3 +27,5 @@ namespace ImasiEngine
         bool loadFromFile(const char* fileName);
     };
 }
+
+#endif

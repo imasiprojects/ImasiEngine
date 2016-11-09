@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_MESH_HPP
+#define IMASIENGINE_MESH_HPP
 
 #include "Buffers/ArrayBuffer.hpp"
 #include "Buffers/IndexBuffer.hpp"
@@ -28,3 +29,5 @@ namespace ImasiEngine
         void setUVBuffer(ArrayBuffer&& uvBuffer);
     };
 }
+
+#endif

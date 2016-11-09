@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_ARRAYBUFFERTYPE_HPP
+#define IMASIENGINE_ARRAYBUFFERTYPE_HPP
 
 namespace ImasiEngine
 {
@@ -8,3 +9,5 @@ namespace ImasiEngine
         UV = 1,
     };
 }
+
+#endif

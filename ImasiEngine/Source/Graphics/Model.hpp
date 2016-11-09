@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_MODEL_HPP
+#define IMASIENGINE_MODEL_HPP
 
 #include "Mesh.hpp"
 #include "Material.hpp"
@@ -41,3 +42,5 @@ namespace ImasiEngine
         }
     };
 }
+
+#endif

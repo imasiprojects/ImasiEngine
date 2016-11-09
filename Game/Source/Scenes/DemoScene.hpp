@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIGAME_DEMOSCENE_HPP
+#define IMASIGAME_DEMOSCENE_HPP
 
 #include "../../../ImasiEngine/Source/Engine/Scene.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Mesh.hpp"
@@ -34,3 +35,5 @@ namespace Imasi
         void render() override;
     };
 }
+
+#endif

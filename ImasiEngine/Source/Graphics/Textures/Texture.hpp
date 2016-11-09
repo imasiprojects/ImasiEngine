@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_TEXTURE_HPP
+#define IMASIENGINE_TEXTURE_HPP
 
 #include <map>
 
@@ -28,3 +29,5 @@ namespace ImasiEngine
         virtual unsigned int getGLTextureType() const = 0;
     };
 }
+
+#endif

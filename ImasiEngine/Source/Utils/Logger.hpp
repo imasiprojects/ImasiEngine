@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_LOGGER_HPP
+#define IMASIENGINE_LOGGER_HPP
 
 #include <iostream>
 #include <fstream>
@@ -62,3 +63,5 @@ namespace ImasiEngine
         }
     };
 }
+
+#endif

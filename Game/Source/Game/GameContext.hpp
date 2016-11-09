@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIGAME_GAMECONTEXT_HPP
+#define IMASIGAME_GAMECONTEXT_HPP
 
 #include "SFML/Graphics/RenderWindow.hpp"
 
@@ -11,3 +12,5 @@ namespace Imasi
         sf::RenderWindow* window;
     };
 }
+
+#endif
