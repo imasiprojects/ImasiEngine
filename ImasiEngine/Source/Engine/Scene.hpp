@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_SCENE_HPP
+#define IMASIENGINE_SCENE_HPP
 
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
@@ -23,3 +24,4 @@ namespace ImasiEngine
         virtual void render() = 0;
     };
 }
+#endif

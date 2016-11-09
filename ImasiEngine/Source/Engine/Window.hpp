@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_WINDOW_HPP
+#define IMASIENGINE_WINDOW_HPP
 
 #include <SFML/Graphics.hpp>
 
@@ -18,3 +19,5 @@ namespace ImasiEngine
         void setFocus(bool focus);
     };
 }
+
+#endif
