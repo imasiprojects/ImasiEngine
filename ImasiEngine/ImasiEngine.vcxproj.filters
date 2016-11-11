@@ -40,5 +40,6 @@
     <ClInclude Include="Source\Graphics\Mesh.hpp" />
     <ClInclude Include="Source\Graphics\Material.hpp" />
     <ClInclude Include="Source\Graphics\Model.hpp" />
+    <ClInclude Include="Source\DeleteMe\MeshLoader.hpp" />
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@
 #include "../Shaders/FragmentShader.hpp"
 #include "../Shaders/VertexShader.hpp"
 #include "../../../ImasiEngine/Source/Utils/Opengl.hpp"
+#include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
 
 using namespace ImasiEngine;
 
@@ -18,7 +19,6 @@ namespace Imasi
         , _context(context)
         , _vertexArray(new VertexArray())
         , _program(new Program())
-        , _mesh(new Mesh())
         , _texture(new ColorTexture2D())
         , _material(new Material())
         , _model(new Model())
@@ -65,6 +65,14 @@ namespace Imasi
             0.f, 0.f,
         };
 
+        _mesh = loadMesh("mesh.obj");
+        if (_mesh == nullptr)
+        {
+            _context->window->close();
+            return;
+        }
+
+        _mesh = new Mesh();
         _mesh->setIndexBuffer(IndexBuffer(indices, 2, 3));
         _mesh->setVertexBuffer(ArrayBuffer(vertices, 4, 3));
         _mesh->setUVBuffer(ArrayBuffer(uvs, 4, 2));
