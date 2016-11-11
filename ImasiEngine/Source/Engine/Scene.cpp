@@ -15,11 +15,17 @@ namespace ImasiEngine
         _eventQueue.push(event);
     }
 
-    SceneEvent Scene::popEvent()
+    bool Scene::pollEvent(SceneEvent& event)
     {
-        SceneEvent event = _eventQueue.front();
-        _eventQueue.pop();
-        return event;
+        if (_eventQueue.size() > 0)
+        {
+            event = _eventQueue.front();
+            _eventQueue.pop();
+
+            return true;
+        }
+
+        return false;
     }
 
     void Scene::loop()

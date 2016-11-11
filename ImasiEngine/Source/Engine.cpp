@@ -82,13 +82,13 @@ namespace ImasiEngine
         {
             _scenes.back()->update();
 
+            processSceneEvents();
+
             for(Scene* scene : _scenes)
             {
                 scene->render();
             }
         }
-
-        processSceneEvents();
 
         GL_CHECK();
         _window->display();
