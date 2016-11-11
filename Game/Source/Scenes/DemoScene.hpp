@@ -30,6 +30,7 @@ namespace Imasi
         ~DemoScene();
 
         void processWindowEvent(const sf::Event& event) override;
+        void processEngineEvent(const ImasiEngine::EngineEvent& event) override;
 
         void update(const double deltaTime) override;
         void render() override;

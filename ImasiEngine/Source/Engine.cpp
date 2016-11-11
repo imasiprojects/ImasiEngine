@@ -10,13 +10,16 @@ namespace ImasiEngine
     Engine::Engine()
     {
         _window = nullptr;
-        _scene = nullptr;
     }
 
     Engine::~Engine()
     {
         delete _window;
-        delete _scene;
+
+        for(auto it : _scenes)
+        {
+            delete it;
+        }
     }
 
     void Engine::setupGlew()
@@ -75,10 +78,17 @@ namespace ImasiEngine
     {
         processWindowEvents();
 
-        if (_scene != nullptr && _window->isOpen())
+        if (_scenes.size() > 0 && _window->isOpen())
         {
-            _scene->loop();
+            _scenes.back()->update();
+
+            for(Scene* scene : _scenes)
+            {
+                scene->render();
+            }
         }
+
+        processSceneEvents();
 
         GL_CHECK();
         _window->display();
@@ -90,14 +100,14 @@ namespace ImasiEngine
         while (_window->pollEvent(windowEvent))
         {
             processWindowEvent(windowEvent);
-            if (_scene != nullptr)
+            if (_scenes.size() > 0)
             {
-                _scene->processWindowEvent(windowEvent);
+                _scenes.back()->processWindowEvent(windowEvent);
             }
         }
     }
 
-    void Engine::processWindowEvent(const sf::Event event)
+    void Engine::processWindowEvent(sf::Event event)
     {
         switch (event.type)
         {
@@ -132,15 +142,9 @@ namespace ImasiEngine
         }
     }
 
-    void Engine::setScene(Scene* scene)
+    void Engine::processSceneEvents()
     {
-        if(_scene != scene && _scene != nullptr)
-        {
-            delete _scene;
-            _scene = nullptr;
-        }
-
-        _scene = scene;
+        // TODO
     }
 
     void Engine::setupWindow(const std::string& title, const unsigned int style, const unsigned int width, const unsigned int height)
@@ -186,11 +190,18 @@ namespace ImasiEngine
         setupOpenGL();
     }
 
-    void Engine::run()
+    void Engine::run(Scene* scene)
     {
-        while (_window->isOpen())
+        _scenes.push_back(scene);
+        while (_window->isOpen() && _scenes.size() > 0)
         {
             loop();
         }
+
+        for(auto it : _scenes)
+        {
+            delete it;
+        }
+        _scenes.clear();
     }
 }

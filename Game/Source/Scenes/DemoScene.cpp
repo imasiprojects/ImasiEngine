@@ -65,12 +65,12 @@ namespace Imasi
             0.f, 0.f,
         };
 
-        _mesh = loadMesh("Resources/mesh.obj");
+        /*_mesh = loadMesh("Resources/mesh.obj");
         if (_mesh == nullptr)
         {
             _context->window->close();
             return;
-        }
+        }*/
 
         _mesh = new Mesh();
         _mesh->setIndexBuffer(IndexBuffer(indices, 2, 3));
@@ -102,6 +102,11 @@ namespace Imasi
                 _context->window->close();
             }
         }
+    }
+
+    void DemoScene::processEngineEvent(const ImasiEngine::EngineEvent& event)
+    {
+        // TODO
     }
 
     void DemoScene::update(const double deltaTime)

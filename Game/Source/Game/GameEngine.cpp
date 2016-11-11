@@ -10,12 +10,16 @@ namespace Imasi
 
         _context = new GameContext();
         _context->window = _window;
-
-        _scene = new DemoScene(_context);
     }
 
     GameEngine::~GameEngine()
     {
         delete _context;
+    }
+
+
+    void GameEngine::run()
+    {
+        Engine::run(new DemoScene(_context));
     }
 }
