@@ -16,9 +16,9 @@ namespace ImasiEngine
     {
         delete _window;
 
-        for(auto it : _scenes)
+        for(Scene* scene : _scenes)
         {
-            delete it;
+            delete scene;
         }
     }
 
@@ -198,9 +198,9 @@ namespace ImasiEngine
             loop();
         }
 
-        for(auto it : _scenes)
+        for(Scene* scene : _scenes)
         {
-            delete it;
+            delete scene;
         }
         _scenes.clear();
     }
