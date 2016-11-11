@@ -38,7 +38,7 @@ namespace Imasi
             return;
         }
 
-        if (!_texture->loadFromFile("texture.png"))
+        if (!_texture->loadFromFile("Resources/texture.png"))
         {
             Logger::out << "Error loading Texture" << std::endl;
         }
@@ -65,7 +65,7 @@ namespace Imasi
             0.f, 0.f,
         };
 
-        _mesh = loadMesh("mesh.obj");
+        _mesh = loadMesh("Resources/mesh.obj");
         if (_mesh == nullptr)
         {
             _context->window->close();

@@ -31,9 +31,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{445d6ced-f96b-41f0-984a-ff32b78c6ae1}</ProjectGuid>
-    <RootNamespace>ModelConverter</RootNamespace>
+    <RootNamespace>FormatConverter</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <ProjectName>ModelConverter</ProjectName>
+    <ProjectName>FormatConverter</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

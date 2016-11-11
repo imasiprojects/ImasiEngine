@@ -10,10 +10,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImasiEngine", "ImasiEngine\ImasiEngine.vcxproj", "{B6505002-09D2-4178-ADA0-B8B0429DA5B5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModelConverter", "ModelConverter\ModelConverter.vcxproj", "{445D6CED-F96B-41F0-984A-FF32B78C6AE1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FormatConverter", "FormatConverter\FormatConverter.vcxproj", "{445D6CED-F96B-41F0-984A-FF32B78C6AE1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B6505002-09D2-4178-ADA0-B8B0429DA5B5} = {B6505002-09D2-4178-ADA0-B8B0429DA5B5}
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{CD09C234-D63C-49D9-9D4A-7E96846B13CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,5 +45,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B6505002-09D2-4178-ADA0-B8B0429DA5B5} = {CD09C234-D63C-49D9-9D4A-7E96846B13CD}
+		{445D6CED-F96B-41F0-984A-FF32B78C6AE1} = {CD09C234-D63C-49D9-9D4A-7E96846B13CD}
 	EndGlobalSection
 EndGlobal
