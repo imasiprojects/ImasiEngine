@@ -40,12 +40,6 @@ namespace ImasiEngine
 
     bool Shader::compile(const char* sourceCode)
     {
-        static std::map<unsigned int, std::string> shaderNames
-        {
-            { GL_VERTEX_SHADER, "Vertex" },
-            { GL_FRAGMENT_SHADER, "Fragment" }
-        };
-
         if (Shader::isValidGLObject())
         {
             destroyGLObject();
@@ -76,6 +70,12 @@ namespace ImasiEngine
 
         #ifdef DEBUG
         {
+            static std::map<unsigned int, std::string> shaderNames
+            {
+                { GL_VERTEX_SHADER, "Vertex" },
+                { GL_FRAGMENT_SHADER, "Fragment" }
+            };
+
             Logger::out << shaderNames[getGLShaderType()] << " shader: " << (compilationSuccess ? "OK" : "ERROR") << std::endl;
         }
         #endif
