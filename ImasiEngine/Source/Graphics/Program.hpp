@@ -60,6 +60,7 @@ namespace ImasiEngine
         void setUniform(char* uniform, T value)
         {
             int uniformLocation = getUniformLocation(uniform);
+
             if (std::is_same<double, T>::value)
             {
                 GL(glUniform1d(uniformLocation, value));
