@@ -5,27 +5,13 @@
 
 namespace ImasiEngine
 {
-    class Material
+    struct Material
     {
-    private:
-
-        ColorTexture2D* _diffuseMap;
-
-    public:
+        ColorTexture2D* diffuseMap;
 
         Material()
-            : _diffuseMap(nullptr)
+            : diffuseMap(nullptr)
         {
-        }
-
-        ColorTexture2D* getDiffuseMap() const
-        {
-            return _diffuseMap;
-        }
-
-        void setDiffuseMap(ColorTexture2D* diffuseMap)
-        {
-            _diffuseMap = diffuseMap;
         }
     };
 }

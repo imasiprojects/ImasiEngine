@@ -77,10 +77,10 @@ namespace Imasi
         _mesh->setVertexBuffer(ArrayBuffer(vertices, 4, 3));
         _mesh->setUVBuffer(ArrayBuffer(uvs, 4, 2));
 
-        _material->setDiffuseMap(_texture);
+        _material->diffuseMap = _texture;
 
-        _model->setMesh(_mesh);
-        _model->setMaterial(_material);
+        _model->mesh = _mesh;
+        _model->material = _material;
     }
 
     DemoScene::~DemoScene()
@@ -114,9 +114,9 @@ namespace Imasi
 
         BIND(Program, _program);
         {
-            BIND(Texture, _model->getMaterial()->getDiffuseMap(), 0);
+            BIND(Texture, _model->material->diffuseMap, 0);
             {
-                _vertexArray->attachMesh(_model->getMesh());
+                _vertexArray->attachMesh(_model->mesh);
                 _vertexArray->render();
             }
             UNBIND(Texture, 0);
