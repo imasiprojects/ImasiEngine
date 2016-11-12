@@ -24,7 +24,10 @@ namespace ImasiEngine
         virtual void processWindowEvent(sf::Event event);
 
         virtual void processSceneEvents();
-        virtual void processSceneEvent(EngineEvent event);
+        virtual void processSceneEvent(SceneEvent event);
+
+        void pushScene(Scene* scene);
+        void popScene();
 
     public:
 

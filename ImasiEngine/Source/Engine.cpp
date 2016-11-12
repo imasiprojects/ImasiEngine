@@ -144,12 +144,60 @@ namespace ImasiEngine
 
     void Engine::processSceneEvents()
     {
-        // TODO
+        SceneEvent event;
+        while(_scenes.size() > 0 && _scenes.back()->pollEvent(event))
+        {
+            processSceneEvent(event);
+        }
     }
 
-    void Engine::processSceneEvent(EngineEvent event)
+    void Engine::processSceneEvent(SceneEvent event)
     {
-        // TODO
+        switch(event.type)
+        {
+            case NewScene:
+            {
+                pushScene(event.newScene);
+                break;
+            }
+
+            case End:
+            {
+                popScene();
+                break;
+            }
+
+            default:
+            {
+                break;
+            }
+        }
+    }
+
+    void Engine::pushScene(Scene* scene)
+    {
+        _scenes.push_back(scene);
+
+        EngineEvent event;
+        event.type = Start;
+
+        scene->processEngineEvent(event);
+    }
+
+    void Engine::popScene()
+    {
+        if (_scenes.size() > 0)
+        {
+            Scene* scene = _scenes.back();
+            _scenes.pop_back();
+
+            EngineEvent event;
+            event.endedChild = scene;
+
+            _scenes.back()->processEngineEvent(event);
+
+            delete scene;
+        }
     }
 
     void Engine::setupWindow(const std::string& title, const unsigned int style, const unsigned int width, const unsigned int height)
@@ -197,7 +245,7 @@ namespace ImasiEngine
 
     void Engine::run(Scene* scene)
     {
-        _scenes.push_back(scene);
+        pushScene(scene);
         while (_window->isOpen() && _scenes.size() > 0)
         {
             loop();
