@@ -63,31 +63,34 @@ namespace ImasiEngine
 
             if (std::is_same<double, T>::value)
             {
-                GL(glUniform1d(uniformLocation, value));
+                GL(glUniform1d(uniformLocation, *reinterpret_cast<double*>(&value)));
             }
             else if (std::is_same<float, T>::value)
             {
-                GL(glUniform1f(uniformLocation, value));
+                GL(glUniform1f(uniformLocation, *reinterpret_cast<float*>(&value)));
             }
             else if (std::is_same<int, T>::value)
             {
-                GL(glUniform1i(uniformLocation, value));
+                GL(glUniform1i(uniformLocation, *reinterpret_cast<int*>(&value)));
             }
             else if (std::is_same<unsigned int, T>::value)
             {
-                GL(glUniform1ui(uniformLocation, value));
+                GL(glUniform1ui(uniformLocation, *reinterpret_cast<unsigned int*>(&value)));
             }
             else if (std::is_same<glm::vec2, T>::value)
             {
-                GL(glUniform2d(uniformLocation, ((glm::vec2)value).x, ((glm::vec2)value).y));
+                const glm::vec2& v2 = *reinterpret_cast<glm::vec2*>(&value);
+                GL(glUniform2d(uniformLocation, v2.x, v2.y));
             }
             else if (std::is_same<glm::vec3, T>::value)
             {
-                GL(glUniform3d(uniformLocation, ((glm::vec3)value).x, ((glm::vec3)value).y, ((glm::vec3)value).z));
+                const glm::vec3& v3 = *reinterpret_cast<glm::vec3*>(&value);
+                GL(glUniform3d(uniformLocation, v3.x, v3.y, v3.z));
             }
             else if (std::is_same<glm::vec4, T>::value)
             {
-                GL(glUniform4d(uniformLocation, ((glm::vec4)value).x, ((glm::vec4)value).y, ((glm::vec4)value).z, ((glm::vec4)value).w));
+                const glm::vec4& v4 = *reinterpret_cast<glm::vec4*>(&value);
+                GL(glUniform4d(uniformLocation, v4.x, v4.y, v4.z, v4.w));
             }
         }
     };
