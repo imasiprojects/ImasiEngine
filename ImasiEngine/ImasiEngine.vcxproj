@@ -27,8 +27,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Engine\SceneEvent.cpp" />
-    <ClCompile Include="Source\Engine\EngineEvent.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\ArrayBuffer.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Source\Graphics\GLObject.cpp" />

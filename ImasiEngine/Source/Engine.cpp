@@ -147,6 +147,11 @@ namespace ImasiEngine
         // TODO
     }
 
+    void Engine::processSceneEvent(EngineEvent event)
+    {
+        // TODO
+    }
+
     void Engine::setupWindow(const std::string& title, const unsigned int style, const unsigned int width, const unsigned int height)
     {
         Logger::out << "Creating context..." << std::endl << std::endl;

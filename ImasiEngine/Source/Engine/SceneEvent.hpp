@@ -3,9 +3,22 @@
 
 namespace ImasiEngine
 {
-    class SceneEvent
+    class Scene;
+
+    enum SceneEventType
     {
-        // TODO
+        NewScene,
+        End
+    };
+
+    struct SceneEvent
+    {
+        SceneEventType type;
+
+        union
+        {
+            Scene* newScene;
+        };
     };
 }
 

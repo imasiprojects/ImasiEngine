@@ -18,8 +18,6 @@
     <ClCompile Include="Source\Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\ArrayBuffer.cpp" />
     <ClCompile Include="Source\Graphics\Mesh.cpp" />
-    <ClCompile Include="Source\Engine\EngineEvent.cpp" />
-    <ClCompile Include="Source\Engine\SceneEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\Logger.hpp" />
