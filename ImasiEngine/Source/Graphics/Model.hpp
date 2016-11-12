@@ -6,39 +6,15 @@
 
 namespace ImasiEngine
 {
-    class Model
+    struct Model
     {
-    private:
-
-        Mesh* _mesh;
-        Material* _material;
-
-    public:
+        Mesh* mesh;
+        Material* material;
 
         Model()
-            : _mesh(nullptr)
-            , _material(nullptr)
+            : mesh(nullptr)
+            , material(nullptr)
         {
-        }
-
-        Mesh* getMesh() const
-        {
-            return _mesh;
-        }
-
-        void setMesh(Mesh* mesh)
-        {
-            _mesh = mesh;
-        }
-
-        Material* getMaterial() const
-        {
-            return _material;
-        }
-
-        void setMaterial(Material* material)
-        {
-            _material = material;
         }
     };
 }
