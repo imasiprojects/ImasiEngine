@@ -38,6 +38,14 @@ namespace Imasi
             return;
         }
 
+        _program->setUniform("asdasd", 2.f);
+        _program->setUniform("asdasd", 3.11);
+        _program->setUniform("asdasd", 3);
+        _program->setUniform("asdasd", 3u);
+        _program->setUniform("asdasd", glm::vec2(2.f, 6.f));
+        _program->setUniform("asdasd", glm::vec3(2.f, 6.f, 3.f));
+        _program->setUniform("asdasd", glm::vec4(2.f, 6.f, 3.f, 67.f));
+
         if (!_texture->loadFromFile("Resources/texture.png"))
         {
             Logger::out << "Error loading Texture" << std::endl;
