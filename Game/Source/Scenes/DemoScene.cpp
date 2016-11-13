@@ -23,12 +23,7 @@ namespace Imasi
         , _material(new Material())
         , _model(new Model())
     {
-        // Example with pointers
-        VertexShader vertexShader;
-        vertexShader.compile(Shaders::vertexShader);
-        _program->attach(vertexShader);
-
-        // Example without pointers
+        _program->attach(VertexShader(Shaders::vertexShader));
         _program->attach(FragmentShader(Shaders::fragmentShader));
 
         if (!_program->link())
@@ -65,13 +60,6 @@ namespace Imasi
             0.f, 0.f,
         };
 
-        /*_mesh = loadMesh("Resources/mesh.obj");
-        if (_mesh == nullptr)
-        {
-            _context->window->close();
-            return;
-        }*/
-
         _mesh = new Mesh();
         _mesh->setIndexBuffer(IndexBuffer(indices, 2, 3));
         _mesh->setVertexBuffer(ArrayBuffer(vertices, 4, 3));
@@ -99,14 +87,15 @@ namespace Imasi
         {
             if (event.key.code == sf::Keyboard::Escape)
             {
-                _context->window->close();
+                SceneEvent sceneEvent;
+                sceneEvent.type = End;
+                pushEvent(sceneEvent);
             }
         }
     }
 
     void DemoScene::processEngineEvent(const ImasiEngine::EngineEvent& event)
     {
-        // TODO
     }
 
     void DemoScene::update(const double deltaTime)
