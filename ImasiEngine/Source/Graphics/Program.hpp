@@ -3,12 +3,12 @@
 
 #include <iostream>
 
+#include <glm/glm.hpp>
+#include <GL/glew.h>
+
 #include "Shaders/Shader.hpp"
 #include "GLObject.hpp"
-
-#include <glm/glm.hpp>
 #include "../Utils/Logger.hpp"
-#include <GL/glew.h>
 #include "../Utils/Opengl.hpp"
 
 namespace ImasiEngine
@@ -59,6 +59,12 @@ namespace ImasiEngine
         >
         void setUniform(char* uniform, T value)
         {
+            if (!_isLinked)
+            {
+                Logger::out << "Error: Trying to set uniform on unlinked Program!" << std::endl;
+                return;
+            }
+
             int uniformLocation = getUniformLocation(uniform);
 
             if (std::is_same<double, T>::value)
