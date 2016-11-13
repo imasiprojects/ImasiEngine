@@ -54,11 +54,6 @@ namespace ImasiEngine
         return _isLinked;
     }
 
-    bool Program::invalidAttachPerformed() const
-    {
-        return _invalidAttachPerformed;
-    }
-
     void Program::attach(const Shader& shader)
     {
         if (!_isLinked && !_invalidAttachPerformed)
@@ -130,5 +125,10 @@ namespace ImasiEngine
 
         _isLinked = false;
         _invalidAttachPerformed = false;
+    }
+
+    int Program::getUniformLocation(char* uniform) const
+    {
+        return glGetUniformLocation(getGLObjectId(), uniform);
     }
 }
