@@ -47,7 +47,9 @@
     <ClCompile Include="Source\Graphics\Shaders\VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Engine\SceneEvent.hpp" />
     <ClInclude Include="Source\DeleteMe\MeshLoader.hpp" />
+    <ClInclude Include="Source\Engine\EngineEvent.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\ArrayBuffer.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.hpp" />
     <ClInclude Include="Source\Graphics\Entity.hpp" />

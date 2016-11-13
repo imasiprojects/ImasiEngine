@@ -16,6 +16,8 @@ namespace Imasi
 
         GameEngine();
         ~GameEngine();
+
+        void run();
     };
 }
 

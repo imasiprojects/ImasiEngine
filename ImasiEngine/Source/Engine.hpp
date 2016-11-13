@@ -1,6 +1,8 @@
 #ifndef IMASIENGINE_ENGINE_HPP
 #define IMASIENGINE_ENGINE_HPP
 
+#include <list>
+
 #include "Engine/Window.hpp"
 #include "Engine/Scene.hpp"
 
@@ -8,10 +10,15 @@ namespace ImasiEngine
 {
     class Engine
     {
+    private:
+
+        void pushScene(Scene* scene);
+        void popScene();
+
     protected:
 
         Window* _window;
-        Scene* _scene;
+        std::list<Scene*> _scenes;
 
         void setupWindow(const std::string& title, const unsigned int style = sf::Style::Close, const unsigned int width = 800, const unsigned int height = 600);
         virtual void setupGlew();
@@ -19,15 +26,17 @@ namespace ImasiEngine
 
         virtual void loop();
         virtual void processWindowEvents();
-        virtual void processWindowEvent(const sf::Event event);
+        virtual void processWindowEvent(sf::Event event);
+
+        virtual void processSceneEvents();
+        virtual void processSceneEvent(SceneEvent event);
 
     public:
 
         Engine();
         virtual ~Engine();
 
-        void setScene(Scene* scene);
-        void run();
+        void run(Scene* newScene);
     };
 }
 

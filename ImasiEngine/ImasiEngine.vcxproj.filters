@@ -43,5 +43,7 @@
     <ClInclude Include="Source\Graphics\Model.hpp" />
     <ClInclude Include="Source\DeleteMe\MeshLoader.hpp" />
     <ClInclude Include="Source\Graphics\Entity.hpp" />
+    <ClInclude Include="Source\Engine\EngineEvent.hpp" />
+    <ClInclude Include="Source\Engine\SceneEvent.hpp" />
   </ItemGroup>
 </Project>

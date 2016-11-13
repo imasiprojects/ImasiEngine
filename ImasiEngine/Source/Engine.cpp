@@ -10,13 +10,16 @@ namespace ImasiEngine
     Engine::Engine()
     {
         _window = nullptr;
-        _scene = nullptr;
     }
 
     Engine::~Engine()
     {
         delete _window;
-        delete _scene;
+
+        for(Scene* scene : _scenes)
+        {
+            delete scene;
+        }
     }
 
     void Engine::setupGlew()
@@ -75,9 +78,16 @@ namespace ImasiEngine
     {
         processWindowEvents();
 
-        if (_scene != nullptr && _window->isOpen())
+        if (_scenes.size() > 0 && _window->isOpen())
         {
-            _scene->loop();
+            _scenes.back()->update();
+
+            processSceneEvents();
+
+            for(Scene* scene : _scenes)
+            {
+                scene->render();
+            }
         }
 
         GL_CHECK();
@@ -90,14 +100,14 @@ namespace ImasiEngine
         while (_window->pollEvent(windowEvent))
         {
             processWindowEvent(windowEvent);
-            if (_scene != nullptr)
+            if (_scenes.size() > 0)
             {
-                _scene->processWindowEvent(windowEvent);
+                _scenes.back()->processWindowEvent(windowEvent);
             }
         }
     }
 
-    void Engine::processWindowEvent(const sf::Event event)
+    void Engine::processWindowEvent(sf::Event event)
     {
         switch (event.type)
         {
@@ -132,15 +142,66 @@ namespace ImasiEngine
         }
     }
 
-    void Engine::setScene(Scene* scene)
+    void Engine::processSceneEvents()
     {
-        if(_scene != scene && _scene != nullptr)
+        SceneEvent event;
+        while(_scenes.size() > 0 && _scenes.back()->pollEvent(event))
         {
-            delete _scene;
-            _scene = nullptr;
+            processSceneEvent(event);
         }
+    }
 
-        _scene = scene;
+    void Engine::processSceneEvent(SceneEvent event)
+    {
+        switch(event.type)
+        {
+            case NewScene:
+            {
+                pushScene(event.newScene);
+                break;
+            }
+
+            case End:
+            {
+                popScene();
+                break;
+            }
+
+            default:
+            {
+                break;
+            }
+        }
+    }
+
+    void Engine::pushScene(Scene* scene)
+    {
+        _scenes.push_back(scene);
+        scene->setActive();
+
+        EngineEvent event;
+        event.type = Start;
+
+        scene->processEngineEvent(event);
+    }
+
+    void Engine::popScene()
+    {
+        if (_scenes.size() > 0)
+        {
+            Scene* scene = _scenes.back();
+            _scenes.pop_back();
+
+            if (_scenes.size() > 0)
+            {
+                EngineEvent event;
+                event.endedChild = scene;
+
+                _scenes.back()->processEngineEvent(event);
+            }
+
+            delete scene;
+        }
     }
 
     void Engine::setupWindow(const std::string& title, const unsigned int style, const unsigned int width, const unsigned int height)
@@ -186,11 +247,18 @@ namespace ImasiEngine
         setupOpenGL();
     }
 
-    void Engine::run()
+    void Engine::run(Scene* newScene)
     {
-        while (_window->isOpen())
+        pushScene(newScene);
+        while (_window->isOpen() && _scenes.size() > 0)
         {
             loop();
         }
+
+        for(Scene* scene : _scenes)
+        {
+            delete scene;
+        }
+        _scenes.clear();
     }
 }
