@@ -177,6 +177,7 @@ namespace ImasiEngine
     void Engine::pushScene(Scene* scene)
     {
         _scenes.push_back(scene);
+        scene->setActive();
 
         EngineEvent event;
         event.type = Start;
@@ -243,9 +244,9 @@ namespace ImasiEngine
         setupOpenGL();
     }
 
-    void Engine::run(Scene* scene)
+    void Engine::run(Scene* newScene)
     {
-        pushScene(scene);
+        pushScene(newScene);
         while (_window->isOpen() && _scenes.size() > 0)
         {
             loop();

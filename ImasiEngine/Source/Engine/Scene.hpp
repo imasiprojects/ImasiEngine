@@ -13,6 +13,10 @@ namespace ImasiEngine
 
     class Scene
     {
+    private:
+
+        bool _isActive;
+
     protected:
 
         sf::Clock _sceneClock, _frameClock;
@@ -34,6 +38,9 @@ namespace ImasiEngine
         virtual void update();
         virtual void update(const double deltaTime) = 0;
         virtual void render() = 0;
+
+        bool isActive() const;
+        void setActive(bool isActive = true);
     };
 }
 #endif

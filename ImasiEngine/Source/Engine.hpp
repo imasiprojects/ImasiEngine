@@ -34,7 +34,7 @@ namespace ImasiEngine
         Engine();
         virtual ~Engine();
 
-        void run(Scene* scene);
+        void run(Scene* newScene);
     };
 }
 

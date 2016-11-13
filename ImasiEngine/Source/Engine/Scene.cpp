@@ -3,6 +3,7 @@
 namespace ImasiEngine
 {
     Scene::Scene()
+        : _isActive(false)
     {
     }
 
@@ -37,5 +38,15 @@ namespace ImasiEngine
     void Scene::update()
     {
         update(_frameClock.restart().asSeconds());
+    }
+
+    bool Scene::isActive() const
+    {
+        return _isActive;
+    }
+
+    void Scene::setActive(bool isActive)
+    {
+        _isActive = isActive;
     }
 }
