@@ -4,12 +4,10 @@
 
 namespace Imasi
 {
-    GameEngine::GameEngine() : Engine()
+    GameEngine::GameEngine()
+        : Engine()
     {
-        setupWindow("Woo");
-
         _context = new GameContext();
-        _context->window = _window;
     }
 
     GameEngine::~GameEngine()
@@ -20,6 +18,10 @@ namespace Imasi
 
     void GameEngine::run()
     {
+        setupWindow("Woo");
+        _context->window = _window;
+
         Engine::run(new DemoScene(_context));
+        _context->window->close();
     }
 }

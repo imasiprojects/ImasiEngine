@@ -192,10 +192,13 @@ namespace ImasiEngine
             Scene* scene = _scenes.back();
             _scenes.pop_back();
 
-            EngineEvent event;
-            event.endedChild = scene;
+            if (_scenes.size() > 0)
+            {
+                EngineEvent event;
+                event.endedChild = scene;
 
-            _scenes.back()->processEngineEvent(event);
+                _scenes.back()->processEngineEvent(event);
+            }
 
             delete scene;
         }

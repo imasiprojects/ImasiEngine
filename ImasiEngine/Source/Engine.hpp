@@ -10,6 +10,11 @@ namespace ImasiEngine
 {
     class Engine
     {
+    private:
+
+        void pushScene(Scene* scene);
+        void popScene();
+
     protected:
 
         Window* _window;
@@ -25,9 +30,6 @@ namespace ImasiEngine
 
         virtual void processSceneEvents();
         virtual void processSceneEvent(SceneEvent event);
-
-        void pushScene(Scene* scene);
-        void popScene();
 
     public:
 
