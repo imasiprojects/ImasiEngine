@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>
 
 #include "Shaders/Shader.hpp"
@@ -69,34 +70,35 @@ namespace ImasiEngine
 
             if (std::is_same<double, T>::value)
             {
-                GL(glUniform1d(uniformLocation, *reinterpret_cast<double*>(&value)));
+                GL(glUniform1dv(uniformLocation, 1, reinterpret_cast<double*>(&value)));
             }
             else if (std::is_same<float, T>::value)
             {
-                GL(glUniform1f(uniformLocation, *reinterpret_cast<float*>(&value)));
+                GL(glUniform1fv(uniformLocation, 1, reinterpret_cast<float*>(&value)));
             }
             else if (std::is_same<int, T>::value)
             {
-                GL(glUniform1i(uniformLocation, *reinterpret_cast<int*>(&value)));
+                GL(glUniform1iv(uniformLocation, 1, reinterpret_cast<int*>(&value)));
             }
             else if (std::is_same<unsigned int, T>::value)
             {
-                GL(glUniform1ui(uniformLocation, *reinterpret_cast<unsigned int*>(&value)));
+                GL(glUniform1uiv(uniformLocation, 1, reinterpret_cast<unsigned int*>(&value)));
             }
             else if (std::is_same<glm::vec2, T>::value)
             {
-                const glm::vec2& vec = *reinterpret_cast<glm::vec2*>(&value);
-                GL(glUniform2f(uniformLocation, vec.x, vec.y));
+                GL(glUniform2fv(uniformLocation, 1, glm::value_ptr(*reinterpret_cast<glm::vec2*>(&value))));
             }
             else if (std::is_same<glm::vec3, T>::value)
             {
-                const glm::vec3& vec = *reinterpret_cast<glm::vec3*>(&value);
-                GL(glUniform3f(uniformLocation, vec.x, vec.y, vec.z));
+                GL(glUniform3fv(uniformLocation, 1, glm::value_ptr(*reinterpret_cast<glm::vec3*>(&value))));
             }
             else if (std::is_same<glm::vec4, T>::value)
             {
-                const glm::vec4& vec = *reinterpret_cast<glm::vec4*>(&value);
-                GL(glUniform4f(uniformLocation, vec.x, vec.y, vec.z, vec.w));
+                GL(glUniform4fv(uniformLocation, 1, glm::value_ptr(*reinterpret_cast<glm::vec4*>(&value))));
+            }
+            else if (std::is_same<glm::mat4, T>::value)
+            {
+                GL(glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(*reinterpret_cast<glm::mat4*>(&value))));
             }
         }
     };
