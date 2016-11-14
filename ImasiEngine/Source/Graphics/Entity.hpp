@@ -18,9 +18,9 @@ namespace ImasiEngine
         glm::vec3 _rotation;
         glm::vec3 _scale;
 
-        Model* _model;
-
     public:
+
+        Model* model;
 
         Entity();
         virtual ~Entity();
