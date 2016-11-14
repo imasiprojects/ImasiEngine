@@ -9,6 +9,7 @@
 #include "../Shaders/VertexShader.hpp"
 #include "../../../ImasiEngine/Source/Utils/Opengl.hpp"
 #include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
+#include <glm/gtc/matrix_transform.inl>
 
 using namespace ImasiEngine;
 
@@ -22,7 +23,22 @@ namespace Imasi
         , _texture(new ColorTexture2D())
         , _material(new Material())
         , _model(new Model())
+        , _entity(new Entity())
     {
+        // TEST
+        {
+            GL(GL(glDisable(GL_CULL_FACE)));
+
+            glm::mat4 P = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
+            glm::mat4 V = glm::lookAt(
+                glm::vec3(4, 3, 3), // Camera is at (4,3,3), in World Space
+                glm::vec3(0, 0, 0), // and looks at the origin
+                glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
+            );
+
+            _VP = P * V;
+        }
+
         _program->attach(VertexShader(Shaders::vertexShader));
         _program->attach(FragmentShader(Shaders::fragmentShader));
 
@@ -69,6 +85,9 @@ namespace Imasi
 
         _model->mesh = _mesh;
         _model->material = _material;
+
+        _entity->setPosition(glm::vec3(0, -1, 0));
+        _entity->model = _model;
     }
 
     DemoScene::~DemoScene()
@@ -79,6 +98,7 @@ namespace Imasi
         delete _texture;
         delete _material;
         delete _model;
+        delete _entity;
     }
 
     void DemoScene::processWindowEvent(const sf::Event& event)
@@ -100,6 +120,8 @@ namespace Imasi
 
     void DemoScene::update(const double deltaTime)
     {
+        _entity->setPosition(_entity->getPosition() + glm::vec3(0, 0.2 * deltaTime, 0));
+        _entity->setRotation(_entity->getRotation() + glm::vec3(0.4 * deltaTime, 0.8 * deltaTime, 1.6 * deltaTime));
     }
 
     void DemoScene::render()
@@ -108,9 +130,11 @@ namespace Imasi
 
         BIND(Program, _program);
         {
-            BIND(Texture, _model->material->diffuseMap, 0);
+            _program->setUniform("MVP", _VP * _entity->getModelMatrix());
+
+            BIND(Texture, _entity->model->material->diffuseMap, 0);
             {
-                _vertexArray->attachMesh(_model->mesh);
+                _vertexArray->attachMesh(_entity->model->mesh);
                 _vertexArray->render();
             }
             UNBIND(Texture, 0);

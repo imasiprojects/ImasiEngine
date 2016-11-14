@@ -10,7 +10,7 @@ namespace ImasiEngine
         , _position(glm::vec3(0.f, 0.f, 0.f))
         , _rotation(glm::vec3(0.f, 0.f, 0.f))
         , _scale(glm::vec3(1.f, 1.f, 1.f))
-        , _model(nullptr)
+        , model(nullptr)
     {
     }
 
