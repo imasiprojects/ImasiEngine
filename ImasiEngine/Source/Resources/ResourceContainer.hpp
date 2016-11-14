@@ -28,11 +28,36 @@ namespace ImasiEngine
         ~ResourceContainer();
 
         // ReSharper disable once CppFunctionIsNotImplemented
-        template<typename T>
+        template<typename T,
+            typename = typename std::enable_if<
+            std::is_same<Mesh, T>::value
+            || std::is_same<ColorTexture2D, T>::value
+            || std::is_same<Material, T>::value
+            || std::is_same<Model, T>::value
+            >::type
+        >
         bool load(std::string key, std::string fileName);
 
         // ReSharper disable once CppFunctionIsNotImplemented
-        template<typename T>
+        template<typename T,
+            typename = typename std::enable_if<
+            std::is_same<Mesh, T>::value
+            || std::is_same<ColorTexture2D, T>::value
+            || std::is_same<Material, T>::value
+            || std::is_same<Model, T>::value
+            >::type
+        >
+        void add(std::string key, T&& value);
+
+        // ReSharper disable once CppFunctionIsNotImplemented
+        template<typename T,
+            typename = typename std::enable_if<
+                std::is_same<Mesh, T>::value
+                || std::is_same<ColorTexture2D, T>::value
+                || std::is_same<Material, T>::value
+                || std::is_same<Model, T>::value
+            >::type
+        >
         T* get(std::string key);
     };
 }
