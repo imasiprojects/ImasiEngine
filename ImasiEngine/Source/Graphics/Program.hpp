@@ -48,8 +48,7 @@ namespace ImasiEngine
 
         template<typename T,
             typename = typename std::enable_if<
-                std::is_same<double, T>::value
-                || std::is_same<float, T>::value
+                std::is_same<float, T>::value
                 || std::is_same<int, T>::value
                 || std::is_same<unsigned int, T>::value
                 || std::is_same<glm::vec2, T>::value
@@ -70,52 +69,47 @@ namespace ImasiEngine
 
             int uniformLocation = getUniformLocation(uniform);
 
-            if (std::is_same<double, T>::value)
+            if (std::is_same<float, T>::value)
             {
-                GL(glUniform1dv(uniformLocation, 1, reinterpret_cast<double*>(&value)));
-            }
-            else if (std::is_same<float, T>::value)
-            {
-                GL(glUniform1fv(uniformLocation, 1, reinterpret_cast<float*>(&value)));
+                GL(glUniform1fv(uniformLocation, 1, reinterpret_cast<const float*>(&value)));
             }
             else if (std::is_same<int, T>::value)
             {
-                GL(glUniform1iv(uniformLocation, 1, reinterpret_cast<int*>(&value)));
+                GL(glUniform1iv(uniformLocation, 1, reinterpret_cast<const int*>(&value)));
             }
             else if (std::is_same<unsigned int, T>::value)
             {
-                GL(glUniform1uiv(uniformLocation, 1, reinterpret_cast<unsigned int*>(&value)));
+                GL(glUniform1uiv(uniformLocation, 1, reinterpret_cast<const unsigned int*>(&value)));
             }
             else if (std::is_same<glm::vec2, T>::value)
             {
-                GL(glUniform2fv(uniformLocation, 1, reinterpret_cast<glm::vec2*>(&value)));
+                GL(glUniform2fv(uniformLocation, 1, reinterpret_cast<const float*>(&value)));
             }
             else if (std::is_same<glm::vec3, T>::value)
             {
-                GL(glUniform3fv(uniformLocation, 1, reinterpret_cast<glm::vec3*>(&value)));
+                GL(glUniform3fv(uniformLocation, 1, reinterpret_cast<const float*>(&value)));
             }
             else if (std::is_same<glm::vec4, T>::value)
             {
-                GL(glUniform4fv(uniformLocation, 1, reinterpret_cast<glm::vec4*>(&value)));
+                GL(glUniform4fv(uniformLocation, 1, reinterpret_cast<const float*>(&value)));
             }
             else if (std::is_same<glm::mat2, T>::value)
             {
-                GL(glUniformMatrix2fv(uniformLocation, 1, GL_FALSE, reinterpret_cast<glm::mat2*>(&value)));
+                GL(glUniformMatrix2fv(uniformLocation, 1, GL_FALSE, reinterpret_cast<const float*>(&value)));
             }
             else if (std::is_same<glm::mat3, T>::value)
             {
-                GL(glUniformMatrix3fv(uniformLocation, 1, GL_FALSE, reinterpret_cast<glm::mat3*>(&value)));
+                GL(glUniformMatrix3fv(uniformLocation, 1, GL_FALSE, reinterpret_cast<const float*>(&value)));
             }
             else if (std::is_same<glm::mat4, T>::value)
             {
-                GL(glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, reinterpret_cast<glm::mat4*>(&value)));
+                GL(glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, reinterpret_cast<const float*>(&value)));
             }
         }
 
         template<typename T,
             typename = typename std::enable_if<
-                std::is_same<double, T>::value
-                || std::is_same<float, T>::value
+                std::is_same<float, T>::value
                 || std::is_same<int, T>::value
                 || std::is_same<unsigned int, T>::value
                 || std::is_same<glm::vec2, T>::value
@@ -136,45 +130,41 @@ namespace ImasiEngine
 
             int uniformLocation = getUniformLocation(uniform);
 
-            if (std::is_same<double, T>::value)
+            if (std::is_same<float, T>::value)
             {
-                GL(glUniform1dv(uniformLocation, values.size(), reinterpret_cast<double*>(values.data())));
-            }
-            else if (std::is_same<float, T>::value)
-            {
-                GL(glUniform1fv(uniformLocation, values.size(), reinterpret_cast<float*>(values.data())));
+                GL(glUniform1fv(uniformLocation, (int)values.size(), reinterpret_cast<const float*>(values.data())));
             }
             else if (std::is_same<int, T>::value)
             {
-                GL(glUniform1iv(uniformLocation, values.size(), reinterpret_cast<int*>(values.data())));
+                GL(glUniform1iv(uniformLocation, (int)values.size(), reinterpret_cast<const int*>(values.data())));
             }
             else if (std::is_same<unsigned int, T>::value)
             {
-                GL(glUniform1uiv(uniformLocation, values.size(), reinterpret_cast<unsigned int*>(values.data())));
+                GL(glUniform1uiv(uniformLocation, (int)values.size(), reinterpret_cast<const unsigned int*>(values.data())));
             }
             else if (std::is_same<glm::vec2, T>::value)
             {
-                GL(glUniform2fv(uniformLocation, values.size(), reinterpret_cast<glm::vec2*>(values.data())));
+                GL(glUniform2fv(uniformLocation, (int)values.size(), reinterpret_cast<const float*>(values.data())));
             }
             else if (std::is_same<glm::vec3, T>::value)
             {
-                GL(glUniform3fv(uniformLocation, values.size(), reinterpret_cast<glm::vec3*>(values.data())));
+                GL(glUniform3fv(uniformLocation, (int)values.size(), reinterpret_cast<const float*>(values.data())));
             }
             else if (std::is_same<glm::vec4, T>::value)
             {
-                GL(glUniform4fv(uniformLocation, values.size(), reinterpret_cast<glm::vec4*>(values.data())));
+                GL(glUniform4fv(uniformLocation, (int)values.size(), reinterpret_cast<const float*>(values.data())));
             }
             else if (std::is_same<glm::mat2, T>::value)
             {
-                GL(glUniformMatrix2fv(uniformLocation, values.size(), GL_FALSE, reinterpret_cast<glm::mat2*>(value.data())));
+                GL(glUniformMatrix2fv(uniformLocation, (int)values.size(), GL_FALSE, reinterpret_cast<const float*>(values.data())));
             }
             else if (std::is_same<glm::mat3, T>::value)
             {
-                GL(glUniformMatrix3fv(uniformLocation, values.size(), GL_FALSE, reinterpret_cast<glm::mat3*>(value.data())));
+                GL(glUniformMatrix3fv(uniformLocation, (int)values.size(), GL_FALSE, reinterpret_cast<const float*>(values.data())));
             }
             else if (std::is_same<glm::mat4, T>::value)
             {
-                GL(glUniformMatrix4fv(uniformLocation, values.size(), GL_FALSE, reinterpret_cast<glm::mat4*>(value.data())));
+                GL(glUniformMatrix4fv(uniformLocation, (int)values.size(), GL_FALSE, reinterpret_cast<const float*>(values.data())));
             }
         }
     };
