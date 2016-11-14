@@ -49,11 +49,10 @@ namespace Imasi
         }
 
         ColorTexture2D texture;
-        if (texture.loadFromFile("Resources/texture.png"))
+        if (!texture.loadFromFile("Resources/texture.png"))
         {
             Logger::out << "Error loading Texture" << std::endl;
         }
-
          _resourceContainer.set("myTexture", std::move(texture));
 
         static unsigned short indices[] =

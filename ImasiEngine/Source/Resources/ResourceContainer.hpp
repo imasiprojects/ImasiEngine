@@ -28,9 +28,9 @@ namespace ImasiEngine
 
     public:
 
-        /*ResourceContainer<KeyType>()
+        ResourceContainer()
         {
-        }*/
+        }
 
         ~ResourceContainer()
         {
@@ -105,9 +105,12 @@ namespace ImasiEngine
             if (it != _meshes.end())
             {
                 delete it->second;
+                it->second = new Mesh(std::move(value));
             }
-
-            _meshes[key] = new Mesh(std::move(value));
+            else
+            {
+                _meshes[key] = new Mesh(std::move(value));
+            }
         }
 
         void set(KeyType key, ColorTexture2D&& value)
@@ -116,9 +119,12 @@ namespace ImasiEngine
             if (it != _colorTextures.end())
             {
                 delete it->second;
+                it->second = new ColorTexture2D(std::move(value));
             }
-
-            _colorTextures[key] = new ColorTexture2D(std::move(value));
+            else
+            {
+                _colorTextures[key] = new ColorTexture2D(std::move(value));
+            }
         }
 
         void set(KeyType key, Material&& value)
@@ -127,9 +133,12 @@ namespace ImasiEngine
             if (it != _materials.end())
             {
                 delete it->second;
+                it->second = new Material(std::move(value));
             }
-
-            _materials[key] = new Material(std::move(value));
+            else
+            {
+                _materials[key] = new Material(std::move(value));
+            }
         }
 
         void set(KeyType key, Model&& value)
@@ -138,9 +147,12 @@ namespace ImasiEngine
             if (it != _models.end())
             {
                 delete it->second;
+                it->second = new Model(std::move(value));
             }
-
-            _models[key] = new Model(std::move(value));
+            else
+            {
+                _models[key] = new Model(std::move(value));
+            }
         }
     };
 }
