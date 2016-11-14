@@ -55,6 +55,8 @@ namespace ImasiEngine
                 || std::is_same<glm::vec2, T>::value
                 || std::is_same<glm::vec3, T>::value
                 || std::is_same<glm::vec4, T>::value
+                || std::is_same<glm::mat2, T>::value
+                || std::is_same<glm::mat3, T>::value
                 || std::is_same<glm::mat4, T>::value
             >::type
         >
@@ -96,6 +98,14 @@ namespace ImasiEngine
             {
                 GL(glUniform4fv(uniformLocation, 1, reinterpret_cast<glm::vec4*>(&value)));
             }
+            else if (std::is_same<glm::mat2, T>::value)
+            {
+                GL(glUniformMatrix2fv(uniformLocation, 1, GL_FALSE, reinterpret_cast<glm::mat2*>(&value)));
+            }
+            else if (std::is_same<glm::mat3, T>::value)
+            {
+                GL(glUniformMatrix3fv(uniformLocation, 1, GL_FALSE, reinterpret_cast<glm::mat3*>(&value)));
+            }
             else if (std::is_same<glm::mat4, T>::value)
             {
                 GL(glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, reinterpret_cast<glm::mat4*>(&value)));
@@ -111,6 +121,8 @@ namespace ImasiEngine
                 || std::is_same<glm::vec2, T>::value
                 || std::is_same<glm::vec3, T>::value
                 || std::is_same<glm::vec4, T>::value
+                || std::is_same<glm::mat2, T>::value
+                || std::is_same<glm::mat3, T>::value
                 || std::is_same<glm::mat4, T>::value
             >::type
         >
@@ -151,6 +163,14 @@ namespace ImasiEngine
             else if (std::is_same<glm::vec4, T>::value)
             {
                 GL(glUniform4fv(uniformLocation, values.size(), reinterpret_cast<glm::vec4*>(values.data())));
+            }
+            else if (std::is_same<glm::mat2, T>::value)
+            {
+                GL(glUniformMatrix2fv(uniformLocation, values.size(), GL_FALSE, reinterpret_cast<glm::mat2*>(value.data())));
+            }
+            else if (std::is_same<glm::mat3, T>::value)
+            {
+                GL(glUniformMatrix3fv(uniformLocation, values.size(), GL_FALSE, reinterpret_cast<glm::mat3*>(value.data())));
             }
             else if (std::is_same<glm::mat4, T>::value)
             {
