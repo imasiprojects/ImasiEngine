@@ -12,8 +12,8 @@ namespace ImasiEngine
     {
     private:
 
-        static char* _fragmentShader;
-        static char* _vertexShader;
+        static const char* _fragmentShader;
+        static const char* _vertexShader;
 
     protected:
         

@@ -5,7 +5,7 @@
 
 namespace ImasiEngine
 {
-    char* Simple3DRenderer::_vertexShader = R"SHADER_END(
+    const char* Simple3DRenderer::_vertexShader = R"SHADER_END(
 
         #version 330 core
 
@@ -24,7 +24,7 @@ namespace ImasiEngine
 
     )SHADER_END";
 
-    char* Simple3DRenderer::_fragmentShader = R"SHADER_END(
+    const char* Simple3DRenderer::_fragmentShader = R"SHADER_END(
 
         #version 330 core
 
