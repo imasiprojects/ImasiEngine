@@ -2,7 +2,7 @@
 #define IMASIENGINE_RENDERER_HPP
 
 #include <glm/glm.hpp>
-#include <list>
+#include <set>
 #include "../Entity.hpp"
 
 namespace ImasiEngine
@@ -11,7 +11,7 @@ namespace ImasiEngine
     {
     protected:
 
-        std::list<Entity*> _entities;
+        std::set<Entity*> _entities;
 
         Renderer();
         virtual ~Renderer();

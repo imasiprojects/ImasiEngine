@@ -19,6 +19,6 @@ namespace ImasiEngine
 
     void Renderer::addEntity(Entity* entity)
     {
-        _entities.push_back(entity);
+        _entities.insert(entity);
     }
 }
