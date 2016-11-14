@@ -94,7 +94,7 @@ namespace Imasi
         }
     }
 
-    void DemoScene::processEngineEvent(const ImasiEngine::EngineEvent& event)
+    void DemoScene::processEngineEvent(const EngineEvent& event)
     {
     }
 
