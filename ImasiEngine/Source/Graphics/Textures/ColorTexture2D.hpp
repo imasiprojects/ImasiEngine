@@ -24,7 +24,7 @@ namespace ImasiEngine
         unsigned int getGLTextureType() const override;
 
         void create(unsigned int width, unsigned int height);
-        bool loadFromFile(std::string fileName);
+        bool loadFromFile(const std::string& fileName);
     };
 }
 

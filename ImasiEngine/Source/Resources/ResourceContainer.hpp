@@ -9,56 +9,139 @@
 
 namespace ImasiEngine
 {
+    template <typename KeyType = std::string>
     class ResourceContainer
     {
     private:
 
-        static std::string getResourcePath(std::string& fileName);
+        static std::string getResourcePath(std::string& fileName)
+        {
+            return std::string("Resources/") + fileName;
+        }
 
     protected:
 
-        std::map<std::string, Mesh*> _meshes;
-        std::map<std::string, ColorTexture2D*> _textures;
-        std::map<std::string, Material*> _materials;
-        std::map<std::string, Model*> _models;
+        std::map<KeyType, Mesh*> _meshes;
+        std::map<KeyType, ColorTexture2D*> _colorTextures;
+        std::map<KeyType, Material*> _materials;
+        std::map<KeyType, Model*> _models;
 
     public:
 
-        ResourceContainer();
-        ~ResourceContainer();
+        /*ResourceContainer<KeyType>()
+        {
+        }*/
 
-        // ReSharper disable once CppFunctionIsNotImplemented
-        template<typename T,
-            typename = typename std::enable_if<
-            std::is_same<Mesh, T>::value
-            || std::is_same<ColorTexture2D, T>::value
-            || std::is_same<Material, T>::value
-            || std::is_same<Model, T>::value
-            >::type
-        >
-        bool load(std::string key, std::string fileName);
+        ~ResourceContainer()
+        {
+            for (auto it : _meshes)
+            {
+                delete it.second;
+            }
 
-        // ReSharper disable once CppFunctionIsNotImplemented
-        template<typename T,
-            typename = typename std::enable_if<
-            std::is_same<Mesh, T>::value
-            || std::is_same<ColorTexture2D, T>::value
-            || std::is_same<Material, T>::value
-            || std::is_same<Model, T>::value
-            >::type
-        >
-        void add(std::string key, T&& value);
+            for (auto it : _colorTextures)
+            {
+                delete it.second;
+            }
 
-        // ReSharper disable once CppFunctionIsNotImplemented
-        template<typename T,
-            typename = typename std::enable_if<
-                std::is_same<Mesh, T>::value
-                || std::is_same<ColorTexture2D, T>::value
-                || std::is_same<Material, T>::value
-                || std::is_same<Model, T>::value
-            >::type
-        >
-        T* get(std::string key);
+            for (auto it : _materials)
+            {
+                delete it.second;
+            }
+
+            for (auto it : _models)
+            {
+                delete it.second;
+            }
+        }
+
+        Mesh* getMesh(KeyType key)
+        {
+            auto it = _meshes.find(key);
+            if (it != _meshes.end())
+            {
+                return it->second;
+            }
+
+            return nullptr;
+        }
+
+        ColorTexture2D* getColorTexture(KeyType key)
+        {
+            auto it = _colorTextures.find(key);
+            if (it != _colorTextures.end())
+            {
+                return it->second;
+            }
+
+            return nullptr;
+        }
+
+        Material* getMaterial(KeyType key)
+        {
+            auto it = _materials.find(key);
+            if (it != _materials.end())
+            {
+                return it->second;
+            }
+
+            return nullptr;
+        }
+
+        Material* getModel(KeyType key)
+        {
+            auto it = _models.find(key);
+            if (it != _models.end())
+            {
+                return it->second;
+            }
+
+            return nullptr;
+        }
+
+        void set(KeyType key, Mesh&& value)
+        {
+            auto it = _meshes.find(key);
+            if (it != _meshes.end())
+            {
+                delete it->second;
+            }
+
+            _meshes[key] = new Mesh(std::move(value));
+        }
+
+        void set(KeyType key, ColorTexture2D&& value)
+        {
+            auto it = _colorTextures.find(key);
+            if (it != _colorTextures.end())
+            {
+                delete it->second;
+            }
+
+            _colorTextures[key] = new ColorTexture2D(std::move(value));
+        }
+
+        void set(KeyType key, Material&& value)
+        {
+            auto it = _materials.find(key);
+            if (it != _materials.end())
+            {
+                delete it->second;
+            }
+
+            _materials[key] = new Material(std::move(value));
+        }
+
+        void set(KeyType key, Model&& value)
+        {
+            auto it = _models.find(key);
+            if (it != _models.end())
+            {
+                delete it->second;
+            }
+
+            _models[key] = new Model(std::move(value));
+        }
     };
 }
 

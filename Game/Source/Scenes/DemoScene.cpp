@@ -48,7 +48,13 @@ namespace Imasi
             return;
         }
 
-        _resourceContainer.load<ColorTexture2D>("myTexture", "texture.png");
+        ColorTexture2D texture;
+        if (texture.loadFromFile("Resources/texture.png"))
+        {
+            Logger::out << "Error loading Texture" << std::endl;
+        }
+
+         _resourceContainer.set("myTexture", std::move(texture));
 
         static unsigned short indices[] =
         {
@@ -77,7 +83,7 @@ namespace Imasi
         _mesh->setVertexBuffer(ArrayBuffer(vertices, 4, 3));
         _mesh->setUVBuffer(ArrayBuffer(uvs, 4, 2));
 
-        _material->diffuseMap = _resourceContainer.get<ColorTexture2D>("myTexture");
+        _material->diffuseMap = _resourceContainer.getColorTexture("myTexture");
 
         _model->mesh = _mesh;
         _model->material = _material;

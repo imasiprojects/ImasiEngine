@@ -57,7 +57,7 @@ namespace ImasiEngine
         _height = height;
     }
 
-    bool ColorTexture2D::loadFromFile(std::string fileName)
+    bool ColorTexture2D::loadFromFile(const std::string& fileName)
     {
         sf::Image image;
         if (!image.loadFromFile(fileName))
