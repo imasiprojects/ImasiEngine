@@ -19,6 +19,7 @@
     <ClCompile Include="Source\Graphics\Buffers\ArrayBuffer.cpp" />
     <ClCompile Include="Source\Graphics\Mesh.cpp" />
     <ClCompile Include="Source\Graphics\Entity.cpp" />
+    <ClCompile Include="Source\Resources\ResourceContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\Logger.hpp" />
@@ -45,5 +46,6 @@
     <ClInclude Include="Source\Graphics\Entity.hpp" />
     <ClInclude Include="Source\Engine\EngineEvent.hpp" />
     <ClInclude Include="Source\Engine\SceneEvent.hpp" />
+    <ClInclude Include="Source\Resources\ResourceContainer.hpp" />
   </ItemGroup>
 </Project>

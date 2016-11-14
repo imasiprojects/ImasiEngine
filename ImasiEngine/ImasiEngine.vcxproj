@@ -37,6 +37,7 @@
     <ClCompile Include="Source\Graphics\Textures\ColorTexture2D.cpp" />
     <ClCompile Include="Source\Graphics\Textures\Texture.cpp" />
     <ClCompile Include="Source\Graphics\Shaders\Shader.cpp" />
+    <ClCompile Include="Source\Resources\ResourceContainer.cpp" />
     <ClCompile Include="Source\Utils\Opengl.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\Engine\Scene.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="Source\Graphics\Textures\ColorTexture2D.hpp" />
     <ClInclude Include="Source\Graphics\Textures\Texture.hpp" />
     <ClInclude Include="Source\Graphics\Shaders\Shader.hpp" />
+    <ClInclude Include="Source\Resources\ResourceContainer.hpp" />
     <ClInclude Include="Source\Utils\Opengl.hpp" />
     <ClInclude Include="Source\Engine.hpp" />
     <ClInclude Include="Source\Engine\Scene.hpp" />
