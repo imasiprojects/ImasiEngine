@@ -3,10 +3,6 @@
 #include <GL/glew.h>
 
 #include "../../../ImasiEngine/Source/Utils/Logger.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Shaders/VertexShader.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Shaders/FragmentShader.hpp"
-#include "../Shaders/FragmentShader.hpp"
-#include "../Shaders/VertexShader.hpp"
 #include "../../../ImasiEngine/Source/Utils/Opengl.hpp"
 #include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
 #include <glm/gtc/matrix_transform.inl>
@@ -18,8 +14,7 @@ namespace Imasi
     DemoScene::DemoScene(GameContext* context)
         : Scene()
         , _context(context)
-        , _vertexArray(new VertexArray())
-        , _program(new Program())
+        , _renderer(new Simple3DRenderer())
         , _texture(new ColorTexture2D())
         , _material(new Material())
         , _model(new Model())
@@ -37,16 +32,6 @@ namespace Imasi
             );
 
             _VP = P * V;
-        }
-
-        _program->attach(VertexShader(Shaders::vertexShader));
-        _program->attach(FragmentShader(Shaders::fragmentShader));
-
-        if (!_program->link())
-        {
-            Logger::out << "Error linking program" << std::endl;
-            _context->window->close();
-            return;
         }
 
         if (!_texture->loadFromFile("Resources/texture.png"))
@@ -92,8 +77,7 @@ namespace Imasi
 
     DemoScene::~DemoScene()
     {
-        delete _vertexArray;
-        delete _program;
+        delete _renderer;
         delete _mesh;
         delete _texture;
         delete _material;
@@ -128,17 +112,8 @@ namespace Imasi
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        BIND(Program, _program);
-        {
-            _program->setUniform("MVP", _VP * _entity->getModelMatrix());
-
-            BIND(Texture, _entity->model->material->diffuseMap, 0);
-            {
-                _vertexArray->attachMesh(_entity->model->mesh);
-                _vertexArray->render();
-            }
-            UNBIND(Texture, 0);
-        }
-        UNBIND(Program);
+        _renderer->clear();
+        _renderer->addEntity(_entity);
+        _renderer->render(_VP);
     }
 }
