@@ -1,48 +1,56 @@
 #include "ResourceContainer.hpp"
 #include "../../ImasiEngine/Source/Utils/Logger.hpp"
 
-ResourceContainer::ResourceContainer()
+namespace ImasiEngine
 {
-}
-
-ResourceContainer::~ResourceContainer()
-{
-    for (auto it : _textures)
+    ResourceContainer::ResourceContainer()
     {
-        delete it.second;
-    }
-}
-
-template <>
-bool ResourceContainer::load<ImasiEngine::ColorTexture2D>(std::string key, std::string fileName)
-{
-    ImasiEngine::ColorTexture2D* texture = new ImasiEngine::ColorTexture2D();
-
-    if (!texture->loadFromFile(getResourcePath(fileName)))
-    {
-        ImasiEngine::Logger::out << "Error loading Texture (" << fileName << ")" << std::endl;
-        return false;
     }
 
-    auto it = _textures.find(key);
-    if (it != _textures.end())
+    ResourceContainer::~ResourceContainer()
     {
-        delete it->second;
+        for (auto it : _textures)
+        {
+            delete it.second;
+        }
     }
 
-    _textures[key] = texture;
-
-    return true;
-}
-
-template <>
-ImasiEngine::ColorTexture2D* ResourceContainer::get(std::string key)
-{
-    auto it = _textures.find(key);
-    if (it != _textures.end())
+    template <>
+    bool ResourceContainer::load<ColorTexture2D>(std::string key, std::string fileName)
     {
-        return it->second;
+        ColorTexture2D* texture = new ColorTexture2D();
+
+        if (!texture->loadFromFile(getResourcePath(fileName)))
+        {
+            Logger::out << "Error loading Texture (" << fileName << ")" << std::endl;
+            return false;
+        }
+
+        auto it = _textures.find(key);
+        if (it != _textures.end())
+        {
+            delete it->second;
+        }
+
+        _textures[key] = texture;
+
+        return true;
     }
 
-    return nullptr;
+    template <>
+    ColorTexture2D* ResourceContainer::get(std::string key)
+    {
+        auto it = _textures.find(key);
+        if (it != _textures.end())
+        {
+            return it->second;
+        }
+
+        return nullptr;
+    }
+
+    std::string ResourceContainer::getResourcePath(std::string& fileName)
+    {
+        return std::string("Resources/") + fileName;
+    }
 }

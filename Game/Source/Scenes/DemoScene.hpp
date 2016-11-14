@@ -20,7 +20,7 @@ namespace Imasi
 
         glm::mat4 _VP;
 
-        ResourceContainer _resourceContainer;
+        ImasiEngine::ResourceContainer _resourceContainer;
         ImasiEngine::VertexArray* _vertexArray;
         ImasiEngine::Program* _program;
         ImasiEngine::Mesh* _mesh;
