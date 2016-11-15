@@ -3,10 +3,9 @@
 
 #include "../../../ImasiEngine/Source/Engine/Scene.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Mesh.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Buffers/VertexArray.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Program.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Model.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Entity.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Renderers/Simple3DRenderer.hpp"
 #include "../../../ImasiEngine/Source/Resources/ResourceContainer.hpp"
 #include "../Game/GameContext.hpp"
 
@@ -19,10 +18,9 @@ namespace Imasi
         GameContext* _context;
 
         glm::mat4 _VP;
-
+        
+        ImasiEngine::Simple3DRenderer* _renderer;
         ImasiEngine::ResourceContainer<> _resourceContainer;
-        ImasiEngine::VertexArray* _vertexArray;
-        ImasiEngine::Program* _program;
         ImasiEngine::Mesh* _mesh;
         ImasiEngine::Material* _material;
         ImasiEngine::Model* _model;
