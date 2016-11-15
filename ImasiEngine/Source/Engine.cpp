@@ -226,8 +226,7 @@ namespace ImasiEngine
         }
 
         _window = new Window(videoMode, title, style, contextSettings);
-        _window->setVerticalSyncEnabled(false);
-        _window->setFramerateLimit(160);
+        _window->setVerticalSyncEnabled(true);
 
         contextSettings = _window->getSettings();
         Logger::out << "  >> " << glGetString(GL_VENDOR) << " | " << glGetString(GL_RENDERER) << std::endl;
