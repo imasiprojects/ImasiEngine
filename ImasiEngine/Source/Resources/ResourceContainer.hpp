@@ -88,7 +88,7 @@ namespace ImasiEngine
             return nullptr;
         }
 
-        Material* getModel(KeyType key)
+        Model* getModel(KeyType key)
         {
             auto it = _models.find(key);
             if (it != _models.end())

@@ -17,6 +17,8 @@ namespace ImasiEngine
     public:
 
         Mesh();
+        Mesh(const Mesh&) = delete;
+        Mesh(Mesh&& mesh) noexcept;
         ~Mesh();
 
         IndexBuffer* getIndexBuffer() const;

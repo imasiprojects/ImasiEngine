@@ -2,8 +2,6 @@
 #define IMASIGAME_DEMOSCENE_HPP
 
 #include "../../../ImasiEngine/Source/Engine/Scene.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Mesh.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Model.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Entity.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Renderers/Simple3DRenderer.hpp"
 #include "../../../ImasiEngine/Source/Resources/ResourceContainer.hpp"
@@ -21,9 +19,6 @@ namespace Imasi
         
         ImasiEngine::Simple3DRenderer* _renderer;
         ImasiEngine::ResourceContainer<> _resourceContainer;
-        ImasiEngine::Mesh* _mesh;
-        ImasiEngine::Material* _material;
-        ImasiEngine::Model* _model;
         ImasiEngine::Entity* _entity;
 
     public:

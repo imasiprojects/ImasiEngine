@@ -9,6 +9,16 @@ namespace ImasiEngine
     {
     }
 
+    Mesh::Mesh(Mesh&& mesh) noexcept
+        : _indexBuffer(mesh._indexBuffer)
+        , _vertexBuffer(mesh._vertexBuffer)
+        , _uvBuffer(mesh._uvBuffer)
+    {
+        mesh._indexBuffer = nullptr;
+        mesh._vertexBuffer = nullptr;
+        mesh._uvBuffer = nullptr;
+    }
+
     Mesh::~Mesh()
     {
         delete _indexBuffer;

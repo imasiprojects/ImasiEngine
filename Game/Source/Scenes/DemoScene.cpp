@@ -15,8 +15,6 @@ namespace Imasi
         : Scene()
         , _context(context)
         , _renderer(new Simple3DRenderer())
-        , _material(new Material())
-        , _model(new Model())
         , _entity(new Entity())
     {
         // TEST
@@ -34,10 +32,7 @@ namespace Imasi
         }
 
         ColorTexture2D texture;
-        if (!texture.loadFromFile("Resources/texture.png"))
-        {
-            Logger::out << "Error loading Texture" << std::endl;
-        }
+        texture.loadFromFile("Resources/texture.png");
          _resourceContainer.set("myTexture", std::move(texture));
 
         static unsigned short indices[] =
@@ -62,26 +57,28 @@ namespace Imasi
             0.f, 0.f,
         };
 
-        _mesh = new Mesh();
-        _mesh->setIndexBuffer(IndexBuffer(indices, 2, 3));
-        _mesh->setVertexBuffer(ArrayBuffer(vertices, 4, 3));
-        _mesh->setUVBuffer(ArrayBuffer(uvs, 4, 2));
+        Mesh myMesh;
+        myMesh.setIndexBuffer(IndexBuffer(indices, 2, 3));
+        myMesh.setVertexBuffer(ArrayBuffer(vertices, 4, 3));
+        myMesh.setUVBuffer(ArrayBuffer(uvs, 4, 2));
+        _resourceContainer.set("myMesh", std::move(myMesh));
 
-        _material->diffuseMap = _resourceContainer.getColorTexture("myTexture");
+        Material myMaterial;
+        myMaterial.diffuseMap = _resourceContainer.getColorTexture("myTexture");
+        _resourceContainer.set("myMaterial", std::move(myMaterial));
 
-        _model->mesh = _mesh;
-        _model->material = _material;
+        Model myModel;
+        myModel.mesh = _resourceContainer.getMesh("myMesh");
+        myModel.material = _resourceContainer.getMaterial("myMaterial");
+        _resourceContainer.set("myModel", std::move(myModel));
 
         _entity->setPosition(glm::vec3(0, -1, 0));
-        _entity->model = _model;
+        _entity->model = _resourceContainer.getModel("myModel");
     }
 
     DemoScene::~DemoScene()
     {
         delete _renderer;
-        delete _mesh;
-        delete _material;
-        delete _model;
         delete _entity;
     }
 
@@ -102,8 +99,21 @@ namespace Imasi
     {
     }
 
+    unsigned int fps = 0;
+    double elapsedTime = 0;
+
     void DemoScene::update(const double deltaTime)
     {
+        fps++;
+        elapsedTime += deltaTime;
+
+        if (elapsedTime >= 1.0)
+        {
+            _context->window->setTitle("Fps: " + std::to_string(fps));
+            fps = 0;
+            elapsedTime -= 1.0;
+        }
+
         _entity->setPosition(_entity->getPosition() + glm::vec3(0, 0.2 * deltaTime, 0));
         _entity->setRotation(_entity->getRotation() + glm::vec3(0.4 * deltaTime, 0.8 * deltaTime, 1.6 * deltaTime));
     }
