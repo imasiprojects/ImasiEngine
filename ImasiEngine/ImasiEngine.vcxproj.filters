@@ -47,6 +47,7 @@
     <ClInclude Include="Source\Graphics\Entity.hpp" />
     <ClInclude Include="Source\Engine\EngineEvent.hpp" />
     <ClInclude Include="Source\Engine\SceneEvent.hpp" />
+    <ClInclude Include="Source\Resources\ResourceContainer.hpp" />
     <ClInclude Include="Source\Graphics\Renderers\Renderer.hpp" />
     <ClInclude Include="Source\Graphics\Renderers\Simple3DRenderer.hpp" />
   </ItemGroup>

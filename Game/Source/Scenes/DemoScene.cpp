@@ -15,7 +15,6 @@ namespace Imasi
         : Scene()
         , _context(context)
         , _renderer(new Simple3DRenderer())
-        , _texture(new ColorTexture2D())
         , _material(new Material())
         , _model(new Model())
         , _entity(new Entity())
@@ -34,10 +33,12 @@ namespace Imasi
             _VP = P * V;
         }
 
-        if (!_texture->loadFromFile("Resources/texture.png"))
+        ColorTexture2D texture;
+        if (!texture.loadFromFile("Resources/texture.png"))
         {
             Logger::out << "Error loading Texture" << std::endl;
         }
+         _resourceContainer.set("myTexture", std::move(texture));
 
         static unsigned short indices[] =
         {
@@ -66,7 +67,7 @@ namespace Imasi
         _mesh->setVertexBuffer(ArrayBuffer(vertices, 4, 3));
         _mesh->setUVBuffer(ArrayBuffer(uvs, 4, 2));
 
-        _material->diffuseMap = _texture;
+        _material->diffuseMap = _resourceContainer.getColorTexture("myTexture");
 
         _model->mesh = _mesh;
         _model->material = _material;
@@ -79,7 +80,6 @@ namespace Imasi
     {
         delete _renderer;
         delete _mesh;
-        delete _texture;
         delete _material;
         delete _model;
         delete _entity;

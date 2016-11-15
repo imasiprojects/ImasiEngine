@@ -3,10 +3,10 @@
 
 #include "../../../ImasiEngine/Source/Engine/Scene.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Mesh.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Textures/ColorTexture2D.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Model.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Entity.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Renderers/Simple3DRenderer.hpp"
+#include "../../../ImasiEngine/Source/Resources/ResourceContainer.hpp"
 #include "../Game/GameContext.hpp"
 
 namespace Imasi
@@ -20,8 +20,8 @@ namespace Imasi
         glm::mat4 _VP;
         
         ImasiEngine::Simple3DRenderer* _renderer;
+        ImasiEngine::ResourceContainer<> _resourceContainer;
         ImasiEngine::Mesh* _mesh;
-        ImasiEngine::ColorTexture2D* _texture;
         ImasiEngine::Material* _material;
         ImasiEngine::Model* _model;
         ImasiEngine::Entity* _entity;
