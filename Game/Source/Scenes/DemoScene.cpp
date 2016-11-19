@@ -5,7 +5,6 @@
 #include "../../../ImasiEngine/Source/Utils/Logger.hpp"
 #include "../../../ImasiEngine/Source/Utils/Opengl.hpp"
 #include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
-#include <glm/gtc/matrix_transform.inl>
 
 using namespace ImasiEngine;
 
@@ -14,22 +13,15 @@ namespace Imasi
     DemoScene::DemoScene(GameContext* context)
         : Scene()
         , _context(context)
+        , _camera(Camera())
         , _renderer(new Simple3DRenderer())
         , _entity(new Entity())
     {
-        // TEST
-        {
-            GL(GL(glDisable(GL_CULL_FACE)));
+        GL(glDisable(GL_CULL_FACE));
 
-            glm::mat4 P = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
-            glm::mat4 V = glm::lookAt(
-                glm::vec3(4, 3, 3), // Camera is at (4,3,3), in World Space
-                glm::vec3(0, 0, 0), // and looks at the origin
-                glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
-            );
-
-            _VP = P * V;
-        }
+        _camera.setViewportAspectRatio(_context->window->getSize().x / _context->window->getSize().y);
+        _camera.setPosition(glm::vec3(0, 1, 3));
+        _camera.lookAt(glm::vec3(0, 0, 0));
 
         ColorTexture2D texture;
         texture.loadFromFile("Resources/texture.png");
@@ -72,7 +64,7 @@ namespace Imasi
         myModel.material = _resourceContainer.getMaterial("myMaterial");
         _resourceContainer.set("myModel", std::move(myModel));
 
-        _entity->setPosition(glm::vec3(0, -1, 0));
+        _entity->setPosition(glm::vec3(0, 0, 0));
         _entity->model = _resourceContainer.getModel("myModel");
     }
 
@@ -91,6 +83,11 @@ namespace Imasi
                 SceneEvent sceneEvent;
                 sceneEvent.type = End;
                 pushEvent(sceneEvent);
+            }
+
+            if (event.key.code == sf::Keyboard::G)
+            {
+                _camera.lookAt(glm::vec3(0, 0, 0));
             }
         }
     }
@@ -114,8 +111,38 @@ namespace Imasi
             elapsedTime -= 1.0;
         }
 
-        _entity->setPosition(_entity->getPosition() + glm::vec3(0, 0.2 * deltaTime, 0));
-        _entity->setRotation(_entity->getRotation() + glm::vec3(0.4 * deltaTime, 0.8 * deltaTime, 1.6 * deltaTime));
+        if (_context->window->hasFocus() && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            float sensibilidad = -0.15f;
+
+            sf::Vector2i centerWindow = sf::Vector2i(_context->window->getSize().x / 2, _context->window->getSize().y / 2);
+            sf::Vector2i diferencia = centerWindow - sf::Mouse::getPosition(*_context->window);
+            if (diferencia.x != 0 || diferencia.y != 0)
+            {
+                _camera.offsetOrientation(diferencia.y * sensibilidad, diferencia.x * sensibilidad);
+                sf::Mouse::setPosition(centerWindow, *_context->window);
+            }
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
+            _camera.offsetPosition(_camera.forward() * (float)(2.f * deltaTime));
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {
+            _camera.offsetPosition(_camera.forward() * (float)(-2.f * deltaTime));
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
+            _camera.offsetPosition(_camera.right() * (float)(2.f * deltaTime));
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
+            _camera.offsetPosition(_camera.right() * (float)(-2.f * deltaTime));
+        }
     }
 
     void DemoScene::render()
@@ -124,6 +151,6 @@ namespace Imasi
 
         _renderer->clear();
         _renderer->addEntity(_entity);
-        _renderer->render(_VP);
+        _renderer->render(_camera.matrix());
     }
 }

@@ -5,6 +5,7 @@
 #include "../../../ImasiEngine/Source/Graphics/Entity.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Renderers/Simple3DRenderer.hpp"
 #include "../../../ImasiEngine/Source/Resources/ResourceContainer.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Cameras/Camera.hpp"
 #include "../Game/GameContext.hpp"
 
 namespace Imasi
@@ -15,7 +16,7 @@ namespace Imasi
 
         GameContext* _context;
 
-        glm::mat4 _VP;
+        ImasiEngine::Camera _camera;
         
         ImasiEngine::Simple3DRenderer* _renderer;
         ImasiEngine::ResourceContainer<> _resourceContainer;
