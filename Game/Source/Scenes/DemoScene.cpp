@@ -34,7 +34,7 @@ namespace Imasi
 
         ColorTexture2D texture;
         texture.loadFromFile("Resources/texture.png");
-         _resourceContainer.set(ResourceCodes::myTexture, std::move(texture));
+        _resourceContainer.set(ResourceCodes::myTexture, std::move(texture));
 
         static unsigned short indices[] =
         {
@@ -62,7 +62,7 @@ namespace Imasi
         myMesh.setIndexBuffer(IndexBuffer(indices, 2, 3));
         myMesh.setVertexBuffer(ArrayBuffer(vertices, 4, 3));
         myMesh.setUVBuffer(ArrayBuffer(uvs, 4, 2));
-        _resourceContainer.set(ResourceCodes::myMesh , std::move(myMesh));
+        _resourceContainer.set(ResourceCodes::myMesh, std::move(myMesh));
 
         Material myMaterial;
         myMaterial.diffuseMap = _resourceContainer.getColorTexture(ResourceCodes::myTexture);
@@ -74,7 +74,7 @@ namespace Imasi
         _resourceContainer.set(ResourceCodes::myModel, std::move(myModel));
 
         _entity->setPosition(glm::vec3(0, -1, 0));
-        _entity->model = _resourceContainer.getModel("myModel");
+        _entity->model = _resourceContainer.getModel(ResourceCodes::myModel);
     }
 
     DemoScene::~DemoScene()
