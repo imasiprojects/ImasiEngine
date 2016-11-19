@@ -7,7 +7,20 @@ namespace ImasiEngine
 {
     class Camera
     {
+    private:
+
+        glm::vec3 _position;
+        float _horizontalAngle;
+        float _verticalAngle;
+        float _fieldOfView;
+        float _nearPlane;
+        float _farPlane;
+        float _viewportAspectRatio;
+
+        void normalizeAngles();
+
     public:
+
         Camera();
 
         /**
@@ -103,16 +116,5 @@ namespace ImasiEngine
         transformation.
         */
         glm::mat4 view() const;
-
-    private:
-        glm::vec3 _position;
-        float _horizontalAngle;
-        float _verticalAngle;
-        float _fieldOfView;
-        float _nearPlane;
-        float _farPlane;
-        float _viewportAspectRatio;
-
-        void normalizeAngles();
     };
 }
