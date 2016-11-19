@@ -25,7 +25,7 @@ namespace ImasiEngine
         Simple3DRenderer();
         ~Simple3DRenderer();
 
-        void render(glm::mat4& VP) const override;
+        void render(Camera& camera) const override;
     };
 }
 

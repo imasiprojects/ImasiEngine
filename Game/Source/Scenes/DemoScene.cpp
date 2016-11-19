@@ -19,7 +19,7 @@ namespace Imasi
     {
         GL(glDisable(GL_CULL_FACE));
 
-        _camera.setViewportAspectRatio(_context->window->getSize().x / _context->window->getSize().y);
+        _camera.setViewportAspectRatio((float)(_context->window->getSize().x / _context->window->getSize().y));
         _camera.setPosition(glm::vec3(0, 1, 3));
         _camera.lookAt(glm::vec3(0, 0, 0));
 
@@ -124,24 +124,26 @@ namespace Imasi
             }
         }
 
+        float speed = 4.f * deltaTime;
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-            _camera.offsetPosition(_camera.forward() * (float)(2.f * deltaTime));
+            _camera.offsetPosition(_camera.forward() * speed);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
-            _camera.offsetPosition(_camera.forward() * (float)(-2.f * deltaTime));
+            _camera.offsetPosition(-_camera.forward() * speed);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-            _camera.offsetPosition(_camera.right() * (float)(2.f * deltaTime));
+            _camera.offsetPosition(_camera.right() * speed);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
-            _camera.offsetPosition(_camera.right() * (float)(-2.f * deltaTime));
+            _camera.offsetPosition(-_camera.right() * speed);
         }
     }
 
@@ -151,6 +153,6 @@ namespace Imasi
 
         _renderer->clear();
         _renderer->addEntity(_entity);
-        _renderer->render(_camera.matrix());
+        _renderer->render(_camera);
     }
 }

@@ -1,9 +1,10 @@
 #ifndef IMASIENGINE_RENDERER_HPP
 #define IMASIENGINE_RENDERER_HPP
 
-#include <glm/glm.hpp>
 #include <set>
+
 #include "../Entity.hpp"
+#include "../Cameras/Camera.hpp"
 
 namespace ImasiEngine
 {
@@ -20,7 +21,7 @@ namespace ImasiEngine
 
         virtual void clear();
         virtual void addEntity(Entity* entity);
-        virtual void render(glm::mat4& VP) const = 0;
+        virtual void render(Camera& camera) const = 0;
     };
 }
 

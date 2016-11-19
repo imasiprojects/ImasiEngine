@@ -62,8 +62,10 @@ namespace ImasiEngine
         delete _vertexArray;
     }
 
-    void Simple3DRenderer::render(glm::mat4& VP) const
+    void Simple3DRenderer::render(Camera& camera) const
     {
+        glm::mat4 VP = camera.matrix();
+
         BIND(Program, _program);
         {
             for (Entity* entity : _entities)
