@@ -29,7 +29,7 @@ namespace Imasi
         void processWindowEvent(const sf::Event& event) override;
         void processEngineEvent(const ImasiEngine::EngineEvent& event) override;
 
-        void update(const double deltaTime) override;
+        void update(const float deltaTime) override;
         void render() override;
     };
 }
