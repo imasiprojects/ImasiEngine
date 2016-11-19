@@ -6,6 +6,7 @@
 #include "../../../ImasiEngine/Source/Utils/Opengl.hpp"
 #include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
 #include "../../Resources/ResourceCodes.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 
 using namespace ImasiEngine;
 
@@ -19,7 +20,7 @@ namespace Imasi
     {
         // TEST
         {
-            GL(GL(glDisable(GL_CULL_FACE)));
+            GL(glDisable(GL_CULL_FACE));
 
             glm::mat4 P = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
             glm::mat4 V = glm::lookAt(
