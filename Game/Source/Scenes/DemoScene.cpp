@@ -112,48 +112,51 @@ namespace Imasi
             elapsedTime -= 1.0;
         }
 
-        if (_context->window->hasFocus() && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        if (_context->window->hasFocus())
         {
-            sf::Vector2i centerWindow = sf::Vector2i(_context->window->getSize().x / 2, _context->window->getSize().y / 2);
-            sf::Vector2i diferencia = centerWindow - sf::Mouse::getPosition(*_context->window);
-
-            if (diferencia.x != 0 || diferencia.y != 0)
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
-                _camera.addRotationOffset(glm::vec2(diferencia.x, diferencia.y) * -0.15f);
-                sf::Mouse::setPosition(centerWindow, *_context->window);
+                sf::Vector2i centerWindow = sf::Vector2i(_context->window->getSize().x / 2, _context->window->getSize().y / 2);
+                sf::Vector2i diferencia = centerWindow - sf::Mouse::getPosition(*_context->window);
+
+                if (diferencia.x != 0 || diferencia.y != 0)
+                {
+                    _camera.addRotationOffset(glm::vec2(diferencia.x, diferencia.y) * -0.15f);
+                    sf::Mouse::setPosition(centerWindow, *_context->window);
+                }
             }
-        }
 
-        float speed = 4.f * deltaTime;
+            float speed = 4.f * deltaTime;
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        {
-            _camera.addPositionOffset(_camera.getForwardVector() * speed);
-        }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+            {
+                _camera.addPositionOffset(_camera.getForwardVector() * speed);
+            }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        {
-            _camera.addPositionOffset(_camera.getBackwardVector() * speed);
-        }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            {
+                _camera.addPositionOffset(_camera.getBackwardVector() * speed);
+            }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        {
-            _camera.addPositionOffset(_camera.getRightVector() * speed);
-        }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            {
+                _camera.addPositionOffset(_camera.getRightVector() * speed);
+            }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        {
-            _camera.addPositionOffset(_camera.getLeftVector() * speed);
-        }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+            {
+                _camera.addPositionOffset(_camera.getLeftVector() * speed);
+            }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-        {
-            _camera.addPositionOffset(glm::vec3(0.f, 1.f, 0.f) * speed);
-        }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            {
+                _camera.addPositionOffset(glm::vec3(0.f, 1.f, 0.f) * speed);
+            }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
-        {
-            _camera.addPositionOffset(glm::vec3(0.f, -1.f, 0.f) * speed);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+            {
+                _camera.addPositionOffset(glm::vec3(0.f, -1.f, 0.f) * speed);
+            }
         }
     }
 
