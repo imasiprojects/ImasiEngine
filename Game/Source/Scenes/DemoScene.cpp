@@ -21,7 +21,7 @@ namespace Imasi
         GL(glDisable(GL_CULL_FACE));
 
         _camera.setAspectRatio(_context->window->getSize().x / (float)_context->window->getSize().y);
-        _camera.setPosition(glm::vec3(0, 1, 3));
+        _camera.setPosition(glm::vec3(4, 3, 3));
         _camera.lookAt(glm::vec3(0, 0, 0));
 
         ColorTexture2D texture;
