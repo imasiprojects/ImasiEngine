@@ -96,7 +96,7 @@ namespace Imasi
     {
     }
 
-    void DemoScene::update(const double deltaTime)
+    void DemoScene::update(const float deltaTime)
     {
         static unsigned int fps;
         static double elapsedTime;
