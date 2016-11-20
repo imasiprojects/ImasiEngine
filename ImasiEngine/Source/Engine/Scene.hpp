@@ -36,7 +36,7 @@ namespace ImasiEngine
 
         virtual void loop();
         virtual void update();
-        virtual void update(const double deltaTime) = 0;
+        virtual void update(const float deltaTime) = 0;
         virtual void render() = 0;
 
         bool isActive() const;
