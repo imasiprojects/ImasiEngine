@@ -4,6 +4,7 @@
 #include "Renderer.hpp"
 #include "../Program.hpp"
 #include "../Buffers/VertexArray.hpp"
+#include "../Cameras/Camera.hpp"
 
 namespace ImasiEngine
 {
@@ -25,7 +26,7 @@ namespace ImasiEngine
         Simple3DRenderer();
         ~Simple3DRenderer();
 
-        void render(glm::mat4& vp) const override;
+        void render(glm::mat4& VP) const override;
         void render(Camera& camera) const;
     };
 }

@@ -3,8 +3,9 @@
 
 #include <set>
 
+#include <glm/glm.hpp>
+
 #include "../Entity.hpp"
-#include "../Cameras/Camera.hpp"
 
 namespace ImasiEngine
 {
@@ -21,7 +22,7 @@ namespace ImasiEngine
 
         virtual void clear();
         virtual void addEntity(Entity* entity);
-        virtual void render(glm::mat4& vp) const = 0;
+        virtual void render(glm::mat4& VP) const = 0;
     };
 }
 

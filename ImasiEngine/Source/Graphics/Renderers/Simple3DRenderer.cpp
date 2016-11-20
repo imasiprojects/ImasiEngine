@@ -62,13 +62,13 @@ namespace ImasiEngine
         delete _vertexArray;
     }
 
-    void Simple3DRenderer::render(glm::mat4& vp) const
+    void Simple3DRenderer::render(glm::mat4& VP) const
     {
         BIND(Program, _program);
         {
             for (Entity* entity : _entities)
             {
-                _program->setUniform("MVP", vp * entity->getModelMatrix());
+                _program->setUniform("MVP", VP * entity->getModelMatrix());
 
                 BIND(Texture, entity->model->material->diffuseMap, 0);
                 {
