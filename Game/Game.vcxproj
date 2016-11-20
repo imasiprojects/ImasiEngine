@@ -32,6 +32,7 @@
     <ClCompile Include="Source\Scenes\DemoScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Resources\ResourceCodes.hpp" />
     <ClInclude Include="Source\Game\GameContext.hpp" />
     <ClInclude Include="Source\Game\GameEngine.hpp" />
     <ClInclude Include="Source\Scenes\DemoScene.hpp" />

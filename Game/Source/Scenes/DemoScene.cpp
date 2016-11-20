@@ -5,6 +5,8 @@
 #include "../../../ImasiEngine/Source/Utils/Logger.hpp"
 #include "../../../ImasiEngine/Source/Utils/Opengl.hpp"
 #include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
+#include "../../Resources/ResourceCodes.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 
 using namespace ImasiEngine;
 
@@ -25,7 +27,7 @@ namespace Imasi
 
         ColorTexture2D texture;
         texture.loadFromFile("Resources/texture.png");
-         _resourceContainer.set("myTexture", std::move(texture));
+        _resourceContainer.set(ResourceCodes::myTexture, std::move(texture));
 
         static unsigned short indices[] =
         {
@@ -53,19 +55,19 @@ namespace Imasi
         myMesh.setIndexBuffer(IndexBuffer(indices, 2, 3));
         myMesh.setVertexBuffer(ArrayBuffer(vertices, 4, 3));
         myMesh.setUVBuffer(ArrayBuffer(uvs, 4, 2));
-        _resourceContainer.set("myMesh", std::move(myMesh));
+        _resourceContainer.set(ResourceCodes::myMesh, std::move(myMesh));
 
         Material myMaterial;
-        myMaterial.diffuseMap = _resourceContainer.getColorTexture("myTexture");
-        _resourceContainer.set("myMaterial", std::move(myMaterial));
+        myMaterial.diffuseMap = _resourceContainer.getColorTexture(ResourceCodes::myTexture);
+        _resourceContainer.set(ResourceCodes::myMaterial, std::move(myMaterial));
 
         Model myModel;
-        myModel.mesh = _resourceContainer.getMesh("myMesh");
-        myModel.material = _resourceContainer.getMaterial("myMaterial");
-        _resourceContainer.set("myModel", std::move(myModel));
+        myModel.mesh = _resourceContainer.getMesh(ResourceCodes::myMesh);
+        myModel.material = _resourceContainer.getMaterial(ResourceCodes::myMaterial);
+        _resourceContainer.set(ResourceCodes::myModel, std::move(myModel));
 
         _entity->setPosition(glm::vec3(0, 0, 0));
-        _entity->model = _resourceContainer.getModel("myModel");
+        _entity->model = _resourceContainer.getModel(ResourceCodes::myModel);
     }
 
     DemoScene::~DemoScene()
