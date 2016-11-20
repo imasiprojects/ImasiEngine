@@ -6,7 +6,6 @@
 #include "../../../ImasiEngine/Source/Utils/Opengl.hpp"
 #include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
 #include "../../Resources/ResourceCodes.hpp"
-#include <glm/gtc/matrix_transform.hpp>
 
 using namespace ImasiEngine;
 
@@ -21,7 +20,7 @@ namespace Imasi
     {
         GL(glDisable(GL_CULL_FACE));
 
-        _camera.setAspectRatio(_context->window->getSize().x / _context->window->getSize().y);
+        _camera.setAspectRatio(_context->window->getSize().x / (float)_context->window->getSize().y);
         _camera.setPosition(glm::vec3(0, 1, 3));
         _camera.lookAt(glm::vec3(0, 0, 0));
 
