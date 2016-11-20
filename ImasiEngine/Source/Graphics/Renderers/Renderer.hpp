@@ -21,7 +21,7 @@ namespace ImasiEngine
 
         virtual void clear();
         virtual void addEntity(Entity* entity);
-        virtual void render(Camera& camera) const = 0;
+        virtual void render(glm::mat4& vp) const = 0;
     };
 }
 

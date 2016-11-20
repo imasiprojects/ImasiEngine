@@ -62,15 +62,13 @@ namespace ImasiEngine
         delete _vertexArray;
     }
 
-    void Simple3DRenderer::render(Camera& camera) const
+    void Simple3DRenderer::render(glm::mat4& vp) const
     {
-        glm::mat4 VP = camera.matrix();
-
         BIND(Program, _program);
         {
             for (Entity* entity : _entities)
             {
-                _program->setUniform("MVP", VP * entity->getModelMatrix());
+                _program->setUniform("MVP", vp * entity->getModelMatrix());
 
                 BIND(Texture, entity->model->material->diffuseMap, 0);
                 {
@@ -81,5 +79,10 @@ namespace ImasiEngine
             }
         }
         UNBIND(Program);
+    }
+
+    void Simple3DRenderer::render(Camera& camera) const
+    {
+        render(camera.getViewProjectionMatrix());
     }
 }

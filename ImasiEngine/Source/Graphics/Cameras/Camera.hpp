@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IMASIENGINE_CAMERA_HPP
+#define IMASIENGINE_CAMERA_HPP
 
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
@@ -9,112 +10,71 @@ namespace ImasiEngine
     {
     private:
 
+        bool _mustUpdateTranslationMatrix;
+        void setMustUpdateTranslationMatrix();
+        glm::mat4 _translationMatrix;
         glm::vec3 _position;
-        float _horizontalAngle;
-        float _verticalAngle;
-        float _fieldOfView;
-        float _nearPlane;
-        float _farPlane;
-        float _viewportAspectRatio;
 
-        void normalizeAngles();
+        bool _mustUpdateRotationMatrix;
+        void setMustUpdateRotationMatrix();
+        glm::mat4 _rotationMatrix;
+        glm::vec2 _rotation;
+
+        bool _mustUpdateViewMatrix;
+        glm::mat4 _viewMatrix;
+
+        bool _mustUpdateProjectionMatrix;
+        void setMustUpdateProjectionMatrix();
+        glm::mat4 _projectionMatrix;
+        float _fieldOfView;
+        float _aspectRatio;
+        float _nearPlaneDistance;
+        float _farPlaneDistance;
+
+        bool _mustUpdateViewProjectionMatrix;
+        glm::mat4 _viewProjectionMatrix;
+
+        void fixAngles();
 
     public:
 
         Camera();
+        ~Camera();
 
-        /**
-        The position of the camera.
-        */
-        const glm::vec3& position() const;
-        void setPosition(const glm::vec3& position);
-        void offsetPosition(const glm::vec3& offset);
+        glm::mat4 getTranslationMatrix();
+        glm::vec3 getPosition() const;
+        void setPosition(glm::vec3& position);
+        void addPositionOffset(glm::vec3& offset);
 
-        /**
-        The vertical viewing angle of the camera, in degrees.
-        Determines how "wide" the view of the camera is. Large angles appear to be zoomed out,
-        as the camera has a wide view. Small values appear to be zoomed in, as the camera has a
-        very narrow view.
-        The value must be between 0 and 180.
-        */
-        float fieldOfView() const;
+        glm::mat4 getRotationMatrix();
+        glm::vec2 getRotation() const;
+        void setRotation(glm::vec2& rotation);
+        void addRotationOffset(glm::vec2& offset);
+        void lookAt(glm::vec3 objetive);
+
+        glm::mat4 getViewMatrix();
+
+        glm::mat4 getProjectionMatrix();
+        float getFieldOfView() const;
         void setFieldOfView(float fieldOfView);
+        float getAspectRatio() const;
+        void setAspectRatio(float aspectRatio);
+        float getNearPlaneDistance() const;
+        void setNearPlaneDistance(float nearPlaneDistance);
+        float getFarPlaneDistance() const;
+        void setFarPlaneDistance(float farPlaneDistance);
+        void setPlaneDistances(float nearPlaneDistance, float farPlaneDistance);
 
-        /**
-        The closest visible distance from the camera.
-        Objects that are closer to the camera than the near plane distance will not be visible.
-        Value must be greater than 0.
-        */
-        float nearPlane() const;
+        glm::mat4 getViewProjectionMatrix();
 
-        /**
-        The farthest visible distance from the camera.
-        Objects that are further away from the than the far plane distance will not be visible.
-        Value must be greater than the near plane
-        */
-        float farPlane() const;
-
-        /**
-        Sets the near and far plane distances.
-        Everything between the near plane and the var plane will be visible. Everything closer
-        than the near plane, or farther than the far plane, will not be visible.
-        @param nearPlane  Minimum visible distance from camera. Must be > 0
-        @param farPlane   Maximum visible distance from vamera. Must be > nearPlane
-        */
-        void setNearAndFarPlanes(float nearPlane, float farPlane);
-
-        /**
-        A rotation matrix that determines the direction the camera is looking.
-        Does not include translation (the camera's position).
-        */
-        glm::mat4 orientation() const;
-
-        /**
-        Offsets the cameras orientation.
-        The verticle angle is constrained between 85deg and -85deg to avoid gimbal lock.
-        @param upAngle     the angle (in degrees) to offset upwards. Negative values are downwards.
-        @param rightAngle  the angle (in degrees) to offset rightwards. Negative values are leftwards.
-        */
-        void offsetOrientation(float upAngle, float rightAngle);
-
-        /**
-        Orients the camera so that is it directly facing `position`
-        @param position  the position to look at
-        */
-        void lookAt(glm::vec3 position);
-
-        /**
-        The width divided by the height of the screen/window/viewport
-        Incorrect values will make the 3D scene look stretched.
-        */
-        float viewportAspectRatio() const;
-        void setViewportAspectRatio(float viewportAspectRatio);
-
-        /** A unit vector representing the direction the camera is facing */
-        glm::vec3 forward() const;
-
-        /** A unit vector representing the direction to the right of the camera*/
-        glm::vec3 right() const;
-
-        /** A unit vector representing the direction out of the top of the camera*/
-        glm::vec3 up() const;
-
-        /**
-        The combined camera transformation matrix, including perspective projection.
-        This is the complete matrix to use in the vertex shader.
-        */
-        glm::mat4 matrix() const;
-
-        /**
-        The perspective projection transformation matrix
-        */
-        glm::mat4 projection() const;
-
-        /**
-        The translation and rotation matrix of the camera.
-        Same as the `matrix` method, except the return value does not include the projection
-        transformation.
-        */
-        glm::mat4 view() const;
+        glm::vec3 getRelativeVector(glm::vec3& direction);
+        glm::vec3 getForwardVector();
+        glm::vec3 getBackwardVector();
+        glm::vec3 getLeftVector();
+        glm::vec3 getRightVector();
+        glm::vec3 getUpVector();
+        glm::vec3 getDownVector();
     };
 }
+
+#endif

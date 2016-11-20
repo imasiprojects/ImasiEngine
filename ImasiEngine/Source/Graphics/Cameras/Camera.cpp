@@ -4,141 +4,257 @@
 
 namespace ImasiEngine
 {
-    static const float MaxVerticalAngle = 85.0f; //must be less than 90 to avoid gimbal lock
-
-    Camera::Camera() :
-        _position(0.0f, 0.0f, 1.0f),
-        _horizontalAngle(0.0f),
-        _verticalAngle(0.0f),
-        _fieldOfView(50.0f),
-        _nearPlane(0.01f),
-        _farPlane(1000.0f),
-        _viewportAspectRatio(4.0f / 3.0f)
+    Camera::Camera()
+        : _mustUpdateTranslationMatrix(false)
+        , _position(0.0f, 0.0f, 0.0f)
+        , _mustUpdateRotationMatrix(false)
+        , _rotationMatrix(glm::mat4(1.f))
+        , _rotation(0.f, 0.f)
+        , _mustUpdateViewMatrix(false)
+        , _viewMatrix(glm::mat4(1.f))
+        , _mustUpdateProjectionMatrix(true)
+        , _fieldOfView(50.0f)
+        , _aspectRatio(16.0f / 9.0f)
+        , _nearPlaneDistance(0.01f)
+        , _farPlaneDistance(1000.0f)
+        , _mustUpdateViewProjectionMatrix(true)
     {
     }
 
-    const glm::vec3& Camera::position() const
+    Camera::~Camera()
+    {
+    }
+
+    void Camera::setMustUpdateRotationMatrix()
+    {
+        _mustUpdateRotationMatrix = true;
+        _mustUpdateViewMatrix = true;
+        _mustUpdateViewProjectionMatrix = true;
+    }
+
+    void Camera::setMustUpdateTranslationMatrix()
+    {
+        _mustUpdateTranslationMatrix = true;
+        _mustUpdateViewMatrix = true;
+        _mustUpdateViewProjectionMatrix = true;
+    }
+
+    void Camera::setMustUpdateProjectionMatrix()
+    {
+        _mustUpdateProjectionMatrix = true;
+        _mustUpdateViewProjectionMatrix = true;
+    }
+
+    void Camera::fixAngles()
+    {
+        _rotation.x = std::fmod(_rotation.x, 360.0f);
+
+        if (_rotation.x < 0.0f)
+        {
+            _rotation.x += 360.0f;
+        }
+
+        _rotation.y = glm::clamp(_rotation.y, -89.9f, 89.9f);
+    }
+
+    glm::mat4 Camera::getTranslationMatrix()
+    {
+        if (_mustUpdateTranslationMatrix)
+        {
+            _translationMatrix = glm::translate(glm::mat4(1.f), -_position);
+            _mustUpdateTranslationMatrix = false;
+        }
+
+        return _translationMatrix;
+    }
+
+    glm::vec3 Camera::getPosition() const
     {
         return _position;
     }
 
-    void Camera::setPosition(const glm::vec3& position)
+    void Camera::setPosition(glm::vec3& position)
     {
+        setMustUpdateTranslationMatrix();
         _position = position;
     }
 
-    void Camera::offsetPosition(const glm::vec3& offset)
+    void Camera::addPositionOffset(glm::vec3& offset)
     {
+        setMustUpdateTranslationMatrix();
         _position += offset;
     }
 
-    float Camera::fieldOfView() const
+    glm::mat4 Camera::getRotationMatrix()
+    {
+        if (_mustUpdateRotationMatrix)
+        {
+            _rotationMatrix = glm::mat4(1.f);
+            _rotationMatrix = glm::rotate(_rotationMatrix, glm::radians(_rotation.y), glm::vec3(1.f, 0.f, 0.f));
+            _rotationMatrix = glm::rotate(_rotationMatrix, glm::radians(_rotation.x), glm::vec3(0.f, 1.f, 0.f));
+
+            _mustUpdateRotationMatrix = false;
+        }
+
+        return _rotationMatrix;
+    }
+
+    glm::vec2 Camera::getRotation() const
+    {
+        return _rotation;
+    }
+
+    void Camera::setRotation(glm::vec2& rotation)
+    {
+        setMustUpdateRotationMatrix();
+
+        _rotation = rotation;
+        fixAngles();
+    }
+
+    void Camera::addRotationOffset(glm::vec2& offset)
+    {
+        setMustUpdateRotationMatrix();
+
+        _rotation += offset;
+        fixAngles();
+    }
+
+    void Camera::lookAt(glm::vec3 objetive)
+    {
+        setMustUpdateRotationMatrix();
+
+        if (objetive == _position)
+        {
+            _rotation.x = 0.f;
+            _rotation.y = 0.f;
+        }
+        else
+        {
+            glm::vec3 direction = glm::normalize(objetive - _position);
+            _rotation.y = glm::degrees(std::asinf(-direction.y));
+            _rotation.x = -glm::degrees(std::atan2f(-direction.x, -direction.z));
+        }
+
+        fixAngles();
+    }
+
+    glm::mat4 Camera::getViewMatrix()
+    {
+        if (_mustUpdateViewMatrix)
+        {
+            _viewMatrix = getRotationMatrix() * getTranslationMatrix();
+            _mustUpdateViewMatrix = false;
+        }
+
+        return _viewMatrix;
+    }
+
+    glm::mat4 Camera::getProjectionMatrix()
+    {
+        if (_mustUpdateProjectionMatrix)
+        {
+            _projectionMatrix = glm::perspective(glm::radians(_fieldOfView), _aspectRatio, _nearPlaneDistance, _farPlaneDistance);
+            _mustUpdateProjectionMatrix = false;
+        }
+
+        return _projectionMatrix;
+    }
+
+    float Camera::getFieldOfView() const
     {
         return _fieldOfView;
     }
 
     void Camera::setFieldOfView(float fieldOfView)
     {
-        assert(fieldOfView > 0.0f && fieldOfView < 180.0f);
-        _fieldOfView = fieldOfView;
+        setMustUpdateProjectionMatrix();
+        _fieldOfView = glm::clamp(fieldOfView, 0.f, 180.f);
     }
 
-    float Camera::nearPlane() const
+    float Camera::getAspectRatio() const
     {
-        return _nearPlane;
+        return _aspectRatio;
     }
 
-    float Camera::farPlane() const
+    void Camera::setAspectRatio(float aspectRatio)
     {
-        return _farPlane;
+        setMustUpdateProjectionMatrix();
+        _aspectRatio = glm::max(0.f, aspectRatio);
     }
 
-    void Camera::setNearAndFarPlanes(float nearPlane, float farPlane)
+    float Camera::getNearPlaneDistance() const
     {
-        assert(nearPlane > 0.0f);
-        assert(farPlane > nearPlane);
-        _nearPlane = nearPlane;
-        _farPlane = farPlane;
+        return _nearPlaneDistance;
     }
 
-    glm::mat4 Camera::orientation() const
+    void Camera::setNearPlaneDistance(float nearPlaneDistance)
     {
-        glm::mat4 orientation;
-        orientation = glm::rotate(orientation, glm::radians(_verticalAngle), glm::vec3(1, 0, 0));
-        orientation = glm::rotate(orientation, glm::radians(_horizontalAngle), glm::vec3(0, 1, 0));
-        return orientation;
+        setMustUpdateProjectionMatrix();
+        _nearPlaneDistance = nearPlaneDistance;
     }
 
-    void Camera::offsetOrientation(float upAngle, float rightAngle)
+    float Camera::getFarPlaneDistance() const
     {
-        _horizontalAngle += rightAngle;
-        _verticalAngle += upAngle;
-        normalizeAngles();
+        return _farPlaneDistance;
     }
 
-    void Camera::lookAt(glm::vec3 position)
+    void Camera::setFarPlaneDistance(float farPlaneDistance)
     {
-        assert(position != _position);
-        glm::vec3 direction = glm::normalize(position - _position);
-        _verticalAngle = glm::degrees(asinf(-direction.y));
-        _horizontalAngle = -glm::degrees(atan2f(-direction.x, -direction.z));
-        normalizeAngles();
+        setMustUpdateProjectionMatrix();
+        _farPlaneDistance = farPlaneDistance;
     }
 
-    float Camera::viewportAspectRatio() const
+    void Camera::setPlaneDistances(float nearPlaneDistance, float farPlaneDistance)
     {
-        return _viewportAspectRatio;
+        setMustUpdateProjectionMatrix();
+        _nearPlaneDistance = nearPlaneDistance;
+        _farPlaneDistance = farPlaneDistance;
     }
 
-    void Camera::setViewportAspectRatio(float viewportAspectRatio)
+    glm::mat4 Camera::getViewProjectionMatrix()
     {
-        assert(viewportAspectRatio > 0.0);
-        _viewportAspectRatio = viewportAspectRatio;
+        if (_mustUpdateViewProjectionMatrix)
+        {
+            _viewProjectionMatrix = getProjectionMatrix() * getViewMatrix();
+            _mustUpdateViewProjectionMatrix = false;
+        }
+
+        return _viewProjectionMatrix;
     }
 
-    glm::vec3 Camera::forward() const
+    glm::vec3 Camera::getRelativeVector(glm::vec3& direction)
     {
-        glm::vec4 forward = glm::inverse(orientation()) * glm::vec4(0, 0, -1, 0);
-        return glm::vec3(forward);
+        return glm::vec3(glm::vec4(direction, 0.f) * getRotationMatrix());
     }
 
-    glm::vec3 Camera::right() const
+    glm::vec3 Camera::getForwardVector()
     {
-        glm::vec4 right = glm::inverse(orientation()) * glm::vec4(1, 0, 0, 0);
-        return glm::vec3(right);
+        return getRelativeVector(glm::vec3(0.f, 0.f, -1.f));
     }
 
-    glm::vec3 Camera::up() const
+    glm::vec3 Camera::getBackwardVector()
     {
-        glm::vec4 up = glm::inverse(orientation()) * glm::vec4(0, 1, 0, 0);
-        return glm::vec3(up);
+        return getRelativeVector(glm::vec3(0.f, 0.f, 1.f));
     }
 
-    glm::mat4 Camera::matrix() const
+    glm::vec3 Camera::getLeftVector()
     {
-        return projection() * view();
+        return getRelativeVector(glm::vec3(-1.f, 0.f, 0.f));
     }
 
-    glm::mat4 Camera::projection() const
+    glm::vec3 Camera::getRightVector()
     {
-        return glm::perspective(glm::radians(_fieldOfView), _viewportAspectRatio, _nearPlane, _farPlane);
+        return getRelativeVector(glm::vec3(1.f, 0.f, 0.f));
     }
 
-    glm::mat4 Camera::view() const
+    glm::vec3 Camera::getUpVector()
     {
-        return orientation() * glm::translate(glm::mat4(), -_position);
+        return getRelativeVector(glm::vec3(0.f, 1.f, 0.f));
     }
 
-    void Camera::normalizeAngles()
+    glm::vec3 Camera::getDownVector()
     {
-        _horizontalAngle = fmodf(_horizontalAngle, 360.0f);
-        //fmodf can return negative values, but this will make them all positive
-        if (_horizontalAngle < 0.0f)
-            _horizontalAngle += 360.0f;
-
-        if (_verticalAngle > MaxVerticalAngle)
-            _verticalAngle = MaxVerticalAngle;
-        else if (_verticalAngle < -MaxVerticalAngle)
-            _verticalAngle = -MaxVerticalAngle;
+        return getRelativeVector(glm::vec3(0.f, -1.f, 0.f));
     }
 }
