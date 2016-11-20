@@ -131,9 +131,9 @@ namespace ImasiEngine
         }
         else
         {
-            glm::vec3 direction = glm::normalize(objetive - _position);
-            _rotation.y = glm::degrees(std::asinf(-direction.y));
-            _rotation.x = -glm::degrees(std::atan2f(-direction.x, -direction.z));
+            glm::vec3 direction = glm::normalize(_position - objetive);
+            _rotation.y = glm::degrees(std::asinf(direction.y));
+            _rotation.x = -glm::degrees(std::atan2f(direction.x, direction.z));
         }
 
         fixAngles();
