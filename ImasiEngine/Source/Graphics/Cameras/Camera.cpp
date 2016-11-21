@@ -25,24 +25,70 @@ namespace ImasiEngine
     {
     }
 
-    void Camera::setMustUpdateRotationMatrix()
+    void Camera::setMustUpdateRotationMatrix(const bool value)
     {
-        _mustUpdateRotationMatrix = true;
-        _mustUpdateViewMatrix = true;
-        _mustUpdateViewProjectionMatrix = true;
+        if (value)
+        {
+            _mustUpdateRotationMatrix = true;
+            _mustUpdateViewMatrix = true;
+            _mustUpdateViewProjectionMatrix = true;
+        }
+        else
+        {
+            _mustUpdateRotationMatrix = false;
+        }
     }
 
-    void Camera::setMustUpdateTranslationMatrix()
+    void Camera::setMustUpdateTranslationMatrix(const bool value)
     {
-        _mustUpdateTranslationMatrix = true;
-        _mustUpdateViewMatrix = true;
-        _mustUpdateViewProjectionMatrix = true;
+        if (value)
+        {
+            _mustUpdateTranslationMatrix = true;
+            _mustUpdateViewMatrix = true;
+            _mustUpdateViewProjectionMatrix = true;
+        }
+        else
+        {
+            _mustUpdateTranslationMatrix = false;
+        }
     }
 
-    void Camera::setMustUpdateProjectionMatrix()
+    void Camera::setMustUpdateViewMatrix(const bool value)
     {
-        _mustUpdateProjectionMatrix = true;
-        _mustUpdateViewProjectionMatrix = true;
+        if (value)
+        {
+            _mustUpdateViewMatrix = true;
+            _mustUpdateViewProjectionMatrix = true;
+        }
+        else
+        {
+            _mustUpdateViewMatrix = false;
+        }
+    }
+
+    void Camera::setMustUpdateProjectionMatrix(const bool value)
+    {
+        if (value)
+        {
+            _mustUpdateProjectionMatrix = true;
+            _mustUpdateViewProjectionMatrix = true;
+        }
+        else
+        {
+            _mustUpdateProjectionMatrix = false;
+        }
+    }
+
+    void Camera::setMustUpdateViewProjectionMatrix(const bool value)
+    {
+        if (value)
+        {
+            _mustUpdateViewProjectionMatrix = true;
+        }
+        else
+        {
+            _mustUpdateViewProjectionMatrix = false;
+        }
     }
 
     void Camera::fixAngles()
@@ -62,7 +108,7 @@ namespace ImasiEngine
         if (_mustUpdateTranslationMatrix)
         {
             _translationMatrix = glm::translate(glm::mat4(1.f), -_position);
-            _mustUpdateTranslationMatrix = false;
+            setMustUpdateTranslationMatrix(false);
         }
 
         return _translationMatrix;
@@ -75,13 +121,13 @@ namespace ImasiEngine
 
     void Camera::setPosition(glm::vec3& position)
     {
-        setMustUpdateTranslationMatrix();
+        setMustUpdateTranslationMatrix(true);
         _position = position;
     }
 
     void Camera::addPositionOffset(glm::vec3& offset)
     {
-        setMustUpdateTranslationMatrix();
+        setMustUpdateTranslationMatrix(true);
         _position += offset;
     }
 
@@ -93,7 +139,7 @@ namespace ImasiEngine
             _rotationMatrix = glm::rotate(_rotationMatrix, glm::radians(_rotation.y), glm::vec3(1.f, 0.f, 0.f));
             _rotationMatrix = glm::rotate(_rotationMatrix, glm::radians(_rotation.x), glm::vec3(0.f, 1.f, 0.f));
 
-            _mustUpdateRotationMatrix = false;
+            setMustUpdateRotationMatrix(false);
         }
 
         return _rotationMatrix;
@@ -106,7 +152,7 @@ namespace ImasiEngine
 
     void Camera::setRotation(glm::vec2& rotation)
     {
-        setMustUpdateRotationMatrix();
+        setMustUpdateRotationMatrix(true);
 
         _rotation = rotation;
         fixAngles();
@@ -114,7 +160,7 @@ namespace ImasiEngine
 
     void Camera::addRotationOffset(glm::vec2& offset)
     {
-        setMustUpdateRotationMatrix();
+        setMustUpdateRotationMatrix(true);
 
         _rotation += offset;
         fixAngles();
@@ -122,7 +168,7 @@ namespace ImasiEngine
 
     void Camera::lookAt(glm::vec3 objetive)
     {
-        setMustUpdateRotationMatrix();
+        setMustUpdateRotationMatrix(true);
 
         if (objetive == _position)
         {
@@ -144,7 +190,7 @@ namespace ImasiEngine
         if (_mustUpdateViewMatrix)
         {
             _viewMatrix = getRotationMatrix() * getTranslationMatrix();
-            _mustUpdateViewMatrix = false;
+            setMustUpdateViewMatrix(false);
         }
 
         return _viewMatrix;
@@ -155,7 +201,7 @@ namespace ImasiEngine
         if (_mustUpdateProjectionMatrix)
         {
             _projectionMatrix = glm::perspective(glm::radians(_fieldOfView), _aspectRatio, _nearPlaneDistance, _farPlaneDistance);
-            _mustUpdateProjectionMatrix = false;
+            setMustUpdateProjectionMatrix(false);
         }
 
         return _projectionMatrix;
@@ -168,7 +214,7 @@ namespace ImasiEngine
 
     void Camera::setFieldOfView(float fieldOfView)
     {
-        setMustUpdateProjectionMatrix();
+        setMustUpdateProjectionMatrix(true);
         _fieldOfView = glm::clamp(fieldOfView, 0.f, 180.f);
     }
 
@@ -179,7 +225,7 @@ namespace ImasiEngine
 
     void Camera::setAspectRatio(float aspectRatio)
     {
-        setMustUpdateProjectionMatrix();
+        setMustUpdateProjectionMatrix(true);
         _aspectRatio = glm::max(0.f, aspectRatio);
     }
 
@@ -190,7 +236,7 @@ namespace ImasiEngine
 
     void Camera::setNearPlaneDistance(float nearPlaneDistance)
     {
-        setMustUpdateProjectionMatrix();
+        setMustUpdateProjectionMatrix(true);
         _nearPlaneDistance = nearPlaneDistance;
     }
 
@@ -201,13 +247,13 @@ namespace ImasiEngine
 
     void Camera::setFarPlaneDistance(float farPlaneDistance)
     {
-        setMustUpdateProjectionMatrix();
+        setMustUpdateProjectionMatrix(true);
         _farPlaneDistance = farPlaneDistance;
     }
 
     void Camera::setPlaneDistances(float nearPlaneDistance, float farPlaneDistance)
     {
-        setMustUpdateProjectionMatrix();
+        setMustUpdateProjectionMatrix(true);
         _nearPlaneDistance = nearPlaneDistance;
         _farPlaneDistance = farPlaneDistance;
     }
@@ -217,7 +263,7 @@ namespace ImasiEngine
         if (_mustUpdateViewProjectionMatrix)
         {
             _viewProjectionMatrix = getProjectionMatrix() * getViewMatrix();
-            _mustUpdateViewProjectionMatrix = false;
+            setMustUpdateViewProjectionMatrix(false);
         }
 
         return _viewProjectionMatrix;

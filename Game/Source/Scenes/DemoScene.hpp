@@ -31,6 +31,7 @@ namespace Imasi
         void processEngineEvent(const ImasiEngine::EngineEvent& event) override;
 
         void update(const float deltaTime) override;
+        void updateFromInput(const float deltaTime);
         void render() override;
     };
 }

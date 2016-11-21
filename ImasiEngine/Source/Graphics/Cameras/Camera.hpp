@@ -11,20 +11,21 @@ namespace ImasiEngine
     private:
 
         bool _mustUpdateTranslationMatrix;
-        void setMustUpdateTranslationMatrix();
+        void setMustUpdateTranslationMatrix(const bool value);
         glm::mat4 _translationMatrix;
         glm::vec3 _position;
 
         bool _mustUpdateRotationMatrix;
-        void setMustUpdateRotationMatrix();
+        void setMustUpdateRotationMatrix(const bool value);
         glm::mat4 _rotationMatrix;
         glm::vec2 _rotation;
 
         bool _mustUpdateViewMatrix;
+        void setMustUpdateViewMatrix(const bool value);
         glm::mat4 _viewMatrix;
 
         bool _mustUpdateProjectionMatrix;
-        void setMustUpdateProjectionMatrix();
+        void setMustUpdateProjectionMatrix(const bool value);
         glm::mat4 _projectionMatrix;
         float _fieldOfView;
         float _aspectRatio;
@@ -32,6 +33,7 @@ namespace ImasiEngine
         float _farPlaneDistance;
 
         bool _mustUpdateViewProjectionMatrix;
+        void setMustUpdateViewProjectionMatrix(const bool value);
         glm::mat4 _viewProjectionMatrix;
 
         void fixAngles();
