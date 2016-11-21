@@ -112,7 +112,7 @@ namespace Imasi
             elapsedTime -= 1.0;
         }
 
-        if (_context->window->hasFocus())
+        if (_context->window->isFocused())
         {
             updateFromInput(deltaTime);
         }
