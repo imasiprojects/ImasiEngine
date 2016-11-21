@@ -81,14 +81,7 @@ namespace ImasiEngine
 
     void Camera::setMustUpdateViewProjectionMatrix(const bool value)
     {
-        if (value)
-        {
-            _mustUpdateViewProjectionMatrix = true;
-        }
-        else
-        {
-            _mustUpdateViewProjectionMatrix = false;
-        }
+        _mustUpdateViewProjectionMatrix = value;
     }
 
     void Camera::fixAngles()
