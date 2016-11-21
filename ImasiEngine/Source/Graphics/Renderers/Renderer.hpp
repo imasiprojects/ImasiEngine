@@ -1,8 +1,10 @@
 #ifndef IMASIENGINE_RENDERER_HPP
 #define IMASIENGINE_RENDERER_HPP
 
-#include <glm/glm.hpp>
 #include <set>
+
+#include <glm/glm.hpp>
+
 #include "../Entity.hpp"
 
 namespace ImasiEngine

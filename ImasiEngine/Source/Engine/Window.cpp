@@ -4,16 +4,16 @@ namespace ImasiEngine
 {
     Window::Window(const sf::VideoMode& size, const std::string& title, const unsigned int style, const sf::ContextSettings& contextSettings) : RenderWindow(size, title, style, contextSettings)
     {
-        this->focus = true;
+        this->_hasFocus = true;
     }
 
-    bool Window::isFocused() const
+    bool Window::hasFocus() const
     {
-        return this->focus;
+        return this->_hasFocus;
     }
 
     void Window::setFocus(bool focus)
     {
-        this->focus = focus;
+        this->_hasFocus = focus;
     }
 }

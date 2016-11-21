@@ -29,6 +29,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Graphics\Buffers\ArrayBuffer.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\IndexBuffer.cpp" />
+    <ClCompile Include="Source\Graphics\Cameras\Camera.cpp" />
     <ClCompile Include="Source\Graphics\Entity.cpp" />
     <ClCompile Include="Source\Graphics\GLObject.cpp" />
     <ClCompile Include="Source\Graphics\Mesh.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="Source\Engine\EngineEvent.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\ArrayBuffer.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.hpp" />
+    <ClInclude Include="Source\Graphics\Cameras\Camera.hpp" />
     <ClInclude Include="Source\Graphics\Entity.hpp" />
     <ClInclude Include="Source\Graphics\GLObject.hpp" />
     <ClInclude Include="Source\Graphics\Material.hpp" />

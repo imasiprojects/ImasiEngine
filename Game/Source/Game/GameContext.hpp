@@ -1,7 +1,7 @@
 #ifndef IMASIGAME_GAMECONTEXT_HPP
 #define IMASIGAME_GAMECONTEXT_HPP
 
-#include "SFML/Graphics/RenderWindow.hpp"
+#include "../../../ImasiEngine/Source/Engine/Window.hpp"
 
 namespace Imasi
 {
@@ -9,7 +9,7 @@ namespace Imasi
     {
     public:
 
-        sf::RenderWindow* window;
+        ImasiEngine::Window* window;
     };
 }
 

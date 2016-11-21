@@ -9,13 +9,13 @@ namespace ImasiEngine
     {
     private:
 
-        bool focus;
+        bool _hasFocus;
 
     public:
 
         Window(const sf::VideoMode& size, const std::string& title, const unsigned int style, const sf::ContextSettings& contextSettings);
 
-        bool isFocused() const;
+        bool hasFocus() const;
         void setFocus(bool focus);
     };
 }

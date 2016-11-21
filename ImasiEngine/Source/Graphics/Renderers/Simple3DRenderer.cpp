@@ -80,4 +80,9 @@ namespace ImasiEngine
         }
         UNBIND(Program);
     }
+
+    void Simple3DRenderer::render(Camera& camera) const
+    {
+        render(camera.getViewProjectionMatrix());
+    }
 }

@@ -6,7 +6,6 @@
 #include "../../../ImasiEngine/Source/Utils/Opengl.hpp"
 #include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
 #include "../../Resources/ResourceCodes.hpp"
-#include <glm/gtc/matrix_transform.hpp>
 
 using namespace ImasiEngine;
 
@@ -15,22 +14,15 @@ namespace Imasi
     DemoScene::DemoScene(GameContext* context)
         : Scene()
         , _context(context)
+        , _camera(Camera())
         , _renderer(new Simple3DRenderer())
         , _entity(new Entity())
     {
-        // TEST
-        {
-            GL(glDisable(GL_CULL_FACE));
+        GL(glDisable(GL_CULL_FACE));
 
-            glm::mat4 P = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
-            glm::mat4 V = glm::lookAt(
-                glm::vec3(4, 3, 3), // Camera is at (4,3,3), in World Space
-                glm::vec3(0, 0, 0), // and looks at the origin
-                glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
-            );
-
-            _VP = P * V;
-        }
+        _camera.setAspectRatio(_context->window->getSize().x / (float)_context->window->getSize().y);
+        _camera.setPosition(glm::vec3(4, 3, 3));
+        _camera.lookAt(glm::vec3(0, 0, 0));
 
         ColorTexture2D texture;
         texture.loadFromFile("Resources/texture.png");
@@ -73,7 +65,7 @@ namespace Imasi
         myModel.material = _resourceContainer.getMaterial(ResourceCodes::myMaterial);
         _resourceContainer.set(ResourceCodes::myModel, std::move(myModel));
 
-        _entity->setPosition(glm::vec3(0, -1, 0));
+        _entity->setPosition(glm::vec3(0, 0, 0));
         _entity->model = _resourceContainer.getModel(ResourceCodes::myModel);
     }
 
@@ -92,6 +84,11 @@ namespace Imasi
                 SceneEvent sceneEvent;
                 sceneEvent.type = End;
                 pushEvent(sceneEvent);
+            }
+
+            if (event.key.code == sf::Keyboard::G)
+            {
+                _camera.lookAt(glm::vec3(0, 0, 0));
             }
         }
     }
@@ -115,8 +112,57 @@ namespace Imasi
             elapsedTime -= 1.0;
         }
 
-        _entity->setPosition(_entity->getPosition() + glm::vec3(0, 0.2 * deltaTime, 0));
-        _entity->setRotation(_entity->getRotation() + glm::vec3(0.4 * deltaTime, 0.8 * deltaTime, 1.6 * deltaTime));
+        if (_context->window->hasFocus())
+        {
+            updateFromInput(deltaTime);
+        }
+    }
+
+    void DemoScene::updateFromInput(const float deltaTime)
+    {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            sf::Vector2i centerWindow = sf::Vector2i(_context->window->getSize().x / 2, _context->window->getSize().y / 2);
+            sf::Vector2i diferencia = centerWindow - sf::Mouse::getPosition(*_context->window);
+
+            if (diferencia.x != 0 || diferencia.y != 0)
+            {
+                _camera.addRotationOffset(glm::vec2(diferencia.x, diferencia.y) * -0.15f);
+                sf::Mouse::setPosition(centerWindow, *_context->window);
+            }
+        }
+
+        float speed = 4.f * deltaTime;
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        {
+            _camera.addPositionOffset(_camera.getForwardVector() * speed);
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {
+            _camera.addPositionOffset(_camera.getBackwardVector() * speed);
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {
+            _camera.addPositionOffset(_camera.getRightVector() * speed);
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {
+            _camera.addPositionOffset(_camera.getLeftVector() * speed);
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        {
+            _camera.addPositionOffset(glm::vec3(0.f, 1.f, 0.f) * speed);
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+        {
+            _camera.addPositionOffset(glm::vec3(0.f, -1.f, 0.f) * speed);
+        }
     }
 
     void DemoScene::render()
@@ -125,6 +171,6 @@ namespace Imasi
 
         _renderer->clear();
         _renderer->addEntity(_entity);
-        _renderer->render(_VP);
+        _renderer->render(_camera);
     }
 }
