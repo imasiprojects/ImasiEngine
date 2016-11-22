@@ -20,7 +20,7 @@ namespace ImasiEngine
 
         Window* _window;
         std::list<Scene*> _scenes;
-        ServiceContainer* _serviceContainer;
+        ServiceContainer _serviceContainer;
 
         void setupWindow(const std::string& title, const unsigned int style = sf::Style::Close, const unsigned int width = 800, const unsigned int height = 600);
         virtual void setupGlew();

@@ -9,13 +9,12 @@ namespace Imasi
         : Engine()
     {
         _context = new GameContext();
-        _serviceContainer->add(new DemoService());
+        _serviceContainer.add(new DemoService());
     }
 
     GameEngine::~GameEngine()
     {
         delete _context;
-        delete _serviceContainer;
     }
 
 
