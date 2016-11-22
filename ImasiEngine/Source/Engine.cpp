@@ -8,13 +8,15 @@
 namespace ImasiEngine
 {
     Engine::Engine()
+        : _window(nullptr)
+        , _serviceContainer(new ServiceContainer())
     {
-        _window = nullptr;
     }
 
     Engine::~Engine()
     {
         delete _window;
+        delete _serviceContainer;
 
         for(Scene* scene : _scenes)
         {

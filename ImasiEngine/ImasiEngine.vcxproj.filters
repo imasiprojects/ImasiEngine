@@ -52,5 +52,6 @@
     <ClInclude Include="Source\Graphics\Renderers\Renderer.hpp" />
     <ClInclude Include="Source\Graphics\Renderers\Simple3DRenderer.hpp" />
     <ClInclude Include="Source\Graphics\Cameras\Camera.hpp" />
+    <ClInclude Include="Source\Engine\ServiceContainer.hpp" />
   </ItemGroup>
 </Project>

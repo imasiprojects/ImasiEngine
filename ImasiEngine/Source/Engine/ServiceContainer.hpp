@@ -1,9 +1,9 @@
-#ifndef IMASIGAME_SERVICECONTAINER_HPP
-#define IMASIGAME_SERVICECONTAINER_HPP
+#ifndef IMASIENGINE_SERVICECONTAINER_HPP
+#define IMASIENGINE_SERVICECONTAINER_HPP
 
 #include <map>
 
-namespace Imasi
+namespace ImasiEngine
 {
     class ServiceContainer
     {
@@ -23,7 +23,7 @@ namespace Imasi
         // TODO: Destructor (clean instances)
 
         template <typename T>
-        void regisster(T* instance)
+        void add(T* instance)
         {
             _instances[getTypeId<T>()] = instance;
         }

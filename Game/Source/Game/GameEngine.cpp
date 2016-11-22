@@ -9,8 +9,7 @@ namespace Imasi
         : Engine()
     {
         _context = new GameContext();
-        _serviceContainer = new ServiceContainer();
-        _serviceContainer->regisster(new DemoService());
+        _serviceContainer->add(new DemoService());
     }
 
     GameEngine::~GameEngine()

@@ -35,7 +35,6 @@
     <ClInclude Include="Resources\ResourceCodes.hpp" />
     <ClInclude Include="Source\Game\GameContext.hpp" />
     <ClInclude Include="Source\Game\GameEngine.hpp" />
-    <ClInclude Include="Source\Game\ServiceContainer.hpp" />
     <ClInclude Include="Source\Scenes\DemoScene.hpp" />
     <ClInclude Include="Source\Services\DemoService.hpp" />
   </ItemGroup>
