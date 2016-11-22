@@ -5,13 +5,11 @@
 
 namespace Imasi
 {
-    typedef unsigned int TypeId;
-
     class ServiceContainer
     {
     private:
 
-        static unsigned int idCount;
+        using TypeId = void*;
         std::map<TypeId, void*> _instances;
 
     public:
@@ -19,8 +17,7 @@ namespace Imasi
         template <typename T>
         static TypeId getTypeId()
         {
-            static unsigned int id = idCount++;
-            return id;
+            return (TypeId)&getTypeId<T>;
         }
 
         // TODO: Destructor (clean instances)

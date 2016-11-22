@@ -4,7 +4,6 @@
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Scenes\DemoScene.cpp" />
     <ClCompile Include="Source\Game\GameEngine.cpp" />
-    <ClCompile Include="Source\Game\ServiceContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Scenes\DemoScene.hpp" />
