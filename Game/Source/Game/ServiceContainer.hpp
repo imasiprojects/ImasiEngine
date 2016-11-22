@@ -1,14 +1,17 @@
 #ifndef IMASIGAME_SERVICECONTAINER_HPP
 #define IMASIGAME_SERVICECONTAINER_HPP
 
+#include <map>
+
 namespace Imasi
 {
-    typedef size_t TypeId;
+    typedef unsigned int TypeId;
 
     class ServiceContainer
     {
     private:
 
+        static unsigned int idCount;
         std::map<TypeId, void*> _instances;
 
     public:
@@ -16,7 +19,8 @@ namespace Imasi
         template <typename T>
         static TypeId getTypeId()
         {
-            return typeid(T).hash_code();
+            static unsigned int id = idCount++;
+            return id;
         }
 
         // TODO: Destructor (clean instances)

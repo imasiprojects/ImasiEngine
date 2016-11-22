@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game\GameEngine.cpp" />
+    <ClCompile Include="Source\Game\ServiceContainer.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Scenes\DemoScene.cpp" />
   </ItemGroup>
