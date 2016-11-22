@@ -3,7 +3,7 @@
 
 #include "../../ImasiEngine/Source/Engine.hpp"
 #include "GameContext.hpp"
-#include "GameServiceContainer.hpp"
+#include "ServiceContainer.hpp"
 
 namespace Imasi
 {
@@ -12,7 +12,7 @@ namespace Imasi
     private:
 
         GameContext* _context;
-        GameServiceContainer* _serviceContainer;
+        ServiceContainer* _serviceContainer;
 
     public:
 

@@ -1,6 +1,7 @@
 #include "GameEngine.hpp"
 
 #include "../Scenes/DemoScene.hpp"
+#include "../Services/DemoService.hpp"
 
 namespace Imasi
 {
@@ -8,14 +9,13 @@ namespace Imasi
         : Engine()
     {
         _context = new GameContext();
-        _serviceContainer = new GameServiceContainer();
-        _serviceContainer->myDemoService = new DemoService();
+        _serviceContainer = new ServiceContainer();
+        _serviceContainer->regisster(new DemoService());
     }
 
     GameEngine::~GameEngine()
     {
         delete _context;
-        delete _serviceContainer->myDemoService;
         delete _serviceContainer;
     }
 

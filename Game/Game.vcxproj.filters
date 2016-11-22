@@ -11,6 +11,6 @@
     <ClInclude Include="Source\Game\GameEngine.hpp" />
     <ClInclude Include="Resources\ResourceCodes.hpp" />
     <ClInclude Include="Source\Services\DemoService.hpp" />
-    <ClInclude Include="Source\Game\GameServiceContainer.hpp" />
+    <ClInclude Include="Source\Game\ServiceContainer.hpp" />
   </ItemGroup>
 </Project>

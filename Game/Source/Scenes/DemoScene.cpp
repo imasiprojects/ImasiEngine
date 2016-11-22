@@ -11,14 +11,15 @@ using namespace ImasiEngine;
 
 namespace Imasi
 {
-    DemoScene::DemoScene(GameContext* context, GameServiceContainer* serviceContainer)
+    DemoScene::DemoScene(GameContext* context, ServiceContainer* serviceContainer)
         : Scene()
         , _context(context)
-        , _serviceContainer(serviceContainer)
         , _camera(Camera())
         , _renderer(new Simple3DRenderer())
         , _entity(new Entity())
     {
+        _demoService = serviceContainer->get<DemoService>();
+
         GL(glDisable(GL_CULL_FACE));
 
         _camera.setAspectRatio(_context->window->getSize().x / (float)_context->window->getSize().y);
@@ -85,6 +86,12 @@ namespace Imasi
                 SceneEvent sceneEvent;
                 sceneEvent.type = End;
                 pushEvent(sceneEvent);
+            }
+
+            if (event.key.code == sf::Keyboard::K)
+            {
+                _demoService->increment();
+                _context->window->setTitle(std::to_string(_demoService->getNumber()));
             }
 
             if (event.key.code == sf::Keyboard::G)

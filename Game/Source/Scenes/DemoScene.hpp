@@ -7,7 +7,8 @@
 #include "../../../ImasiEngine/Source/Resources/ResourceContainer.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Cameras/Camera.hpp"
 #include "../Game/GameContext.hpp"
-#include "../Game/GameServiceContainer.hpp"
+#include "../Game/ServiceContainer.hpp"
+#include "../Services/DemoService.hpp"
 
 namespace Imasi
 {
@@ -16,7 +17,7 @@ namespace Imasi
     private:
 
         GameContext* _context;
-        GameServiceContainer* _serviceContainer;
+        DemoService* _demoService;
 
         ImasiEngine::Camera _camera;
         
@@ -26,7 +27,7 @@ namespace Imasi
 
     public:
 
-        DemoScene(GameContext* context, GameServiceContainer* serviceContainer);
+        DemoScene(GameContext* context, ServiceContainer* serviceContainer);
         ~DemoScene();
 
         void processWindowEvent(const sf::Event& event) override;
