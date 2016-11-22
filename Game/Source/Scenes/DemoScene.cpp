@@ -11,9 +11,10 @@ using namespace ImasiEngine;
 
 namespace Imasi
 {
-    DemoScene::DemoScene(GameContext* context)
+    DemoScene::DemoScene(GameContext* context, GameServiceContainer* serviceContainer)
         : Scene()
         , _context(context)
+        , _serviceContainer(serviceContainer)
         , _camera(Camera())
         , _renderer(new Simple3DRenderer())
         , _entity(new Entity())

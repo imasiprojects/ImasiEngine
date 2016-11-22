@@ -8,11 +8,15 @@ namespace Imasi
         : Engine()
     {
         _context = new GameContext();
+        _serviceContainer = new GameServiceContainer();
+        _serviceContainer->myDemoService = new DemoService();
     }
 
     GameEngine::~GameEngine()
     {
         delete _context;
+        delete _serviceContainer->myDemoService;
+        delete _serviceContainer;
     }
 
 
@@ -21,7 +25,7 @@ namespace Imasi
         setupWindow("Woo");
         _context->window = _window;
 
-        Engine::run(new DemoScene(_context));
+        Engine::run(new DemoScene(_context, _serviceContainer));
         _context->window->close();
     }
 }

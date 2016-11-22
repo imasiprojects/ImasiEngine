@@ -10,5 +10,7 @@
     <ClInclude Include="Source\Game\GameContext.hpp" />
     <ClInclude Include="Source\Game\GameEngine.hpp" />
     <ClInclude Include="Resources\ResourceCodes.hpp" />
+    <ClInclude Include="Source\Services\DemoService.hpp" />
+    <ClInclude Include="Source\Game\GameServiceContainer.hpp" />
   </ItemGroup>
 </Project>
