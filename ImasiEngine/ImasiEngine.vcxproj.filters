@@ -22,6 +22,7 @@
     <ClCompile Include="Source\Graphics\Renderers\Renderer.cpp" />
     <ClCompile Include="Source\Graphics\Renderers\Simple3DRenderer.cpp" />
     <ClCompile Include="Source\Graphics\Cameras\Camera.cpp" />
+    <ClCompile Include="Source\Engine\Services\Service.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\Logger.hpp" />
@@ -52,6 +53,7 @@
     <ClInclude Include="Source\Graphics\Renderers\Renderer.hpp" />
     <ClInclude Include="Source\Graphics\Renderers\Simple3DRenderer.hpp" />
     <ClInclude Include="Source\Graphics\Cameras\Camera.hpp" />
-    <ClInclude Include="Source\Engine\ServiceContainer.hpp" />
+    <ClInclude Include="Source\Engine\Services\ServiceContainer.hpp" />
+    <ClInclude Include="Source\Engine\Services\Service.hpp" />
   </ItemGroup>
 </Project>

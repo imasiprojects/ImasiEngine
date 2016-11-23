@@ -76,22 +76,29 @@ namespace ImasiEngine
 
     void Engine::loop()
     {
-        processWindowEvents();
-
-        if (_scenes.size() > 0 && _window->isOpen())
+        if (_window->isOpen())
         {
-            _scenes.back()->update();
+            processWindowEvents();
 
-            processSceneEvents();
-
-            for(Scene* scene : _scenes)
+            if (_scenes.size() > 0)
             {
-                scene->render();
-            }
-        }
+                _scenes.back()->update();
+                processSceneEvents();
 
-        GL_CHECK();
-        _window->display();
+                for (auto service : _serviceContainer.getAll())
+                {
+                    service.second->update();
+                }
+
+                for (Scene* scene : _scenes)
+                {
+                    scene->render();
+                }
+            }
+
+            GL_CHECK();
+            _window->display();
+        }
     }
 
     void Engine::processWindowEvents()

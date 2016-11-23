@@ -11,14 +11,14 @@ using namespace ImasiEngine;
 
 namespace Imasi
 {
-    DemoScene::DemoScene(GameContext* context, ServiceContainer* serviceContainer)
+    DemoScene::DemoScene(GameContext* context, ServiceContainer& serviceContainer)
         : Scene()
         , _context(context)
         , _camera(Camera())
         , _renderer(new Simple3DRenderer())
         , _entity(new Entity())
     {
-        _demoService = serviceContainer->get<DemoService>();
+        _demoService = serviceContainer.get<DemoService>();
 
         GL(glDisable(GL_CULL_FACE));
 

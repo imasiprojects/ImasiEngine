@@ -7,16 +7,17 @@ namespace Imasi
 {
     GameEngine::GameEngine()
         : Engine()
+        , _context(new GameContext())
+        , _demoService(new DemoService())
     {
-        _context = new GameContext();
-        _serviceContainer.add(new DemoService());
+        _serviceContainer.add(_demoService);
     }
 
     GameEngine::~GameEngine()
     {
         delete _context;
+        delete _demoService;
     }
-
 
     void GameEngine::run()
     {

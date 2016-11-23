@@ -2,6 +2,7 @@
 #define IMASIGAME_GAMEENGINE_HPP
 
 #include "../../ImasiEngine/Source/Engine.hpp"
+#include "../Services/DemoService.hpp"
 #include "GameContext.hpp"
 
 namespace Imasi
@@ -11,6 +12,7 @@ namespace Imasi
     private:
 
         GameContext* _context;
+        DemoService* _demoService;
 
     public:
 

@@ -4,6 +4,7 @@
 namespace Imasi
 {
     class DemoService
+        : public ImasiEngine::Service
     {
     private:
 
@@ -12,7 +13,8 @@ namespace Imasi
     public:
 
         DemoService()
-            : _number(0)
+            : Service()
+            , _number(0)
         {
         }
 
@@ -28,6 +30,11 @@ namespace Imasi
         void increment()
         {
             _number++;
+        }
+
+        void update() override
+        {
+            increment();
         }
     };
 }
