@@ -130,8 +130,8 @@ namespace Imasi
             {
                 _camera.addRotationOffset(glm::vec2(mouseMovement.x, mouseMovement.y) * 0.15f);
 
-                /*sf::Vector2i centerWindow = sf::Vector2i(_context->window->getSize().x / 2, _context->window->getSize().y / 2);
-                sf::Mouse::setPosition(centerWindow, *_context->window);*/
+                //sf::Vector2i centerWindow = sf::Vector2i(_context->window->getSize().x / 2, _context->window->getSize().y / 2);
+                //sf::Mouse::setPosition(centerWindow, *_context->window);
 
                 _inputHandler.resetMouseMovement();
             }
