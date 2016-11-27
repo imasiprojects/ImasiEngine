@@ -27,12 +27,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Engine\InputHandler.cpp" />
     <ClCompile Include="Source\Game\GameEngine.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Scenes\DemoScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resources\ResourceCodes.hpp" />
+    <ClInclude Include="Source\Engine\InputHandler.hpp" />
     <ClInclude Include="Source\Game\GameContext.hpp" />
     <ClInclude Include="Source\Game\GameEngine.hpp" />
     <ClInclude Include="Source\Scenes\DemoScene.hpp" />
