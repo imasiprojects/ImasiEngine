@@ -35,11 +35,7 @@ namespace Imasi
 
             case sf::Event::MouseMoved:
             {
-                sf::Vector2i currentPosition(event.mouseMove.x, event.mouseMove.y);
-                sf::Vector2i currentMovement = currentPosition - _mousePosition;
-
-                _mousePosition = currentPosition;
-                _mouseMovement += currentMovement;
+                _mousePosition = sf::Vector2i(event.mouseMove.x, event.mouseMove.y);
                 break;
             }
 
@@ -70,7 +66,7 @@ namespace Imasi
         }
 
         _mousePosition = sf::Vector2i(0, 0);
-        _mouseMovement = sf::Vector2i(0, 0);
+        _mouseLastPosition = sf::Vector2i(0, 0);
     }
 
     bool InputHandler::isKeyPressed(sf::Keyboard::Key key) const
@@ -83,14 +79,19 @@ namespace Imasi
         return _mousePosition;
     }
 
+    void InputHandler::setMousePosition(sf::Vector2i position)
+    {
+        _mousePosition = position;
+    }
+
     sf::Vector2i InputHandler::getMouseMovement() const
     {
-        return _mouseMovement;
+        return _mousePosition - _mouseLastPosition;
     }
 
     void InputHandler::resetMouseMovement()
     {
-        _mouseMovement = sf::Vector2i(0, 0);
+        _mouseLastPosition = _mousePosition;
     }
 
     bool InputHandler::isMouseButtonPressed(sf::Mouse::Button button) const

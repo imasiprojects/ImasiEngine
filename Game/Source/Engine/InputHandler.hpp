@@ -12,7 +12,7 @@ namespace Imasi
         bool _keyboardKeyStates[sf::Keyboard::Key::KeyCount];
 
         sf::Vector2i _mousePosition;
-        sf::Vector2i _mouseMovement;
+        sf::Vector2i _mouseLastPosition;
         bool _mouseButtonStates[sf::Mouse::Button::ButtonCount];
 
     public:
@@ -26,6 +26,7 @@ namespace Imasi
         bool isKeyPressed(sf::Keyboard::Key key) const;
 
         sf::Vector2i getMousePosition() const;
+        void setMousePosition(sf::Vector2i position);
         sf::Vector2i getMouseMovement() const;
         void resetMouseMovement();
         bool isMouseButtonPressed(sf::Mouse::Button button) const;
