@@ -127,6 +127,17 @@ namespace ImasiEngine
             return nullptr;
         }
 
+        sf::Font* getFont(KeyType key)
+        {
+            auto it = _fonts.find(key);
+            if (it != _fonts.end())
+            {
+                return it->second;
+            }
+
+            return nullptr;
+        }
+
         void set(KeyType key, Mesh&& value)
         {
             auto it = _meshes.find(key);
