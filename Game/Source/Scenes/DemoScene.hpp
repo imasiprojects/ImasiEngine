@@ -7,6 +7,7 @@
 #include "../../../ImasiEngine/Source/Resources/ResourceContainer.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Cameras/Camera.hpp"
 #include "../Game/GameContext.hpp"
+#include "../Engine/InputHandler.hpp"
 
 namespace Imasi
 {
@@ -15,6 +16,7 @@ namespace Imasi
     private:
 
         GameContext* _context;
+        InputHandler _inputHandler;
 
         ImasiEngine::Camera _camera;
         
