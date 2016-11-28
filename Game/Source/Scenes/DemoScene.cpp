@@ -145,34 +145,42 @@ namespace Imasi
 
         float speed = 4.f * deltaTime;
 
+        glm::vec3 cameraMovementDirection = glm::vec3(0.f, 0.f, 0.f);
+        
         if (_inputHandler.isKeyPressed(sf::Keyboard::W))
         {
-            _camera.addPositionOffset(_camera.getForwardVector() * speed);
+            cameraMovementDirection += _camera.getForwardVector();
         }
 
         if (_inputHandler.isKeyPressed(sf::Keyboard::S))
         {
-            _camera.addPositionOffset(_camera.getBackwardVector() * speed);
+            cameraMovementDirection += _camera.getBackwardVector();
         }
 
         if (_inputHandler.isKeyPressed(sf::Keyboard::D))
         {
-            _camera.addPositionOffset(_camera.getRightVector() * speed);
+            cameraMovementDirection += _camera.getRightVector();
         }
 
         if (_inputHandler.isKeyPressed(sf::Keyboard::A))
         {
-            _camera.addPositionOffset(_camera.getLeftVector() * speed);
+            cameraMovementDirection += _camera.getLeftVector();
         }
 
         if (_inputHandler.isKeyPressed(sf::Keyboard::Space))
         {
-            _camera.addPositionOffset(glm::vec3(0.f, 1.f, 0.f) * speed);
+            cameraMovementDirection += glm::vec3(0.f, 1.f, 0.f);
         }
 
         if (_inputHandler.isKeyPressed(sf::Keyboard::LShift))
         {
-            _camera.addPositionOffset(glm::vec3(0.f, -1.f, 0.f) * speed);
+            cameraMovementDirection += glm::vec3(0.f, -1.f, 0.f);
+        }
+
+        if (cameraMovementDirection != glm::vec3(0.f, 0.f, 0.f))
+        {
+            cameraMovementDirection = glm::normalize(cameraMovementDirection);
+            _camera.addPositionOffset(cameraMovementDirection * speed);
         }
     }
 
