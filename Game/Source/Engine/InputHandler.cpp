@@ -79,11 +79,6 @@ namespace Imasi
         return _mousePosition;
     }
 
-    void InputHandler::setMousePosition(sf::Vector2i position)
-    {
-        _mousePosition = position;
-    }
-
     sf::Vector2i InputHandler::getMouseMovement() const
     {
         return _mousePosition - _mouseLastPosition;
@@ -92,6 +87,11 @@ namespace Imasi
     void InputHandler::resetMouseMovement()
     {
         _mouseLastPosition = _mousePosition;
+    }
+
+    void InputHandler::resetMouseMovement(sf::Vector2i position)
+    {
+        _mouseLastPosition = position;
     }
 
     bool InputHandler::isMouseButtonPressed(sf::Mouse::Button button) const

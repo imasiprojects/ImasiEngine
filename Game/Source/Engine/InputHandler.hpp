@@ -26,9 +26,9 @@ namespace Imasi
         bool isKeyPressed(sf::Keyboard::Key key) const;
 
         sf::Vector2i getMousePosition() const;
-        void setMousePosition(sf::Vector2i position);
         sf::Vector2i getMouseMovement() const;
         void resetMouseMovement();
+        void resetMouseMovement(sf::Vector2i position);
         bool isMouseButtonPressed(sf::Mouse::Button button) const;
     };
 }

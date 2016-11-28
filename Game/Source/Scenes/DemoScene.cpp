@@ -70,8 +70,7 @@ namespace Imasi
 
         sf::Vector2i centerWindow = sf::Vector2i(_context->window->getSize().x / 2, _context->window->getSize().y / 2);
         sf::Mouse::setPosition(centerWindow, *_context->window);
-        _inputHandler.setMousePosition(centerWindow);
-        _inputHandler.resetMouseMovement();
+        _inputHandler.resetMouseMovement(centerWindow);
     }
 
     DemoScene::~DemoScene()
@@ -137,9 +136,8 @@ namespace Imasi
 
                 sf::Vector2i centerWindow = sf::Vector2i(_context->window->getSize().x / 2, _context->window->getSize().y / 2);
                 sf::Mouse::setPosition(centerWindow, *_context->window);
-                _inputHandler.setMousePosition(centerWindow);
 
-                _inputHandler.resetMouseMovement();
+                _inputHandler.resetMouseMovement(centerWindow);
             }
         }
 
