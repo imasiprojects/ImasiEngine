@@ -2,8 +2,6 @@
 
 #include <GL/glew.h>
 
-#include "../../../ImasiEngine/Source/Utils/Logger.hpp"
-#include "../../../ImasiEngine/Source/Utils/Opengl.hpp"
 #include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
 #include "../../Resources/ResourceCodes.hpp"
 
@@ -15,13 +13,12 @@ namespace Imasi
         : Scene()
         , _context(context)
         , _camera(Camera())
-        , _renderer(new Simple3DRenderer())
-        , _entity(new Entity())
+        , _renderer(new InstancedRenderer())
     {
-        GL(glDisable(GL_CULL_FACE));
+        unsigned int mapSize = 1000;
 
         _camera.setAspectRatio(_context->window->getSize().x / (float)_context->window->getSize().y);
-        _camera.setPosition(glm::vec3(4, 3, 3));
+        _camera.setPosition(glm::vec3(mapSize * -1.5f, 3, 3));
         _camera.lookAt(glm::vec3(0, 0, 0));
 
         ColorTexture2D texture;
@@ -65,8 +62,17 @@ namespace Imasi
         myModel.material = _resourceContainer.getMaterial(ResourceCodes::myMaterial);
         _resourceContainer.set(ResourceCodes::myModel, std::move(myModel));
 
-        _entity->setPosition(glm::vec3(0, 0, 0));
-        _entity->model = _resourceContainer.getModel(ResourceCodes::myModel);
+        for (int i = 0; i < mapSize; i++)
+        {
+            for (int j = 0; j < mapSize; j++)
+            {
+                Entity* entity = new Entity();
+                entity->model = _resourceContainer.getModel(ResourceCodes::myModel);
+                entity->setPosition(glm::vec3(-i * 3, 0, -j));
+
+                _entities.push_back(entity);
+            }
+        }
 
         sf::Vector2i centerWindow = sf::Vector2i(_context->window->getSize().x / 2, _context->window->getSize().y / 2);
         sf::Mouse::setPosition(centerWindow, *_context->window);
@@ -76,7 +82,11 @@ namespace Imasi
     DemoScene::~DemoScene()
     {
         delete _renderer;
-        delete _entity;
+
+        for (auto& entity : _entities)
+        {
+            delete entity;
+        }
     }
 
     void DemoScene::processWindowEvent(const sf::Event& event)
@@ -187,7 +197,7 @@ namespace Imasi
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         _renderer->clear();
-        _renderer->addEntity(_entity);
+        _renderer->add(_entities);
         _renderer->render(_camera);
     }
 }

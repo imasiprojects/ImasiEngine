@@ -1,9 +1,11 @@
 #ifndef IMASIGAME_DEMOSCENE_HPP
 #define IMASIGAME_DEMOSCENE_HPP
 
+#include <list>
+
 #include "../../../ImasiEngine/Source/Engine/Scene.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Entity.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Renderers/Simple3DRenderer.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Renderers/InstancedRenderer.hpp"
 #include "../../../ImasiEngine/Source/Resources/ResourceContainer.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Cameras/Camera.hpp"
 #include "../Game/GameContext.hpp"
@@ -20,9 +22,9 @@ namespace Imasi
 
         ImasiEngine::Camera _camera;
         
-        ImasiEngine::Simple3DRenderer* _renderer;
+        ImasiEngine::InstancedRenderer* _renderer;
         ImasiEngine::ResourceContainer<> _resourceContainer;
-        ImasiEngine::Entity* _entity;
+        std::list<ImasiEngine::Entity*> _entities;
 
     public:
 
