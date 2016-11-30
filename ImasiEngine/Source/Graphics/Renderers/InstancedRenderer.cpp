@@ -83,22 +83,38 @@ namespace ImasiEngine
     void InstancedRenderer::add(const std::list<Entity*>& entities)
     {
         sf::Clock clock;
-        unsigned int index = 0;
 
-        for (Entity* entity : entities)
+        unsigned int count = 0;
+        auto it = entities.begin();
+
+        while (count < entities.size())
         {
-            if (_entities.size() > 0 && _entities.back().size() < _maxVectorSize - 1)
+            if (_entities.size() == 0 || _entities.back().size() < _maxVectorSize - 1)
             {
-                _entities.back()[index++] = entity;
+                _entities.push_back(std::vector<Entity*>());
+                _entities.back().reserve(_maxVectorSize);
+            }
+
+            std::vector<Entity*>& v = _entities.back();
+            int vectorSize = v.size();
+
+            if (entities.size() - count >= _maxVectorSize - vectorSize)
+            {
+                v.resize(_maxVectorSize);
+                for (int i = vectorSize; i < _maxVectorSize; i++)
+                {
+                    v[i] = *it++;
+                }
+                count += _maxVectorSize - vectorSize;
             }
             else
             {
-                _entities.push_back(std::vector<Entity*>({ entity }));
-                auto& back = _entities.back();
-                back.reserve(_maxVectorSize);
-                index = back.size();
-                back.resize(entities.size());
-                std::cout << "Entities.back().size() = " << back.size() << std::endl;
+                v.resize(vectorSize + entities.size() - count);
+                for (int i = vectorSize; i < entities.size() - count; i++)
+                {
+                    v[i] = *it++;
+                }
+                count = entities.size();
             }
         }
 
