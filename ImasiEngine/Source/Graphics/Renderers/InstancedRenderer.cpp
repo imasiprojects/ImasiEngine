@@ -57,10 +57,11 @@ namespace ImasiEngine
         }
     }
 
-    InstancedRenderer::InstancedRenderer()
+    InstancedRenderer::InstancedRenderer(unsigned int maxVectorSize)
         : Renderer()
         , _program(new Program())
         , _vertexArray(new VertexArray())
+        , _maxVectorSize(maxVectorSize)
     {
         VertexShader vertexShader(_vertexShader);
         FragmentShader fragmentShader(_fragmentShader);
@@ -89,7 +90,7 @@ namespace ImasiEngine
 
         while (count < entities.size())
         {
-            if (_entities.size() == 0 || _entities.back().size() < _maxVectorSize - 1)
+            if (_entities.size() == 0 || _entities.back().size() >= _maxVectorSize)
             {
                 _entities.push_back(std::vector<Entity*>());
                 _entities.back().reserve(_maxVectorSize);

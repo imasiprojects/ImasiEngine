@@ -18,12 +18,13 @@ namespace ImasiEngine
 
         static const char* _fragmentShader;
         static const char* _vertexShader;
-        static const unsigned int _maxVectorSize = 10000000; // Not working for multiple vectors
 
     protected:
 
         Program* _program;
         VertexArray* _vertexArray;
+
+        const unsigned int _maxVectorSize;
 
         std::list<std::vector<Entity*>> _entities;
         std::map<Model*, std::list<glm::mat4>> _optimizedEntities;
@@ -32,7 +33,7 @@ namespace ImasiEngine
 
     public:
 
-        InstancedRenderer();
+        InstancedRenderer(unsigned int maxVectorSize = 10000);
         ~InstancedRenderer();
 
         void add(const std::list<Entity*>& entities);
