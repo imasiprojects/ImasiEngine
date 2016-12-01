@@ -40,6 +40,7 @@ namespace ImasiEngine
         InstancedRenderer(unsigned int maxVectorSize = 10000);
         ~InstancedRenderer();
 
+        void add(Entity* entity);
         void add(const std::list<Entity*>& entities);
 
         void clear() override;

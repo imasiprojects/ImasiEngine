@@ -96,6 +96,20 @@ namespace ImasiEngine
         delete _vertexArray;
     }
 
+    void InstancedRenderer::add(Entity* entity)
+    {
+        if (_entities.size() == 0 || _entities.back().size() >= _entities.back().capacity())
+        {
+            _entities.push_back(std::vector<Entity*>());
+            _entities.back().reserve(_maxVectorSize);
+        }
+
+        std::vector<Entity*>& v = _entities.back();
+
+        v.resize(v.size() + 1);
+        v[v.size() - 1] = entity;
+    }
+
     void InstancedRenderer::add(const std::list<Entity*>& entities)
     {
         sf::Clock clock;
