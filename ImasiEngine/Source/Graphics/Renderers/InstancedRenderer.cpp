@@ -105,7 +105,7 @@ namespace ImasiEngine
 
         while (count < entities.size())
         {
-            if (_entities.size() == 0 || _entities.back().size() >= _maxVectorSize)
+            if (_entities.size() == 0 || _entities.back().size() >= _entities.back().capacity())
             {
                 _entities.push_back(std::vector<Entity*>());
                 _entities.back().reserve(_maxVectorSize);
@@ -114,14 +114,14 @@ namespace ImasiEngine
             std::vector<Entity*>& v = _entities.back();
             unsigned int vectorSize = (unsigned int)v.size();
 
-            if (entities.size() - count >= _maxVectorSize - vectorSize)
+            if (entities.size() - count >= v.capacity() - vectorSize)
             {
-                v.resize(_maxVectorSize);
-                for (unsigned int i = vectorSize; i < _maxVectorSize; i++)
+                v.resize(v.capacity());
+                for (unsigned int i = vectorSize; i < v.capacity(); i++)
                 {
                     v[i] = *it++;
                 }
-                count += _maxVectorSize - vectorSize;
+                count += v.capacity() - vectorSize;
             }
             else
             {
@@ -130,7 +130,7 @@ namespace ImasiEngine
                 {
                     v[i] = *it++;
                 }
-                count = (unsigned int)entities.size();
+                count = entities.size();
             }
         }
 
