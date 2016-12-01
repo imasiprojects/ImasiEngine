@@ -197,7 +197,7 @@ namespace Imasi
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         _renderer->clear();
-        _renderer->add(_entities);
+        _renderer->add(_entities.begin(), _entities.size());
         _renderer->render(_camera);
     }
 }

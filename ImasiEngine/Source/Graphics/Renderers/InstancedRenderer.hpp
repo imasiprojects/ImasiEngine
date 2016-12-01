@@ -2,6 +2,7 @@
 #define IMASIENGINE_INSTANCEDRENDERER_HPP
 
 #include <list>
+#include <iterator>
 #include <mutex>
 
 #include "Renderer.hpp"
@@ -41,7 +42,47 @@ namespace ImasiEngine
         ~InstancedRenderer();
 
         void add(Entity* entity);
-        void add(const std::list<Entity*>& entities);
+
+        template<typename InputIterator>
+        void add(InputIterator entityIterator, size_t entityCount)
+        {
+            sf::Clock clock;
+
+            size_t count = 0;
+
+            while (count < entityCount)
+            {
+                if (_entities.size() == 0 || _entities.back().size() >= _entities.back().capacity())
+                {
+                    _entities.push_back(std::vector<Entity*>());
+                    _entities.back().reserve(_maxVectorSize);
+                }
+
+                std::vector<Entity*>& v = _entities.back();
+                unsigned int vectorSize = (unsigned int)v.size();
+
+                if (entityCount - count >= v.capacity() - vectorSize)
+                {
+                    v.resize(v.capacity());
+                    for (unsigned int i = vectorSize; i < v.capacity(); i++)
+                    {
+                        v[i] = *entityIterator++;
+                    }
+                    count += v.capacity() - vectorSize;
+                }
+                else
+                {
+                    v.resize(vectorSize + entityCount - count);
+                    for (int i = vectorSize; i < entityCount - count; i++)
+                    {
+                        v[i] = *entityIterator++;
+                    }
+                    count = entityCount;
+                }
+            }
+
+            std::cout << "Add entities: " << clock.restart().asMilliseconds() << std::endl;
+        }
 
         void clear() override;
         void render(glm::mat4& VP) override;

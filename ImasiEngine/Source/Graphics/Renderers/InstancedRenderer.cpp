@@ -110,47 +110,6 @@ namespace ImasiEngine
         v[v.size() - 1] = entity;
     }
 
-    void InstancedRenderer::add(const std::list<Entity*>& entities)
-    {
-        sf::Clock clock;
-
-        unsigned int count = 0;
-        auto it = entities.begin();
-
-        while (count < entities.size())
-        {
-            if (_entities.size() == 0 || _entities.back().size() >= _entities.back().capacity())
-            {
-                _entities.push_back(std::vector<Entity*>());
-                _entities.back().reserve(_maxVectorSize);
-            }
-
-            std::vector<Entity*>& v = _entities.back();
-            unsigned int vectorSize = (unsigned int)v.size();
-
-            if (entities.size() - count >= v.capacity() - vectorSize)
-            {
-                v.resize(v.capacity());
-                for (unsigned int i = vectorSize; i < v.capacity(); i++)
-                {
-                    v[i] = *it++;
-                }
-                count += v.capacity() - vectorSize;
-            }
-            else
-            {
-                v.resize(vectorSize + entities.size() - count);
-                for (int i = vectorSize; i < entities.size() - count; i++)
-                {
-                    v[i] = *it++;
-                }
-                count = entities.size();
-            }
-        }
-
-        std::cout << "Add entities: " << clock.restart().asMilliseconds() << std::endl;
-    }
-
     void InstancedRenderer::clear()
     {
         sf::Clock clock;
