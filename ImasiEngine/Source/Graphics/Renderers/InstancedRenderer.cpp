@@ -43,16 +43,31 @@ namespace ImasiEngine
 
     void InstancedRenderer::prepareOptimizedEntities(glm::mat4& VP)
     {
+        std::list<std::thread> threads;
+
         for (auto& entityGroup : _entities)
         {
-            for (auto& entity : entityGroup)
+            threads.push_back(std::thread([&]()
             {
-                glm::mat4 MVP = VP * entity->getModelMatrix();
-
-                if (isVisible(MVP))
+                for (auto& entity : entityGroup)
                 {
-                    _optimizedEntities[entity->model].push_back(MVP);
+                    glm::mat4 MVP = VP * entity->getModelMatrix();
+
+                    if (isVisible(MVP))
+                    {
+                        _optimizedEntitiesMutex.lock();
+                        _optimizedEntities[entity->model].push_back(MVP);
+                        _optimizedEntitiesMutex.unlock();
+                    }
                 }
+            }));
+        }
+
+        for (auto& thread : threads)
+        {
+            if (thread.joinable())
+            {
+                thread.join();
             }
         }
     }
@@ -97,12 +112,12 @@ namespace ImasiEngine
             }
 
             std::vector<Entity*>& v = _entities.back();
-            int vectorSize = v.size();
+            unsigned int vectorSize = (unsigned int)v.size();
 
             if (entities.size() - count >= _maxVectorSize - vectorSize)
             {
                 v.resize(_maxVectorSize);
-                for (int i = vectorSize; i < _maxVectorSize; i++)
+                for (unsigned int i = vectorSize; i < _maxVectorSize; i++)
                 {
                     v[i] = *it++;
                 }
@@ -115,7 +130,7 @@ namespace ImasiEngine
                 {
                     v[i] = *it++;
                 }
-                count = entities.size();
+                count = (unsigned int)entities.size();
             }
         }
 

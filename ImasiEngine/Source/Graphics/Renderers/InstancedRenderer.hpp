@@ -1,12 +1,14 @@
 #ifndef IMASIENGINE_INSTANCEDRENDERER_HPP
 #define IMASIENGINE_INSTANCEDRENDERER_HPP
 
+#include <list>
+#include <mutex>
+
 #include "Renderer.hpp"
 #include "../Program.hpp"
 #include "../Buffers/VertexArray.hpp"
 #include "../Cameras/Camera.hpp"
 #include "../Model.hpp"
-#include <list>
 #include "../Entity.hpp"
 
 namespace ImasiEngine
@@ -28,6 +30,8 @@ namespace ImasiEngine
 
         std::list<std::vector<Entity*>> _entities;
         std::map<Model*, std::list<glm::mat4>> _optimizedEntities;
+        std::mutex _optimizedEntitiesMutex;
+
         void InstancedRenderer::prepareOptimizedEntities(glm::mat4& VP);
         bool isVisible(glm::mat4& MVP, glm::vec3& position = glm::vec3(0.f, 0.f, 0.f)) const;
 
