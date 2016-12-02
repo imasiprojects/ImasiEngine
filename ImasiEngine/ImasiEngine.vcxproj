@@ -31,7 +31,7 @@
     <ClCompile Include="Source\Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Source\Graphics\Cameras\Camera.cpp" />
     <ClCompile Include="Source\Graphics\Entities\Entity.cpp" />
-    <ClCompile Include="Source\Graphics\OpenGL\GLObject.cpp" />
+    <ClCompile Include="Source\Graphics\Opengl\GLObject.cpp" />
     <ClCompile Include="Source\Graphics\Meshes\Mesh.cpp" />
     <ClCompile Include="Source\Graphics\Renderers\Renderer.cpp" />
     <ClCompile Include="Source\Graphics\Renderers\Simple3DRenderer.cpp" />
@@ -40,7 +40,7 @@
     <ClCompile Include="Source\Graphics\Textures\ColorTexture2D.cpp" />
     <ClCompile Include="Source\Graphics\Textures\Texture.cpp" />
     <ClCompile Include="Source\Graphics\Programs\Shader.cpp" />
-    <ClCompile Include="Source\Graphics\OpenGL\OpenglHelper.cpp" />
+    <ClCompile Include="Source\Graphics\Opengl\OpenglHelper.cpp" />
     <ClCompile Include="Source\Engine\Engine.cpp" />
     <ClCompile Include="Source\Engine\Scene.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\Buffer.cpp" />
@@ -57,7 +57,7 @@
     <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.hpp" />
     <ClInclude Include="Source\Graphics\Cameras\Camera.hpp" />
     <ClInclude Include="Source\Graphics\Entities\Entity.hpp" />
-    <ClInclude Include="Source\Graphics\OpenGL\GLObject.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\GLObject.hpp" />
     <ClInclude Include="Source\Graphics\Materials\Material.hpp" />
     <ClInclude Include="Source\Graphics\Meshes\Mesh.hpp" />
     <ClInclude Include="Source\Graphics\Models\Model.hpp" />
@@ -70,7 +70,7 @@
     <ClInclude Include="Source\Graphics\Programs\Shader.hpp" />
     <ClInclude Include="Source\ImasiEngine.hpp" />
     <ClInclude Include="Source\Resources\ResourceContainer.hpp" />
-    <ClInclude Include="Source\Graphics\OpenGL\OpenglHelper.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\OpenglHelper.hpp" />
     <ClInclude Include="Source\Engine\Engine.hpp" />
     <ClInclude Include="Source\Engine\Scene.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\Buffer.hpp" />

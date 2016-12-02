@@ -17,11 +17,11 @@
     <ClCompile Include="Source\Graphics\Programs\Shader.cpp" />
     <ClCompile Include="Source\Graphics\Programs\VertexShader.cpp" />
     <ClCompile Include="Source\Graphics\Programs\Program.cpp" />
-    <ClCompile Include="Source\Graphics\OpenGL\GLObject.cpp" />
     <ClCompile Include="Source\Graphics\Entities\Entity.cpp" />
     <ClCompile Include="Source\Graphics\Meshes\Mesh.cpp" />
     <ClCompile Include="Source\Engine\Engine.cpp" />
-    <ClCompile Include="Source\Graphics\OpenGL\OpenglHelper.cpp" />
+    <ClCompile Include="Source\Graphics\Opengl\GLObject.cpp" />
+    <ClCompile Include="Source\Graphics\Opengl\OpenglHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\Logger.hpp" />
@@ -45,13 +45,13 @@
     <ClInclude Include="Source\Graphics\Programs\Shader.hpp" />
     <ClInclude Include="Source\Graphics\Programs\VertexShader.hpp" />
     <ClInclude Include="Source\Graphics\Programs\Program.hpp" />
-    <ClInclude Include="Source\Graphics\OpenGL\GLObject.hpp" />
     <ClInclude Include="Source\Graphics\Entities\Entity.hpp" />
     <ClInclude Include="Source\Graphics\Materials\Material.hpp" />
     <ClInclude Include="Source\Graphics\Meshes\Mesh.hpp" />
     <ClInclude Include="Source\Graphics\Models\Model.hpp" />
     <ClInclude Include="Source\ImasiEngine.hpp" />
     <ClInclude Include="Source\Engine\Engine.hpp" />
-    <ClInclude Include="Source\Graphics\OpenGL\OpenglHelper.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\GLObject.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\OpenglHelper.hpp" />
   </ItemGroup>
 </Project>
