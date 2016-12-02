@@ -1,5 +1,5 @@
-#ifndef IMASIENGINE_OPENGL_HPP
-#define IMASIENGINE_OPENGL_HPP
+#ifndef IMASIENGINE_OPENGLHELPER_HPP
+#define IMASIENGINE_OPENGLHELPER_HPP
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -9,9 +9,9 @@
 
 #ifdef DEBUG
 
-    #define GL(glCall) glCall; do {} while (ImasiEngine::Opengl::checkError(__FILE__, __LINE__, #glCall))
+    #define GL(glCall) glCall; do {} while (ImasiEngine::OpenglHelper::checkError(__FILE__, __LINE__, #glCall))
 
-    #define GL_CHECK() do {} while (ImasiEngine::Opengl::checkError(__FILE__, __LINE__))
+    #define GL_CHECK() do {} while (ImasiEngine::OpenglHelper::checkError(__FILE__, __LINE__))
 
     #define UNBIND(glObjectType, ...) glObjectType::unbind(__VA_ARGS__)
 
@@ -27,7 +27,7 @@
 
 namespace ImasiEngine
 {
-    namespace Opengl
+    namespace OpenglHelper
     {
         void beginSfml(sf::RenderWindow* window);
         void endSfml(sf::RenderWindow* window);

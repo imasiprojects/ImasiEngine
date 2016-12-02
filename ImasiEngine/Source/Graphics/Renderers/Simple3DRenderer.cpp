@@ -1,7 +1,7 @@
 #include "Simple3DRenderer.hpp"
 
-#include "../Shaders/VertexShader.hpp"
-#include "../Shaders/FragmentShader.hpp"
+#include "../Programs/VertexShader.hpp"
+#include "../Programs/FragmentShader.hpp"
 
 namespace ImasiEngine
 {

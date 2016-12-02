@@ -3,8 +3,8 @@
 
 #include <list>
 
-#include "Engine/Window.hpp"
-#include "Engine/Scene.hpp"
+#include "Window.hpp"
+#include "Scene.hpp"
 
 namespace ImasiEngine
 {

@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 
 #include "Buffer.hpp"
-#include "../../Utils/Opengl.hpp"
+#include "../Opengl/OpenglHelper.hpp"
 
 namespace ImasiEngine
 {

@@ -2,8 +2,8 @@
 
 #include <GL/glew.h>
 
-#include "../Utils/Opengl.hpp"
-#include "../Utils/Logger.hpp"
+#include "../Opengl/OpenglHelper.hpp"
+#include "../../Utils/Logger.hpp"
 
 namespace ImasiEngine
 {

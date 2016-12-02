@@ -3,8 +3,9 @@
 #include <GL/glew.h>
 
 #include "../../../ImasiEngine/Source/Utils/Logger.hpp"
-#include "../../../ImasiEngine/Source/Utils/Opengl.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Opengl/OpenglHelper.hpp"
 #include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
+
 #include "../../Resources/ResourceCodes.hpp"
 
 using namespace ImasiEngine;

@@ -2,7 +2,7 @@
 #define IMASIENGINE_SIMPLE3DRENDERER_HPP
 
 #include "Renderer.hpp"
-#include "../Program.hpp"
+#include "../Programs/Program.hpp"
 #include "../Buffers/VertexArray.hpp"
 #include "../Cameras/Camera.hpp"
 

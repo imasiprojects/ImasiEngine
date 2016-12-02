@@ -4,11 +4,11 @@
 #include <map>
 #include <SFML/Graphics/Font.hpp>
 
-#include "../../ImasiEngine/Source/Graphics/Mesh.hpp"
-#include "../../ImasiEngine/Source/Graphics/Material.hpp"
-#include "../../ImasiEngine/Source/Graphics/Model.hpp"
-#include "../Graphics/Shaders/VertexShader.hpp"
-#include "../Graphics/Shaders/FragmentShader.hpp"
+#include "../../ImasiEngine/Source/Graphics/Meshes/Mesh.hpp"
+#include "../../ImasiEngine/Source/Graphics/Materials/Material.hpp"
+#include "../../ImasiEngine/Source/Graphics/Models/Model.hpp"
+#include "../Graphics/Programs/VertexShader.hpp"
+#include "../Graphics/Programs/FragmentShader.hpp"
 
 namespace ImasiEngine
 {
