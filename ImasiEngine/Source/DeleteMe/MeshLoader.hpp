@@ -4,13 +4,12 @@
 #include <iostream>
 #include <vector>
 #include <stdio.h>
-
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-
 #include <glm/glm.hpp>
-#include "../Graphics/Mesh.hpp"
+
+#include "../Graphics/Meshes/Mesh.hpp"
 #include "../Utils/Logger.hpp"
 
 ImasiEngine::Mesh* loadMesh(std::string path)

@@ -1,12 +1,12 @@
-#include "Opengl.hpp"
+#include "OpenglHelper.hpp"
 
 #include <GL/glew.h>
 
-#include "Logger.hpp"
+#include "../../Utils/Logger.hpp"
 
 namespace ImasiEngine
 {
-    namespace Opengl
+    namespace OpenglHelper
     {
         void beginSfml(sf::RenderWindow* window)
         {

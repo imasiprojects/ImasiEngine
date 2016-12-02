@@ -8,7 +8,7 @@
 #include "ArrayBuffer.hpp"
 #include "ArrayBufferType.hpp"
 #include "IndexBuffer.hpp"
-#include "../Mesh.hpp"
+#include "../Meshes/Mesh.hpp"
 
 namespace ImasiEngine
 {

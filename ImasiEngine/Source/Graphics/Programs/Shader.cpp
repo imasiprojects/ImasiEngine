@@ -3,7 +3,7 @@
 #include <map>
 #include <GL/glew.h>
 
-#include "../../Utils/Opengl.hpp"
+#include "../Opengl/OpenglHelper.hpp"
 #include "../../Utils/Logger.hpp"
 
 namespace ImasiEngine

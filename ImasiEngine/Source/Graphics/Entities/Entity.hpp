@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 
-#include "Model.hpp"
+#include "../Models/Model.hpp"
 
 namespace ImasiEngine
 {

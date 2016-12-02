@@ -1,8 +1,8 @@
 #include "VertexArray.hpp"
 
-#include "../../Utils/Opengl.hpp"
-#include "../../Utils/Logger.hpp"
 #include "ArrayBuffer.hpp"
+#include "../Opengl/OpenglHelper.hpp"
+#include "../../Utils/Logger.hpp"
 
 namespace ImasiEngine
 {

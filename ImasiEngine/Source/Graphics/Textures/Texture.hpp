@@ -3,7 +3,7 @@
 
 #include <map>
 
-#include "../GLObject.hpp"
+#include "../Opengl/GLObject.hpp"
 
 namespace ImasiEngine
 {

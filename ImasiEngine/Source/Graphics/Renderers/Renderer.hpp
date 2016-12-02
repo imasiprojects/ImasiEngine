@@ -5,7 +5,7 @@
 
 #include <glm/glm.hpp>
 
-#include "../Entity.hpp"
+#include "../Entities/Entity.hpp"
 
 namespace ImasiEngine
 {

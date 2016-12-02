@@ -1,8 +1,8 @@
 #ifndef IMASIENGINE_MESH_HPP
 #define IMASIENGINE_MESH_HPP
 
-#include "Buffers/ArrayBuffer.hpp"
-#include "Buffers/IndexBuffer.hpp"
+#include "../Buffers/ArrayBuffer.hpp"
+#include "../Buffers/IndexBuffer.hpp"
 
 namespace ImasiEngine
 {
