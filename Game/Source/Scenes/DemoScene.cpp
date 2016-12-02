@@ -15,7 +15,7 @@ namespace Imasi
         , _camera(Camera())
         , _renderer(new InstancedRenderer(2500))
     {
-        int mapSize = 100;
+        int mapSize = 1;
 
         _camera.setAspectRatio(_context->window->getSize().x / (float)_context->window->getSize().y);
         _camera.setPosition(glm::vec3(mapSize * -1.5f, 3, 3));

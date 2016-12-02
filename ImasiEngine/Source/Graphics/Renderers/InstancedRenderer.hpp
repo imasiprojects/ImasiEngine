@@ -30,7 +30,7 @@ namespace ImasiEngine
         const unsigned int _maxVectorSize;
 
         std::list<std::vector<Entity*>> _entities;
-        std::map<Model*, std::list<glm::mat4>> _optimizedEntities;
+        std::map<Model*, std::vector<glm::mat4>> _optimizedEntities;
         std::mutex _optimizedEntitiesMutex;
 
         void InstancedRenderer::prepareOptimizedEntities(glm::mat4& VP);

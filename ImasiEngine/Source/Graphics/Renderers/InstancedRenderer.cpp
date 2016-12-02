@@ -12,8 +12,7 @@ namespace ImasiEngine
 
         layout(location = 0) in vec3 vertexPosition_modelspace;
         layout(location = 1) in vec2 vertexUV;
-
-        uniform mat4 MVP;
+        layout(location = 2) in mat4 MVP;
 
         out vec2 UV;
 
@@ -125,25 +124,35 @@ namespace ImasiEngine
         prepareOptimizedEntities(VP);
         std::cout << "Process entities: " << clock.restart().asMilliseconds() << std::endl;
 
+        std::map<Model*, ArrayBuffer*> finalOptimization;
+
+        for (auto& pair : _optimizedEntities)
+        {
+            finalOptimization[pair.first] = new ArrayBuffer((float*)pair.second.data(), pair.second.size(), 16);
+        }
+
         BIND(Program, _program);
         {
-            for (auto& optimizedEntity : _optimizedEntities)
+            for (auto& optimizedEntity : finalOptimization)
             {
                 auto& model = optimizedEntity.first;
 
                 BIND(Texture, model->material->diffuseMap, 0);
                 {
-                    for (glm::mat4& modelMatrix : optimizedEntity.second)
-                    {
-                        _program->setUniform("MVP", modelMatrix);
-                        _vertexArray->attachMesh(model->mesh);
-                        _vertexArray->render();
-                    }
+                    _vertexArray->attachMesh(model->mesh);
+                    _vertexArray->attachArrayBuffer(optimizedEntity.second, ModelMatrix, 1);
+                    _vertexArray->render();
                 }
                 UNBIND(Texture, 0);
             }
         }
         UNBIND(Program);
+
+        // Clean memory!
+        for (auto& pair : finalOptimization)
+        {
+            delete pair.second;
+        }
 
         std::cout << "Render: " << clock.restart().asMilliseconds() << std::endl;
     }
