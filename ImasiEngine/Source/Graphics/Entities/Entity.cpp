@@ -1,7 +1,7 @@
 #include "Entity.hpp"
 
+#include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
-#include <glm/detail/type_mat.hpp>
 
 namespace ImasiEngine
 {
