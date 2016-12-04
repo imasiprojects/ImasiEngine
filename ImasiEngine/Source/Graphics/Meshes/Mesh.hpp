@@ -23,15 +23,15 @@ namespace ImasiEngine
 
         IndexBuffer* getIndexBuffer() const;
         void setIndexBuffer(IndexBuffer&& indexBuffer);
-        void clearIndexBuffer();
+        void removeIndexBuffer();
 
         ArrayBuffer* getVertexBuffer() const;
         void setVertexBuffer(ArrayBuffer&& vertexBuffer);
-        void clearVertexBuffer();
+        void removeVertexBuffer();
 
         ArrayBuffer* getUVBuffer() const;
         void setUVBuffer(ArrayBuffer&& uvBuffer);
-        void clearUVBuffer();
+        void removeUVBuffer();
     };
 }
 

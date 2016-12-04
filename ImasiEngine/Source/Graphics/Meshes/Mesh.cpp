@@ -37,7 +37,7 @@ namespace ImasiEngine
         _indexBuffer = new IndexBuffer(std::move(indexBuffer));
     }
 
-    void Mesh::clearIndexBuffer()
+    void Mesh::removeIndexBuffer()
     {
         delete _indexBuffer;
         _indexBuffer = nullptr;
@@ -54,7 +54,7 @@ namespace ImasiEngine
         _vertexBuffer = new ArrayBuffer(std::move(vertexBuffer));
     }
 
-    void Mesh::clearVertexBuffer()
+    void Mesh::removeVertexBuffer()
     {
         delete _vertexBuffer;
         _vertexBuffer = nullptr;
@@ -70,7 +70,7 @@ namespace ImasiEngine
         delete _uvBuffer;
         _uvBuffer = new ArrayBuffer(std::move(uvBuffer));
     }
-    void Mesh::clearUVBuffer()
+    void Mesh::removeUVBuffer()
     {
         delete _uvBuffer;
         _uvBuffer = nullptr;
