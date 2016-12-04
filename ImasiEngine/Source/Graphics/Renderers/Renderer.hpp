@@ -22,7 +22,7 @@ namespace ImasiEngine
 
         virtual void clear();
         virtual void addEntity(Entity* entity);
-        virtual void render(glm::mat4& VP) const = 0;
+        virtual void render(const glm::mat4& VP) const = 0;
     };
 }
 

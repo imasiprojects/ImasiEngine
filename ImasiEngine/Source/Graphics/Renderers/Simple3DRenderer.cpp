@@ -62,7 +62,7 @@ namespace ImasiEngine
         delete _vertexArray;
     }
 
-    void Simple3DRenderer::render(glm::mat4& VP) const
+    void Simple3DRenderer::render(const glm::mat4& VP) const
     {
         BIND(Program, _program);
         {
