@@ -1,6 +1,7 @@
 #include "Camera.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/detail/type_mat.hpp>
 
 namespace ImasiEngine
 {
@@ -96,7 +97,7 @@ namespace ImasiEngine
         _rotation.y = glm::clamp(_rotation.y, -89.9f, 89.9f);
     }
 
-    glm::mat4 Camera::getTranslationMatrix()
+    const glm::mat4& Camera::getTranslationMatrix()
     {
         if (_mustUpdateTranslationMatrix)
         {
@@ -107,24 +108,24 @@ namespace ImasiEngine
         return _translationMatrix;
     }
 
-    glm::vec3 Camera::getPosition() const
+    const glm::vec3& Camera::getPosition() const
     {
         return _position;
     }
 
-    void Camera::setPosition(glm::vec3& position)
+    void Camera::setPosition(const glm::vec3& position)
     {
         setMustUpdateTranslationMatrix(true);
         _position = position;
     }
 
-    void Camera::addPositionOffset(glm::vec3& offset)
+    void Camera::addPositionOffset(const glm::vec3& offset)
     {
         setMustUpdateTranslationMatrix(true);
         _position += offset;
     }
 
-    glm::mat4 Camera::getRotationMatrix()
+    const glm::mat4& Camera::getRotationMatrix()
     {
         if (_mustUpdateRotationMatrix)
         {
@@ -138,12 +139,12 @@ namespace ImasiEngine
         return _rotationMatrix;
     }
 
-    glm::vec2 Camera::getRotation() const
+    const glm::vec2& Camera::getRotation() const
     {
         return _rotation;
     }
 
-    void Camera::setRotation(glm::vec2& rotation)
+    void Camera::setRotation(const glm::vec2& rotation)
     {
         setMustUpdateRotationMatrix(true);
 
@@ -151,7 +152,7 @@ namespace ImasiEngine
         fixAngles();
     }
 
-    void Camera::addRotationOffset(glm::vec2& offset)
+    void Camera::addRotationOffset(const glm::vec2& offset)
     {
         setMustUpdateRotationMatrix(true);
 
@@ -159,7 +160,7 @@ namespace ImasiEngine
         fixAngles();
     }
 
-    void Camera::lookAt(glm::vec3 objetive)
+    void Camera::lookAt(const glm::vec3& objetive)
     {
         setMustUpdateRotationMatrix(true);
 
@@ -178,7 +179,7 @@ namespace ImasiEngine
         fixAngles();
     }
 
-    glm::mat4 Camera::getViewMatrix()
+    const glm::mat4& Camera::getViewMatrix()
     {
         if (_mustUpdateViewMatrix)
         {
@@ -189,7 +190,7 @@ namespace ImasiEngine
         return _viewMatrix;
     }
 
-    glm::mat4 Camera::getProjectionMatrix()
+    const glm::mat4& Camera::getProjectionMatrix()
     {
         if (_mustUpdateProjectionMatrix)
         {
@@ -251,7 +252,7 @@ namespace ImasiEngine
         _farPlaneDistance = farPlaneDistance;
     }
 
-    glm::mat4 Camera::getViewProjectionMatrix()
+    const glm::mat4& Camera::getViewProjectionMatrix()
     {
         if (_mustUpdateViewProjectionMatrix)
         {
@@ -262,7 +263,7 @@ namespace ImasiEngine
         return _viewProjectionMatrix;
     }
 
-    glm::vec3 Camera::getRelativeVector(glm::vec3& direction)
+    glm::vec3 Camera::getRelativeVector(const glm::vec3& direction)
     {
         return glm::vec3(glm::vec4(direction, 0.f) * getRotationMatrix());
     }

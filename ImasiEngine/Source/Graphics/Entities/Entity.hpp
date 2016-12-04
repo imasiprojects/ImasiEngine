@@ -25,16 +25,16 @@ namespace ImasiEngine
         Entity();
         virtual ~Entity();
 
-        glm::vec3 getPosition() const;
-        void setPosition(glm::vec3& position);
+        const glm::vec3& getPosition() const;
+        void setPosition(const glm::vec3& position);
 
-        glm::vec3 getRotation() const;
-        void setRotation(glm::vec3& rotation);
+        const glm::vec3& getRotation() const;
+        void setRotation(const glm::vec3& rotation);
 
-        glm::vec3 getScale() const;
-        void setScale(glm::vec3& scale);
+        const glm::vec3& getScale() const;
+        void setScale(const glm::vec3& scale);
 
-        glm::mat4 getModelMatrix();
+        const glm::mat4& getModelMatrix();
     };
 }
 
