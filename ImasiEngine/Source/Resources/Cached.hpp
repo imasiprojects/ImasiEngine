@@ -33,7 +33,7 @@ public:
         >
     >
     explicit Cached(Cached<T>&& cached)
-        : _value(std::forward(cached._value))
+        : _value(std::move(cached._value))
         , _isValid(cached._isValid)
     {
     }
@@ -56,7 +56,7 @@ public:
         return _value;
     }
 
-    T& get() const
+    T& value() const
     {
         return _value;
     }
