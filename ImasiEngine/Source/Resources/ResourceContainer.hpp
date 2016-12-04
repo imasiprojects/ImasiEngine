@@ -235,6 +235,41 @@ namespace ImasiEngine
                 _fonts[key] = new sf::Font(std::move(value));
             }
         }
+
+        void removeMesh(KeyType key)
+        {
+            _meshes.erase(key);
+        }
+
+        void removeColorTexture(KeyType key)
+        {
+            _colorTextures.erase(key);
+        }
+
+        void removeMaterial(KeyType key)
+        {
+            _materials.erase(key);
+        }
+
+        void removeModel(KeyType key)
+        {
+            _models.erase(key);
+        }
+
+        void removeVertexShader(KeyType key)
+        {
+            _vertexShaders.erase(key);
+        }
+
+        void removeFragmentShader(KeyType key)
+        {
+            _fragmentShaders.erase(key);
+        }
+
+        void removeFont(KeyType key)
+        {
+            _fonts.erase(key);
+        }
     };
 }
 
