@@ -5,8 +5,7 @@
 namespace ImasiEngine
 {
     Entity::Entity()
-        : _mustUpdateModelMatrix(false)
-        , _modelMatrix(glm::mat4(1.f))
+        : _modelMatrix(glm::mat4(1.f))
         , _position(glm::vec3(0.f, 0.f, 0.f))
         , _rotation(glm::vec3(0.f, 0.f, 0.f))
         , _scale(glm::vec3(1.f, 1.f, 1.f))
@@ -25,7 +24,7 @@ namespace ImasiEngine
 
     void Entity::setPosition(glm::vec3& position)
     {
-        _mustUpdateModelMatrix = true;
+        _modelMatrix.invalidate();
         _position = position;
     }
 
@@ -36,7 +35,7 @@ namespace ImasiEngine
 
     void Entity::setRotation(glm::vec3& rotation)
     {
-        _mustUpdateModelMatrix = true;
+        _modelMatrix.invalidate();
         _rotation = rotation;
     }
 
@@ -47,13 +46,13 @@ namespace ImasiEngine
 
     void Entity::setScale(glm::vec3& scale)
     {
-        _mustUpdateModelMatrix = true;
+        _modelMatrix.invalidate();
         _scale = scale;
     }
 
-    glm::mat4 Entity::getModelMatrix()
+    const glm::mat4& Entity::getModelMatrix()
     {
-        if (_mustUpdateModelMatrix)
+        if (!_modelMatrix.isValid())
         {
             glm::mat4 rotationMatrix(1.f);
             rotationMatrix = glm::rotate(rotationMatrix, _rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -61,7 +60,6 @@ namespace ImasiEngine
             rotationMatrix = glm::rotate(rotationMatrix, _rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 
             _modelMatrix = glm::translate(_position) * rotationMatrix * glm::scale(_scale);
-            _mustUpdateModelMatrix = false;
         }
 
         return _modelMatrix;
