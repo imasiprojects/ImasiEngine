@@ -6,6 +6,8 @@ namespace ImasiEngine
     template<typename T>
     class Cached
     {
+    private:
+
         T _value;
         bool _isValid;
 
@@ -54,7 +56,6 @@ namespace ImasiEngine
         Cached<T>& operator=(AssignArg arg)
         {
             _value = arg;
-            _isValid = true;
             return *this;
         }
 
@@ -71,7 +72,6 @@ namespace ImasiEngine
         void set(const T& newValue)
         {
             _value = newValue;
-            _isValid = true;
         }
 
         void validate()
@@ -87,6 +87,11 @@ namespace ImasiEngine
         bool isValid() const
         {
             return _isValid;
+        }
+
+        bool isInvalid() const
+        {
+            return !_isValid;
         }
     };
 }

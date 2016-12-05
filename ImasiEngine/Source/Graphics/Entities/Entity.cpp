@@ -52,7 +52,7 @@ namespace ImasiEngine
 
     const glm::mat4& Entity::getModelMatrix()
     {
-        if (!_modelMatrix.isValid())
+        if (_modelMatrix.isInvalid())
         {
             glm::mat4 rotationMatrix(1.f);
             rotationMatrix = glm::rotate(rotationMatrix, _rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -60,6 +60,7 @@ namespace ImasiEngine
             rotationMatrix = glm::rotate(rotationMatrix, _rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 
             _modelMatrix = glm::translate(_position) * rotationMatrix * glm::scale(_scale);
+            _modelMatrix.validate();
         }
 
         return _modelMatrix;

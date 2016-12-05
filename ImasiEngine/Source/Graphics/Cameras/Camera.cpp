@@ -14,6 +14,11 @@ namespace ImasiEngine
         , _nearPlaneDistance(0.01f)
         , _farPlaneDistance(1000.0f)
     {
+        _translationMatrix.invalidate();
+        _rotationMatrix.invalidate();
+        _viewMatrix.invalidate();
+        _projectionMatrix.invalidate();
+        _viewProjectionMatrix.invalidate();
     }
 
     Camera::~Camera()
@@ -65,9 +70,10 @@ namespace ImasiEngine
 
     const glm::mat4& Camera::getTranslationMatrix()
     {
-        if (!_translationMatrix.isValid())
+        if (_translationMatrix.isInvalid())
         {
             _translationMatrix = glm::translate(glm::mat4(1.f), -_position);
+            _translationMatrix.validate();
         }
 
         return _translationMatrix;
@@ -92,11 +98,12 @@ namespace ImasiEngine
 
     const glm::mat4& Camera::getRotationMatrix()
     {
-        if (!_rotationMatrix.isValid())
+        if (_rotationMatrix.isInvalid())
         {
             glm::mat4 rotationMatrix(1.f);
             rotationMatrix = glm::rotate(rotationMatrix, glm::radians(_rotation.y), glm::vec3(1.f, 0.f, 0.f));
             _rotationMatrix = glm::rotate(rotationMatrix, glm::radians(_rotation.x), glm::vec3(0.f, 1.f, 0.f));
+            _rotationMatrix.validate();
         }
 
         return _rotationMatrix;
@@ -144,9 +151,10 @@ namespace ImasiEngine
 
     const glm::mat4& Camera::getViewMatrix()
     {
-        if (!_viewMatrix.isValid())
+        if (_viewMatrix.isInvalid())
         {
             _viewMatrix = getRotationMatrix() * getTranslationMatrix();
+            _viewMatrix.validate();
         }
 
         return _viewMatrix;
@@ -154,9 +162,10 @@ namespace ImasiEngine
 
     const glm::mat4& Camera::getProjectionMatrix()
     {
-        if (!_projectionMatrix.isValid())
+        if (_projectionMatrix.isInvalid())
         {
             _projectionMatrix = glm::perspective(glm::radians(_fieldOfView), _aspectRatio, _nearPlaneDistance, _farPlaneDistance);
+            _projectionMatrix.validate();
         }
 
         return _projectionMatrix;
@@ -215,9 +224,10 @@ namespace ImasiEngine
 
     const glm::mat4& Camera::getViewProjectionMatrix()
     {
-        if (!_viewProjectionMatrix.isValid())
+        if (_viewProjectionMatrix.isInvalid())
         {
             _viewProjectionMatrix = getProjectionMatrix() * getViewMatrix();
+            _viewProjectionMatrix.validate();
         }
 
         return _viewProjectionMatrix;
