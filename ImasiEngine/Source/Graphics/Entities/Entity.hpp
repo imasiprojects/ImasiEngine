@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "../Models/Model.hpp"
+#include "../../Resources/Cached.hpp"
 
 namespace ImasiEngine
 {
@@ -11,8 +12,7 @@ namespace ImasiEngine
     {
     private:
 
-        bool _mustUpdateModelMatrix;
-        glm::mat4 _modelMatrix;
+        Cached<glm::mat4> _modelMatrix;
 
         glm::vec3 _position;
         glm::vec3 _rotation;

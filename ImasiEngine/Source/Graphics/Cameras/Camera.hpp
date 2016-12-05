@@ -4,37 +4,35 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
+#include "../../Resources/Cached.hpp"
+
 namespace ImasiEngine
 {
     class Camera
     {
     private:
-
-        bool _mustUpdateTranslationMatrix;
-        void setMustUpdateTranslationMatrix(const bool value);
-        glm::mat4 _translationMatrix;
+        Cached<glm::mat4> _translationMatrix;
         glm::vec3 _position;
 
-        bool _mustUpdateRotationMatrix;
-        void setMustUpdateRotationMatrix(const bool value);
-        glm::mat4 _rotationMatrix;
+        Cached<glm::mat4> _rotationMatrix;
         glm::vec2 _rotation;
 
-        bool _mustUpdateViewMatrix;
-        void setMustUpdateViewMatrix(const bool value);
-        glm::mat4 _viewMatrix;
+        Cached<glm::mat4> _viewMatrix;
 
-        bool _mustUpdateProjectionMatrix;
-        void setMustUpdateProjectionMatrix(const bool value);
-        glm::mat4 _projectionMatrix;
+        Cached<glm::mat4> _projectionMatrix;
+
         float _fieldOfView;
         float _aspectRatio;
         float _nearPlaneDistance;
         float _farPlaneDistance;
 
-        bool _mustUpdateViewProjectionMatrix;
-        void setMustUpdateViewProjectionMatrix(const bool value);
-        glm::mat4 _viewProjectionMatrix;
+        Cached<glm::mat4> _viewProjectionMatrix;
+
+        void invalidateTranslationMatrix();
+        void invalidateRotationMatrix();
+        void invalidateViewMatrix();
+        void invalidateProjectionMatrix();
+        void invalidateViewProjectionMatrix();
 
         void fixAngles();
 
