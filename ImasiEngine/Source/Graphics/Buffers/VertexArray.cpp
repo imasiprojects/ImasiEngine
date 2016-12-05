@@ -93,7 +93,7 @@ namespace ImasiEngine
             {
                 for (auto& attribute : buffer->getAttributes())
                 {
-                    GL(glVertexAttribPointer(type, buffer->getAttributes(), buffer->getGLComponentType(), false, 0, nullptr));
+                    GL(glVertexAttribPointer(type, attribute.memberCount, buffer->getGLComponentType(), false, buffer->getComponentSize(), attribute.offset));
                     GL(glVertexAttribDivisor(type, divisor));
                 }
             }

@@ -5,10 +5,8 @@ namespace ImasiEngine
 {
     struct BufferAttribute
     {
-        unsigned int componentCount;
-        unsigned int membersPerComponent;
-        unsigned int sizeOfComponent = 0;
-        void* componentOffset = nullptr;
+        unsigned int memberCount;
+        void* offset = nullptr;
     };
 }
 
