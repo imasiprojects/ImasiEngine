@@ -2,8 +2,11 @@
 #define IMASIENGINE_BUFFER_HPP
 
 #include <iostream>
+#include <list>
+#include <glm/glm.hpp>
 
 #include "../Opengl/GLObject.hpp"
+#include "BufferAttribute.hpp"
 
 namespace ImasiEngine
 {
@@ -15,8 +18,9 @@ namespace ImasiEngine
         unsigned int _glComponentType;
         unsigned int _componentCount;
         unsigned int _membersPerComponent;
+        std::list<BufferAttribute> _attributes;
 
-        void initBufferData(unsigned int glComponentType, std::size_t componentTypeSize, void* data);
+        void initBufferData(unsigned int glComponentType, unsigned int componentTypeSize, void* data);
 
     protected:
 
@@ -31,6 +35,9 @@ namespace ImasiEngine
         void initBufferData(unsigned int* data);
         void initBufferData(short* data);
         void initBufferData(unsigned short* data);
+        void initBufferData(glm::vec2* data);
+        void initBufferData(glm::vec3* data);
+        void initBufferData(glm::vec4* data);
 
     public:
 
@@ -38,11 +45,8 @@ namespace ImasiEngine
         Buffer(Buffer&& buffer) noexcept;
         virtual ~Buffer();
 
-        unsigned int getGLBufferType() const;
         unsigned int getGLComponentType() const;
-
-        unsigned int getComponentCount() const;
-        unsigned int getMembersPerComponent() const;
+        const std::list<BufferAttribute>& getAttributes() const;
     };
 }
 

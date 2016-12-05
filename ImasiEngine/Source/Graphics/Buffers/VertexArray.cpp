@@ -83,7 +83,7 @@ namespace ImasiEngine
         _indexBuffer = buffer;
     }
 
-    void VertexArray::attachArrayBuffer(ArrayBuffer* buffer, ArrayBufferType type)
+    void VertexArray::attachArrayBuffer(ArrayBuffer* buffer, ArrayBufferType type, unsigned int divisor)
     {
         BIND(VertexArray, this);
         {
@@ -91,7 +91,11 @@ namespace ImasiEngine
 
             BIND(ArrayBuffer, buffer);
             {
-                GL(glVertexAttribPointer(type, buffer->getMembersPerComponent(), buffer->getGLComponentType(), false, 0, nullptr));
+                for (auto& attribute : buffer->getAttributes())
+                {
+                    GL(glVertexAttribPointer(type, buffer->getAttributes(), buffer->getGLComponentType(), false, 0, nullptr));
+                    GL(glVertexAttribDivisor(type, divisor));
+                }
             }
             UNBIND(ArrayBuffer);
         }
@@ -130,7 +134,7 @@ namespace ImasiEngine
             {
                 BIND(IndexBuffer, _indexBuffer);
                 {
-                    glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getMembersPerComponent(), _indexBuffer->getGLComponentType(), nullptr);
+                    glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getAttributes(), _indexBuffer->getGLComponentType(), nullptr);
                 }
                 UNBIND(IndexBuffer);
             }

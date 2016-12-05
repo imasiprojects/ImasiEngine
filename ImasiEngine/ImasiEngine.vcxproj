@@ -54,6 +54,7 @@
     <ClInclude Include="Source\DeleteMe\MeshLoader.hpp" />
     <ClInclude Include="Source\Engine\EngineEvent.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\ArrayBuffer.hpp" />
+    <ClInclude Include="Source\Graphics\Buffers\BufferAttribute.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.hpp" />
     <ClInclude Include="Source\Graphics\Cameras\Camera.hpp" />
     <ClInclude Include="Source\Graphics\Entities\Entity.hpp" />

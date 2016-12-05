@@ -6,7 +6,7 @@
 
 namespace ImasiEngine
 {
-    void Buffer::initBufferData(unsigned int componentGLType, std::size_t componentTypeSize, void* data)
+    void Buffer::initBufferData(unsigned int componentGLType, unsigned int componentTypeSize, void* data)
     {
         _glComponentType = componentGLType;
         GL(glBufferData(_glBufferType, _componentCount * _membersPerComponent * componentTypeSize, data, GL_STATIC_DRAW));
@@ -65,6 +65,24 @@ namespace ImasiEngine
         initBufferData(GL_UNSIGNED_SHORT, sizeof(unsigned short), data);
     }
 
+    void Buffer::initBufferData(glm::vec2* data)
+    {
+        _membersPerComponent = 2;
+        initBufferData((float*)data);
+    }
+
+    void Buffer::initBufferData(glm::vec3* data)
+    {
+        _membersPerComponent = 3;
+        initBufferData((float*)data);
+    }
+
+    void Buffer::initBufferData(glm::vec4* data)
+    {
+        _membersPerComponent = 4;
+        initBufferData((float*)data);
+    }
+
     void Buffer::createGLObject()
     {
         unsigned int id;
@@ -81,23 +99,8 @@ namespace ImasiEngine
         unsetGLObjectId();
     }
 
-    unsigned int Buffer::getGLBufferType() const
+    const std::list<BufferAttribute>& Buffer::getAttributes() const
     {
-        return _glBufferType;
-    }
-
-    unsigned int Buffer::getGLComponentType() const
-    {
-        return _glComponentType;
-    }
-
-    unsigned int Buffer::getComponentCount() const
-    {
-        return _componentCount;
-    }
-
-    unsigned int Buffer::getMembersPerComponent() const
-    {
-        return _membersPerComponent;
+        return _attributes;
     }
 }

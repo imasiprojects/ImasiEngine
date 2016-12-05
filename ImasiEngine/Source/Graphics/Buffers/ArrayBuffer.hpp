@@ -35,6 +35,23 @@ namespace ImasiEngine
             UNBIND(ArrayBuffer);
         }
 
+        template<typename T,
+            typename = typename std::enable_if<
+                std::is_same<glm::vec2, T>::value
+                || std::is_same<glm::vec3, T>::value
+                || std::is_same<glm::vec4, T>::value
+            >::type
+        >
+            ArrayBuffer(T* data, unsigned int componentCount)
+            : Buffer(GL_ARRAY_BUFFER, componentCount, 0)
+        {
+            BIND(ArrayBuffer, this);
+            {
+                initBufferData(data);
+            }
+            UNBIND(ArrayBuffer);
+        }
+
         ArrayBuffer(const ArrayBuffer&) = delete;
         ArrayBuffer(ArrayBuffer&& buffer) noexcept;
         virtual ~ArrayBuffer();
