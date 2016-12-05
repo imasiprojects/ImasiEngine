@@ -15,7 +15,7 @@ namespace ImasiEngine
 
         template<
             typename ...ConstructorArgs,
-            typename = std::enable_if<
+            typename = typename std::enable_if<
                 std::is_constructible<T, ConstructorArgs...>::value
             >::type
         >
@@ -26,7 +26,7 @@ namespace ImasiEngine
         }
 
         template<
-            typename = std::enable_if<
+            typename = typename std::enable_if<
                 std::is_copy_constructible<T>::value
             >::type
         >
@@ -37,7 +37,7 @@ namespace ImasiEngine
         }
 
         template<
-            typename = std::enable_if<
+            typename = typename std::enable_if<
                 std::is_move_constructible<T>::value
             >::type
         >
@@ -49,7 +49,7 @@ namespace ImasiEngine
 
         template<
             typename AssignArg,
-            typename = std::enable_if<
+            typename = typename std::enable_if<
                 std::is_assignable<T, AssignArg>::value
             >::type
         >
@@ -69,9 +69,9 @@ namespace ImasiEngine
             return _value;
         }
 
-        void set(const T& newValue)
+        void set(const T& value)
         {
-            _value = newValue;
+            _value = value;
         }
 
         void validate()

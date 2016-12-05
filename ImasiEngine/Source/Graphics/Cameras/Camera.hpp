@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
+
 #include "../../Resources/Cached.hpp"
 
 namespace ImasiEngine

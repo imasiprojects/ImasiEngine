@@ -14,9 +14,6 @@ namespace ImasiEngine
         , _nearPlaneDistance(0.01f)
         , _farPlaneDistance(1000.0f)
     {
-        _translationMatrix.invalidate();
-        _rotationMatrix.invalidate();
-        _viewMatrix.invalidate();
         _projectionMatrix.invalidate();
         _viewProjectionMatrix.invalidate();
     }
