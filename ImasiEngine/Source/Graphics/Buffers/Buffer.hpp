@@ -16,6 +16,7 @@ namespace ImasiEngine
 
         unsigned int _glBufferType;
         unsigned int _glComponentType;
+        unsigned int _componentSize;
         unsigned int _componentCount;
         unsigned int _membersPerComponent;
         std::list<BufferAttribute> _attributes;
@@ -46,6 +47,8 @@ namespace ImasiEngine
         virtual ~Buffer();
 
         unsigned int getGLComponentType() const;
+        unsigned int getComponentCount() const;
+        unsigned int getComponentSize() const;
         const std::list<BufferAttribute>& getAttributes() const;
     };
 }

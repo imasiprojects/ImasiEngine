@@ -35,6 +35,21 @@ namespace ImasiEngine
         Buffer::destroyGLObject();
     }
 
+    unsigned int Buffer::getGLComponentType() const
+    {
+        return _glComponentType;
+    }
+
+    unsigned int Buffer::getComponentCount() const
+    {
+        return _componentCount;
+    }
+
+    unsigned int Buffer::getComponentSize() const
+    {
+        return _componentSize;
+    }
+
     void Buffer::initBufferData(float* data)
     {
         initBufferData(GL_FLOAT, sizeof(float), data);
