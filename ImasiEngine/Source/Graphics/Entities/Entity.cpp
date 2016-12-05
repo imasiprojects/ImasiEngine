@@ -5,10 +5,10 @@
 namespace ImasiEngine
 {
     Entity::Entity()
-        : _modelMatrix(glm::mat4(1.f))
-        , _position(glm::vec3(0.f, 0.f, 0.f))
-        , _rotation(glm::vec3(0.f, 0.f, 0.f))
-        , _scale(glm::vec3(1.f, 1.f, 1.f))
+        : _modelMatrix(1.f)
+        , _position(0.f, 0.f, 0.f)
+        , _rotation(0.f, 0.f, 0.f)
+        , _scale(1.f, 1.f, 1.f)
         , model(nullptr)
     {
     }

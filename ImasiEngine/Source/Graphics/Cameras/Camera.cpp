@@ -1,14 +1,14 @@
 #include "Camera.hpp"
 
-#include <glm/gtc/matrix_transform.hpp>
+#include <glm/glm.hpp>
 
 namespace ImasiEngine
 {
     Camera::Camera()
         : _position(0.0f, 0.0f, 0.0f)
-        , _rotationMatrix(glm::mat4(1.f))
+        , _rotationMatrix(1.f)
         , _rotation(0.f, 0.f)
-        , _viewMatrix(glm::mat4(1.f))
+        , _viewMatrix(1.f)
         , _fieldOfView(50.0f)
         , _aspectRatio(16.0f / 9.0f)
         , _nearPlaneDistance(0.01f)
