@@ -1,5 +1,6 @@
 #include "Entity.hpp"
 
+#include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
 namespace ImasiEngine
@@ -17,34 +18,34 @@ namespace ImasiEngine
     {
     }
 
-    glm::vec3 Entity::getPosition() const
+    const glm::vec3& Entity::getPosition() const
     {
         return _position;
     }
 
-    void Entity::setPosition(glm::vec3& position)
+    void Entity::setPosition(const glm::vec3& position)
     {
         _modelMatrix.invalidate();
         _position = position;
     }
 
-    glm::vec3 Entity::getRotation() const
+    const glm::vec3& Entity::getRotation() const
     {
         return _rotation;
     }
 
-    void Entity::setRotation(glm::vec3& rotation)
+    void Entity::setRotation(const glm::vec3& rotation)
     {
         _modelMatrix.invalidate();
         _rotation = rotation;
     }
 
-    glm::vec3 Entity::getScale() const
+    const glm::vec3& Entity::getScale() const
     {
         return _scale;
     }
 
-    void Entity::setScale(glm::vec3& scale)
+    void Entity::setScale(const glm::vec3& scale)
     {
         _modelMatrix.invalidate();
         _scale = scale;

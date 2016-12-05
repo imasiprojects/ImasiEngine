@@ -8,7 +8,7 @@ namespace ImasiEngine
 {
     std::map<unsigned int, unsigned int> Texture::_indexTypes;
 
-    void Texture::bind(Texture* texture, unsigned int index)
+    void Texture::bind(const Texture* texture, unsigned int index)
     {
         unsigned int type = texture->getGLTextureType();
 
