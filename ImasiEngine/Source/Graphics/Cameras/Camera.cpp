@@ -1,87 +1,56 @@
 #include "Camera.hpp"
 
-#include <glm/gtc/matrix_transform.hpp>
+#include <glm/glm.hpp>
 
 namespace ImasiEngine
 {
     Camera::Camera()
-        : _mustUpdateTranslationMatrix(false)
-        , _position(0.0f, 0.0f, 0.0f)
-        , _mustUpdateRotationMatrix(false)
-        , _rotationMatrix(glm::mat4(1.f))
+        : _position(0.0f, 0.0f, 0.0f)
+        , _rotationMatrix(1.f)
         , _rotation(0.f, 0.f)
-        , _mustUpdateViewMatrix(false)
-        , _viewMatrix(glm::mat4(1.f))
-        , _mustUpdateProjectionMatrix(true)
+        , _viewMatrix(1.f)
         , _fieldOfView(50.0f)
         , _aspectRatio(16.0f / 9.0f)
         , _nearPlaneDistance(0.01f)
         , _farPlaneDistance(1000.0f)
-        , _mustUpdateViewProjectionMatrix(true)
     {
+        _projectionMatrix.invalidate();
+        _viewProjectionMatrix.invalidate();
     }
 
     Camera::~Camera()
     {
     }
 
-    void Camera::setMustUpdateRotationMatrix(const bool value)
+    void Camera::invalidateRotationMatrix()
     {
-        if (value)
-        {
-            _mustUpdateRotationMatrix = true;
-            _mustUpdateViewMatrix = true;
-            _mustUpdateViewProjectionMatrix = true;
-        }
-        else
-        {
-            _mustUpdateRotationMatrix = false;
-        }
+        _rotationMatrix.invalidate();
+        _viewMatrix.invalidate();
+        _viewProjectionMatrix.invalidate();
     }
 
-    void Camera::setMustUpdateTranslationMatrix(const bool value)
+    void Camera::invalidateTranslationMatrix()
     {
-        if (value)
-        {
-            _mustUpdateTranslationMatrix = true;
-            _mustUpdateViewMatrix = true;
-            _mustUpdateViewProjectionMatrix = true;
-        }
-        else
-        {
-            _mustUpdateTranslationMatrix = false;
-        }
+        _translationMatrix.invalidate();
+        _viewMatrix.invalidate();
+        _viewProjectionMatrix.invalidate();
     }
 
-    void Camera::setMustUpdateViewMatrix(const bool value)
+    void Camera::invalidateViewMatrix()
     {
-        if (value)
-        {
-            _mustUpdateViewMatrix = true;
-            _mustUpdateViewProjectionMatrix = true;
-        }
-        else
-        {
-            _mustUpdateViewMatrix = false;
-        }
+        _viewMatrix.invalidate();
+        _viewProjectionMatrix.invalidate();
     }
 
-    void Camera::setMustUpdateProjectionMatrix(const bool value)
+    void Camera::invalidateProjectionMatrix()
     {
-        if (value)
-        {
-            _mustUpdateProjectionMatrix = true;
-            _mustUpdateViewProjectionMatrix = true;
-        }
-        else
-        {
-            _mustUpdateProjectionMatrix = false;
-        }
+        _projectionMatrix.invalidate();
+        _viewProjectionMatrix.invalidate();
     }
 
-    void Camera::setMustUpdateViewProjectionMatrix(const bool value)
+    void Camera::invalidateViewProjectionMatrix()
     {
-        _mustUpdateViewProjectionMatrix = value;
+        _viewProjectionMatrix.invalidate();
     }
 
     void Camera::fixAngles()
@@ -96,72 +65,71 @@ namespace ImasiEngine
         _rotation.y = glm::clamp(_rotation.y, -89.9f, 89.9f);
     }
 
-    glm::mat4 Camera::getTranslationMatrix()
+    const glm::mat4& Camera::getTranslationMatrix()
     {
-        if (_mustUpdateTranslationMatrix)
+        if (_translationMatrix.isInvalid())
         {
             _translationMatrix = glm::translate(glm::mat4(1.f), -_position);
-            setMustUpdateTranslationMatrix(false);
+            _translationMatrix.validate();
         }
 
         return _translationMatrix;
     }
 
-    glm::vec3 Camera::getPosition() const
+    const glm::vec3& Camera::getPosition() const
     {
         return _position;
     }
 
-    void Camera::setPosition(glm::vec3& position)
+    void Camera::setPosition(const glm::vec3& position)
     {
-        setMustUpdateTranslationMatrix(true);
+        invalidateTranslationMatrix();
         _position = position;
     }
 
-    void Camera::addPositionOffset(glm::vec3& offset)
+    void Camera::addPositionOffset(const glm::vec3& offset)
     {
-        setMustUpdateTranslationMatrix(true);
+        invalidateTranslationMatrix();
         _position += offset;
     }
 
-    glm::mat4 Camera::getRotationMatrix()
+    const glm::mat4& Camera::getRotationMatrix()
     {
-        if (_mustUpdateRotationMatrix)
+        if (_rotationMatrix.isInvalid())
         {
-            _rotationMatrix = glm::mat4(1.f);
-            _rotationMatrix = glm::rotate(_rotationMatrix, glm::radians(_rotation.y), glm::vec3(1.f, 0.f, 0.f));
-            _rotationMatrix = glm::rotate(_rotationMatrix, glm::radians(_rotation.x), glm::vec3(0.f, 1.f, 0.f));
-
-            setMustUpdateRotationMatrix(false);
+            glm::mat4 rotationMatrix(1.f);
+            rotationMatrix = glm::rotate(rotationMatrix, glm::radians(_rotation.y), glm::vec3(1.f, 0.f, 0.f));
+            _rotationMatrix = glm::rotate(rotationMatrix, glm::radians(_rotation.x), glm::vec3(0.f, 1.f, 0.f));
+            _rotationMatrix.validate();
         }
 
         return _rotationMatrix;
     }
 
-    glm::vec2 Camera::getRotation() const
+    const glm::vec2& Camera::getRotation() const
     {
         return _rotation;
     }
 
-    void Camera::setRotation(glm::vec2& rotation)
+    void Camera::setRotation(const glm::vec2& rotation)
     {
-        setMustUpdateRotationMatrix(true);
+        invalidateRotationMatrix();
 
         _rotation = rotation;
         fixAngles();
     }
 
-    void Camera::addRotationOffset(glm::vec2& offset)
+    void Camera::addRotationOffset(const glm::vec2& offset)
     {
-        setMustUpdateRotationMatrix(true);
+        invalidateRotationMatrix();
 
         _rotation += offset;
         fixAngles();
     }
 
-    void Camera::lookAt(glm::vec3 objetive)
+    void Camera::lookAt(const glm::vec3& objetive)
     {
-        setMustUpdateRotationMatrix(true);
+        invalidateRotationMatrix();
 
         if (objetive == _position)
         {
@@ -178,23 +146,23 @@ namespace ImasiEngine
         fixAngles();
     }
 
-    glm::mat4 Camera::getViewMatrix()
+    const glm::mat4& Camera::getViewMatrix()
     {
-        if (_mustUpdateViewMatrix)
+        if (_viewMatrix.isInvalid())
         {
             _viewMatrix = getRotationMatrix() * getTranslationMatrix();
-            setMustUpdateViewMatrix(false);
+            _viewMatrix.validate();
         }
 
         return _viewMatrix;
     }
 
-    glm::mat4 Camera::getProjectionMatrix()
+    const glm::mat4& Camera::getProjectionMatrix()
     {
-        if (_mustUpdateProjectionMatrix)
+        if (_projectionMatrix.isInvalid())
         {
             _projectionMatrix = glm::perspective(glm::radians(_fieldOfView), _aspectRatio, _nearPlaneDistance, _farPlaneDistance);
-            setMustUpdateProjectionMatrix(false);
+            _projectionMatrix.validate();
         }
 
         return _projectionMatrix;
@@ -207,7 +175,7 @@ namespace ImasiEngine
 
     void Camera::setFieldOfView(float fieldOfView)
     {
-        setMustUpdateProjectionMatrix(true);
+        invalidateProjectionMatrix();
         _fieldOfView = glm::clamp(fieldOfView, 0.f, 180.f);
     }
 
@@ -218,7 +186,7 @@ namespace ImasiEngine
 
     void Camera::setAspectRatio(float aspectRatio)
     {
-        setMustUpdateProjectionMatrix(true);
+        invalidateProjectionMatrix();
         _aspectRatio = glm::max(0.f, aspectRatio);
     }
 
@@ -229,7 +197,7 @@ namespace ImasiEngine
 
     void Camera::setNearPlaneDistance(float nearPlaneDistance)
     {
-        setMustUpdateProjectionMatrix(true);
+        invalidateProjectionMatrix();
         _nearPlaneDistance = nearPlaneDistance;
     }
 
@@ -240,29 +208,29 @@ namespace ImasiEngine
 
     void Camera::setFarPlaneDistance(float farPlaneDistance)
     {
-        setMustUpdateProjectionMatrix(true);
+        invalidateProjectionMatrix();
         _farPlaneDistance = farPlaneDistance;
     }
 
     void Camera::setPlaneDistances(float nearPlaneDistance, float farPlaneDistance)
     {
-        setMustUpdateProjectionMatrix(true);
+        invalidateProjectionMatrix();
         _nearPlaneDistance = nearPlaneDistance;
         _farPlaneDistance = farPlaneDistance;
     }
 
-    glm::mat4 Camera::getViewProjectionMatrix()
+    const glm::mat4& Camera::getViewProjectionMatrix()
     {
-        if (_mustUpdateViewProjectionMatrix)
+        if (_viewProjectionMatrix.isInvalid())
         {
             _viewProjectionMatrix = getProjectionMatrix() * getViewMatrix();
-            setMustUpdateViewProjectionMatrix(false);
+            _viewProjectionMatrix.validate();
         }
 
         return _viewProjectionMatrix;
     }
 
-    glm::vec3 Camera::getRelativeVector(glm::vec3& direction)
+    glm::vec3 Camera::getRelativeVector(const glm::vec3& direction)
     {
         return glm::vec3(glm::vec4(direction, 0.f) * getRotationMatrix());
     }

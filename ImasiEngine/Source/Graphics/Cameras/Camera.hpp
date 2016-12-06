@@ -4,37 +4,35 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
+#include "../../Resources/Cached.hpp"
+
 namespace ImasiEngine
 {
     class Camera
     {
     private:
-
-        bool _mustUpdateTranslationMatrix;
-        void setMustUpdateTranslationMatrix(const bool value);
-        glm::mat4 _translationMatrix;
+        Cached<glm::mat4> _translationMatrix;
         glm::vec3 _position;
 
-        bool _mustUpdateRotationMatrix;
-        void setMustUpdateRotationMatrix(const bool value);
-        glm::mat4 _rotationMatrix;
+        Cached<glm::mat4> _rotationMatrix;
         glm::vec2 _rotation;
 
-        bool _mustUpdateViewMatrix;
-        void setMustUpdateViewMatrix(const bool value);
-        glm::mat4 _viewMatrix;
+        Cached<glm::mat4> _viewMatrix;
 
-        bool _mustUpdateProjectionMatrix;
-        void setMustUpdateProjectionMatrix(const bool value);
-        glm::mat4 _projectionMatrix;
+        Cached<glm::mat4> _projectionMatrix;
+
         float _fieldOfView;
         float _aspectRatio;
         float _nearPlaneDistance;
         float _farPlaneDistance;
 
-        bool _mustUpdateViewProjectionMatrix;
-        void setMustUpdateViewProjectionMatrix(const bool value);
-        glm::mat4 _viewProjectionMatrix;
+        Cached<glm::mat4> _viewProjectionMatrix;
+
+        void invalidateTranslationMatrix();
+        void invalidateRotationMatrix();
+        void invalidateViewMatrix();
+        void invalidateProjectionMatrix();
+        void invalidateViewProjectionMatrix();
 
         void fixAngles();
 
@@ -43,20 +41,20 @@ namespace ImasiEngine
         Camera();
         ~Camera();
 
-        glm::mat4 getTranslationMatrix();
-        glm::vec3 getPosition() const;
-        void setPosition(glm::vec3& position);
-        void addPositionOffset(glm::vec3& offset);
+        const glm::mat4& getTranslationMatrix();
+        const glm::vec3& getPosition() const;
+        void setPosition(const glm::vec3& position);
+        void addPositionOffset(const glm::vec3& offset);
 
-        glm::mat4 getRotationMatrix();
-        glm::vec2 getRotation() const;
-        void setRotation(glm::vec2& rotation);
-        void addRotationOffset(glm::vec2& offset);
-        void lookAt(glm::vec3 objetive);
+        const glm::mat4& getRotationMatrix();
+        const glm::vec2& getRotation() const;
+        void setRotation(const glm::vec2& rotation);
+        void addRotationOffset(const glm::vec2& offset);
+        void lookAt(const glm::vec3& objetive);
 
-        glm::mat4 getViewMatrix();
+        const glm::mat4& getViewMatrix();
 
-        glm::mat4 getProjectionMatrix();
+        const glm::mat4& getProjectionMatrix();
         float getFieldOfView() const;
         void setFieldOfView(float fieldOfView);
         float getAspectRatio() const;
@@ -67,9 +65,9 @@ namespace ImasiEngine
         void setFarPlaneDistance(float farPlaneDistance);
         void setPlaneDistances(float nearPlaneDistance, float farPlaneDistance);
 
-        glm::mat4 getViewProjectionMatrix();
+        const glm::mat4& getViewProjectionMatrix();
 
-        glm::vec3 getRelativeVector(glm::vec3& direction);
+        glm::vec3 getRelativeVector(const glm::vec3& direction);
         glm::vec3 getForwardVector();
         glm::vec3 getBackwardVector();
         glm::vec3 getLeftVector();

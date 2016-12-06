@@ -70,6 +70,7 @@
     <ClInclude Include="Source\Graphics\Textures\Texture.hpp" />
     <ClInclude Include="Source\Graphics\Programs\Shader.hpp" />
     <ClInclude Include="Source\ImasiEngine.hpp" />
+    <ClInclude Include="Source\Resources\Cached.hpp" />
     <ClInclude Include="Source\Resources\ResourceContainer.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\OpenglHelper.hpp" />
     <ClInclude Include="Source\Engine\Engine.hpp" />

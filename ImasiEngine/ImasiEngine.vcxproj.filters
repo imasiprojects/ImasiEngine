@@ -53,6 +53,7 @@
     <ClInclude Include="Source\Engine\Engine.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\GLObject.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\OpenglHelper.hpp" />
+    <ClInclude Include="Source\Resources\Cached.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\BufferAttribute.hpp" />
   </ItemGroup>
 </Project>
