@@ -103,10 +103,6 @@ namespace ImasiEngine
                 _glComponentType = GL_FLOAT;
                 _componentMemberCount = 16;
             }
-            else
-            {
-                // Wtf error
-            }
 
             _componentSize = sizeof(T) * _componentMemberCount;
             GL(glBufferData(_glBufferType, _componentCount * _componentSize, data, GL_STATIC_DRAW));
