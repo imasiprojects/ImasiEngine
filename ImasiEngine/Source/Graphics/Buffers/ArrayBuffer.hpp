@@ -15,14 +15,15 @@ namespace ImasiEngine
         static void bind(ArrayBuffer* buffer);
         static void unbind();
 
-        template<typename T,
+        template<
+            typename T,
             typename = typename std::enable_if<
-                std::is_same<float, T>::value
-                || std::is_same<double, T>::value
-                || std::is_same<int, T>::value
-                || std::is_same<unsigned int, T>::value
-                || std::is_same<short, T>::value
-                || std::is_same<unsigned short, T>::value
+                std::is_same<T, float>::value
+                || std::is_same<T, double>::value
+                || std::is_same<T, int>::value
+                || std::is_same<T, unsigned int>::value
+                || std::is_same<T, short>::value
+                || std::is_same<T, unsigned short>::value
             >::type
         >
         ArrayBuffer(T* data, unsigned int componentCount, unsigned int membersPerComponent)
@@ -35,15 +36,19 @@ namespace ImasiEngine
             UNBIND(ArrayBuffer);
         }
 
-        template<typename T,
+        template<
+            typename T,
             typename = typename std::enable_if<
-                std::is_same<glm::vec2, T>::value
-                || std::is_same<glm::vec3, T>::value
-                || std::is_same<glm::vec4, T>::value
+                std::is_same<T, glm::vec2>::value
+                || std::is_same<T, glm::vec3>::value
+                || std::is_same<T, glm::vec4>::value
+                || std::is_same<T, glm::mat2>::value
+                || std::is_same<T, glm::mat3>::value
+                || std::is_same<T, glm::mat4>::value
             >::type
         >
-            ArrayBuffer(T* data, unsigned int componentCount)
-            : Buffer(GL_ARRAY_BUFFER, componentCount, 0)
+        ArrayBuffer(T* data, unsigned int componentCount)
+            : Buffer(GL_ARRAY_BUFFER, componentCount)
         {
             BIND(ArrayBuffer, this);
             {

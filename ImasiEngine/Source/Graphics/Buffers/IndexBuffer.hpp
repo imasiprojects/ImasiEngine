@@ -15,7 +15,8 @@ namespace ImasiEngine
         static void bind(IndexBuffer* buffer);
         static void unbind();
 
-        template<typename T,
+        template<
+            typename T,
             typename = typename std::enable_if<
                 std::is_same<unsigned int, T>::value
                 || std::is_same<unsigned short, T>::value
