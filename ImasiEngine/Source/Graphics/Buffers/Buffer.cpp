@@ -27,6 +27,7 @@ namespace ImasiEngine
         , _componentSize(buffer._componentSize)
         , _componentCount(buffer._componentCount)
         , _componentMemberCount(buffer._componentMemberCount)
+        , _componentMemberSize(buffer._componentMemberSize)
         , _attributes(buffer._attributes)
     {
     }

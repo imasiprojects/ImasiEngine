@@ -21,6 +21,7 @@ namespace ImasiEngine
         unsigned int _componentSize;
         unsigned int _componentCount;
         unsigned int _componentMemberCount;
+        unsigned int _componentMemberSize;
         std::list<BufferAttribute> _attributes;
 
     protected:
@@ -49,77 +50,79 @@ namespace ImasiEngine
         >
         void initBufferData(T* data)
         {
-            unsigned int componentMemberSize = 0;
-
             if (std::is_same<T, float>())
             {
                 _glComponentType = GL_FLOAT;
-                componentMemberSize = sizeof(float);
+                _componentMemberSize = sizeof(float);
             }
             else if (std::is_same<T, double>())
             {
                 _glComponentType = GL_DOUBLE;
-                componentMemberSize = sizeof(double);
+                _componentMemberSize = sizeof(double);
             }
             else if (std::is_same<T, int>())
             {
                 _glComponentType = GL_INT;
-                componentMemberSize = sizeof(int);
+                _componentMemberSize = sizeof(int);
             }
             else if (std::is_same<T, unsigned int>())
             {
                 _glComponentType = GL_UNSIGNED_INT;
-                componentMemberSize = sizeof(unsigned int);
+                _componentMemberSize = sizeof(unsigned int);
             }
             else if (std::is_same<T, short>())
             {
                 _glComponentType = GL_SHORT;
-                componentMemberSize = sizeof(short);
+                _componentMemberSize = sizeof(short);
             }
             else if (std::is_same<T, unsigned short>())
             {
                 _glComponentType = GL_UNSIGNED_SHORT;
-                componentMemberSize = sizeof(unsigned short);
+                _componentMemberSize = sizeof(unsigned short);
             }
             else if (std::is_same<T, glm::vec2>())
             {
                 _glComponentType = GL_FLOAT;
-                componentMemberSize = sizeof(float);
+                _componentMemberSize = sizeof(float);
                 _componentMemberCount = 2;
             }
             else if (std::is_same<T, glm::vec3>())
             {
                 _glComponentType = GL_FLOAT;
-                componentMemberSize = sizeof(float);
+                _componentMemberSize = sizeof(float);
                 _componentMemberCount = 3;
             }
             else if (std::is_same<T, glm::vec4>())
             {
                 _glComponentType = GL_FLOAT;
-                componentMemberSize = sizeof(float);
+                _componentMemberSize = sizeof(float);
                 _componentMemberCount = 4;
             }
             else if (std::is_same<T, glm::mat2>())
             {
                 _glComponentType = GL_FLOAT;
-                componentMemberSize = sizeof(float);
+                _componentMemberSize = sizeof(float);
                 _componentMemberCount = 4;
             }
             else if (std::is_same<T, glm::mat3>())
             {
                 _glComponentType = GL_FLOAT;
-                componentMemberSize = sizeof(float);
+                _componentMemberSize = sizeof(float);
                 _componentMemberCount = 9;
             }
             else if (std::is_same<T, glm::mat4>())
             {
                 _glComponentType = GL_FLOAT;
-                componentMemberSize = sizeof(float);
+                _componentMemberSize = sizeof(float);
                 _componentMemberCount = 16;
             }
+            else
+            {
+                throw "Invalid component type";
+            }
 
-            _componentSize = componentMemberSize * _componentMemberCount;
-            GL(glBufferData(_glBufferType, _componentCount * _componentSize, data, GL_STATIC_DRAW));
+            _componentSize = _componentMemberSize * _componentMemberCount;
+            GL(glBufferData(_glBufferType, _componentSize * _componentCount, data, GL_STATIC_DRAW));
 
             // Create Attributes
 
@@ -135,7 +138,7 @@ namespace ImasiEngine
 
                 _attributes.push_back(attribute);
 
-                offset += componentMemberSize * attribute.memberCount;
+                offset += _componentMemberSize * attribute.memberCount;
                 componentMemberCount -= maxComponentMemberCount;
             }
         }
