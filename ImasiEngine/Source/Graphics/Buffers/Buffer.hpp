@@ -26,7 +26,7 @@ namespace ImasiEngine
 
     protected:
 
-        Buffer(unsigned int glBufferType, unsigned int componentCount, unsigned int membersPerComponent = 0);
+        Buffer(unsigned int glBufferType, unsigned int componentCount, unsigned int componentMemberCount = 0);
 
         void createGLObject() override;
         void destroyGLObject() override;

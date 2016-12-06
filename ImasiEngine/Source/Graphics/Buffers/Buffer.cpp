@@ -6,11 +6,11 @@
 
 namespace ImasiEngine
 {
-    Buffer::Buffer(unsigned int glBufferType, unsigned int componentCount, unsigned int membersPerComponent)
+    Buffer::Buffer(unsigned int glBufferType, unsigned int componentCount, unsigned int componentMemberCount)
         : GLObject()
         , _glBufferType(glBufferType)
         , _componentCount(componentCount)
-        , _componentMemberCount(membersPerComponent)
+        , _componentMemberCount(componentMemberCount)
     {
         if (_componentMemberCount < 1)
         {
