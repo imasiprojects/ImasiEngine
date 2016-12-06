@@ -12,6 +12,11 @@ namespace ImasiEngine
         , _componentCount(componentCount)
         , _componentMemberCount(membersPerComponent)
     {
+        if (_componentMemberCount < 1)
+        {
+            // Fatal error, not valid componentMemberCount
+        }
+
         Buffer::createGLObject();
     }
 

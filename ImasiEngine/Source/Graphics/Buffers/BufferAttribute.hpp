@@ -6,7 +6,7 @@ namespace ImasiEngine
     struct BufferAttribute
     {
         unsigned int memberCount;
-        void* offset = nullptr;
+        unsigned short offset = 0;
     };
 }
 

@@ -49,65 +49,95 @@ namespace ImasiEngine
         >
         void initBufferData(T* data)
         {
+            unsigned int componentMemberSize = 0;
+
             if (std::is_same<T, float>())
             {
                 _glComponentType = GL_FLOAT;
+                componentMemberSize = sizeof(float);
             }
             else if (std::is_same<T, double>())
             {
                 _glComponentType = GL_DOUBLE;
+                componentMemberSize = sizeof(double);
             }
             else if (std::is_same<T, int>())
             {
                 _glComponentType = GL_INT;
+                componentMemberSize = sizeof(int);
             }
             else if (std::is_same<T, unsigned int>())
             {
                 _glComponentType = GL_UNSIGNED_INT;
+                componentMemberSize = sizeof(unsigned int);
             }
             else if (std::is_same<T, short>())
             {
                 _glComponentType = GL_SHORT;
+                componentMemberSize = sizeof(short);
             }
             else if (std::is_same<T, unsigned short>())
             {
                 _glComponentType = GL_UNSIGNED_SHORT;
+                componentMemberSize = sizeof(unsigned short);
             }
             else if (std::is_same<T, glm::vec2>())
             {
                 _glComponentType = GL_FLOAT;
+                componentMemberSize = sizeof(float);
                 _componentMemberCount = 2;
             }
             else if (std::is_same<T, glm::vec3>())
             {
                 _glComponentType = GL_FLOAT;
+                componentMemberSize = sizeof(float);
                 _componentMemberCount = 3;
             }
             else if (std::is_same<T, glm::vec4>())
             {
                 _glComponentType = GL_FLOAT;
+                componentMemberSize = sizeof(float);
                 _componentMemberCount = 4;
             }
             else if (std::is_same<T, glm::mat2>())
             {
                 _glComponentType = GL_FLOAT;
+                componentMemberSize = sizeof(float);
                 _componentMemberCount = 4;
             }
             else if (std::is_same<T, glm::mat3>())
             {
                 _glComponentType = GL_FLOAT;
+                componentMemberSize = sizeof(float);
                 _componentMemberCount = 9;
             }
             else if (std::is_same<T, glm::mat4>())
             {
                 _glComponentType = GL_FLOAT;
+                componentMemberSize = sizeof(float);
                 _componentMemberCount = 16;
             }
 
-            _componentSize = sizeof(T) * _componentMemberCount;
+            _componentSize = componentMemberSize * _componentMemberCount;
             GL(glBufferData(_glBufferType, _componentCount * _componentSize, data, GL_STATIC_DRAW));
 
             // Create Attributes
+
+            static unsigned int maxComponentMemberCount = 4;
+            unsigned int componentMemberCount = _componentMemberCount;
+            int offset = 0;
+
+            while (componentMemberCount > 0)
+            {
+                BufferAttribute attribute;
+                attribute.memberCount = std::min(componentMemberCount, maxComponentMemberCount);
+                attribute.offset = offset;
+
+                _attributes.push_back(attribute);
+
+                offset += componentMemberSize * attribute.memberCount;
+                componentMemberCount -= maxComponentMemberCount;
+            }
         }
 
     public:
