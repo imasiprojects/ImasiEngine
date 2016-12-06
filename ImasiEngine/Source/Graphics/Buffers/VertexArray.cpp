@@ -134,7 +134,7 @@ namespace ImasiEngine
             {
                 BIND(IndexBuffer, _indexBuffer);
                 {
-                    glDrawElements(drawMode, _indexBuffer->getComponentCount(), _indexBuffer->getGLComponentType(), nullptr);
+                    glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getComponentMemberCount(), _indexBuffer->getGLComponentType(), nullptr);
                 }
                 UNBIND(IndexBuffer);
             }

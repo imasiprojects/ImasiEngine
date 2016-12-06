@@ -27,6 +27,7 @@ namespace ImasiEngine
         , _componentSize(buffer._componentSize)
         , _componentCount(buffer._componentCount)
         , _componentMemberCount(buffer._componentMemberCount)
+        , _attributes(buffer._attributes)
     {
     }
 
@@ -48,6 +49,11 @@ namespace ImasiEngine
     unsigned int Buffer::getComponentSize() const
     {
         return _componentSize;
+    }
+
+    unsigned int Buffer::getComponentMemberCount() const
+    {
+        return _componentMemberCount;
     }
 
     void Buffer::createGLObject()

@@ -123,8 +123,8 @@ namespace ImasiEngine
 
             // Create Attributes
 
-            static unsigned int maxComponentMemberCount = 4;
-            unsigned int componentMemberCount = _componentMemberCount;
+            static int maxComponentMemberCount = 4;
+            int componentMemberCount = _componentMemberCount;
             int offset = 0;
 
             while (componentMemberCount > 0)
@@ -149,6 +149,7 @@ namespace ImasiEngine
         unsigned int getGLComponentType() const;
         unsigned int getComponentCount() const;
         unsigned int getComponentSize() const;
+        unsigned int getComponentMemberCount() const;
         const std::list<BufferAttribute>& getAttributes() const;
     };
 }
