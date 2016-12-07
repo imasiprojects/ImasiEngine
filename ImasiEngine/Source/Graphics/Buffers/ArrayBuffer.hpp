@@ -26,8 +26,8 @@ namespace ImasiEngine
                 || std::is_same<T, unsigned short>::value
             >::type
         >
-        ArrayBuffer(T* data, unsigned int componentCount, unsigned int membersPerComponent)
-            : Buffer(GL_ARRAY_BUFFER, componentCount, membersPerComponent)
+        ArrayBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount)
+            : Buffer(GL_ARRAY_BUFFER, componentCount, componentMemberCount)
         {
             BIND(ArrayBuffer, this);
             {
