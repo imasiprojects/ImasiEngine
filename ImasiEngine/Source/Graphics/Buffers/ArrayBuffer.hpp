@@ -10,6 +10,10 @@ namespace ImasiEngine
 {
     class ArrayBuffer : public Buffer
     {
+    private:
+
+        static const unsigned int _glBufferType = GL_ARRAY_BUFFER;
+
     public:
 
         static void bind(ArrayBuffer* buffer);
@@ -27,11 +31,11 @@ namespace ImasiEngine
             >::type
         >
         ArrayBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount)
-            : Buffer(GL_ARRAY_BUFFER, componentCount, componentMemberCount)
+            : Buffer(_glBufferType, data, componentCount, componentMemberCount)
         {
             BIND(ArrayBuffer, this);
             {
-                initBufferData(data);
+                initBufferData();
             }
             UNBIND(ArrayBuffer);
         }
@@ -48,11 +52,11 @@ namespace ImasiEngine
             >::type
         >
         ArrayBuffer(T* data, unsigned int componentCount)
-            : Buffer(GL_ARRAY_BUFFER, componentCount)
+            : Buffer(_glBufferType, data, componentCount)
         {
             BIND(ArrayBuffer, this);
             {
-                initBufferData(data);
+                initBufferData();
             }
             UNBIND(ArrayBuffer);
         }
