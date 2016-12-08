@@ -52,19 +52,19 @@ namespace ImasiEngine
 
             Buffer::createGLObject();
 
-            if (std::is_same<T, float>())
+            if (std::is_same<T, float>::value)
             {
                 _glComponentType = GL_FLOAT;
             }
-            else if (std::is_same<T, double>())
+            else if (std::is_same<T, double>::value)
             {
                 _glComponentType = GL_DOUBLE;
             }
-            else if (std::is_same<T, int>())
+            else if (std::is_same<T, int>::value)
             {
                 _glComponentType = GL_INT;
             }
-            else if (std::is_same<T, unsigned int>())
+            else if (std::is_same<T, unsigned int>::value)
             {
                 _glComponentType = GL_UNSIGNED_INT;
             }
@@ -72,7 +72,7 @@ namespace ImasiEngine
             {
                 _glComponentType = GL_SHORT;
             }
-            else if (std::is_same<T, unsigned short>())
+            else if (std::is_same<T, unsigned short>::value)
             {
                 _glComponentType = GL_UNSIGNED_SHORT;
             }
@@ -102,27 +102,27 @@ namespace ImasiEngine
         {
             Buffer::createGLObject();
 
-            if (std::is_same<T, glm::vec2>())
+            if (std::is_same<T, glm::vec2>::value)
             {
                 _componentMemberCount = 2;
             }
-            else if (std::is_same<T, glm::vec3>())
+            else if (std::is_same<T, glm::vec3>::value)
             {
                 _componentMemberCount = 3;
             }
-            else if (std::is_same<T, glm::vec4>())
+            else if (std::is_same<T, glm::vec4>::value)
             {
                 _componentMemberCount = 4;
             }
-            else if (std::is_same<T, glm::mat2>())
+            else if (std::is_same<T, glm::mat2>::value)
             {
                 _componentMemberCount = 4;
             }
-            else if (std::is_same<T, glm::mat3>())
+            else if (std::is_same<T, glm::mat3>::value)
             {
                 _componentMemberCount = 9;
             }
-            else if (std::is_same<T, glm::mat4>())
+            else if (std::is_same<T, glm::mat4>::value)
             {
                 _componentMemberCount = 16;
             }

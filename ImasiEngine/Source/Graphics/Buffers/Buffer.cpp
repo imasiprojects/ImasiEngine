@@ -45,7 +45,7 @@ namespace ImasiEngine
 
     void Buffer::createAttributes()
     {
-        static int maxComponentMemberCount = 4;
+        static const int maxComponentMemberCount = 4;
         int componentMemberCount = _componentMemberCount;
         unsigned short offset = 0;
 
