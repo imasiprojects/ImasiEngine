@@ -5,19 +5,23 @@
 
 namespace ImasiEngine
 {
-    class InvalidArgumentException : public std::exception
+    class InvalidArgumentException
+        : public std::exception
     {
-    private:
-
-        std::string _argumentName;
-        std::string _errorDescription;
-
     public:
 
-        InvalidArgumentException(const std::string& argumentName, const std::string& errorDescription)
+        const std::string argument;
+        const std::string error;
+
+        InvalidArgumentException(const std::string& argument, const std::string& error)
+            : argument(argument)
+            , error(error)
         {
-            _argumentName = argumentName;
-            _errorDescription = errorDescription;
+        }
+
+        const char* what() const override
+        {
+            return ("Invalid argument \"" + this->argument + "\": " + this->error).c_str();
         }
     };
 }

@@ -12,7 +12,8 @@
 
 namespace ImasiEngine
 {
-    class Buffer : public GLObject
+    class Buffer
+        : public GLObject
     {
     private:
 

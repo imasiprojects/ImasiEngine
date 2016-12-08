@@ -8,13 +8,12 @@
 
 namespace ImasiEngine
 {
-    class IndexBuffer : public Buffer
+    class IndexBuffer
+        : public Buffer
     {
-    private:
-
-        static const unsigned int _glBufferType = GL_ELEMENT_ARRAY_BUFFER;
-
     public:
+
+        static const unsigned int glBufferType = GL_ELEMENT_ARRAY_BUFFER;
 
         static void bind(IndexBuffer* buffer);
         static void unbind();
@@ -27,7 +26,7 @@ namespace ImasiEngine
             >::type
         >
         IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount)
-            : Buffer(_glBufferType, data, componentCount, componentMemberCount)
+            : Buffer(IndexBuffer::glBufferType, data, componentCount, componentMemberCount)
         {
             BIND(IndexBuffer, this);
             {

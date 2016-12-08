@@ -37,18 +37,18 @@ namespace Imasi
 
         static glm::vec3 vertices[] =
         {
-            glm::vec3(-1.0, -1.0, 0.0),
-            glm::vec3(1.0, -1.0, 0.0),
-            glm::vec3(1.0, 1.0, 0.0),
-            glm::vec3 (-1.0, 1.0, 0.0),
+            { -1.0, -1.0, 0.0 },
+            { 1.0, -1.0, 0.0 },
+            { 1.0, 1.0, 0.0 },
+            { -1.0, 1.0, 0.0 },
         };
 
         static glm::vec2 uvs[] =
         {   
-            glm::vec2(0.f, 1.f),
-            glm::vec2(1.f, 1.f),
-            glm::vec2(1.f, 0.f),
-            glm::vec2(0.f, 0.f),
+            { 0.f, 1.f },
+            { 1.f, 1.f },
+            { 1.f, 0.f },
+            { 0.f, 0.f },
         };
 
         Mesh myMesh;
