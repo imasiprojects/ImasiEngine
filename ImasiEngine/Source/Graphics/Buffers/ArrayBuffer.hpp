@@ -8,29 +8,54 @@
 
 namespace ImasiEngine
 {
-    class ArrayBuffer : public Buffer
+    class ArrayBuffer
+        : public Buffer
     {
     public:
+
+        static const unsigned int glBufferType = GL_ARRAY_BUFFER;
 
         static void bind(ArrayBuffer* buffer);
         static void unbind();
 
-        template<typename T,
+        template<
+            typename T,
             typename = typename std::enable_if<
-                std::is_same<float, T>::value
-                || std::is_same<double, T>::value
-                || std::is_same<int, T>::value
-                || std::is_same<unsigned int, T>::value
-                || std::is_same<short, T>::value
-                || std::is_same<unsigned short, T>::value
+                std::is_same<T, float>::value
+                || std::is_same<T, double>::value
+                || std::is_same<T, int>::value
+                || std::is_same<T, unsigned int>::value
+                || std::is_same<T, short>::value
+                || std::is_same<T, unsigned short>::value
             >::type
         >
-        ArrayBuffer(T* data, unsigned int componentCount, unsigned int membersPerComponent)
-            : Buffer(GL_ARRAY_BUFFER, componentCount, membersPerComponent)
+        ArrayBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount)
+            : Buffer(ArrayBuffer::glBufferType, data, componentCount, componentMemberCount)
         {
             BIND(ArrayBuffer, this);
             {
-                initBufferData(data);
+                initBufferData();
+            }
+            UNBIND(ArrayBuffer);
+        }
+
+        template<
+            typename T,
+            typename = typename std::enable_if<
+                std::is_same<T, glm::vec2>::value
+                || std::is_same<T, glm::vec3>::value
+                || std::is_same<T, glm::vec4>::value
+                || std::is_same<T, glm::mat2>::value
+                || std::is_same<T, glm::mat3>::value
+                || std::is_same<T, glm::mat4>::value
+            >::type
+        >
+        ArrayBuffer(T* data, unsigned int componentCount)
+            : Buffer(ArrayBuffer::glBufferType, data, componentCount)
+        {
+            BIND(ArrayBuffer, this);
+            {
+                initBufferData();
             }
             UNBIND(ArrayBuffer);
         }
