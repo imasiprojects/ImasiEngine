@@ -8,6 +8,7 @@
 
 #include "../Opengl/GLObject.hpp"
 #include "BufferAttribute.hpp"
+#include "../../Exceptions/InvalidArgumentException.hpp"
 
 namespace ImasiEngine
 {
@@ -44,6 +45,11 @@ namespace ImasiEngine
             , _componentCount(componentCount)
             , _componentMemberCount(componentMemberCount)
         {
+            if (_componentMemberCount < 1)
+            {
+                throw InvalidArgumentException("componentMemberCount", "Must be 1 or more");
+            }
+
             Buffer::createGLObject();
 
             if (std::is_same<T, float>())
