@@ -139,7 +139,6 @@ namespace ImasiEngine
         sf::Clock clock;
         _entities.clear();
         std::cout << "Clear: " << clock.restart().asMilliseconds() << std::endl;
-
     }
 
     void InstancedRenderer::render(const glm::mat4& VP)
