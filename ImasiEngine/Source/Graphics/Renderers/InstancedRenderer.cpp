@@ -128,7 +128,7 @@ namespace ImasiEngine
 
         for (auto& pair : _optimizedEntities)
         {
-            finalOptimization[pair.first] = new ArrayBuffer((float*)pair.second.data(), (unsigned int)pair.second.size(), 16);
+            finalOptimization[pair.first] = new ArrayBuffer(pair.second.data(), (unsigned int)pair.second.size());
         }
 
         BIND(Program, _program);

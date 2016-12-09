@@ -87,14 +87,17 @@ namespace ImasiEngine
     {
         BIND(VertexArray, this);
         {
-            GL(glEnableVertexAttribArray(type));
-
             BIND(ArrayBuffer, buffer);
             {
+                unsigned int offset = 0;
+
                 for (auto& attribute : buffer->getAttributes())
                 {
-                    GL(glVertexAttribPointer(type, attribute.memberCount, buffer->getGLComponentType(), false, buffer->getComponentSize(), (void*)attribute.offset));
-                    GL(glVertexAttribDivisor(type, divisor));
+                    GL(glEnableVertexAttribArray(type + offset));
+                    GL(glVertexAttribPointer(type + offset, attribute.memberCount, buffer->getGLComponentType(), false, buffer->getComponentSize(), (void*)attribute.offset));
+                    GL(glVertexAttribDivisor(type + offset, divisor));
+
+                    offset++;
                 }
             }
             UNBIND(ArrayBuffer);
@@ -111,13 +114,21 @@ namespace ImasiEngine
 
     void VertexArray::detachArrayBuffer(ArrayBufferType type)
     {
-        BIND(VertexArray, this);
-        {
-            GL(glDisableVertexAttribArray(type));
-        }
-        UNBIND(VertexArray);
+        auto& bufferIterator = _arrayBuffers.find(type);
 
-        _arrayBuffers.erase(type);
+        if (bufferIterator != _arrayBuffers.end())
+        {
+            BIND(VertexArray, this);
+            {
+                for (unsigned int i = 0; i < bufferIterator->second->getAttributes().size(); i++)
+                {
+                    GL(glDisableVertexAttribArray(type + i));
+                }
+            }
+            UNBIND(VertexArray);
+
+            _arrayBuffers.erase(bufferIterator);
+        }
     }
 
     void VertexArray::detachAllBuffers()
