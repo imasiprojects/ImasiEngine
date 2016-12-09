@@ -1,8 +1,8 @@
 #include "InstancedRenderer.hpp"
 
-#include "../Shaders/VertexShader.hpp"
-#include "../Shaders/FragmentShader.hpp"
-#include "../Model.hpp"
+#include "../Programs/VertexShader.hpp"
+#include "../Programs/FragmentShader.hpp"
+#include "../Models/Model.hpp"
 
 namespace ImasiEngine
 {
@@ -40,7 +40,7 @@ namespace ImasiEngine
 
     )SHADER_END";
 
-    void InstancedRenderer::prepareOptimizedEntities(glm::mat4& VP)
+    void InstancedRenderer::prepareOptimizedEntities(const glm::mat4& VP)
     {
         std::list<std::thread> threads;
 
@@ -118,7 +118,7 @@ namespace ImasiEngine
 
     }
 
-    void InstancedRenderer::render(glm::mat4& VP)
+    void InstancedRenderer::render(const glm::mat4& VP)
     {
         sf::Clock clock;
         prepareOptimizedEntities(VP);
@@ -128,7 +128,7 @@ namespace ImasiEngine
 
         for (auto& pair : _optimizedEntities)
         {
-            finalOptimization[pair.first] = new ArrayBuffer((float*)pair.second.data(), pair.second.size(), 16);
+            finalOptimization[pair.first] = new ArrayBuffer((float*)pair.second.data(), (unsigned int)pair.second.size(), 16);
         }
 
         BIND(Program, _program);
@@ -162,7 +162,7 @@ namespace ImasiEngine
         render(camera.getViewProjectionMatrix());
     }
 
-    bool InstancedRenderer::isVisible(glm::mat4& MVP, glm::vec3& position) const
+    bool InstancedRenderer::isVisible(const glm::mat4& MVP, const glm::vec3& position) const
     {
         glm::vec4 model_cameraspace = MVP * glm::vec4(position, 1);
 

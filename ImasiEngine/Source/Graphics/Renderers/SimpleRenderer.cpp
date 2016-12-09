@@ -1,7 +1,7 @@
 #include "SimpleRenderer.hpp"
 
-#include "../Shaders/VertexShader.hpp"
-#include "../Shaders/FragmentShader.hpp"
+#include "../Programs/VertexShader.hpp"
+#include "../Programs/FragmentShader.hpp"
 
 namespace ImasiEngine
 {
@@ -78,7 +78,7 @@ namespace ImasiEngine
         _entities.insert(_entities.end(), entities.begin(), entities.end());
     }
 
-    void SimpleRenderer::render(glm::mat4& VP)
+    void SimpleRenderer::render(const glm::mat4& VP)
     {
         BIND(Program, _program);
         {

@@ -11,6 +11,7 @@ namespace ImasiEngine
     class Camera
     {
     private:
+
         Cached<glm::mat4> _translationMatrix;
         glm::vec3 _position;
 
@@ -20,13 +21,12 @@ namespace ImasiEngine
         Cached<glm::mat4> _viewMatrix;
 
         Cached<glm::mat4> _projectionMatrix;
-
         float _fieldOfView;
         float _aspectRatio;
         float _nearPlaneDistance;
         float _farPlaneDistance;
 
-        Cached<glm::mat4> _viewProjectionMatrix;
+        mutable Cached<glm::mat4> _viewProjectionMatrix;
 
         void invalidateTranslationMatrix();
         void invalidateRotationMatrix();

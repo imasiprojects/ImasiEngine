@@ -2,15 +2,14 @@
 #define IMASIENGINE_INSTANCEDRENDERER_HPP
 
 #include <list>
-#include <iterator>
 #include <mutex>
 
 #include "Renderer.hpp"
-#include "../Program.hpp"
+#include "../Programs/Program.hpp"
 #include "../Buffers/VertexArray.hpp"
 #include "../Cameras/Camera.hpp"
-#include "../Model.hpp"
-#include "../Entity.hpp"
+#include "../Models/Model.hpp"
+#include "../Entities/Entity.hpp"
 
 namespace ImasiEngine
 {
@@ -33,8 +32,8 @@ namespace ImasiEngine
         std::map<Model*, std::vector<glm::mat4>> _optimizedEntities;
         std::mutex _optimizedEntitiesMutex;
 
-        void InstancedRenderer::prepareOptimizedEntities(glm::mat4& VP);
-        bool isVisible(glm::mat4& MVP, glm::vec3& position = glm::vec3(0.f, 0.f, 0.f)) const;
+        void InstancedRenderer::prepareOptimizedEntities(const glm::mat4& VP);
+        bool isVisible(const glm::mat4& MVP, const glm::vec3& position = glm::vec3(0.f, 0.f, 0.f)) const;
 
     public:
 
@@ -85,7 +84,7 @@ namespace ImasiEngine
         }
 
         void clear() override;
-        void render(glm::mat4& VP) override;
+        void render(const glm::mat4& VP) override;
         void render(Camera& camera);
     };
 }
