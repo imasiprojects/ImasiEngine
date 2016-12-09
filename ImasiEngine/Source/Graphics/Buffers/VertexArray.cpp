@@ -139,13 +139,22 @@ namespace ImasiEngine
 
     void VertexArray::render(GLenum drawMode)
     {
+        ArrayBuffer* modelMatrixBuffer = _arrayBuffers[ModelMatrix];
+
         if (_indexBuffer != nullptr)
         {
             BIND(VertexArray, this);
             {
                 BIND(IndexBuffer, _indexBuffer);
                 {
-                    glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getComponentMemberCount(), _indexBuffer->getGLComponentType(), nullptr);
+                    if (modelMatrixBuffer != nullptr)
+                    {
+                        glDrawElementsInstanced(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getComponentMemberCount(), _indexBuffer->getGLComponentType(), nullptr, modelMatrixBuffer->getComponentCount());
+                    }
+                    else
+                    {
+                        glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getComponentMemberCount(), _indexBuffer->getGLComponentType(), nullptr);
+                    }
                 }
                 UNBIND(IndexBuffer);
             }
@@ -153,17 +162,28 @@ namespace ImasiEngine
         }
         else
         {
-            auto vertexBuffer = _arrayBuffers.find(Vertex);
-            if (vertexBuffer != _arrayBuffers.end())
+            auto& vertexBufferIterator = _arrayBuffers.find(Vertex);
+            if (vertexBufferIterator != _arrayBuffers.end())
             {
+                ArrayBuffer* vertexBuffer = vertexBufferIterator->second;
+
                 BIND(VertexArray, this);
                 {
-                    glDrawArrays(drawMode, 0, vertexBuffer->second->getComponentCount());
+                    if (modelMatrixBuffer != nullptr)
+                    {
+                        glDrawElementsInstanced(drawMode, vertexBuffer->getComponentCount() * vertexBuffer->getComponentMemberCount(), vertexBuffer->getGLComponentType(), nullptr, modelMatrixBuffer->getComponentCount());
+                    }
+                    else
+                    {
+                        glDrawArrays(drawMode, 0, vertexBuffer->getComponentCount() * vertexBuffer->getComponentMemberCount());
+                    }
                 }
                 UNBIND(VertexArray);
             }
             else
             {
+                // TODO: Exception :O
+
                 #ifdef DEBUG
                 {
                     Logger::out << "Error: Trying to draw VAO without VertexBuffer attached" << std::endl;

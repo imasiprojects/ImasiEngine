@@ -128,8 +128,10 @@ namespace ImasiEngine
 
         for (auto& pair : _optimizedEntities)
         {
-            finalOptimization[pair.first] = new ArrayBuffer(pair.second.data(), (unsigned int)pair.second.size());
+            finalOptimization[pair.first] = new ArrayBuffer(pair.second.data(), (unsigned int)pair.second.size()); // 30ms. We must split it into vector<ArrayBuffer*>
         }
+
+        std::cout << "Final optimization: " << clock.restart().asMilliseconds() << std::endl;
 
         BIND(Program, _program);
         {
