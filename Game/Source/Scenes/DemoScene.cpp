@@ -4,7 +4,7 @@
 
 #include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
 
-#include "../../Resources/ResourceCodes.hpp"
+#include "../Resources/ResourceCodes.hpp"
 
 using namespace ImasiEngine;
 
