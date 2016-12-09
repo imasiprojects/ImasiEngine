@@ -29,12 +29,12 @@ namespace ImasiEngine
                 || std::is_same<T, unsigned short>::value
             >::type
         >
-        ArrayBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount)
+        ArrayBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, unsigned int drawMode = GL_STATIC_DRAW)
             : Buffer(ArrayBuffer::glBufferType, data, componentCount, componentMemberCount)
         {
             BIND(ArrayBuffer, this);
             {
-                initBufferData();
+                initBufferData(drawMode);
             }
             UNBIND(ArrayBuffer);
         }
@@ -50,12 +50,12 @@ namespace ImasiEngine
                 || std::is_same<T, glm::mat4>::value
             >::type
         >
-        ArrayBuffer(T* data, unsigned int componentCount)
+        ArrayBuffer(T* data, unsigned int componentCount, unsigned int drawMode = GL_STATIC_DRAW)
             : Buffer(ArrayBuffer::glBufferType, data, componentCount)
         {
             BIND(ArrayBuffer, this);
             {
-                initBufferData();
+                initBufferData(drawMode);
             }
             UNBIND(ArrayBuffer);
         }
