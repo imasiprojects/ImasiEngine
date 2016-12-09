@@ -1,5 +1,7 @@
 #include "InstancedRenderer.hpp"
 
+#include <mutex>
+
 #include "../Programs/VertexShader.hpp"
 #include "../Programs/FragmentShader.hpp"
 #include "../Models/Model.hpp"
@@ -44,38 +46,53 @@ namespace ImasiEngine
     {
         std::mutex initialOptimizationMutex;
         std::map<Model*, std::vector<glm::mat4>> initialOptimization;
-        std::list<std::thread> threads;
 
-        for (auto& entityGroup : _entities)
+        //std::list<std::thread> threads;
+
         {
-            threads.push_back(std::thread([&]()
-            {
-                for (auto& entity : entityGroup)
-                {
-                    glm::mat4 MVP = VP * entity->getModelMatrix();
+            sf::Clock clock;
 
-                    if (isVisible(MVP))
+            for (auto& entityGroup : _entities)
+            {
+                //threads.push_back(std::thread([&]()
+                {
+                    for (auto& entity : entityGroup)
                     {
-                        initialOptimizationMutex.lock();
-                        initialOptimization[entity->model].push_back(MVP);
-                        initialOptimizationMutex.unlock();
+                        glm::mat4 MVP = VP * entity->getModelMatrix();
+
+                        if (isVisible(MVP))
+                        {
+                            initialOptimizationMutex.lock();
+                            initialOptimization[entity->model].push_back(MVP);
+                            initialOptimizationMutex.unlock();
+                        }
                     }
-                }
-            }));
+                }//));
+            }
+
+            std::cout << "Optimize entities: " << clock.restart().asMilliseconds() << std::endl;
         }
 
-        for (auto& thread : threads)
+        /*for (auto& thread : threads)
         {
             if (thread.joinable())
             {
                 thread.join();
             }
-        }
+        }*/
 
-        // TODO: Split into multiple ArrayBuffers
-        for (auto& pair : initialOptimization)
         {
-            finalOptimization[pair.first].push_back(new ArrayBuffer(pair.second.data(), (unsigned int)pair.second.size()));
+            sf::Clock clock;
+
+            // TODO: Split into multiple ArrayBuffers
+
+            for (auto& modelAndMVPs : initialOptimization)
+            {
+                ArrayBuffer* mvpBuffer = new ArrayBuffer(modelAndMVPs.second.data(), (unsigned int)modelAndMVPs.second.size());
+                finalOptimization[modelAndMVPs.first].push_back(mvpBuffer);
+            }
+
+            std::cout << "Create Buffer(s): " << clock.restart().asMilliseconds() << std::endl;
         }
     }
 
@@ -127,12 +144,10 @@ namespace ImasiEngine
 
     void InstancedRenderer::render(const glm::mat4& VP)
     {
-        sf::Clock clock;
-        std::map<Model*, std::list<ArrayBuffer*> > finalOptimization;
-
+        std::map<Model*, std::list<ArrayBuffer*>> finalOptimization;
         optimizeEntities(VP, finalOptimization);
 
-        std::cout << "Optimize entities: " << clock.restart().asMilliseconds() << '\n';
+        sf::Clock clock;
 
         BIND(Program, _program);
         {
@@ -154,6 +169,8 @@ namespace ImasiEngine
         }
         UNBIND(Program);
 
+        std::cout << "Render: " << clock.restart().asMilliseconds() << std::endl;
+
         // Clean memory!
         for (auto& pair : finalOptimization)
         {
@@ -162,8 +179,6 @@ namespace ImasiEngine
                 delete arrayBuffer;
             }
         }
-
-        std::cout << "Render: " << clock.restart().asMilliseconds() << '\n';
     }
 
     void InstancedRenderer::render(Camera& camera)

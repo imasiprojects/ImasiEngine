@@ -2,7 +2,6 @@
 #define IMASIENGINE_INSTANCEDRENDERER_HPP
 
 #include <list>
-#include <mutex>
 
 #include "Renderer.hpp"
 #include "../Programs/Program.hpp"
