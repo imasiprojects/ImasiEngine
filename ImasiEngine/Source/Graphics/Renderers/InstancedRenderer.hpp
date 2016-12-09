@@ -29,10 +29,8 @@ namespace ImasiEngine
         const unsigned int _maxVectorSize;
 
         std::list<std::vector<Entity*>> _entities;
-        std::map<Model*, std::vector<glm::mat4>> _optimizedEntities;
-        std::mutex _optimizedEntitiesMutex;
 
-        void InstancedRenderer::prepareOptimizedEntities(const glm::mat4& VP);
+        void optimizeEntities(const glm::mat4& VP, std::map<Model*, std::list<ArrayBuffer*> >& optimizedEntities) const;
         bool isVisible(const glm::mat4& MVP, const glm::vec3& position = glm::vec3(0.f, 0.f, 0.f)) const;
 
     public:

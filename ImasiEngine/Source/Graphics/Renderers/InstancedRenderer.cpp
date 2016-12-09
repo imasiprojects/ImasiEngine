@@ -40,8 +40,10 @@ namespace ImasiEngine
 
     )SHADER_END";
 
-    void InstancedRenderer::prepareOptimizedEntities(const glm::mat4& VP)
+    void InstancedRenderer::optimizeEntities(const glm::mat4& VP, std::map<Model*, std::list<ArrayBuffer*> >& finalOptimization) const
     {
+        std::mutex initialOptimizationMutex;
+        std::map<Model*, std::vector<glm::mat4>> initialOptimization;
         std::list<std::thread> threads;
 
         for (auto& entityGroup : _entities)
@@ -54,9 +56,9 @@ namespace ImasiEngine
 
                     if (isVisible(MVP))
                     {
-                        _optimizedEntitiesMutex.lock();
-                        _optimizedEntities[entity->model].push_back(MVP);
-                        _optimizedEntitiesMutex.unlock();
+                        initialOptimizationMutex.lock();
+                        initialOptimization[entity->model].push_back(MVP);
+                        initialOptimizationMutex.unlock();
                     }
                 }
             }));
@@ -68,6 +70,12 @@ namespace ImasiEngine
             {
                 thread.join();
             }
+        }
+
+        // TODO: Split into multiple ArrayBuffers
+        for (auto& pair : initialOptimization)
+        {
+            finalOptimization[pair.first].push_back(new ArrayBuffer(pair.second.data(), (unsigned int)pair.second.size()));
         }
     }
 
@@ -113,7 +121,6 @@ namespace ImasiEngine
     {
         sf::Clock clock;
         _entities.clear();
-        _optimizedEntities.clear();
         std::cout << "Clear: " << clock.restart().asMilliseconds() << std::endl;
 
     }
@@ -121,17 +128,11 @@ namespace ImasiEngine
     void InstancedRenderer::render(const glm::mat4& VP)
     {
         sf::Clock clock;
-        prepareOptimizedEntities(VP);
-        std::cout << "Process entities: " << clock.restart().asMilliseconds() << std::endl;
+        std::map<Model*, std::list<ArrayBuffer*> > finalOptimization;
 
-        std::map<Model*, ArrayBuffer*> finalOptimization;
+        optimizeEntities(VP, finalOptimization);
 
-        for (auto& pair : _optimizedEntities)
-        {
-            finalOptimization[pair.first] = new ArrayBuffer(pair.second.data(), (unsigned int)pair.second.size()); // 30ms. We must split it into vector<ArrayBuffer*>
-        }
-
-        std::cout << "Final optimization: " << clock.restart().asMilliseconds() << std::endl;
+        std::cout << "Optimize entities: " << clock.restart().asMilliseconds() << '\n';
 
         BIND(Program, _program);
         {
@@ -141,9 +142,12 @@ namespace ImasiEngine
 
                 BIND(Texture, model->material->diffuseMap, 0);
                 {
-                    _vertexArray->attachMesh(model->mesh);
-                    _vertexArray->attachArrayBuffer(optimizedEntity.second, ModelMatrix, 1);
-                    _vertexArray->render();
+                    for (auto& arrayBuffer : optimizedEntity.second)
+                    {
+                        _vertexArray->attachMesh(model->mesh);
+                        _vertexArray->attachArrayBuffer(arrayBuffer, ModelMatrix, 1);
+                        _vertexArray->render();
+                    }
                 }
                 UNBIND(Texture, 0);
             }
@@ -153,10 +157,13 @@ namespace ImasiEngine
         // Clean memory!
         for (auto& pair : finalOptimization)
         {
-            delete pair.second;
+            for (auto& arrayBuffer : pair.second)
+            {
+                delete arrayBuffer;
+            }
         }
 
-        std::cout << "Render: " << clock.restart().asMilliseconds() << std::endl;
+        std::cout << "Render: " << clock.restart().asMilliseconds() << '\n';
     }
 
     void InstancedRenderer::render(Camera& camera)
