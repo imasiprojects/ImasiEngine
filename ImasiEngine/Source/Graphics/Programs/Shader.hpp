@@ -1,7 +1,7 @@
 #ifndef IMASIENGINE_SHADER_HPP
 #define IMASIENGINE_SHADER_HPP
 
-#include "../GLObject.hpp"
+#include "../Opengl/GLObject.hpp"
 
 namespace ImasiEngine
 {

@@ -4,29 +4,33 @@
 #include <GL/glew.h>
 
 #include "Buffer.hpp"
-#include "../../Utils/Opengl.hpp"
+#include "../Opengl/OpenglHelper.hpp"
 
 namespace ImasiEngine
 {
-    class IndexBuffer : public Buffer
+    class IndexBuffer
+        : public Buffer
     {
     public:
+
+        static const unsigned int glBufferType = GL_ELEMENT_ARRAY_BUFFER;
 
         static void bind(IndexBuffer* buffer);
         static void unbind();
 
-        template<typename T,
+        template<
+            typename T,
             typename = typename std::enable_if<
                 std::is_same<unsigned int, T>::value
                 || std::is_same<unsigned short, T>::value
             >::type
         >
-        IndexBuffer(T* data, unsigned int componentCount, unsigned int membersPerComponent)
-            : Buffer(GL_ELEMENT_ARRAY_BUFFER, componentCount, membersPerComponent)
+        IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount)
+            : Buffer(IndexBuffer::glBufferType, data, componentCount, componentMemberCount)
         {
             BIND(IndexBuffer, this);
             {
-                initBufferData(data);
+                initBufferData();
             }
             UNBIND(IndexBuffer);
         }

@@ -4,7 +4,7 @@
 #include <list>
 
 #include "../../../ImasiEngine/Source/Engine/Scene.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Entity.hpp"
+#include "../../../ImasiEngine/Source/Graphics/Entities/Entity.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Renderers/InstancedRenderer.hpp"
 #include "../../../ImasiEngine/Source/Resources/ResourceContainer.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Cameras/Camera.hpp"

@@ -2,35 +2,144 @@
 #define IMASIENGINE_BUFFER_HPP
 
 #include <iostream>
+#include <list>
+#include <GL/glew.h>
+#include <glm/glm.hpp>
 
-#include "../GLObject.hpp"
+#include "../Opengl/GLObject.hpp"
+#include "BufferAttribute.hpp"
+#include "../../Exceptions/InvalidArgumentException.hpp"
 
 namespace ImasiEngine
 {
-    class Buffer : public GLObject
+    class Buffer
+        : public GLObject
     {
     private:
 
+        void* _data;
         unsigned int _glBufferType;
         unsigned int _glComponentType;
+        unsigned int _componentSize;
         unsigned int _componentCount;
-        unsigned int _membersPerComponent;
-
-        void initBufferData(unsigned int glComponentType, std::size_t componentTypeSize, void* data);
+        unsigned int _componentMemberCount;
+        unsigned int _componentMemberSize;
+        std::list<BufferAttribute> _attributes;
 
     protected:
 
-        Buffer(unsigned int glBufferType, unsigned int componentCount, unsigned int membersPerComponent);
+        template <
+            typename T,
+            typename = typename std::enable_if <
+                std::is_same<T, float>::value
+                || std::is_same<T, double>::value
+                || std::is_same<T, int>::value
+                || std::is_same<T, unsigned int>::value
+                || std::is_same<T, short>::value
+                || std::is_same<T, unsigned short>::value
+            >::type
+        >
+        Buffer(unsigned int glBufferType, T* data, unsigned int componentCount, unsigned int componentMemberCount)
+            : GLObject()
+            , _data(data)
+            , _glBufferType(glBufferType)
+            , _componentCount(componentCount)
+            , _componentMemberCount(componentMemberCount)
+        {
+            if (_componentMemberCount < 1)
+            {
+                throw InvalidArgumentException("componentMemberCount", "Must be 1 or more");
+            }
+
+            Buffer::createGLObject();
+
+            if (std::is_same<T, float>::value)
+            {
+                _glComponentType = GL_FLOAT;
+            }
+            else if (std::is_same<T, double>::value)
+            {
+                _glComponentType = GL_DOUBLE;
+            }
+            else if (std::is_same<T, int>::value)
+            {
+                _glComponentType = GL_INT;
+            }
+            else if (std::is_same<T, unsigned int>::value)
+            {
+                _glComponentType = GL_UNSIGNED_INT;
+            }
+            else if (std::is_same<T, short>())
+            {
+                _glComponentType = GL_SHORT;
+            }
+            else if (std::is_same<T, unsigned short>::value)
+            {
+                _glComponentType = GL_UNSIGNED_SHORT;
+            }
+
+            _componentMemberSize = sizeof(T);
+            _componentSize = _componentMemberSize * _componentMemberCount;
+
+            createAttributes();
+        }
+
+        template <
+            typename T,
+            typename = typename std::enable_if <
+            std::is_same<T, glm::vec2>::value
+            || std::is_same<T, glm::vec3>::value
+            || std::is_same<T, glm::vec4>::value
+            || std::is_same<T, glm::mat2>::value
+            || std::is_same<T, glm::mat3>::value
+            || std::is_same<T, glm::mat4>::value
+            >::type
+        >
+        Buffer(unsigned int glBufferType, T* data, unsigned int componentCount)
+            : GLObject()
+            , _data(data)
+            , _glBufferType(glBufferType)
+            , _componentCount(componentCount)
+        {
+            Buffer::createGLObject();
+
+            if (std::is_same<T, glm::vec2>::value)
+            {
+                _componentMemberCount = 2;
+            }
+            else if (std::is_same<T, glm::vec3>::value)
+            {
+                _componentMemberCount = 3;
+            }
+            else if (std::is_same<T, glm::vec4>::value)
+            {
+                _componentMemberCount = 4;
+            }
+            else if (std::is_same<T, glm::mat2>::value)
+            {
+                _componentMemberCount = 4;
+            }
+            else if (std::is_same<T, glm::mat3>::value)
+            {
+                _componentMemberCount = 9;
+            }
+            else if (std::is_same<T, glm::mat4>::value)
+            {
+                _componentMemberCount = 16;
+            }
+
+            _glComponentType = GL_FLOAT;
+            _componentMemberSize = sizeof(float);
+            _componentSize = _componentMemberSize * _componentMemberCount;
+
+            createAttributes();
+        }
 
         void createGLObject() override;
         void destroyGLObject() override;
 
-        void initBufferData(float* data);
-        void initBufferData(double* data);
-        void initBufferData(int* data);
-        void initBufferData(unsigned int* data);
-        void initBufferData(short* data);
-        void initBufferData(unsigned short* data);
+        void initBufferData(unsigned int drawMode = GL_STATIC_DRAW) const;
+        void createAttributes();
 
     public:
 
@@ -38,11 +147,11 @@ namespace ImasiEngine
         Buffer(Buffer&& buffer) noexcept;
         virtual ~Buffer();
 
-        unsigned int getGLBufferType() const;
         unsigned int getGLComponentType() const;
-
         unsigned int getComponentCount() const;
-        unsigned int getMembersPerComponent() const;
+        unsigned int getComponentSize() const;
+        unsigned int getComponentMemberCount() const;
+        const std::list<BufferAttribute>& getAttributes() const;
     };
 }
 

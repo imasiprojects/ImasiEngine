@@ -3,7 +3,7 @@
 
 #include <map>
 
-#include "../GLObject.hpp"
+#include "../Opengl/GLObject.hpp"
 
 namespace ImasiEngine
 {
@@ -23,7 +23,7 @@ namespace ImasiEngine
 
     public:
 
-        static void bind(Texture* texture, unsigned int index = 0);
+        static void bind(const Texture* texture, unsigned int index = 0);
         static void unbind(unsigned int index = 0);
 
         virtual unsigned int getGLTextureType() const = 0;

@@ -1,8 +1,8 @@
 #ifndef IMASIENGINE_MESH_HPP
 #define IMASIENGINE_MESH_HPP
 
-#include "Buffers/ArrayBuffer.hpp"
-#include "Buffers/IndexBuffer.hpp"
+#include "../Buffers/ArrayBuffer.hpp"
+#include "../Buffers/IndexBuffer.hpp"
 
 namespace ImasiEngine
 {
@@ -23,12 +23,15 @@ namespace ImasiEngine
 
         IndexBuffer* getIndexBuffer() const;
         void setIndexBuffer(IndexBuffer&& indexBuffer);
+        void removeIndexBuffer();
 
         ArrayBuffer* getVertexBuffer() const;
         void setVertexBuffer(ArrayBuffer&& vertexBuffer);
+        void removeVertexBuffer();
 
         ArrayBuffer* getUVBuffer() const;
         void setUVBuffer(ArrayBuffer&& uvBuffer);
+        void removeUVBuffer();
     };
 }
 

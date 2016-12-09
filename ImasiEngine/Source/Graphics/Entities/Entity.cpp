@@ -1,15 +1,15 @@
 #include "Entity.hpp"
 
+#include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
 namespace ImasiEngine
 {
     Entity::Entity()
-        : _mustUpdateModelMatrix(false)
-        , _modelMatrix(glm::mat4(1.f))
-        , _position(glm::vec3(0.f, 0.f, 0.f))
-        , _rotation(glm::vec3(0.f, 0.f, 0.f))
-        , _scale(glm::vec3(1.f, 1.f, 1.f))
+        : _modelMatrix(1.f)
+        , _position(0.f, 0.f, 0.f)
+        , _rotation(0.f, 0.f, 0.f)
+        , _scale(1.f, 1.f, 1.f)
         , model(nullptr)
     {
     }
@@ -18,42 +18,42 @@ namespace ImasiEngine
     {
     }
 
-    glm::vec3 Entity::getPosition() const
+    const glm::vec3& Entity::getPosition() const
     {
         return _position;
     }
 
-    void Entity::setPosition(glm::vec3& position)
+    void Entity::setPosition(const glm::vec3& position)
     {
-        _mustUpdateModelMatrix = true;
+        _modelMatrix.invalidate();
         _position = position;
     }
 
-    glm::vec3 Entity::getRotation() const
+    const glm::vec3& Entity::getRotation() const
     {
         return _rotation;
     }
 
-    void Entity::setRotation(glm::vec3& rotation)
+    void Entity::setRotation(const glm::vec3& rotation)
     {
-        _mustUpdateModelMatrix = true;
+        _modelMatrix.invalidate();
         _rotation = rotation;
     }
 
-    glm::vec3 Entity::getScale() const
+    const glm::vec3& Entity::getScale() const
     {
         return _scale;
     }
 
-    void Entity::setScale(glm::vec3& scale)
+    void Entity::setScale(const glm::vec3& scale)
     {
-        _mustUpdateModelMatrix = true;
+        _modelMatrix.invalidate();
         _scale = scale;
     }
 
-    glm::mat4 Entity::getModelMatrix()
+    const glm::mat4& Entity::getModelMatrix()
     {
-        if (_mustUpdateModelMatrix)
+        if (_modelMatrix.isInvalid())
         {
             glm::mat4 rotationMatrix(1.f);
             rotationMatrix = glm::rotate(rotationMatrix, _rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -61,7 +61,7 @@ namespace ImasiEngine
             rotationMatrix = glm::rotate(rotationMatrix, _rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 
             _modelMatrix = glm::translate(_position) * rotationMatrix * glm::scale(_scale);
-            _mustUpdateModelMatrix = false;
+            _modelMatrix.validate();
         }
 
         return _modelMatrix;

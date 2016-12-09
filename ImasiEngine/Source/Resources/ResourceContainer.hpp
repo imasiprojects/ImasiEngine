@@ -2,10 +2,13 @@
 #define IMASIENGINE_RESOURCECONTAINER_HPP
 
 #include <map>
+#include <SFML/Graphics/Font.hpp>
 
-#include "../../ImasiEngine/Source/Graphics/Mesh.hpp"
-#include "../../ImasiEngine/Source/Graphics/Material.hpp"
-#include "../../ImasiEngine/Source/Graphics/Model.hpp"
+#include "../../ImasiEngine/Source/Graphics/Meshes/Mesh.hpp"
+#include "../../ImasiEngine/Source/Graphics/Materials/Material.hpp"
+#include "../../ImasiEngine/Source/Graphics/Models/Model.hpp"
+#include "../Graphics/Programs/VertexShader.hpp"
+#include "../Graphics/Programs/FragmentShader.hpp"
 
 namespace ImasiEngine
 {
@@ -25,6 +28,9 @@ namespace ImasiEngine
         std::map<KeyType, ColorTexture2D*> _colorTextures;
         std::map<KeyType, Material*> _materials;
         std::map<KeyType, Model*> _models;
+        std::map<KeyType, VertexShader*> _vertexShaders;
+        std::map<KeyType, FragmentShader*> _fragmentShaders;
+        std::map<KeyType, sf::Font*> _fonts;
 
     public:
 
@@ -99,6 +105,39 @@ namespace ImasiEngine
             return nullptr;
         }
 
+        VertexShader* getVertexShader(KeyType key)
+        {
+            auto it = _vertexShaders.find(key);
+            if (it != _vertexShaders.end())
+            {
+                return it->second;
+            }
+
+            return nullptr;
+        }
+
+        FragmentShader* getFragmentShader(KeyType key)
+        {
+            auto it = _fragmentShaders.find(key);
+            if (it != _fragmentShaders.end())
+            {
+                return it->second;
+            }
+
+            return nullptr;
+        }
+
+        sf::Font* getFont(KeyType key)
+        {
+            auto it = _fonts.find(key);
+            if (it != _fonts.end())
+            {
+                return it->second;
+            }
+
+            return nullptr;
+        }
+
         void set(KeyType key, Mesh&& value)
         {
             auto it = _meshes.find(key);
@@ -153,6 +192,83 @@ namespace ImasiEngine
             {
                 _models[key] = new Model(std::move(value));
             }
+        }
+
+        void set(KeyType key, VertexShader&& value)
+        {
+            auto it = _vertexShaders.find(key);
+            if (it != _vertexShaders.end())
+            {
+                delete it->second;
+                it->second = new VertexShader(std::move(value));
+            }
+            else
+            {
+                _vertexShaders[key] = new VertexShader(std::move(value));
+            }
+        }
+
+        void set(KeyType key, FragmentShader&& value)
+        {
+            auto it = _fragmentShaders.find(key);
+            if (it != _fragmentShaders.end())
+            {
+                delete it->second;
+                it->second = new FragmentShader(std::move(value));
+            }
+            else
+            {
+                _fragmentShaders[key] = new FragmentShader(std::move(value));
+            }
+        }
+
+        void set(KeyType key, sf::Font&& value)
+        {
+            auto it = _fonts.find(key);
+            if (it != _fonts.end())
+            {
+                delete it->second;
+                it->second = new sf::Font(std::move(value));
+            }
+            else
+            {
+                _fonts[key] = new sf::Font(std::move(value));
+            }
+        }
+
+        void removeMesh(KeyType key)
+        {
+            _meshes.erase(key);
+        }
+
+        void removeColorTexture(KeyType key)
+        {
+            _colorTextures.erase(key);
+        }
+
+        void removeMaterial(KeyType key)
+        {
+            _materials.erase(key);
+        }
+
+        void removeModel(KeyType key)
+        {
+            _models.erase(key);
+        }
+
+        void removeVertexShader(KeyType key)
+        {
+            _vertexShaders.erase(key);
+        }
+
+        void removeFragmentShader(KeyType key)
+        {
+            _fragmentShaders.erase(key);
+        }
+
+        void removeFont(KeyType key)
+        {
+            _fonts.erase(key);
         }
     };
 }

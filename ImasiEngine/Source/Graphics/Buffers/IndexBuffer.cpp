@@ -2,18 +2,18 @@
 
 #include <GL/glew.h>
 
-#include "../../Utils/Opengl.hpp"
+#include "../Opengl/OpenglHelper.hpp"
 
 namespace ImasiEngine
 {
     void IndexBuffer::bind(IndexBuffer* buffer)
     {
-        GL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer->getGLObjectId()));
+        GL(glBindBuffer(IndexBuffer::glBufferType, buffer->getGLObjectId()));
     }
 
     void IndexBuffer::unbind()
     {
-        GL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, NULL_ID));
+        GL(glBindBuffer(IndexBuffer::glBufferType, NULL_ID));
     }
 
     IndexBuffer::IndexBuffer(IndexBuffer&& buffer) noexcept

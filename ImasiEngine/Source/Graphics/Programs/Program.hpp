@@ -7,10 +7,10 @@
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 
-#include "Shaders/Shader.hpp"
-#include "GLObject.hpp"
-#include "../Utils/Logger.hpp"
-#include "../Utils/Opengl.hpp"
+#include "Shader.hpp"
+#include "../Opengl/GLObject.hpp"
+#include "../Opengl/OpenglHelper.hpp"
+#include "../../Utils/Logger.hpp"
 
 namespace ImasiEngine
 {
@@ -28,7 +28,7 @@ namespace ImasiEngine
 
     public:
 
-        static void bind(Program* program);
+        static void bind(const Program* program);
         static void unbind();
 
         Program();

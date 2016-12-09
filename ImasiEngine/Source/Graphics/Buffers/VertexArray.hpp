@@ -8,7 +8,7 @@
 #include "ArrayBuffer.hpp"
 #include "ArrayBufferType.hpp"
 #include "IndexBuffer.hpp"
-#include "../Mesh.hpp"
+#include "../Meshes/Mesh.hpp"
 
 namespace ImasiEngine
 {
@@ -39,7 +39,7 @@ namespace ImasiEngine
         void attachIndexBuffer(IndexBuffer* buffer);
         void detachIndexBuffer();
 
-        void attachArrayBuffer(ArrayBuffer* buffer, ArrayBufferType type);
+        void attachArrayBuffer(ArrayBuffer* buffer, ArrayBufferType type, unsigned int divisor = 0);
         void detachArrayBuffer(ArrayBufferType type);
 
         void detachAllBuffers();

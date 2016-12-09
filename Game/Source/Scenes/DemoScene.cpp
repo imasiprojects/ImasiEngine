@@ -2,7 +2,9 @@
 
 #include <GL/glew.h>
 
+#include "../../../ImasiEngine/Source/Graphics/Opengl/OpenglHelper.hpp"
 #include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
+
 #include "../../Resources/ResourceCodes.hpp"
 
 using namespace ImasiEngine;
@@ -31,26 +33,26 @@ namespace Imasi
             0, 2, 3,
         };
 
-        static double vertices[] =
+        static glm::vec3 vertices[] =
         {
-            -1.0, -1.0, 0.0,
-            1.0, -1.0, 0.0,
-            1.0, 1.0, 0.0,
-            -1.0, 1.0, 0.0,
+            { -1.0, -1.0, 0.0 },
+            { 1.0, -1.0, 0.0 },
+            { 1.0, 1.0, 0.0 },
+            { -1.0, 1.0, 0.0 },
         };
 
-        static float uvs[] =
-        {
-            0.f, 1.f,
-            1.f, 1.f,
-            1.f, 0.f,
-            0.f, 0.f,
+        static glm::vec2 uvs[] =
+        {   
+            { 0.f, 1.f },
+            { 1.f, 1.f },
+            { 1.f, 0.f },
+            { 0.f, 0.f },
         };
 
         Mesh myMesh;
         myMesh.setIndexBuffer(IndexBuffer(indices, 2, 3));
-        myMesh.setVertexBuffer(ArrayBuffer(vertices, 4, 3));
-        myMesh.setUVBuffer(ArrayBuffer(uvs, 4, 2));
+        myMesh.setVertexBuffer(ArrayBuffer(vertices, 4));
+        myMesh.setUVBuffer(ArrayBuffer(uvs, 4));
         _resourceContainer.set(ResourceCodes::myMesh, std::move(myMesh));
 
         Material myMaterial;

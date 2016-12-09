@@ -2,8 +2,8 @@
 
 #include <GL/glew.h>
 
-#include "Utils/Logger.hpp"
-#include "Utils/Opengl.hpp"
+#include "../Graphics/Opengl/OpenglHelper.hpp"
+#include "../Utils/Logger.hpp"
 
 namespace ImasiEngine
 {
@@ -42,14 +42,7 @@ namespace ImasiEngine
         }
         else
         {
-            if (GLEW_ARB_vertex_buffer_object)
-            {
-                Logger::out << "  >> Using VBO :'(" << std::endl;
-            }
-            else
-            {
-                Logger::out << "  >> Using Legacy (NOT COMPATIBLE) :'(" << std::endl;
-            }
+            Logger::out << "  >> Using Legacy (NOT COMPATIBLE) :'(" << std::endl;
         }
 
         Logger::out << std::endl;

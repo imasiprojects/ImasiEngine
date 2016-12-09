@@ -1,7 +1,7 @@
 #ifndef IMASIGAME_GAMEENGINE_HPP
 #define IMASIGAME_GAMEENGINE_HPP
 
-#include "../../ImasiEngine/Source/Engine.hpp"
+#include "../../ImasiEngine/Source/ImasiEngine.hpp"
 #include "GameContext.hpp"
 
 namespace Imasi

@@ -1,6 +1,6 @@
 #include "GLObject.hpp"
 
-#include "../Utils/Opengl.hpp"
+#include "OpenglHelper.hpp"
 
 namespace ImasiEngine
 {
