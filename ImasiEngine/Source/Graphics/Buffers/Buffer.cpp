@@ -87,22 +87,27 @@ namespace ImasiEngine
         {
             throw InvalidArgumentException("buffer", "Different types");
         }
+
         if (_componentMemberCount != buffer->getComponentMemberCount())
         {
             throw InvalidArgumentException("buffer", "Different members per component");
         }
+
         if (componentOffset >= _componentCount)
         {
             throw InvalidArgumentException("componentOffset", "Out of range");
         }
+
         if (componentOffsetFrom >= buffer->getComponentCount())
         {
             throw InvalidArgumentException("componentOffsetFrom", "Out of range");
         }
+
         if (componentCount + componentOffset > _componentCount)
         {
             throw InvalidArgumentException("componentCount", "Out of range (this buffer)");
         }
+
         if (componentCount + componentOffsetFrom > buffer->getComponentCount())
         {
             throw InvalidArgumentException("componentCount", "Out of range ('from' buffer)");
@@ -129,6 +134,7 @@ namespace ImasiEngine
         {
             throw InvalidArgumentException("componentOffset", "Out of range");
         }
+
         if (componentCount + componentOffset > _componentCount)
         {
             throw InvalidArgumentException("componentCount", "Out of range");
