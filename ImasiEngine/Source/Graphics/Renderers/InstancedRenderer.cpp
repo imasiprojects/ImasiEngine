@@ -138,6 +138,7 @@ namespace ImasiEngine
     {
         sf::Clock clock;
         _entities.clear();
+        _vertexArray->detachAllBuffers();
         std::cout << "Clear: " << clock.restart().asMilliseconds() << std::endl;
     }
 
