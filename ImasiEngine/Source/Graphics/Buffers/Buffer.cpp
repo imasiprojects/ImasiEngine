@@ -62,6 +62,56 @@ namespace ImasiEngine
         }
     }
 
+    void Buffer::copyFrom(Buffer* buffer, unsigned int componentOffset, unsigned int componentOffsetFrom, unsigned int componentCount)
+    {
+        if (_glComponentType != buffer->getGLComponentType())
+        {
+            throw InvalidArgumentException("buffer", "Different types");
+        }
+        if (_componentMemberCount != buffer->getComponentMemberCount())
+        {
+            throw InvalidArgumentException("buffer", "Different members per component");
+        }
+        if (componentOffset >= _componentCount)
+        {
+            throw InvalidArgumentException("componentOffset", "Out of range");
+        }
+        if (componentOffsetFrom >= buffer->getComponentCount())
+        {
+            throw InvalidArgumentException("componentOffsetFrom", "Out of range");
+        }
+        if (componentCount + componentOffset > _componentCount)
+        {
+            throw InvalidArgumentException("componentCount", "Out of range (this buffer)");
+        }
+        if (componentCount + componentOffsetFrom > buffer->getComponentCount())
+        {
+            throw InvalidArgumentException("componentCount", "Out of range ('from' buffer)");
+        }
+
+        GL(glCopyNamedBufferSubData(buffer->getGLObjectId(), getGLObjectId(),
+                                    componentOffsetFrom * _componentSize,
+                                    componentOffset * _componentSize,
+                                    componentCount * _componentSize));
+    }
+
+    void Buffer::read(unsigned int componentOffset, unsigned int componentCount, void* outData) const
+    {
+        if (componentOffset >= _componentCount)
+        {
+            throw InvalidArgumentException("componentOffset", "Out of range");
+        }
+        if (componentCount + componentOffset > _componentCount)
+        {
+            throw InvalidArgumentException("componentCount", "Out of range");
+        }
+
+        glGetNamedBufferSubData(getGLObjectId(),
+            componentOffset * _componentSize,
+            componentCount * _componentSize,
+            outData);
+    }
+
     unsigned int Buffer::getGLComponentType() const
     {
         return _glComponentType;

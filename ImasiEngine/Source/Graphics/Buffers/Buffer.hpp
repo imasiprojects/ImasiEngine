@@ -171,6 +171,10 @@ namespace ImasiEngine
             GL(glBindBuffer(_glBufferType, NULL_ID));
         }
 
+        void read(unsigned int componentOffset, unsigned int componentCount, void* outData) const;
+
+        void copyFrom(Buffer* buffer, unsigned int componentOffset, unsigned int componentOffsetFrom, unsigned int componentCount);
+
         unsigned int getGLComponentType() const;
         unsigned int getComponentCount() const;
         unsigned int getComponentSize() const;

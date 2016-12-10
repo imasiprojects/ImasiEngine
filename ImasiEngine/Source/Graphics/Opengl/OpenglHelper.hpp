@@ -89,6 +89,41 @@ namespace ImasiEngine
 
             return 0;
         }
+
+        template<unsigned int N>
+        struct GLType
+        {
+        };
+        template<>
+        struct GLType<GL_FLOAT>
+        {
+            typedef float type;
+        };
+        template<>
+        struct GLType<GL_DOUBLE>
+        {
+            typedef double type;
+        };
+        template<>
+        struct GLType<GL_INT>
+        {
+            typedef int type;
+        };
+        template<>
+        struct GLType<GL_UNSIGNED_INT>
+        {
+            typedef unsigned int type;
+        };
+        template<>
+        struct GLType<GL_SHORT>
+        {
+            typedef short type;
+        };
+        template<>
+        struct GLType<GL_UNSIGNED_SHORT>
+        {
+            typedef unsigned short type;
+        };
     }
 }
 
