@@ -37,22 +37,6 @@ namespace ImasiEngine
         template<
             typename T,
             typename = typename std::enable_if<
-                std::is_same<T, float>::value
-                || std::is_same<T, double>::value
-                || std::is_same<T, int>::value
-                || std::is_same<T, unsigned int>::value
-                || std::is_same<T, short>::value
-                || std::is_same<T, unsigned short>::value
-            >::type
-        >
-            ArrayBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, unsigned int bufferUsage)
-            : Buffer(ArrayBuffer::glBufferType, bufferUsage, componentCount, componentMemberCount, data)
-        {
-        }
-
-        template<
-            typename T,
-            typename = typename std::enable_if<
                 std::is_same<T, glm::vec2>::value
                 || std::is_same<T, glm::vec3>::value
                 || std::is_same<T, glm::vec4>::value
