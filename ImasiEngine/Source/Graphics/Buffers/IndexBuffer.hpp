@@ -26,13 +26,20 @@ namespace ImasiEngine
             >::type
         >
         IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount)
-            : Buffer(IndexBuffer::glBufferType, data, componentCount, componentMemberCount)
+            : Buffer(IndexBuffer::glBufferType, GL_STATIC_DRAW, componentCount, componentMemberCount, data)
         {
-            BIND(IndexBuffer, this);
-            {
-                initBufferData();
-            }
-            UNBIND(IndexBuffer);
+        }
+
+        template<
+            typename T,
+            typename = typename std::enable_if<
+                std::is_same<unsigned int, T>::value
+                || std::is_same<unsigned short, T>::value
+            >::type
+        >
+            IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, unsigned int bufferUsage)
+            : Buffer(IndexBuffer::glBufferType, bufferUsage, componentCount, componentMemberCount, data)
+        {
         }
 
         IndexBuffer(const IndexBuffer&) = delete;
