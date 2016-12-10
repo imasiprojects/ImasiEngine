@@ -30,7 +30,7 @@ namespace ImasiEngine
             >::type
         >
         ArrayBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount)
-            : Buffer(ArrayBuffer::glBufferType, data, componentCount, componentMemberCount)
+            : Buffer(ArrayBuffer::glBufferType, componentCount, componentMemberCount, data)
         {
             BIND(ArrayBuffer, this);
             {
@@ -51,7 +51,7 @@ namespace ImasiEngine
             >::type
         >
         ArrayBuffer(T* data, unsigned int componentCount)
-            : Buffer(ArrayBuffer::glBufferType, data, componentCount)
+            : Buffer(ArrayBuffer::glBufferType, componentCount, data)
         {
             BIND(ArrayBuffer, this);
             {

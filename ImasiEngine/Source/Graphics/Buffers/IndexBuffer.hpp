@@ -26,7 +26,7 @@ namespace ImasiEngine
             >::type
         >
         IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount)
-            : Buffer(IndexBuffer::glBufferType, data, componentCount, componentMemberCount)
+            : Buffer(IndexBuffer::glBufferType, componentCount, componentMemberCount, data)
         {
             BIND(IndexBuffer, this);
             {
