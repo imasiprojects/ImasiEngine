@@ -12,22 +12,22 @@ namespace ImasiEngine
     public:
 
         const std::string file;
-        const int line;
+        const unsigned int line;
         const std::string call;
 
-        const int error;
-        const std::string description;
+        const int errorCode;
+        const std::string errorDescription;
 
         const std::string message;
 
-        OpenglException(const std::string& file, int line, const std::string& call, int error, const std::string& description)
+        OpenglException(const std::string& file, int line, const std::string& call, int errorCode, const std::string& errorDescription)
             : file(file)
             , line(line)
             , call(call)
-            , error(error)
-            , description(description)
-            , message("OpenGL error " + std::to_string(error) + " `"
-                    + description + "` @ " + file + ":" + std::to_string(line)
+            , errorCode(errorCode)
+            , errorDescription(errorDescription)
+            , message("OpenGL error " + std::to_string(errorCode) + " `"
+                    + errorDescription + "` @ " + file + ":" + std::to_string(line)
                     + (call.size() > 0 ? " - `" + call + "`" : ""))
         {
         }
