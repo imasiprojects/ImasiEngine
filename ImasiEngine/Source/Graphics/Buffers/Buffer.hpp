@@ -18,7 +18,6 @@ namespace ImasiEngine
     {
     private:
 
-        void* _data;
         unsigned int _glBufferType;
         unsigned int _glComponentType;
         unsigned int _componentSize;
@@ -44,12 +43,12 @@ namespace ImasiEngine
                 || std::is_same<T, unsigned short>::value
             >::type
         >
-        Buffer(unsigned int glBufferType, unsigned int componentCount, unsigned int componentMemberCount, T* data)
+        Buffer(unsigned int glBufferType, unsigned int bufferUsage, unsigned int componentCount, unsigned int componentMemberCount, T* data)
             : GLObject()
-            , _data(data)
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
             , _componentMemberCount(componentMemberCount)
+            , _bufferUsage(bufferUsage)
         {
             if (_componentMemberCount < 1)
             {
@@ -64,6 +63,10 @@ namespace ImasiEngine
             _componentSize = _componentMemberSize * _componentMemberCount;
 
             createAttributes();
+
+            GL(glBindBuffer(_glBufferType, getGLObjectId()));
+            GL(glBufferData(_glBufferType, _componentSize * _componentCount, data, _bufferUsage));
+            GL(glBindBuffer(_glBufferType, NULL_ID));
         }
 
         template <
@@ -77,11 +80,11 @@ namespace ImasiEngine
                 || std::is_same<T, glm::mat4>::value
             >::type
         >
-        Buffer(unsigned int glBufferType, unsigned int componentCount, T* data)
+        Buffer(unsigned int glBufferType, unsigned int bufferUsage, unsigned int componentCount, T* data)
             : GLObject()
-            , _data(data)
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
+            , _bufferUsage(bufferUsage)
         {
             Buffer::createGLObject();
 
@@ -115,12 +118,15 @@ namespace ImasiEngine
             _componentSize = _componentMemberSize * _componentMemberCount;
 
             createAttributes();
+
+            GL(glBindBuffer(_glBufferType, getGLObjectId()));
+            GL(glBufferData(_glBufferType, _componentSize * _componentCount, data, _bufferUsage));
+            GL(glBindBuffer(_glBufferType, NULL_ID));
         }
 
         void createGLObject() override;
         void destroyGLObject() override;
 
-        void initBufferData(unsigned int bufferUsage = GL_STATIC_DRAW);
         void createAttributes();
 
     public:

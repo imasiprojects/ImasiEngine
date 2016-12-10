@@ -26,13 +26,8 @@ namespace ImasiEngine
             >::type
         >
         IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount)
-            : Buffer(IndexBuffer::glBufferType, componentCount, componentMemberCount, data)
+            : Buffer(IndexBuffer::glBufferType, GL_STATIC_DRAW, componentCount, componentMemberCount, data)
         {
-            BIND(IndexBuffer, this);
-            {
-                initBufferData();
-            }
-            UNBIND(IndexBuffer);
         }
 
         IndexBuffer(const IndexBuffer&) = delete;

@@ -30,13 +30,8 @@ namespace ImasiEngine
             >::type
         >
         ArrayBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount)
-            : Buffer(ArrayBuffer::glBufferType, componentCount, componentMemberCount, data)
+            : Buffer(ArrayBuffer::glBufferType, GL_STATIC_DRAW, componentCount, componentMemberCount, data)
         {
-            BIND(ArrayBuffer, this);
-            {
-                initBufferData();
-            }
-            UNBIND(ArrayBuffer);
         }
 
         template<
@@ -51,13 +46,8 @@ namespace ImasiEngine
             >::type
         >
         ArrayBuffer(T* data, unsigned int componentCount)
-            : Buffer(ArrayBuffer::glBufferType, componentCount, data)
+            : Buffer(ArrayBuffer::glBufferType, GL_STATIC_DRAW, componentCount, data)
         {
-            BIND(ArrayBuffer, this);
-            {
-                initBufferData();
-            }
-            UNBIND(ArrayBuffer);
         }
 
         ArrayBuffer(const ArrayBuffer&) = delete;

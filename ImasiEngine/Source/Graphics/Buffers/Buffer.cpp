@@ -6,7 +6,6 @@ namespace ImasiEngine
 {
     Buffer::Buffer(Buffer&& buffer) noexcept
         : GLObject(std::move(buffer))
-        , _data(buffer._data)
         , _glBufferType(buffer._glBufferType)
         , _glComponentType(buffer._glComponentType)
         , _componentSize(buffer._componentSize)
@@ -25,7 +24,6 @@ namespace ImasiEngine
 
     Buffer::Buffer(const Buffer& buffer, unsigned int bufferUsage)
         : GLObject()
-        , _data(buffer._data)
         , _glBufferType(buffer._glBufferType)
         , _glComponentType(buffer._glComponentType)
         , _componentSize(buffer._componentSize)
@@ -62,12 +60,6 @@ namespace ImasiEngine
         GL(glDeleteBuffers(1, &id));
 
         unsetGLObjectId();
-    }
-
-    void Buffer::initBufferData(unsigned int bufferUsage)
-    {
-        _bufferUsage = bufferUsage;
-        GL(glBufferData(_glBufferType, _componentSize * _componentCount, _data, bufferUsage));
     }
 
     void Buffer::createAttributes()
