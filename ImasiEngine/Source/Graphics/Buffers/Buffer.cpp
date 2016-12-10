@@ -13,8 +13,34 @@ namespace ImasiEngine
         , _componentCount(buffer._componentCount)
         , _componentMemberCount(buffer._componentMemberCount)
         , _componentMemberSize(buffer._componentMemberSize)
+        , _bufferUsage(buffer._bufferUsage)
+        , _attributes(std::move(buffer._attributes))
+    {
+    }
+    
+    Buffer::Buffer(const Buffer& buffer)
+        : Buffer(buffer, buffer._bufferUsage)
+    {
+    }
+
+    Buffer::Buffer(const Buffer& buffer, unsigned int bufferUsage)
+        : GLObject()
+        , _data(buffer._data)
+        , _glBufferType(buffer._glBufferType)
+        , _glComponentType(buffer._glComponentType)
+        , _componentSize(buffer._componentSize)
+        , _componentCount(buffer._componentCount)
+        , _componentMemberCount(buffer._componentMemberCount)
+        , _componentMemberSize(buffer._componentMemberSize)
+        , _bufferUsage(bufferUsage)
         , _attributes(buffer._attributes)
     {
+        Buffer::createGLObject();
+
+        GL(glBindBuffer(_glBufferType, getGLObjectId()));
+        GL(glBufferData(_glBufferType, _componentSize * _componentCount, nullptr, _bufferUsage));
+        copyFrom(&buffer, 0, 0, _componentCount);
+        GL(glBindBuffer(_glBufferType, NULL_ID));
     }
 
     Buffer::~Buffer()
@@ -38,9 +64,10 @@ namespace ImasiEngine
         unsetGLObjectId();
     }
 
-    void Buffer::initBufferData(unsigned int drawMode) const
+    void Buffer::initBufferData(unsigned int bufferUsage)
     {
-        GL(glBufferData(_glBufferType, _componentSize * _componentCount, _data, drawMode));
+        _bufferUsage = bufferUsage;
+        GL(glBufferData(_glBufferType, _componentSize * _componentCount, _data, bufferUsage));
     }
 
     void Buffer::createAttributes()
@@ -62,7 +89,7 @@ namespace ImasiEngine
         }
     }
 
-    void Buffer::copyFrom(Buffer* buffer, unsigned int componentOffset, unsigned int componentOffsetFrom, unsigned int componentCount)
+    void Buffer::copyFrom(const Buffer* buffer, unsigned int componentOffset, unsigned int componentOffsetFrom, unsigned int componentCount)
     {
         if (_glComponentType != buffer->getGLComponentType())
         {
@@ -89,10 +116,14 @@ namespace ImasiEngine
             throw InvalidArgumentException("componentCount", "Out of range ('from' buffer)");
         }
 
-        GL(glCopyNamedBufferSubData(buffer->getGLObjectId(), getGLObjectId(),
-                                    componentOffsetFrom * _componentSize,
-                                    componentOffset * _componentSize,
-                                    componentCount * _componentSize));
+        GL(glBindBuffer(GL_COPY_READ_BUFFER, buffer->getGLObjectId()));
+        GL(glBindBuffer(GL_COPY_WRITE_BUFFER, getGLObjectId()));
+        GL(glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER,
+                               componentOffsetFrom * _componentSize,
+                               componentOffset * _componentSize,
+                               componentCount * _componentSize));
+        GL(glBindBuffer(GL_COPY_READ_BUFFER, NULL_ID));
+        GL(glBindBuffer(GL_COPY_WRITE_BUFFER, NULL_ID));
     }
 
     void Buffer::read(unsigned int componentOffset, unsigned int componentCount, void* outData) const
@@ -106,10 +137,36 @@ namespace ImasiEngine
             throw InvalidArgumentException("componentCount", "Out of range");
         }
 
-        glGetNamedBufferSubData(getGLObjectId(),
+        GL(glBindBuffer(_glBufferType, getGLObjectId()));
+        glGetBufferSubData(_glBufferType,
             componentOffset * _componentSize,
             componentCount * _componentSize,
             outData);
+        GL(glBindBuffer(_glBufferType, NULL_ID));
+    }
+
+    void Buffer::resize(unsigned int componentCount)
+    {
+        unsigned int realComponentCount = _componentCount;
+        _componentCount = componentCount;
+
+        Buffer temp(*this);
+
+        GL(glBindBuffer(_glBufferType, getGLObjectId()));
+        GL(glBufferData(_glBufferType, _componentSize * componentCount, nullptr, _bufferUsage));
+        GL(glBindBuffer(_glBufferType, NULL_ID));
+
+        copyFrom(&temp, 0, 0, std::min(realComponentCount, componentCount));
+    }
+
+    Buffer Buffer::clone() const
+    {
+        return Buffer(*this);
+    }
+
+    Buffer Buffer::clone(unsigned int bufferUsage) const
+    {
+        return Buffer(*this, bufferUsage);
     }
 
     unsigned int Buffer::getGLComponentType() const
@@ -130,6 +187,11 @@ namespace ImasiEngine
     unsigned int Buffer::getComponentMemberCount() const
     {
         return _componentMemberCount;
+    }
+
+    unsigned int Buffer::getBufferUsage() const
+    {
+        return _bufferUsage;
     }
 
     const std::list<BufferAttribute>& Buffer::getAttributes() const

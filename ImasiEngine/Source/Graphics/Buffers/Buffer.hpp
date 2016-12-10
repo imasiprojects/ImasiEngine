@@ -25,7 +25,11 @@ namespace ImasiEngine
         unsigned int _componentCount;
         unsigned int _componentMemberCount;
         unsigned int _componentMemberSize;
+        unsigned int _bufferUsage;
         std::list<BufferAttribute> _attributes;
+
+        Buffer(const Buffer& buffer);
+        Buffer(const Buffer& buffer, unsigned int bufferUsage);
 
     protected:
 
@@ -116,12 +120,11 @@ namespace ImasiEngine
         void createGLObject() override;
         void destroyGLObject() override;
 
-        void initBufferData(unsigned int drawMode = GL_STATIC_DRAW) const;
+        void initBufferData(unsigned int bufferUsage = GL_STATIC_DRAW);
         void createAttributes();
 
     public:
 
-        Buffer(const Buffer&) = delete;
         Buffer(Buffer&& buffer) noexcept;
         virtual ~Buffer();
 
@@ -172,13 +175,17 @@ namespace ImasiEngine
         }
 
         void read(unsigned int componentOffset, unsigned int componentCount, void* outData) const;
+        void copyFrom(const Buffer* buffer, unsigned int componentOffset, unsigned int componentOffsetFrom, unsigned int componentCount);
+        void resize(unsigned int componentCount);
 
-        void copyFrom(Buffer* buffer, unsigned int componentOffset, unsigned int componentOffsetFrom, unsigned int componentCount);
+        Buffer clone() const;
+        Buffer clone(unsigned int bufferUsage) const;
 
         unsigned int getGLComponentType() const;
         unsigned int getComponentCount() const;
         unsigned int getComponentSize() const;
         unsigned int getComponentMemberCount() const;
+        unsigned int getBufferUsage() const;
         const std::list<BufferAttribute>& getAttributes() const;
     };
 }
