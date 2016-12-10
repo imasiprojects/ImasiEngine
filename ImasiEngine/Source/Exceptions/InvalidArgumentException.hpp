@@ -1,6 +1,7 @@
 #ifndef IMASIENGINE_INVALIDARGUMENTEXCEPTION_HPP
 #define IMASIENGINE_INVALIDARGUMENTEXCEPTION_HPP
 
+#include <exception>
 #include <string>
 
 namespace ImasiEngine
