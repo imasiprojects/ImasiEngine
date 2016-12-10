@@ -17,12 +17,11 @@ namespace Imasi
         , _context(context)
         , _camera(Camera())
         , _renderer(new Simple3DRenderer())
-        , _entity(new Entity())
     {
-        GL(glDisable(GL_CULL_FACE));
+        int mapSize = 100;
 
         _camera.setAspectRatio(_context->window->getSize().x / (float)_context->window->getSize().y);
-        _camera.setPosition(glm::vec3(4, 3, 3));
+        _camera.setPosition(glm::vec3(mapSize * -1.5f, 3, 3));
         _camera.lookAt(glm::vec3(0, 0, 0));
 
         ColorTexture2D texture;
@@ -33,28 +32,52 @@ namespace Imasi
         {
             0, 1, 2,
             0, 2, 3,
+
+            1, 5, 6,
+            1, 6, 2,
+
+            4, 6, 5,
+            4, 7, 6,
+
+            0, 7, 4,
+            0, 3, 7,
+
+            2, 7, 3,
+            2, 6, 7,
+
+            0, 5, 1,
+            0, 4, 5,
         };
 
         static glm::vec3 vertices[] =
         {
-            { -1.0, -1.0, 0.0 },
-            { 1.0, -1.0, 0.0 },
-            { 1.0, 1.0, 0.0 },
-            { -1.0, 1.0, 0.0 },
+            { -1.0, -1.0, 1.0 },
+            { 1.0, -1.0, 1.0 },
+            { 1.0, 1.0, 1.0 },
+            { -1.0, 1.0, 1.0 },
+            { -1.0, -1.0, -1.0 },
+            { 1.0, -1.0, -1.0 },
+            { 1.0, 1.0, -1.0 },
+            { -1.0, 1.0, -1.0 },
         };
 
         static glm::vec2 uvs[] =
-        {   
+        {
             { 0.f, 1.f },
             { 1.f, 1.f },
             { 1.f, 0.f },
             { 0.f, 0.f },
+
+            { 1.f, 1.f },
+            { 0.f, 1.f },
+            { 0.f, 0.f },
+            { 1.f, 0.f },
         };
 
         Mesh myMesh;
-        myMesh.setIndexBuffer(IndexBuffer(indices, 2, 3));
-        myMesh.setVertexBuffer(ArrayBuffer(vertices, 4));
-        myMesh.setUVBuffer(ArrayBuffer(uvs, 4));
+        myMesh.setIndexBuffer(IndexBuffer(indices, sizeof(indices) / sizeof(indices[0]) / 3, 3));
+        myMesh.setVertexBuffer(ArrayBuffer(vertices, sizeof(vertices) / sizeof(vertices[0])));
+        myMesh.setUVBuffer(ArrayBuffer(uvs, sizeof(uvs) / sizeof(uvs[0])));
         _resourceContainer.set(ResourceCodes::myMesh, std::move(myMesh));
 
         Material myMaterial;
@@ -66,8 +89,17 @@ namespace Imasi
         myModel.material = _resourceContainer.getMaterial(ResourceCodes::myMaterial);
         _resourceContainer.set(ResourceCodes::myModel, std::move(myModel));
 
-        _entity->setPosition(glm::vec3(0, 0, 0));
-        _entity->model = _resourceContainer.getModel(ResourceCodes::myModel);
+        for (int i = 0; i < mapSize; i++)
+        {
+            for (int j = 0; j < mapSize; j++)
+            {
+                Entity* entity = new Entity();
+                entity->model = _resourceContainer.getModel(ResourceCodes::myModel);
+                entity->setPosition(glm::vec3(-i * 3, 0, -j * 3));
+
+                _entities.push_back(entity);
+            }
+        }
 
         sf::Vector2i centerWindow = sf::Vector2i(_context->window->getSize().x / 2, _context->window->getSize().y / 2);
         sf::Mouse::setPosition(centerWindow, *_context->window);
@@ -77,7 +109,10 @@ namespace Imasi
     DemoScene::~DemoScene()
     {
         delete _renderer;
-        delete _entity;
+        for(Entity* entity : _entities)
+        {
+            delete entity;
+        }
     }
 
     void DemoScene::processWindowEvent(const sf::Event& event)
@@ -142,7 +177,7 @@ namespace Imasi
             }
         }
 
-        float speed = 4.f * deltaTime;
+        float speed = 20.f * deltaTime;
 
         glm::vec3 cameraMovementDirection = glm::vec3(0.f, 0.f, 0.f);
         
@@ -188,7 +223,10 @@ namespace Imasi
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         _renderer->clear();
-        _renderer->addEntity(_entity);
+        for (Entity* entity : _entities)
+        {
+            _renderer->addEntity(entity);
+        }
         _renderer->render(_camera);
     }
 }

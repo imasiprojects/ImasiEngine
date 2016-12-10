@@ -22,7 +22,7 @@ namespace Imasi
         
         ImasiEngine::Simple3DRenderer* _renderer;
         ImasiEngine::ResourceContainer<> _resourceContainer;
-        ImasiEngine::Entity* _entity;
+        std::list<ImasiEngine::Entity*> _entities;
 
     public:
 
