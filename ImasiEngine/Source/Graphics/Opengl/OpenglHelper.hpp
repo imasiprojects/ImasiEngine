@@ -45,7 +45,6 @@ namespace ImasiEngine
                 || std::is_same<T, unsigned int>::value
                 || std::is_same<T, short>::value
                 || std::is_same<T, unsigned short>::value
-
                 || std::is_same<T, glm::vec2>::value
                 || std::is_same<T, glm::vec3>::value
                 || std::is_same<T, glm::vec4>::value
@@ -66,22 +65,27 @@ namespace ImasiEngine
             {
                 return GL_FLOAT;
             }
+
             if (std::is_same<T, double>::value)
             {
                 return GL_DOUBLE;
             }
+
             if (std::is_same<T, int>::value)
             {
                 return GL_INT;
             }
+
             if (std::is_same<T, unsigned int>::value)
             {
                 return GL_UNSIGNED_INT;
             }
+
             if (std::is_same<T, short>::value)
             {
                 return GL_SHORT;
             }
+
             if (std::is_same<T, unsigned short>::value)
             {
                 return GL_UNSIGNED_SHORT;
@@ -90,35 +94,42 @@ namespace ImasiEngine
             return 0;
         }
 
+
         template<unsigned int N>
         struct GLType
         {
         };
+
         template<>
         struct GLType<GL_FLOAT>
         {
             typedef float type;
         };
+
         template<>
         struct GLType<GL_DOUBLE>
         {
             typedef double type;
         };
+
         template<>
         struct GLType<GL_INT>
         {
             typedef int type;
         };
+
         template<>
         struct GLType<GL_UNSIGNED_INT>
         {
             typedef unsigned int type;
         };
+
         template<>
         struct GLType<GL_SHORT>
         {
             typedef short type;
         };
+
         template<>
         struct GLType<GL_UNSIGNED_SHORT>
         {

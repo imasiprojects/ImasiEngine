@@ -156,8 +156,7 @@ namespace ImasiEngine
         {
             if (OpenglHelper::getGLType<T>() != _glComponentType)
             {
-                throw InvalidArgumentException("data",
-                    "Data type must be the same as the data of the buffer");
+                throw InvalidArgumentException("data", "Data type must be the same as the data of the buffer");
             }
 
             if (std::is_same<T, glm::vec2>::value && _componentMemberCount != 2

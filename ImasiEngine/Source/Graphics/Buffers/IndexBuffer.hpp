@@ -30,6 +30,18 @@ namespace ImasiEngine
         {
         }
 
+        template<
+            typename T,
+            typename = typename std::enable_if<
+                std::is_same<unsigned int, T>::value
+                || std::is_same<unsigned short, T>::value
+            >::type
+        >
+            IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, unsigned int bufferUsage)
+            : Buffer(IndexBuffer::glBufferType, bufferUsage, componentCount, componentMemberCount, data)
+        {
+        }
+
         IndexBuffer(const IndexBuffer&) = delete;
         IndexBuffer(IndexBuffer&& buffer) noexcept;
         virtual ~IndexBuffer();
