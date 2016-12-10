@@ -19,7 +19,7 @@ namespace ImasiEngine
         InvalidArgumentException(const std::string& argument, const std::string& error)
             : argument(argument)
             , error(error)
-            , message("Invalid argument \"" + this->argument + "\": " + this->error)
+            , message("Invalid argument \"" + argument + "\": " + error)
         {
         }
 
