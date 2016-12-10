@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 
 #include "../../Utils/Logger.hpp"
+#include "../../Exceptions/OpenglException.hpp"
 
 namespace ImasiEngine
 {
@@ -28,14 +29,12 @@ namespace ImasiEngine
             }
 
             const unsigned char* description = glewGetErrorString(error);
-            if (call != nullptr)
-            {
-                Logger::out << "OpenGL error " << error << " `" << description << "` @ " << file << ":" << line << " - `" << call << "`" << std::endl;
-            }
-            else
-            {
-                Logger::out << "OpenGL error " << error << " `" << description << "` @ " << file << ":" << line << std::endl;
-            }
+
+            OpenglException exception(file, line, (call == nullptr? "" : call), error, (const char*)description);
+
+            Logger::out << exception.what() << std::endl;
+
+            throw exception;
 
             return true;
         }

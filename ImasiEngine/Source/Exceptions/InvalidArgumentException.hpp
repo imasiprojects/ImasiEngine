@@ -14,15 +14,18 @@ namespace ImasiEngine
         const std::string argument;
         const std::string error;
 
+        const std::string message;
+
         InvalidArgumentException(const std::string& argument, const std::string& error)
             : argument(argument)
             , error(error)
+            , message("Invalid argument \"" + this->argument + "\": " + this->error)
         {
         }
 
         const char* what() const override
         {
-            return ("Invalid argument \"" + this->argument + "\": " + this->error).c_str();
+            return message.c_str();
         }
     };
 }
