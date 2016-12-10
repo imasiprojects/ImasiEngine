@@ -148,25 +148,28 @@ namespace ImasiEngine
 
         sf::Clock clock;
 
-        BIND(Program, _program);
+        if (finalOptimization.size() > 0)
         {
-            for (auto& optimizedEntity : finalOptimization)
+            BIND(Program, _program);
             {
-                auto& model = optimizedEntity.first;
-
-                BIND(Texture, model->material->diffuseMap, 0);
+                for (auto& optimizedEntity : finalOptimization)
                 {
-                    for (auto& arrayBuffer : optimizedEntity.second)
+                    auto& model = optimizedEntity.first;
+
+                    BIND(Texture, model->material->diffuseMap, 0);
                     {
-                        _vertexArray->attachMesh(model->mesh);
-                        _vertexArray->attachArrayBuffer(arrayBuffer, ModelMatrix, 1);
-                        _vertexArray->render();
+                        for (auto& arrayBuffer : optimizedEntity.second)
+                        {
+                            _vertexArray->attachMesh(model->mesh);
+                            _vertexArray->attachArrayBuffer(arrayBuffer, ModelMatrix, 1);
+                            _vertexArray->render();
+                        }
                     }
+                    UNBIND(Texture, 0);
                 }
-                UNBIND(Texture, 0);
             }
+            UNBIND(Program);
         }
-        UNBIND(Program);
 
         std::cout << "Render: " << clock.restart().asMilliseconds() << std::endl;
 
