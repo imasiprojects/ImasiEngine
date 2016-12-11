@@ -60,7 +60,7 @@ namespace ImasiEngine
                     {
                         glm::mat4 MVP = VP * entity->getModelMatrix();
 
-                        if (isVisible(MVP))
+                        if (isVisible(MVP, {0.f, 1.f, 0.f}))
                         {
                             initialOptimizationMutex.lock();
                             initialOptimization[entity->model].push_back(MVP);

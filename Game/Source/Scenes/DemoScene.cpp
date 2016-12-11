@@ -15,7 +15,7 @@ namespace Imasi
         , _camera(Camera())
         , _renderer(new InstancedRenderer(2500))
     {
-        int mapSize = 100;
+        int mapSize = 10;
 
         _camera.setAspectRatio(_context->window->getSize().x / (float)_context->window->getSize().y);
         _camera.setPosition({ mapSize * -1.5f, 10, 10 });
