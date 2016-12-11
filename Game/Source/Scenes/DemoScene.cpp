@@ -3,7 +3,6 @@
 #include <GL/glew.h>
 
 #include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
-
 #include "../Resources/ResourceCodes.hpp"
 
 using namespace ImasiEngine;
@@ -16,43 +15,17 @@ namespace Imasi
         , _camera(Camera())
         , _renderer(new InstancedRenderer(2500))
     {
-        int mapSize = 2;
+        int mapSize = 100;
 
         _camera.setAspectRatio(_context->window->getSize().x / (float)_context->window->getSize().y);
-        _camera.setPosition(glm::vec3(mapSize * -1.5f, 3, 3));
-        _camera.lookAt(glm::vec3(0, 0, 0));
+        _camera.setPosition({ mapSize * -1.5f, 10, 10 });
+        _camera.lookAt({ mapSize * -1.5f, 0.f, -10.f });
 
         ColorTexture2D texture;
-        texture.loadFromFile("Resources/texture.png");
+        texture.loadFromFile("Resources/katarina_diffuse.png");
         _resourceContainer.set(ResourceCodes::myTexture, std::move(texture));
 
-        static unsigned short indices[] =
-        {
-            0, 1, 2,
-            0, 2, 3,
-        };
-
-        static glm::vec3 vertices[] =
-        {
-            { -1.0, -1.0, 0.0 },
-            { 1.0, -1.0, 0.0 },
-            { 1.0, 1.0, 0.0 },
-            { -1.0, 1.0, 0.0 },
-        };
-
-        static glm::vec2 uvs[] =
-        {   
-            { 0.f, 1.f },
-            { 1.f, 1.f },
-            { 1.f, 0.f },
-            { 0.f, 0.f },
-        };
-
-        Mesh myMesh;
-        myMesh.setIndexBuffer(IndexBuffer(indices, 2, 3));
-        myMesh.setVertexBuffer(ArrayBuffer(vertices, 4));
-        myMesh.setUVBuffer(ArrayBuffer(uvs, 4));
-        _resourceContainer.set(ResourceCodes::myMesh, std::move(myMesh));
+        _resourceContainer.set(ResourceCodes::myMesh, std::move(*loadMesh("Resources/katarina.fbx")));
 
         Material myMaterial;
         myMaterial.diffuseMap = _resourceContainer.getColorTexture(ResourceCodes::myTexture);
@@ -69,7 +42,7 @@ namespace Imasi
             {
                 Entity* entity = new Entity();
                 entity->model = _resourceContainer.getModel(ResourceCodes::myModel);
-                entity->setPosition(glm::vec3(-i * 3, 0, -j));
+                entity->setPosition({ -i * 4, 0, -j * 4 });
 
                 _entities.push_back(entity);
             }
@@ -152,7 +125,7 @@ namespace Imasi
             }
         }
 
-        float speed = 4.f * deltaTime;
+        float speed = 20.f * deltaTime;
 
         glm::vec3 cameraMovementDirection = glm::vec3(0.f, 0.f, 0.f);
         
