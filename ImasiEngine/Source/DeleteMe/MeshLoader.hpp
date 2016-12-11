@@ -15,12 +15,12 @@
 ImasiEngine::Mesh* loadMesh(std::string path)
 {
     std::vector<unsigned int> indices;
-    std::vector<float> vertices;
-    std::vector<float> uvs;
+    std::vector<glm::vec3> vertices;
+    std::vector<glm::vec2> uvs;
 
     Assimp::Importer importer;
 
-    const aiScene* scene = importer.ReadFile(path, aiProcess_FlipUVs | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_OptimizeMeshes | aiProcess_CalcTangentSpace);
+    const aiScene* scene = importer.ReadFile(path, aiProcess_FlipUVs | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_OptimizeMeshes | aiProcess_CalcTangentSpace | aiProcess_PreTransformVertices);
     if (!scene)
     {
         ImasiEngine::Logger::out << importer.GetErrorString() << std::endl;
@@ -35,9 +35,7 @@ ImasiEngine::Mesh* loadMesh(std::string path)
         for (unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
             aiVector3D pos = mesh->mVertices[i];
-            vertices.push_back(pos.x);
-            vertices.push_back(pos.y);
-            vertices.push_back(pos.z);
+            vertices.push_back(glm::vec3(pos.x, pos.y, pos.z));
         }
 
         // Fill vertices texture coordinates
@@ -47,8 +45,7 @@ ImasiEngine::Mesh* loadMesh(std::string path)
             for (unsigned int i = 0; i < mesh->mNumVertices; i++)
             {
                 aiVector3D UVW = mesh->mTextureCoords[0][i]; // Assume only 1 set of UV coords; AssImp supports 8 UV sets.
-                uvs.push_back(UVW.x);
-                uvs.push_back(UVW.y);
+                uvs.push_back(glm::vec2(UVW.x, UVW.y));
             }
         }
 
@@ -65,8 +62,8 @@ ImasiEngine::Mesh* loadMesh(std::string path)
 
     ImasiEngine::Mesh* mesh = new ImasiEngine::Mesh();
     mesh->setIndexBuffer(ImasiEngine::IndexBuffer(indices.data(), (int)(indices.size() / 3), 3));
-    mesh->setVertexBuffer(ImasiEngine::ArrayBuffer(vertices.data(), (int)(vertices.size() / 3), 3));
-    mesh->setUVBuffer(ImasiEngine::ArrayBuffer(uvs.data(), (int)(uvs.size() / 3), 3));
+    mesh->setVertexBuffer(ImasiEngine::ArrayBuffer(vertices.data(), vertices.size()));
+    mesh->setUVBuffer(ImasiEngine::ArrayBuffer(uvs.data(), uvs.size()));
 
     return mesh;
     // The "scene" pointer will be deleted automatically by "importer"
