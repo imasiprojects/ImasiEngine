@@ -2,10 +2,7 @@
 
 #include <GL/glew.h>
 
-#include "../../../ImasiEngine/Source/Utils/Logger.hpp"
-#include "../../../ImasiEngine/Source/Graphics/Opengl/OpenglHelper.hpp"
 #include "../../../ImasiEngine/Source/DeleteMe/MeshLoader.hpp"
-
 #include "../Resources/ResourceCodes.hpp"
 
 using namespace ImasiEngine;
@@ -21,64 +18,14 @@ namespace Imasi
         int mapSize = 10;
 
         _camera.setAspectRatio(_context->window->getSize().x / (float)_context->window->getSize().y);
-        _camera.setPosition(glm::vec3(mapSize * -1.5f, 3, 3));
-        _camera.lookAt(glm::vec3(0, 0, 0));
+        _camera.setPosition({ mapSize * -1.5f, 10, 10 });
+        _camera.lookAt({ mapSize * -1.5f, 0.f, -10.f });
 
         ColorTexture2D texture;
-        texture.loadFromFile("Resources/texture.png");
+        texture.loadFromFile("Resources/katarina_diffuse.png");
         _resourceContainer.set(ResourceCodes::myTexture, std::move(texture));
 
-        static unsigned short indices[] =
-        {
-            0, 1, 2,
-            0, 2, 3,
-
-            1, 5, 6,
-            1, 6, 2,
-
-            4, 6, 5,
-            4, 7, 6,
-
-            0, 7, 4,
-            0, 3, 7,
-
-            2, 7, 3,
-            2, 6, 7,
-
-            0, 5, 1,
-            0, 4, 5,
-        };
-
-        static glm::vec3 vertices[] =
-        {
-            { -1.0, -1.0, 1.0 },
-            { 1.0, -1.0, 1.0 },
-            { 1.0, 1.0, 1.0 },
-            { -1.0, 1.0, 1.0 },
-            { -1.0, -1.0, -1.0 },
-            { 1.0, -1.0, -1.0 },
-            { 1.0, 1.0, -1.0 },
-            { -1.0, 1.0, -1.0 },
-        };
-
-        static glm::vec2 uvs[] =
-        {
-            { 0.f, 1.f },
-            { 1.f, 1.f },
-            { 1.f, 0.f },
-            { 0.f, 0.f },
-
-            { 1.f, 1.f },
-            { 0.f, 1.f },
-            { 0.f, 0.f },
-            { 1.f, 0.f },
-        };
-
-        Mesh myMesh;
-        myMesh.setIndexBuffer(IndexBuffer(indices, sizeof(indices) / sizeof(indices[0]) / 3, 3));
-        myMesh.setVertexBuffer(ArrayBuffer(vertices, sizeof(vertices) / sizeof(vertices[0])));
-        myMesh.setUVBuffer(ArrayBuffer(uvs, sizeof(uvs) / sizeof(uvs[0])));
-        _resourceContainer.set(ResourceCodes::myMesh, std::move(myMesh));
+        _resourceContainer.set(ResourceCodes::myMesh, std::move(*loadMesh("Resources/katarina.fbx")));
 
         Material myMaterial;
         myMaterial.diffuseMap = _resourceContainer.getColorTexture(ResourceCodes::myTexture);
@@ -95,7 +42,7 @@ namespace Imasi
             {
                 Entity* entity = new Entity();
                 entity->model = _resourceContainer.getModel(ResourceCodes::myModel);
-                entity->setPosition(glm::vec3(-i * 3, 0, -j * 3));
+                entity->setPosition({ -i * 4, 0, -j * 4 });
 
                 _entities.push_back(entity);
             }
