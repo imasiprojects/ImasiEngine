@@ -14,14 +14,16 @@ namespace ImasiEngine
 
         layout(location = 0) in vec3 vertexPosition_modelspace;
         layout(location = 1) in vec2 vertexUV;
-        layout(location = 2) in mat4 MVP;
+        layout(location = 2) in mat4 M;
+
+        uniform mat4 VP;
 
         out vec2 UV;
 
         void main()
         {
             UV = vertexUV;
-            gl_Position = MVP * vec4(vertexPosition_modelspace, 1);
+            gl_Position = VP * M * vec4(vertexPosition_modelspace, 1);
         }
 
     )SHADER_END";
@@ -58,12 +60,12 @@ namespace ImasiEngine
                 {
                     for (auto& entity : entityGroup)
                     {
-                        glm::mat4 MVP = VP * entity->getModelMatrix();
+                        glm::mat4 M = entity->getModelMatrix();
 
-                        if (isVisible(MVP, {0.f, 1.f, 0.f}))
+                        if (isVisible(VP, entity->getPosition()))
                         {
                             initialOptimizationMutex.lock();
-                            initialOptimization[entity->model].push_back(MVP);
+                            initialOptimization[entity->model].push_back(M);
                             initialOptimizationMutex.unlock();
                         }
                     }
@@ -153,6 +155,8 @@ namespace ImasiEngine
         {
             BIND(Program, _program);
             {
+                _program->setUniform("VP", VP);
+
                 for (auto& optimizedEntity : finalOptimization)
                 {
                     auto& model = optimizedEntity.first;
