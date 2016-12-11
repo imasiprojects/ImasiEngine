@@ -18,8 +18,8 @@ namespace Imasi
         int mapSize = 10;
 
         _camera.setAspectRatio(_context->window->getSize().x / (float)_context->window->getSize().y);
-        _camera.setPosition({ mapSize * -1.5f, 10, 10 });
-        _camera.lookAt({ mapSize * -1.5f, 0.f, -10.f });
+        _camera.setPosition({ mapSize * -0.65f, 3.f, 3.f });
+        _camera.lookAt({ mapSize * -0.65f, 0.f, -3.f });
 
         ColorTexture2D texture;
         texture.loadFromFile("Resources/katarina_diffuse.png");
@@ -42,7 +42,8 @@ namespace Imasi
             {
                 Entity* entity = new Entity();
                 entity->model = _resourceContainer.getModel(ResourceCodes::myModel);
-                entity->setPosition({ -i * 4, 0, -j * 4 });
+                entity->setPosition({ -i * 1.25f, 0, -j * 1.25f });
+                entity->setScale(glm::vec3(0.25f));
 
                 _entities.push_back(entity);
             }
@@ -125,7 +126,7 @@ namespace Imasi
             }
         }
 
-        float speed = 20.f * deltaTime;
+        float speed = 10.f * deltaTime;
 
         glm::vec3 cameraMovementDirection = glm::vec3(0.f, 0.f, 0.f);
         
