@@ -111,6 +111,66 @@ namespace Imasi
         // ROTATING KATARINA
         static bool change = false;
         static glm::vec3 rotation;
+        bool next = change;
+
+        for (Entity* entity : _entities)
+        {
+            if (next)
+            {
+                entity->setRotation(rotation);
+            }
+
+            next = !next;
+        }
+
+        rotation += glm::vec3(0, 2 * deltaTime, 0);
+
+        if (rotation.y >= 2 * 3.14159)
+        {
+            rotation.y = 0;
+            change = !change;
+        }
+
+        // JUMPING KATARINA
+        static Entity* kata1;
+        static Entity* kata2;
+        static glm::vec3 kata1Initial;
+        static glm::vec3 kata2Initial;
+        static float maxTime = 0;
+        static float actualTime = 0;
+
+        if (actualTime >= maxTime)
+        {
+            kata1 = *std::next(_entities.begin(), rand() % _entities.size());
+            kata2 = *std::next(_entities.begin(), rand() % _entities.size());
+
+            kata1Initial = kata1->getPosition();
+            kata2Initial = kata2->getPosition();
+
+            maxTime = 1.f;
+            actualTime = 0;
+        }
+
+        if (maxTime > 0)
+        {
+            actualTime += deltaTime;
+
+            kata1->setPosition(glm::vec3(
+                kata1Initial.x + (kata2Initial.x - kata1Initial.x) * actualTime / maxTime,
+                kata1Initial.y + 2 * sin(actualTime / maxTime * 3.14159),
+                kata1Initial.z + (kata2Initial.z - kata1Initial.z) * actualTime / maxTime
+            ));
+
+            kata2->setPosition(glm::vec3(
+                kata2Initial.x + (kata1Initial.x - kata2Initial.x) * actualTime / maxTime,
+                kata2Initial.y + 2 * sin(actualTime / maxTime * 3.14159),
+                kata2Initial.z + (kata1Initial.z - kata2Initial.z) * actualTime / maxTime
+            ));
+        }
+
+        // ROTATING KATARINA
+        static bool change = false;
+        static glm::vec3 rotation;
 
         bool next = change;
         for(Entity* entity : _entities)
