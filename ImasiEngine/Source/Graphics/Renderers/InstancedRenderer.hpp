@@ -42,8 +42,6 @@ namespace ImasiEngine
         template<typename InputIterator>
         void add(InputIterator entityIterator, size_t entityCount)
         {
-            sf::Clock clock;
-
             size_t count = 0;
 
             while (count < entityCount)
@@ -60,24 +58,26 @@ namespace ImasiEngine
                 if (entityCount - count >= v.capacity() - vectorSize)
                 {
                     v.resize(v.capacity());
+
                     for (unsigned int i = vectorSize; i < v.capacity(); i++)
                     {
                         v[i] = *entityIterator++;
                     }
+
                     count += v.capacity() - vectorSize;
                 }
                 else
                 {
                     v.resize(vectorSize + entityCount - count);
+
                     for (int i = vectorSize; i < entityCount - count; i++)
                     {
                         v[i] = *entityIterator++;
                     }
+
                     count = entityCount;
                 }
             }
-
-            std::cout << "Add entities: " << clock.restart().asMilliseconds() << std::endl;
         }
 
         void clear() override;
