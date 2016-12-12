@@ -87,6 +87,7 @@ namespace ImasiEngine
             sf::Clock clock;
 
             // TODO: Split into multiple ArrayBuffers
+            // TODO: Update only changed entities
 
             for (auto& modelAndMVPs : initialOptimization)
             {
