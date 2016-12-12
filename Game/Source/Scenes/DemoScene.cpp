@@ -13,7 +13,7 @@ namespace Imasi
         : Scene()
         , _context(context)
         , _camera(Camera())
-        , _renderer(new Simple3DRenderer())
+        , _renderer(new InstancedRenderer(2500))
     {
         int mapSize = 11;
 
@@ -57,7 +57,8 @@ namespace Imasi
     DemoScene::~DemoScene()
     {
         delete _renderer;
-        for(Entity* entity : _entities)
+
+        for (auto& entity : _entities)
         {
             delete entity;
         }
@@ -231,10 +232,7 @@ namespace Imasi
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         _renderer->clear();
-        for (Entity* entity : _entities)
-        {
-            _renderer->addEntity(entity);
-        }
+        _renderer->add(_entities.begin(), _entities.size());
         _renderer->render(_camera);
     }
 }

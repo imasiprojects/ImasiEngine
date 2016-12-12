@@ -87,14 +87,17 @@ namespace ImasiEngine
     {
         BIND(VertexArray, this);
         {
-            GL(glEnableVertexAttribArray(type));
-
             BIND(ArrayBuffer, buffer);
             {
+                unsigned int offset = 0;
+
                 for (auto& attribute : buffer->getAttributes())
                 {
-                    GL(glVertexAttribPointer(type, attribute.memberCount, buffer->getGLComponentType(), false, buffer->getComponentSize(), (void*)attribute.offset));
-                    GL(glVertexAttribDivisor(type, divisor));
+                    GL(glEnableVertexAttribArray(type + offset));
+                    GL(glVertexAttribPointer(type + offset, attribute.memberCount, buffer->getGLComponentType(), false, buffer->getComponentSize(), (void*)attribute.offset));
+                    GL(glVertexAttribDivisor(type + offset, divisor));
+
+                    offset++;
                 }
             }
             UNBIND(ArrayBuffer);
@@ -111,13 +114,21 @@ namespace ImasiEngine
 
     void VertexArray::detachArrayBuffer(ArrayBufferType type)
     {
-        BIND(VertexArray, this);
-        {
-            GL(glDisableVertexAttribArray(type));
-        }
-        UNBIND(VertexArray);
+        auto& bufferIterator = _arrayBuffers.find(type);
 
-        _arrayBuffers.erase(type);
+        if (bufferIterator != _arrayBuffers.end())
+        {
+            BIND(VertexArray, this);
+            {
+                for (unsigned int i = 0; i < bufferIterator->second->getAttributes().size(); i++)
+                {
+                    GL(glDisableVertexAttribArray(type + i));
+                }
+            }
+            UNBIND(VertexArray);
+
+            _arrayBuffers.erase(bufferIterator);
+        }
     }
 
     void VertexArray::detachAllBuffers()
@@ -128,13 +139,22 @@ namespace ImasiEngine
 
     void VertexArray::render(GLenum drawMode)
     {
+        ArrayBuffer* modelMatrixBuffer = _arrayBuffers[ModelMatrix];
+
         if (_indexBuffer != nullptr)
         {
             BIND(VertexArray, this);
             {
                 BIND(IndexBuffer, _indexBuffer);
                 {
-                    glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getComponentMemberCount(), _indexBuffer->getGLComponentType(), nullptr);
+                    if (modelMatrixBuffer != nullptr)
+                    {
+                        glDrawElementsInstanced(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getComponentMemberCount(), _indexBuffer->getGLComponentType(), nullptr, modelMatrixBuffer->getComponentCount());
+                    }
+                    else
+                    {
+                        glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getComponentMemberCount(), _indexBuffer->getGLComponentType(), nullptr);
+                    }
                 }
                 UNBIND(IndexBuffer);
             }
@@ -142,17 +162,28 @@ namespace ImasiEngine
         }
         else
         {
-            auto vertexBuffer = _arrayBuffers.find(Vertex);
-            if (vertexBuffer != _arrayBuffers.end())
+            auto& vertexBufferIterator = _arrayBuffers.find(Vertex);
+            if (vertexBufferIterator != _arrayBuffers.end())
             {
+                ArrayBuffer* vertexBuffer = vertexBufferIterator->second;
+
                 BIND(VertexArray, this);
                 {
-                    glDrawArrays(drawMode, 0, vertexBuffer->second->getComponentCount());
+                    if (modelMatrixBuffer != nullptr)
+                    {
+                        glDrawElementsInstanced(drawMode, vertexBuffer->getComponentCount() * vertexBuffer->getComponentMemberCount(), vertexBuffer->getGLComponentType(), nullptr, modelMatrixBuffer->getComponentCount());
+                    }
+                    else
+                    {
+                        glDrawArrays(drawMode, 0, vertexBuffer->getComponentCount() * vertexBuffer->getComponentMemberCount());
+                    }
                 }
                 UNBIND(VertexArray);
             }
             else
             {
+                // TODO: Exception :O
+
                 #ifdef DEBUG
                 {
                     Logger::out << "Error: Trying to draw VAO without VertexBuffer attached" << std::endl;

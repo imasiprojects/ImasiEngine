@@ -1,11 +1,11 @@
-#include "Simple3DRenderer.hpp"
+#include "SimpleRenderer.hpp"
 
 #include "../Programs/VertexShader.hpp"
 #include "../Programs/FragmentShader.hpp"
 
 namespace ImasiEngine
 {
-    const char* Simple3DRenderer::_vertexShader = R"SHADER_END(
+    const char* SimpleRenderer::_vertexShader = R"SHADER_END(
 
         #version 330 core
 
@@ -24,7 +24,7 @@ namespace ImasiEngine
 
     )SHADER_END";
 
-    const char* Simple3DRenderer::_fragmentShader = R"SHADER_END(
+    const char* SimpleRenderer::_fragmentShader = R"SHADER_END(
 
         #version 330 core
 
@@ -40,7 +40,7 @@ namespace ImasiEngine
 
     )SHADER_END";
 
-    Simple3DRenderer::Simple3DRenderer()
+    SimpleRenderer::SimpleRenderer()
         : Renderer()
         , _program(new Program())
         , _vertexArray(new VertexArray())
@@ -50,19 +50,35 @@ namespace ImasiEngine
 
         _program->attach(vertexShader);
         _program->attach(fragmentShader);
+
         if (!_program->link())
         {
             Logger::out << "Error linking program" << std::endl;
         }
     }
 
-    Simple3DRenderer::~Simple3DRenderer()
+    SimpleRenderer::~SimpleRenderer()
     {
         delete _program;
         delete _vertexArray;
     }
 
-    void Simple3DRenderer::render(const glm::mat4& VP) const
+    void SimpleRenderer::clear()
+    {
+        _entities.clear();
+    }
+
+    void SimpleRenderer::add(Entity* entity)
+    {
+        _entities.push_back(entity);
+    }
+
+    void SimpleRenderer::add(std::list<Entity*>& entities)
+    {
+        _entities.insert(_entities.end(), entities.begin(), entities.end());
+    }
+
+    void SimpleRenderer::render(const glm::mat4& VP)
     {
         BIND(Program, _program);
         {
@@ -81,7 +97,7 @@ namespace ImasiEngine
         UNBIND(Program);
     }
 
-    void Simple3DRenderer::render(Camera& camera) const
+    void SimpleRenderer::render(Camera& camera)
     {
         render(camera.getViewProjectionMatrix());
     }

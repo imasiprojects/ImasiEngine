@@ -10,9 +10,10 @@
     <ClCompile Include="Source\Graphics\Textures\ColorTexture2D.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\ArrayBuffer.cpp" />
-    <ClCompile Include="Source\Graphics\Renderers\Renderer.cpp" />
-    <ClCompile Include="Source\Graphics\Renderers\Simple3DRenderer.cpp" />
     <ClCompile Include="Source\Graphics\Cameras\Camera.cpp" />
+    <ClCompile Include="Source\Graphics\Renderers\InstancedRenderer.cpp" />
+    <ClCompile Include="Source\Graphics\Renderers\SimpleRenderer.cpp" />
+    <ClCompile Include="Source\Graphics\Renderers\Renderer.cpp" />
     <ClCompile Include="Source\Graphics\Programs\FragmentShader.cpp" />
     <ClCompile Include="Source\Graphics\Programs\Shader.cpp" />
     <ClCompile Include="Source\Graphics\Programs\VertexShader.cpp" />
@@ -39,8 +40,9 @@
     <ClInclude Include="Source\Engine\SceneEvent.hpp" />
     <ClInclude Include="Source\Resources\ResourceContainer.hpp" />
     <ClInclude Include="Source\Graphics\Renderers\Renderer.hpp" />
-    <ClInclude Include="Source\Graphics\Renderers\Simple3DRenderer.hpp" />
     <ClInclude Include="Source\Graphics\Cameras\Camera.hpp" />
+    <ClInclude Include="Source\Graphics\Renderers\InstancedRenderer.hpp" />
+    <ClInclude Include="Source\Graphics\Renderers\SimpleRenderer.hpp" />
     <ClInclude Include="Source\Graphics\Programs\FragmentShader.hpp" />
     <ClInclude Include="Source\Graphics\Programs\Shader.hpp" />
     <ClInclude Include="Source\Graphics\Programs\VertexShader.hpp" />

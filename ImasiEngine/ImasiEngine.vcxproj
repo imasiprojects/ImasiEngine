@@ -33,8 +33,9 @@
     <ClCompile Include="Source\Graphics\Entities\Entity.cpp" />
     <ClCompile Include="Source\Graphics\Opengl\GLObject.cpp" />
     <ClCompile Include="Source\Graphics\Meshes\Mesh.cpp" />
+    <ClCompile Include="Source\Graphics\Renderers\InstancedRenderer.cpp" />
     <ClCompile Include="Source\Graphics\Renderers\Renderer.cpp" />
-    <ClCompile Include="Source\Graphics\Renderers\Simple3DRenderer.cpp" />
+    <ClCompile Include="Source\Graphics\Renderers\SimpleRenderer.cpp" />
     <ClCompile Include="Source\Graphics\Programs\FragmentShader.cpp" />
     <ClCompile Include="Source\Graphics\Programs\Program.cpp" />
     <ClCompile Include="Source\Graphics\Textures\ColorTexture2D.cpp" />
@@ -64,8 +65,9 @@
     <ClInclude Include="Source\Graphics\Materials\Material.hpp" />
     <ClInclude Include="Source\Graphics\Meshes\Mesh.hpp" />
     <ClInclude Include="Source\Graphics\Models\Model.hpp" />
+    <ClInclude Include="Source\Graphics\Renderers\InstancedRenderer.hpp" />
     <ClInclude Include="Source\Graphics\Renderers\Renderer.hpp" />
-    <ClInclude Include="Source\Graphics\Renderers\Simple3DRenderer.hpp" />
+    <ClInclude Include="Source\Graphics\Renderers\SimpleRenderer.hpp" />
     <ClInclude Include="Source\Graphics\Programs\FragmentShader.hpp" />
     <ClInclude Include="Source\Graphics\Programs\Program.hpp" />
     <ClInclude Include="Source\Graphics\Textures\ColorTexture2D.hpp" />
