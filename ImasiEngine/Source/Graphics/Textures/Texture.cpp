@@ -15,7 +15,6 @@ namespace ImasiEngine
         _indexTypes[index] = type;
 
         GL(glActiveTexture(GL_TEXTURE0 + index));
-        GL(glEnable(type));
         GL(glBindTexture(type, texture->getGLObjectId()));
     }
 
@@ -29,7 +28,6 @@ namespace ImasiEngine
 
             GL(glActiveTexture(GL_TEXTURE0 + index));
             GL(glBindTexture(type, NULL_ID));
-            GL(glDisable(type));
 
             _indexTypes.erase(indexIterator);
         }
