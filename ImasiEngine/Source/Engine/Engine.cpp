@@ -207,6 +207,10 @@ namespace ImasiEngine
         contextSettings.antialiasingLevel = 0;
         contextSettings.majorVersion = 3;
         contextSettings.minorVersion = 3;
+        contextSettings.attributeFlags = sf::ContextSettings::Attribute::Core;
+        #ifdef DEBUG
+            contextSettings.attributeFlags |= sf::ContextSettings::Attribute::Debug;
+        #endif
 
         sf::VideoMode videoMode;
         if (style == sf::Style::Fullscreen)
