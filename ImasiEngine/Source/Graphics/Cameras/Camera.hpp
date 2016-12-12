@@ -26,7 +26,7 @@ namespace ImasiEngine
         float _nearPlaneDistance;
         float _farPlaneDistance;
 
-        mutable Cached<glm::mat4> _viewProjectionMatrix;
+        Cached<glm::mat4> _viewProjectionMatrix;
 
         void invalidateTranslationMatrix();
         void invalidateRotationMatrix();

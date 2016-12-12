@@ -25,8 +25,8 @@ namespace ImasiEngine
                 || std::is_same<unsigned short, T>::value
             >::type
         >
-        IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, unsigned int drawMode = GL_STATIC_DRAW)
-            : Buffer(IndexBuffer::glBufferType, GL_STATIC_DRAW, componentCount, componentMemberCount, data)
+        IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, unsigned int bufferUsage = GL_STATIC_DRAW)
+            : Buffer(IndexBuffer::glBufferType, bufferUsage, componentCount, componentMemberCount, data)
         {
         }
 
