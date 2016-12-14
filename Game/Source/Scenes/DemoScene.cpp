@@ -22,10 +22,10 @@ namespace Imasi
         _camera.lookAt({ mapSize * -0.65f, 0.f, -3.f });
 
         ColorTexture2D texture;
-        texture.loadFromFile("Resources/katarina_diffuse.png");
+        texture.loadFromFile("Resources/ivancea.png");
         _resourceContainer.set(ResourceCodes::myTexture, std::move(texture));
 
-        _resourceContainer.set(ResourceCodes::myMesh, std::move(*loadMesh("Resources/katarina.fbx")));
+        _resourceContainer.set(ResourceCodes::myMesh, std::move(*loadMesh("Resources/ivancea.obj")));
 
         Material myMaterial;
         myMaterial.diffuseMap = _resourceContainer.getColorTexture(ResourceCodes::myTexture);
