@@ -48,33 +48,50 @@ namespace ImasiEngine
     {
         std::mutex initialOptimizationMutex;
         std::map<Model*, std::vector<glm::mat4>> initialOptimization;
+        std::list<std::thread> threads;
 
-        //std::list<std::thread> threads;
-        for (auto& entityGroup : _entities)
+        auto optimizationFunction = [&](const std::vector<Entity*>& entityGroup)
         {
-            //threads.push_back(std::thread([&]()
+            for (auto& entity : entityGroup)
             {
-                for (auto& entity : entityGroup)
-                {
-                    glm::mat4 M = entity->getModelMatrix();
+                glm::mat4 M = entity->getModelMatrix();
 
-                    if (isVisible(VP, entity->getPosition()))
-                    {
-                        initialOptimizationMutex.lock();
-                        initialOptimization[entity->model].push_back(M);
-                        initialOptimizationMutex.unlock();
-                    }
+                if (isVisible(VP, entity->getPosition()))
+                {
+                    initialOptimizationMutex.lock();
+                    initialOptimization[entity->model].push_back(M);
+                    initialOptimizationMutex.unlock();
                 }
-            }//));
+            }
+        };
+
+#ifdef THREADS_ENABLED // Temporal
+        if (_entities.size() > 1)
+        {
+            for (auto it = std::next(_entities.begin()); it != _entities.end(); ++it)
+            {
+                threads.push_back(std::thread(optimizationFunction, std::ref(*it)));
+            }
         }
 
-        /*for (auto& thread : threads)
+        if(_entities.size() > 0)
+        {
+            optimizationFunction(_entities.front());
+        }
+
+        for (auto& thread : threads)
         {
             if (thread.joinable())
             {
                 thread.join();
             }
-        }*/
+        }
+#else
+        for (auto& entityGroup : _entities)
+        {
+            optimizationFunction(entityGroup);
+        }
+#endif
 
         // TODO: Split into multiple ArrayBuffers
         // TODO: Update only changed entities
