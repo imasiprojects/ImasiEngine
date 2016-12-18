@@ -1,8 +1,6 @@
 #ifndef IMASIENGINE_ARRAYBUFFER_HPP
 #define IMASIENGINE_ARRAYBUFFER_HPP
 
-#include <GL/glew.h>
-
 #include "Buffer.hpp"
 
 namespace ImasiEngine
@@ -26,7 +24,7 @@ namespace ImasiEngine
                 || std::is_same<T, unsigned short>::value
             >::type
         >
-        ArrayBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, unsigned int bufferUsage = GL_STATIC_DRAW)
+        ArrayBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, GLEnums::BufferUsage bufferUsage = GLEnums::StaticDraw)
             : Buffer(GLEnums::BufferType::ArrayBuffer, bufferUsage, componentCount, componentMemberCount, data)
         {
         }
@@ -42,7 +40,7 @@ namespace ImasiEngine
                 || std::is_same<T, glm::mat4>::value
             >::type
         >
-        ArrayBuffer(T* data, unsigned int componentCount, unsigned int bufferUsage = GL_STATIC_DRAW)
+        ArrayBuffer(T* data, unsigned int componentCount, GLEnums::BufferUsage bufferUsage = GLEnums::StaticDraw)
             : Buffer(GLEnums::BufferType::ArrayBuffer, bufferUsage, componentCount, data)
         {
         }

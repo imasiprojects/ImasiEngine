@@ -1,8 +1,6 @@
 #ifndef IMASIENGINE_INDEXBUFFER_HPP
 #define IMASIENGINE_INDEXBUFFER_HPP
 
-#include <GL/glew.h>
-
 #include "Buffer.hpp"
 
 namespace ImasiEngine
@@ -22,7 +20,7 @@ namespace ImasiEngine
                 || std::is_same<unsigned short, T>::value
             >::type
         >
-        IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, unsigned int bufferUsage = GL_STATIC_DRAW)
+        IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, GLEnums::BufferUsage bufferUsage = GLEnums::StaticDraw)
             : Buffer(GLEnums::BufferType::IndexBuffer, bufferUsage, componentCount, componentMemberCount, data)
         {
         }

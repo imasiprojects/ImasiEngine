@@ -10,7 +10,9 @@ namespace ImasiEngine
         enum BufferType : GLenum
         {
             ArrayBuffer = GL_ARRAY_BUFFER,
-            IndexBuffer = GL_ELEMENT_ARRAY_BUFFER
+            IndexBuffer = GL_ELEMENT_ARRAY_BUFFER,
+            CopyRead = GL_COPY_READ_BUFFER,
+            CopyWrite = GL_COPY_WRITE_BUFFER,
         };
     }
 }

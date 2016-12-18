@@ -60,5 +60,7 @@
     <ClInclude Include="Source\Exceptions\InvalidArgumentException.hpp" />
     <ClInclude Include="Source\Exceptions\OpenglException.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\BufferType.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Enums\BufferUsage.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Enums\Type.hpp" />
   </ItemGroup>
 </Project>

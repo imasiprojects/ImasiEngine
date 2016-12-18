@@ -4,6 +4,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include "Enums/Type.hpp"
 
 #define NULL_ID 0
 
@@ -53,7 +54,7 @@ namespace ImasiEngine
                 || std::is_same<T, glm::mat4>::value
             >::type
         >
-        unsigned int getGLType()
+        GLEnums::Type getGLType()
         {
             if (std::is_same<T, float>::value
                 || std::is_same<T, glm::vec2>::value
@@ -63,75 +64,75 @@ namespace ImasiEngine
                 || std::is_same<T, glm::mat3>::value
                 || std::is_same<T, glm::mat4>::value)
             {
-                return GL_FLOAT;
+                return GLEnums::Type::Float;
             }
 
             if (std::is_same<T, double>::value)
             {
-                return GL_DOUBLE;
+                return GLEnums::Type::Double;
             }
 
             if (std::is_same<T, int>::value)
             {
-                return GL_INT;
+                return GLEnums::Type::Int;
             }
 
             if (std::is_same<T, unsigned int>::value)
             {
-                return GL_UNSIGNED_INT;
+                return GLEnums::Type::UnsignedInt;
             }
 
             if (std::is_same<T, short>::value)
             {
-                return GL_SHORT;
+                return GLEnums::Type::Short;
             }
 
             if (std::is_same<T, unsigned short>::value)
             {
-                return GL_UNSIGNED_SHORT;
+                return GLEnums::Type::UnsignedShort;
             }
 
-            return 0;
+            return GLEnums::Type::Unknown;
         }
 
 
-        template<unsigned int N>
+        template<GLEnums::Type T>
         struct GLType
         {
         };
 
         template<>
-        struct GLType<GL_FLOAT>
+        struct GLType<GLEnums::Type::Float>
         {
             typedef float type;
         };
 
         template<>
-        struct GLType<GL_DOUBLE>
+        struct GLType<GLEnums::Type::Double>
         {
             typedef double type;
         };
 
         template<>
-        struct GLType<GL_INT>
+        struct GLType<GLEnums::Type::Int>
         {
             typedef int type;
         };
 
         template<>
-        struct GLType<GL_UNSIGNED_INT>
+        struct GLType<GLEnums::Type::UnsignedInt>
         {
             typedef unsigned int type;
         };
 
         template<>
-        struct GLType<GL_SHORT>
+        struct GLType<GLEnums::Type::Short>
         {
             typedef short type;
         };
 
         template<>
-        struct GLType<GL_UNSIGNED_SHORT>
+        struct GLType<GLEnums::Type::UnsignedShort>
         {
             typedef unsigned short type;
         };

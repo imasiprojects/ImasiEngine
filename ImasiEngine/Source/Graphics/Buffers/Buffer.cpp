@@ -22,7 +22,7 @@ namespace ImasiEngine
     {
     }
 
-    Buffer::Buffer(const Buffer& buffer, unsigned int bufferUsage)
+    Buffer::Buffer(const Buffer& buffer, GLEnums::BufferUsage bufferUsage)
         : GLObject()
         , _glBufferType(buffer._glBufferType)
         , _glComponentType(buffer._glComponentType)
@@ -37,8 +37,9 @@ namespace ImasiEngine
 
         GL(glBindBuffer(_glBufferType, getGLObjectId()));
         GL(glBufferData(_glBufferType, _componentSize * _componentCount, nullptr, _bufferUsage));
-        copyFrom(&buffer, 0, 0, _componentCount);
         GL(glBindBuffer(_glBufferType, NULL_ID));
+
+        copyFrom(&buffer, 0, 0, _componentCount);
     }
 
     Buffer::~Buffer()
@@ -113,13 +114,13 @@ namespace ImasiEngine
             throw InvalidArgumentException("componentCount", "Out of range ('from' buffer)");
         }
 
-        GL(glBindBuffer(GL_COPY_READ_BUFFER, buffer->getGLObjectId()));
-        GL(glBindBuffer(GL_COPY_WRITE_BUFFER, getGLObjectId()));
+        GL(glBindBuffer(GLEnums::CopyRead, buffer->getGLObjectId()));
+        GL(glBindBuffer(GLEnums::CopyWrite, getGLObjectId()));
 
-        GL(glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, componentOffsetFrom * _componentSize, componentOffset * _componentSize, componentCount * _componentSize));
+        GL(glCopyBufferSubData(GLEnums::CopyRead, GLEnums::CopyWrite, componentOffsetFrom * _componentSize, componentOffset * _componentSize, componentCount * _componentSize));
 
-        GL(glBindBuffer(GL_COPY_READ_BUFFER, NULL_ID));
-        GL(glBindBuffer(GL_COPY_WRITE_BUFFER, NULL_ID));
+        GL(glBindBuffer(GLEnums::CopyRead, NULL_ID));
+        GL(glBindBuffer(GLEnums::CopyWrite, NULL_ID));
     }
 
     void Buffer::read(unsigned int componentOffset, unsigned int componentCount, void* outData) const
@@ -161,7 +162,7 @@ namespace ImasiEngine
         return Buffer(*this);
     }
 
-    Buffer Buffer::clone(unsigned int bufferUsage) const
+    Buffer Buffer::clone(GLEnums::BufferUsage bufferUsage) const
     {
         return Buffer(*this, bufferUsage);
     }
