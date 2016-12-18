@@ -114,13 +114,19 @@ namespace ImasiEngine
             throw InvalidArgumentException("componentCount", "Out of range ('from' buffer)");
         }
 
-        GL(glBindBuffer(GLEnums::CopyRead, buffer->getGLObjectId()));
-        GL(glBindBuffer(GLEnums::CopyWrite, getGLObjectId()));
+        GL(glBindBuffer(GLEnums::BufferType::CopyRead, buffer->getGLObjectId()));
+        GL(glBindBuffer(GLEnums::BufferType::CopyWrite, getGLObjectId()));
 
-        GL(glCopyBufferSubData(GLEnums::CopyRead, GLEnums::CopyWrite, componentOffsetFrom * _componentSize, componentOffset * _componentSize, componentCount * _componentSize));
+        GL(glCopyBufferSubData(
+            GLEnums::BufferType::CopyRead,
+            GLEnums::BufferType::CopyWrite,
+            componentOffsetFrom * _componentSize,
+            componentOffset * _componentSize,
+            componentCount * _componentSize
+        ));
 
-        GL(glBindBuffer(GLEnums::CopyRead, NULL_ID));
-        GL(glBindBuffer(GLEnums::CopyWrite, NULL_ID));
+        GL(glBindBuffer(GLEnums::BufferType::CopyRead, NULL_ID));
+        GL(glBindBuffer(GLEnums::BufferType::CopyWrite, NULL_ID));
     }
 
     void Buffer::read(unsigned int componentOffset, unsigned int componentCount, void* outData) const

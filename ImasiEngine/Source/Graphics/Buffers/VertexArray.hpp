@@ -44,7 +44,7 @@ namespace ImasiEngine
 
         void detachAllBuffers();
 
-        void render(GLEnums::DrawMode drawMode = GLEnums::Triangles);
+        void render(GLEnums::DrawMode drawMode = GLEnums::DrawMode::Triangles);
     };
 }
 
