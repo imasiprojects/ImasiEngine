@@ -8,12 +8,12 @@ namespace ImasiEngine
 {
     void IndexBuffer::bind(IndexBuffer* buffer)
     {
-        GL(glBindBuffer(getEnumValue(GlBufferType::IndexBuffer), buffer->getGLObjectId()));
+        GL(glBindBuffer(Enums::GLBufferType::IndexBuffer, buffer->getGLObjectId()));
     }
 
     void IndexBuffer::unbind()
     {
-        GL(glBindBuffer(getEnumValue(GlBufferType::IndexBuffer), NULL_ID));
+        GL(glBindBuffer(Enums::GLBufferType::IndexBuffer, NULL_ID));
     }
 
     IndexBuffer::IndexBuffer(IndexBuffer&& buffer) noexcept

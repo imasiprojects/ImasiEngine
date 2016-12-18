@@ -35,10 +35,10 @@ namespace ImasiEngine
     {
         Buffer::createGLObject();
 
-        GL(glBindBuffer(getEnumValue(_glBufferType), getGLObjectId()));
-        GL(glBufferData(getEnumValue(_glBufferType), _componentSize * _componentCount, nullptr, _bufferUsage));
+        GL(glBindBuffer(_glBufferType, getGLObjectId()));
+        GL(glBufferData(_glBufferType, _componentSize * _componentCount, nullptr, _bufferUsage));
         copyFrom(&buffer, 0, 0, _componentCount);
-        GL(glBindBuffer(getEnumValue(_glBufferType), NULL_ID));
+        GL(glBindBuffer(_glBufferType, NULL_ID));
     }
 
     Buffer::~Buffer()
@@ -116,13 +116,7 @@ namespace ImasiEngine
         GL(glBindBuffer(GL_COPY_READ_BUFFER, buffer->getGLObjectId()));
         GL(glBindBuffer(GL_COPY_WRITE_BUFFER, getGLObjectId()));
 
-        GL(glCopyBufferSubData(
-            GL_COPY_READ_BUFFER,
-            GL_COPY_WRITE_BUFFER,
-            componentOffsetFrom * _componentSize,
-            componentOffset * _componentSize,
-            componentCount * _componentSize
-        ));
+        GL(glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, componentOffsetFrom * _componentSize, componentOffset * _componentSize, componentCount * _componentSize));
 
         GL(glBindBuffer(GL_COPY_READ_BUFFER, NULL_ID));
         GL(glBindBuffer(GL_COPY_WRITE_BUFFER, NULL_ID));
@@ -140,16 +134,9 @@ namespace ImasiEngine
             throw InvalidArgumentException("componentCount", "Out of range");
         }
 
-        GL(glBindBuffer(getEnumValue(_glBufferType), getGLObjectId()));
-
-        glGetBufferSubData(
-            getEnumValue(_glBufferType),
-            componentOffset * _componentSize,
-            componentCount * _componentSize,
-            outData
-        );
-
-        GL(glBindBuffer(getEnumValue(_glBufferType), NULL_ID));
+        GL(glBindBuffer(_glBufferType, getGLObjectId()));
+        glGetBufferSubData(_glBufferType, componentOffset * _componentSize, componentCount * _componentSize, outData);
+        GL(glBindBuffer(_glBufferType, NULL_ID));
     }
 
     void Buffer::resize(unsigned int componentCount)
@@ -162,9 +149,9 @@ namespace ImasiEngine
 
         _componentCount = componentCount;
 
-        GL(glBindBuffer(getEnumValue(_glBufferType), getGLObjectId()));
-        GL(glBufferData(getEnumValue(_glBufferType), _componentSize * componentCount, nullptr, _bufferUsage));
-        GL(glBindBuffer(getEnumValue(_glBufferType), NULL_ID));
+        GL(glBindBuffer(_glBufferType, getGLObjectId()));
+        GL(glBufferData(_glBufferType, _componentSize * componentCount, nullptr, _bufferUsage));
+        GL(glBindBuffer(_glBufferType, NULL_ID));
 
         copyFrom(&temp, 0, 0, minComponentCount);
     }

@@ -3,8 +3,8 @@
 
 #include <GL/glew.h>
 
-#include "Buffer.hpp"
 #include "../Opengl/Types/glBufferType.hpp"
+#include "Buffer.hpp"
 
 namespace ImasiEngine
 {
@@ -28,7 +28,7 @@ namespace ImasiEngine
             >::type
         >
         ArrayBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, unsigned int bufferUsage = GL_STATIC_DRAW)
-            : Buffer(GLBufferType::ArrayBuffer, bufferUsage, componentCount, componentMemberCount, data)
+            : Buffer(Enums::GLBufferType::ArrayBuffer, bufferUsage, componentCount, componentMemberCount, data)
         {
         }
 
@@ -44,7 +44,7 @@ namespace ImasiEngine
             >::type
         >
         ArrayBuffer(T* data, unsigned int componentCount, unsigned int bufferUsage = GL_STATIC_DRAW)
-            : Buffer(GLBufferType::ArrayBuffer, bufferUsage, componentCount, data)
+            : Buffer(Enums::GLBufferType::ArrayBuffer, bufferUsage, componentCount, data)
         {
         }
 

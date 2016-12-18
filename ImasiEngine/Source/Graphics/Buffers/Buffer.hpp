@@ -8,9 +8,9 @@
 
 #include "../Opengl/OpenglHelper.hpp"
 #include "../Opengl/GLObject.hpp"
+#include "../Opengl/Types/GLBufferType.hpp"
 #include "BufferAttribute.hpp"
 #include "../../Exceptions/InvalidArgumentException.hpp"
-#include "../Opengl/Types/glBufferType.hpp"
 
 namespace ImasiEngine
 {
@@ -19,7 +19,7 @@ namespace ImasiEngine
     {
     private:
 
-        GLBufferType _glBufferType;
+        Enums::GLBufferType _glBufferType;
         unsigned int _glComponentType;
         unsigned int _componentSize;
         unsigned int _componentCount;
@@ -44,7 +44,7 @@ namespace ImasiEngine
                 || std::is_same<T, unsigned short>::value
             >::type
         >
-        Buffer(GLBufferType glBufferType, unsigned int bufferUsage, unsigned int componentCount, unsigned int componentMemberCount, T* data)
+        Buffer(Enums::GLBufferType glBufferType, unsigned int bufferUsage, unsigned int componentCount, unsigned int componentMemberCount, T* data)
             : GLObject()
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
@@ -65,9 +65,9 @@ namespace ImasiEngine
 
             createAttributes();
 
-            GL(glBindBuffer(getEnumValue(_glBufferType), getGLObjectId()));
-            GL(glBufferData(getEnumValue(_glBufferType), _componentSize * _componentCount, data, _bufferUsage));
-            GL(glBindBuffer(getEnumValue(_glBufferType), NULL_ID));
+            GL(glBindBuffer(_glBufferType, getGLObjectId()));
+            GL(glBufferData(_glBufferType, _componentSize * _componentCount, data, _bufferUsage));
+            GL(glBindBuffer(_glBufferType, NULL_ID));
         }
 
         template <
@@ -81,7 +81,7 @@ namespace ImasiEngine
                 || std::is_same<T, glm::mat4>::value
             >::type
         >
-        Buffer(GLBufferType glBufferType, unsigned int bufferUsage, unsigned int componentCount, T* data)
+        Buffer(Enums::GLBufferType glBufferType, unsigned int bufferUsage, unsigned int componentCount, T* data)
             : GLObject()
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
@@ -120,9 +120,9 @@ namespace ImasiEngine
 
             createAttributes();
 
-            GL(glBindBuffer(getEnumValue(_glBufferType), getGLObjectId()));
-            GL(glBufferData(getEnumValue(_glBufferType), _componentSize * _componentCount, data, _bufferUsage));
-            GL(glBindBuffer(getEnumValue(_glBufferType), NULL_ID));
+            GL(glBindBuffer(_glBufferType, getGLObjectId()));
+            GL(glBufferData(_glBufferType, _componentSize * _componentCount, data, _bufferUsage));
+            GL(glBindBuffer(_glBufferType, NULL_ID));
         }
 
         void createGLObject() override;
@@ -175,9 +175,9 @@ namespace ImasiEngine
                 throw InvalidArgumentException("offset", "Out of range");
             }
 
-            GL(glBindBuffer(getEnumValue(_glBufferType), getGLObjectId()));
-            GL(glBufferSubData(getEnumValue(_glBufferType), componentOffset * _componentSize, componentCount * _componentSize, data));
-            GL(glBindBuffer(getEnumValue(_glBufferType), NULL_ID));
+            GL(glBindBuffer(_glBufferType, getGLObjectId()));
+            GL(glBufferSubData(_glBufferType, componentOffset * _componentSize, componentCount * _componentSize, data));
+            GL(glBindBuffer(_glBufferType, NULL_ID));
         }
 
         void read(unsigned int componentOffset, unsigned int componentCount, void* outData) const;
