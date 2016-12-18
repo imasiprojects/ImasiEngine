@@ -59,5 +59,6 @@
     <ClInclude Include="Source\Graphics\Buffers\BufferAttribute.hpp" />
     <ClInclude Include="Source\Exceptions\InvalidArgumentException.hpp" />
     <ClInclude Include="Source\Exceptions\OpenglException.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Types\GLBufferType.hpp" />
   </ItemGroup>
 </Project>

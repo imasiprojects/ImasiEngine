@@ -65,6 +65,7 @@
     <ClInclude Include="Source\Graphics\Materials\Material.hpp" />
     <ClInclude Include="Source\Graphics\Meshes\Mesh.hpp" />
     <ClInclude Include="Source\Graphics\Models\Model.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Types\GLBufferType.hpp" />
     <ClInclude Include="Source\Graphics\Renderers\InstancedRenderer.hpp" />
     <ClInclude Include="Source\Graphics\Renderers\Renderer.hpp" />
     <ClInclude Include="Source\Graphics\Renderers\SimpleRenderer.hpp" />
