@@ -27,7 +27,7 @@ namespace ImasiEngine
             >::type
         >
         ArrayBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, unsigned int bufferUsage = GL_STATIC_DRAW)
-            : Buffer(Enums::GLBufferType::ArrayBuffer, bufferUsage, componentCount, componentMemberCount, data)
+            : Buffer(GLEnums::BufferType::ArrayBuffer, bufferUsage, componentCount, componentMemberCount, data)
         {
         }
 
@@ -43,7 +43,7 @@ namespace ImasiEngine
             >::type
         >
         ArrayBuffer(T* data, unsigned int componentCount, unsigned int bufferUsage = GL_STATIC_DRAW)
-            : Buffer(Enums::GLBufferType::ArrayBuffer, bufferUsage, componentCount, data)
+            : Buffer(GLEnums::BufferType::ArrayBuffer, bufferUsage, componentCount, data)
         {
         }
 

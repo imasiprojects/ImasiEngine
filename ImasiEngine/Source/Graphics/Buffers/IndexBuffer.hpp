@@ -4,7 +4,6 @@
 #include <GL/glew.h>
 
 #include "Buffer.hpp"
-#include "../Opengl/Types/GLBufferType.hpp"
 
 namespace ImasiEngine
 {
@@ -24,7 +23,7 @@ namespace ImasiEngine
             >::type
         >
         IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, unsigned int bufferUsage = GL_STATIC_DRAW)
-            : Buffer(Enums::GLBufferType::IndexBuffer, bufferUsage, componentCount, componentMemberCount, data)
+            : Buffer(GLEnums::BufferType::IndexBuffer, bufferUsage, componentCount, componentMemberCount, data)
         {
         }
 

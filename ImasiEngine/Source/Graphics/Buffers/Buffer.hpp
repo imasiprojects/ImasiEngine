@@ -8,7 +8,7 @@
 
 #include "../Opengl/OpenglHelper.hpp"
 #include "../Opengl/GLObject.hpp"
-#include "../Opengl/Types/GLBufferType.hpp"
+#include "../Opengl/Enums/BufferType.hpp"
 #include "BufferAttribute.hpp"
 #include "../../Exceptions/InvalidArgumentException.hpp"
 
@@ -19,7 +19,7 @@ namespace ImasiEngine
     {
     private:
 
-        Enums::GLBufferType _glBufferType;
+        GLEnums::BufferType _glBufferType;
         unsigned int _glComponentType;
         unsigned int _componentSize;
         unsigned int _componentCount;
@@ -44,7 +44,7 @@ namespace ImasiEngine
                 || std::is_same<T, unsigned short>::value
             >::type
         >
-        Buffer(Enums::GLBufferType glBufferType, unsigned int bufferUsage, unsigned int componentCount, unsigned int componentMemberCount, T* data)
+        Buffer(GLEnums::BufferType glBufferType, unsigned int bufferUsage, unsigned int componentCount, unsigned int componentMemberCount, T* data)
             : GLObject()
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
@@ -81,7 +81,7 @@ namespace ImasiEngine
                 || std::is_same<T, glm::mat4>::value
             >::type
         >
-        Buffer(Enums::GLBufferType glBufferType, unsigned int bufferUsage, unsigned int componentCount, T* data)
+        Buffer(GLEnums::BufferType glBufferType, unsigned int bufferUsage, unsigned int componentCount, T* data)
             : GLObject()
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
