@@ -3,7 +3,6 @@
 
 #include <GL/glew.h>
 
-#include "../Opengl/Types/glBufferType.hpp"
 #include "Buffer.hpp"
 
 namespace ImasiEngine
