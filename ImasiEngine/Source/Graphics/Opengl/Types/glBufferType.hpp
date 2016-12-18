@@ -6,7 +6,8 @@
 
 namespace ImasiEngine
 {
-    enum class GlBufferType : GLenum
+
+    enum class GLBufferType : GLenum
     {
         ArrayBuffer = GL_ARRAY_BUFFER,
         IndexBuffer = GL_ELEMENT_ARRAY_BUFFER

@@ -24,7 +24,7 @@ namespace ImasiEngine
             >::type
         >
         IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, unsigned int bufferUsage = GL_STATIC_DRAW)
-            : Buffer(GlBufferType::IndexBuffer, bufferUsage, componentCount, componentMemberCount, data)
+            : Buffer(GLBufferType::IndexBuffer, bufferUsage, componentCount, componentMemberCount, data)
         {
         }
 

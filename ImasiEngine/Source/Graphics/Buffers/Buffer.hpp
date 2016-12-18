@@ -19,7 +19,7 @@ namespace ImasiEngine
     {
     private:
 
-        GlBufferType _glBufferType;
+        GLBufferType _glBufferType;
         unsigned int _glComponentType;
         unsigned int _componentSize;
         unsigned int _componentCount;
@@ -44,7 +44,7 @@ namespace ImasiEngine
                 || std::is_same<T, unsigned short>::value
             >::type
         >
-        Buffer(GlBufferType glBufferType, unsigned int bufferUsage, unsigned int componentCount, unsigned int componentMemberCount, T* data)
+        Buffer(GLBufferType glBufferType, unsigned int bufferUsage, unsigned int componentCount, unsigned int componentMemberCount, T* data)
             : GLObject()
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
@@ -81,7 +81,7 @@ namespace ImasiEngine
                 || std::is_same<T, glm::mat4>::value
             >::type
         >
-        Buffer(GlBufferType glBufferType, unsigned int bufferUsage, unsigned int componentCount, T* data)
+        Buffer(GLBufferType glBufferType, unsigned int bufferUsage, unsigned int componentCount, T* data)
             : GLObject()
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
