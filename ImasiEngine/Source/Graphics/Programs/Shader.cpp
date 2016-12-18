@@ -70,10 +70,10 @@ namespace ImasiEngine
 
         #ifdef DEBUG
         {
-            static std::map<unsigned int, std::string> shaderNames
+            static std::map<GLEnums::ShaderType, std::string> shaderNames
             {
-                { GL_VERTEX_SHADER, "Vertex" },
-                { GL_FRAGMENT_SHADER, "Fragment" }
+                { GLEnums::ShaderType::Vertex, "Vertex" },
+                { GLEnums::ShaderType::Fragment, "Fragment" }
             };
 
             Logger::out << shaderNames[getGLShaderType()] << " shader: " << (compilationSuccess ? "OK" : "ERROR") << std::endl;

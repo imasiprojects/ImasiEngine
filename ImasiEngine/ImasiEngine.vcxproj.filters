@@ -62,5 +62,7 @@
     <ClInclude Include="Source\Graphics\Opengl\Enums\BufferType.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\BufferUsage.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\Type.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Enums\DrawMode.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Enums\ShaderType.hpp" />
   </ItemGroup>
 </Project>

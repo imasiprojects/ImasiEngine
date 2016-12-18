@@ -2,10 +2,12 @@
 #define IMASIENGINE_SHADER_HPP
 
 #include "../Opengl/GLObject.hpp"
+#include "../Opengl/Enums/ShaderType.hpp"
 
 namespace ImasiEngine
 {
-    class Shader : public GLObject
+    class Shader
+        : public GLObject
     {
     protected:
 
@@ -17,7 +19,7 @@ namespace ImasiEngine
         void createGLObject() override;
         void destroyGLObject() override;
 
-        virtual unsigned int getGLShaderType() const = 0;
+        virtual GLEnums::ShaderType getGLShaderType() const = 0;
 
     public:
 

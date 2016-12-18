@@ -1,8 +1,7 @@
 #include "FragmentShader.hpp"
 
-#include <GL/glew.h>
-
 #include "../../Utils/Logger.hpp"
+#include "../Opengl/Enums/ShaderType.hpp"
 
 namespace ImasiEngine
 {
@@ -26,8 +25,8 @@ namespace ImasiEngine
     {
     }
 
-    unsigned int FragmentShader::getGLShaderType() const
+    GLEnums::ShaderType FragmentShader::getGLShaderType() const
     {
-        return GL_FRAGMENT_SHADER;
+        return GLEnums::ShaderType::Fragment;
     }
 }

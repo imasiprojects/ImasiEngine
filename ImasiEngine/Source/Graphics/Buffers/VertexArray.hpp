@@ -3,16 +3,16 @@
 
 #include <map>
 
-#include <GL/glew.h>
-
 #include "ArrayBuffer.hpp"
 #include "ArrayBufferType.hpp"
 #include "IndexBuffer.hpp"
 #include "../Meshes/Mesh.hpp"
+#include "../Opengl/Enums/DrawMode.hpp"
 
 namespace ImasiEngine
 {
-    class VertexArray : public GLObject
+    class VertexArray
+        : public GLObject
     {
     private:
 
@@ -44,7 +44,7 @@ namespace ImasiEngine
 
         void detachAllBuffers();
 
-        void render(GLenum drawMode = GL_TRIANGLES);
+        void render(GLEnums::DrawMode drawMode = GLEnums::Triangles);
     };
 }
 
