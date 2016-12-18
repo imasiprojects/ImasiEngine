@@ -116,13 +116,7 @@ namespace ImasiEngine
         GL(glBindBuffer(GL_COPY_READ_BUFFER, buffer->getGLObjectId()));
         GL(glBindBuffer(GL_COPY_WRITE_BUFFER, getGLObjectId()));
 
-        GL(glCopyBufferSubData(
-            GL_COPY_READ_BUFFER,
-            GL_COPY_WRITE_BUFFER,
-            componentOffsetFrom * _componentSize,
-            componentOffset * _componentSize,
-            componentCount * _componentSize
-        ));
+        GL(glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, componentOffsetFrom * _componentSize, componentOffset * _componentSize, componentCount * _componentSize));
 
         GL(glBindBuffer(GL_COPY_READ_BUFFER, NULL_ID));
         GL(glBindBuffer(GL_COPY_WRITE_BUFFER, NULL_ID));
@@ -141,14 +135,7 @@ namespace ImasiEngine
         }
 
         GL(glBindBuffer(_glBufferType, getGLObjectId()));
-
-        glGetBufferSubData(
-            _glBufferType,
-            componentOffset * _componentSize,
-            componentCount * _componentSize,
-            outData
-        );
-
+        glGetBufferSubData(_glBufferType, componentOffset * _componentSize, componentCount * _componentSize, outData);
         GL(glBindBuffer(_glBufferType, NULL_ID));
     }
 
