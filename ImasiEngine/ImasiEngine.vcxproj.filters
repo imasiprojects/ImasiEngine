@@ -64,5 +64,6 @@
     <ClInclude Include="Source\Graphics\Opengl\Enums\Type.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\DrawMode.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\ShaderType.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Enums\TextureType.hpp" />
   </ItemGroup>
 </Project>

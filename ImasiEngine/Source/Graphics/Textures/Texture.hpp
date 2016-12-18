@@ -4,14 +4,16 @@
 #include <map>
 
 #include "../Opengl/GLObject.hpp"
+#include "../Opengl/Enums/TextureType.hpp"
 
 namespace ImasiEngine
 {
-    class Texture : public GLObject
+    class Texture
+        : public GLObject
     {
     protected:
 
-        static std::map<unsigned int, unsigned int> _indexTypes;
+        static std::map<unsigned int, GLEnums::TextureType> _indexTypes;
 
         Texture();
         Texture(const Texture&) = delete;
@@ -26,7 +28,7 @@ namespace ImasiEngine
         static void bind(const Texture* texture, unsigned int index = 0);
         static void unbind(unsigned int index = 0);
 
-        virtual unsigned int getGLTextureType() const = 0;
+        virtual GLEnums::TextureType getGLTextureType() const = 0;
     };
 }
 
