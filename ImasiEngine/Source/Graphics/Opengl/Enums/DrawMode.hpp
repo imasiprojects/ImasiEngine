@@ -10,6 +10,9 @@ namespace ImasiEngine
         enum DrawMode : GLenum
         {
             Points = GL_POINTS,
+            Lines = GL_LINES,
+            LineLoop = GL_LINE_LOOP,
+            LineStrip = GL_LINE_STRIP,
             Triangles = GL_TRIANGLES,
             TriangleStrip = GL_TRIANGLE_STRIP,
             Quads = GL_QUADS,
