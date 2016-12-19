@@ -12,27 +12,26 @@ namespace ImasiEngine
     {
     private:
 
-        Cached<glm::mat4> _translationMatrix;
+        mutable Cached<glm::mat4> _translationMatrix;
         glm::vec3 _position;
 
-        Cached<glm::mat4> _rotationMatrix;
+        mutable Cached<glm::mat4> _rotationMatrix;
         glm::vec2 _rotation;
 
-        Cached<glm::mat4> _viewMatrix;
+        mutable Cached<glm::mat4> _viewMatrix;
 
-        Cached<glm::mat4> _projectionMatrix;
+        mutable Cached<glm::mat4> _projectionMatrix;
         float _fieldOfView;
         float _aspectRatio;
         float _nearPlaneDistance;
         float _farPlaneDistance;
 
-        Cached<glm::mat4> _viewProjectionMatrix;
+        mutable Cached<glm::mat4> _viewProjectionMatrix;
 
-        void invalidateTranslationMatrix();
-        void invalidateRotationMatrix();
-        void invalidateViewMatrix();
-        void invalidateProjectionMatrix();
-        void invalidateViewProjectionMatrix();
+        void invalidateTranslationMatrix() const;
+        void invalidateRotationMatrix() const;
+        void invalidateViewMatrix() const;
+        void invalidateProjectionMatrix() const;
 
         void fixAngles();
 
@@ -41,20 +40,20 @@ namespace ImasiEngine
         Camera();
         ~Camera();
 
-        const glm::mat4& getTranslationMatrix();
+        const glm::mat4& getTranslationMatrix() const;
         const glm::vec3& getPosition() const;
         void setPosition(const glm::vec3& position);
         void addPositionOffset(const glm::vec3& offset);
 
-        const glm::mat4& getRotationMatrix();
+        const glm::mat4& getRotationMatrix() const;
         const glm::vec2& getRotation() const;
         void setRotation(const glm::vec2& rotation);
         void addRotationOffset(const glm::vec2& offset);
         void lookAt(const glm::vec3& objetive);
 
-        const glm::mat4& getViewMatrix();
+        const glm::mat4& getViewMatrix() const;
 
-        const glm::mat4& getProjectionMatrix();
+        const glm::mat4& getProjectionMatrix() const;
         float getFieldOfView() const;
         void setFieldOfView(float fieldOfView);
         float getAspectRatio() const;
@@ -65,15 +64,15 @@ namespace ImasiEngine
         void setFarPlaneDistance(float farPlaneDistance);
         void setPlaneDistances(float nearPlaneDistance, float farPlaneDistance);
 
-        const glm::mat4& getViewProjectionMatrix();
+        const glm::mat4& getViewProjectionMatrix() const;
 
-        glm::vec3 getRelativeVector(const glm::vec3& direction);
-        glm::vec3 getForwardVector();
-        glm::vec3 getBackwardVector();
-        glm::vec3 getLeftVector();
-        glm::vec3 getRightVector();
-        glm::vec3 getUpVector();
-        glm::vec3 getDownVector();
+        glm::vec3 getRelativeVector(const glm::vec3& direction) const;
+        glm::vec3 getForwardVector() const;
+        glm::vec3 getBackwardVector() const;
+        glm::vec3 getLeftVector() const;
+        glm::vec3 getRightVector() const;
+        glm::vec3 getUpVector() const;
+        glm::vec3 getDownVector() const;
     };
 }
 

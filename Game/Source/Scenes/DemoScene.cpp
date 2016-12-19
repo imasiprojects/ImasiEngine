@@ -41,7 +41,7 @@ namespace Imasi
             for (int j = 0; j < mapSize; j++)
             {
                 Entity* entity = new Entity();
-                entity->model = _resourceContainer.getModel(ResourceCodes::myModel);
+                entity->setModel(_resourceContainer.getModel(ResourceCodes::myModel));
                 entity->setPosition({ -i * 1.25f, 0, -j * 1.25f });
                 entity->setScale(glm::vec3(0.25f));
 

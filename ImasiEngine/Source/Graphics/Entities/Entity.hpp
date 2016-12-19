@@ -12,18 +12,28 @@ namespace ImasiEngine
     {
     private:
 
-        Cached<glm::mat4> _modelMatrix;
+        Model* _model;
 
+        mutable Cached<glm::mat4> _translationMatrix;
         glm::vec3 _position;
+        mutable Cached<glm::mat4> _rotationMatrix;
         glm::vec3 _rotation;
+        mutable Cached<glm::mat4> _scaleMatrix;
         glm::vec3 _scale;
+
+        mutable Cached<glm::mat4> _modelMatrix;
+
+        void invalidateTranslationMatrix() const;
+        void invalidateRotationMatrix() const;
+        void invalidateScaleMatrix() const;
 
     public:
 
-        Model* model;
-
         Entity();
         virtual ~Entity();
+
+        Model* getModel() const;
+        void setModel(Model* model);
 
         const glm::vec3& getPosition() const;
         void setPosition(const glm::vec3& position);
@@ -34,7 +44,10 @@ namespace ImasiEngine
         const glm::vec3& getScale() const;
         void setScale(const glm::vec3& scale);
 
-        const glm::mat4& getModelMatrix();
+        const glm::mat4& getTranslationMatrix() const;
+        const glm::mat4& getRotationMatrix() const;
+        const glm::mat4& getScaleMatrix() const;
+        const glm::mat4& getModelMatrix() const;
     };
 }
 

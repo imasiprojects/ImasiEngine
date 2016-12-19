@@ -59,7 +59,7 @@ namespace ImasiEngine
                 if (isVisible(VP, entity->getPosition()))
                 {
                     initialOptimizationMutex.lock();
-                    initialOptimization[entity->model].push_back(M);
+                    initialOptimization[entity->getModel()].push_back(M);
                     initialOptimizationMutex.unlock();
                 }
             }

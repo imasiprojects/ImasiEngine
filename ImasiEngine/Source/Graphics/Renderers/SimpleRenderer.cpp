@@ -86,9 +86,9 @@ namespace ImasiEngine
             {
                 _program->setUniform("MVP", VP * entity->getModelMatrix());
 
-                BIND(Texture, entity->model->material->diffuseMap, 0);
+                BIND(Texture, entity->getModel()->material->diffuseMap, 0);
                 {
-                    _vertexArray->attachMesh(entity->model->mesh);
+                    _vertexArray->attachMesh(entity->getModel()->mesh);
                     _vertexArray->render();
                 }
                 UNBIND(Texture, 0);

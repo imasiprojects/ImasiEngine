@@ -53,43 +53,43 @@ namespace ImasiEngine
                 std::is_assignable<T, AssignArg>::value
             >::type
         >
-        Cached<T>& operator=(AssignArg arg)
+        const Cached<T>& operator=(AssignArg arg)
         {
             _value = arg;
             return *this;
         }
 
-        operator T&()
+        operator const T&()
         {
             return _value;
         }
 
-        T& value() const
+        const T& value() const
         {
             return _value;
         }
 
-        void set(const T& value)
+        void setCache(const T& value)
         {
             _value = value;
         }
 
-        void validate()
+        void validateCache()
         {
             _isValid = true;
         }
 
-        void invalidate()
+        void invalidateCache()
         {
             _isValid = false;
         }
 
-        bool isValid() const
+        bool hasValidCache() const
         {
             return _isValid;
         }
 
-        bool isInvalid() const
+        bool hasInvalidCache() const
         {
             return !_isValid;
         }

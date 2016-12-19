@@ -14,43 +14,38 @@ namespace ImasiEngine
         , _nearPlaneDistance(0.01f)
         , _farPlaneDistance(1000.0f)
     {
-        _projectionMatrix.invalidate();
-        _viewProjectionMatrix.invalidate();
+        _projectionMatrix.invalidateCache();
+        _viewProjectionMatrix.invalidateCache();
     }
 
     Camera::~Camera()
     {
     }
 
-    void Camera::invalidateRotationMatrix()
+    void Camera::invalidateRotationMatrix() const
     {
-        _rotationMatrix.invalidate();
-        _viewMatrix.invalidate();
-        _viewProjectionMatrix.invalidate();
+        _rotationMatrix.invalidateCache();
+        _viewMatrix.invalidateCache();
+        _viewProjectionMatrix.invalidateCache();
     }
 
-    void Camera::invalidateTranslationMatrix()
+    void Camera::invalidateTranslationMatrix() const
     {
-        _translationMatrix.invalidate();
-        _viewMatrix.invalidate();
-        _viewProjectionMatrix.invalidate();
+        _translationMatrix.invalidateCache();
+        _viewMatrix.invalidateCache();
+        _viewProjectionMatrix.invalidateCache();
     }
 
-    void Camera::invalidateViewMatrix()
+    void Camera::invalidateViewMatrix() const
     {
-        _viewMatrix.invalidate();
-        _viewProjectionMatrix.invalidate();
+        _viewMatrix.invalidateCache();
+        _viewProjectionMatrix.invalidateCache();
     }
 
-    void Camera::invalidateProjectionMatrix()
+    void Camera::invalidateProjectionMatrix() const
     {
-        _projectionMatrix.invalidate();
-        _viewProjectionMatrix.invalidate();
-    }
-
-    void Camera::invalidateViewProjectionMatrix()
-    {
-        _viewProjectionMatrix.invalidate();
+        _projectionMatrix.invalidateCache();
+        _viewProjectionMatrix.invalidateCache();
     }
 
     void Camera::fixAngles()
@@ -62,15 +57,15 @@ namespace ImasiEngine
             _rotation.x += 360.0f;
         }
 
-        _rotation.y = glm::clamp(_rotation.y, -89.9f, 89.9f);
+        _rotation.y = glm::clamp(_rotation.y, -89.99f, 89.99f);
     }
 
-    const glm::mat4& Camera::getTranslationMatrix()
+    const glm::mat4& Camera::getTranslationMatrix() const
     {
-        if (_translationMatrix.isInvalid())
+        if (_translationMatrix.hasInvalidCache())
         {
             _translationMatrix = glm::translate(glm::mat4(1.f), -_position);
-            _translationMatrix.validate();
+            _translationMatrix.validateCache();
         }
 
         return _translationMatrix;
@@ -93,14 +88,14 @@ namespace ImasiEngine
         _position += offset;
     }
 
-    const glm::mat4& Camera::getRotationMatrix()
+    const glm::mat4& Camera::getRotationMatrix() const
     {
-        if (_rotationMatrix.isInvalid())
+        if (_rotationMatrix.hasInvalidCache())
         {
             glm::mat4 rotationMatrix(1.f);
             rotationMatrix = glm::rotate(rotationMatrix, glm::radians(_rotation.y), glm::vec3(1.f, 0.f, 0.f));
             _rotationMatrix = glm::rotate(rotationMatrix, glm::radians(_rotation.x), glm::vec3(0.f, 1.f, 0.f));
-            _rotationMatrix.validate();
+            _rotationMatrix.validateCache();
         }
 
         return _rotationMatrix;
@@ -146,23 +141,23 @@ namespace ImasiEngine
         fixAngles();
     }
 
-    const glm::mat4& Camera::getViewMatrix()
+    const glm::mat4& Camera::getViewMatrix() const
     {
-        if (_viewMatrix.isInvalid())
+        if (_viewMatrix.hasInvalidCache())
         {
             _viewMatrix = getRotationMatrix() * getTranslationMatrix();
-            _viewMatrix.validate();
+            _viewMatrix.validateCache();
         }
 
         return _viewMatrix;
     }
 
-    const glm::mat4& Camera::getProjectionMatrix()
+    const glm::mat4& Camera::getProjectionMatrix() const
     {
-        if (_projectionMatrix.isInvalid())
+        if (_projectionMatrix.hasInvalidCache())
         {
             _projectionMatrix = glm::perspective(glm::radians(_fieldOfView), _aspectRatio, _nearPlaneDistance, _farPlaneDistance);
-            _projectionMatrix.validate();
+            _projectionMatrix.validateCache();
         }
 
         return _projectionMatrix;
@@ -219,48 +214,48 @@ namespace ImasiEngine
         _farPlaneDistance = farPlaneDistance;
     }
 
-    const glm::mat4& Camera::getViewProjectionMatrix()
+    const glm::mat4& Camera::getViewProjectionMatrix() const
     {
-        if (_viewProjectionMatrix.isInvalid())
+        if (_viewProjectionMatrix.hasInvalidCache())
         {
             _viewProjectionMatrix = getProjectionMatrix() * getViewMatrix();
-            _viewProjectionMatrix.validate();
+            _viewProjectionMatrix.validateCache();
         }
 
         return _viewProjectionMatrix;
     }
 
-    glm::vec3 Camera::getRelativeVector(const glm::vec3& direction)
+    glm::vec3 Camera::getRelativeVector(const glm::vec3& direction) const
     {
         return glm::vec3(glm::vec4(direction, 0.f) * getRotationMatrix());
     }
 
-    glm::vec3 Camera::getForwardVector()
+    glm::vec3 Camera::getForwardVector() const
     {
         return getRelativeVector(glm::vec3(0.f, 0.f, -1.f));
     }
 
-    glm::vec3 Camera::getBackwardVector()
+    glm::vec3 Camera::getBackwardVector() const
     {
         return getRelativeVector(glm::vec3(0.f, 0.f, 1.f));
     }
 
-    glm::vec3 Camera::getLeftVector()
+    glm::vec3 Camera::getLeftVector() const
     {
         return getRelativeVector(glm::vec3(-1.f, 0.f, 0.f));
     }
 
-    glm::vec3 Camera::getRightVector()
+    glm::vec3 Camera::getRightVector() const
     {
         return getRelativeVector(glm::vec3(1.f, 0.f, 0.f));
     }
 
-    glm::vec3 Camera::getUpVector()
+    glm::vec3 Camera::getUpVector() const
     {
         return getRelativeVector(glm::vec3(0.f, 1.f, 0.f));
     }
 
-    glm::vec3 Camera::getDownVector()
+    glm::vec3 Camera::getDownVector() const
     {
         return getRelativeVector(glm::vec3(0.f, -1.f, 0.f));
     }
