@@ -22,10 +22,10 @@ namespace Imasi
         _camera.lookAt({ mapSize * -0.65f, 0.f, -3.f });
 
         ColorTexture2D texture;
-        texture.loadFromFile("Resources/ivancea.png");
+        texture.loadFromFile("Resources/katarina_diffuse.png");
         _resourceContainer.set(ResourceCodes::myTexture, std::move(texture));
 
-        _resourceContainer.set(ResourceCodes::myMesh, std::move(*loadMesh("Resources/ivancea.obj")));
+        _resourceContainer.set(ResourceCodes::myMesh, std::move(*loadMesh("Resources/katarina.fbx")));
 
         Material myMaterial;
         myMaterial.diffuseMap = _resourceContainer.getColorTexture(ResourceCodes::myTexture);
@@ -155,17 +155,24 @@ namespace Imasi
         {
             actualTime += deltaTime;
 
-            kata1->setPosition(glm::vec3(
-                kata1Initial.x + (kata2Initial.x - kata1Initial.x) * actualTime / maxTime,
-                kata1Initial.y + 2 * sin(actualTime / maxTime * 3.14159),
-                kata1Initial.z + (kata2Initial.z - kata1Initial.z) * actualTime / maxTime
-            ));
+            if (actualTime >= maxTime) {
+                kata1->setPosition(kata2Initial);
+                kata2->setPosition(kata1Initial);
+            }
+            else
+            {
+                kata1->setPosition(glm::vec3(
+                    kata1Initial.x + (kata2Initial.x - kata1Initial.x) * actualTime / maxTime,
+                    kata1Initial.y + 2 * sin(actualTime / maxTime * 3.14159),
+                    kata1Initial.z + (kata2Initial.z - kata1Initial.z) * actualTime / maxTime
+                ));
 
-            kata2->setPosition(glm::vec3(
-                kata2Initial.x + (kata1Initial.x - kata2Initial.x) * actualTime / maxTime,
-                kata2Initial.y + 2 * sin(actualTime / maxTime * 3.14159),
-                kata2Initial.z + (kata1Initial.z - kata2Initial.z) * actualTime / maxTime
-            ));
+                kata2->setPosition(glm::vec3(
+                    kata2Initial.x + (kata1Initial.x - kata2Initial.x) * actualTime / maxTime,
+                    kata2Initial.y + 2 * sin(actualTime / maxTime * 3.14159),
+                    kata2Initial.z + (kata1Initial.z - kata2Initial.z) * actualTime / maxTime
+                ));
+            }
         }
     }
 
