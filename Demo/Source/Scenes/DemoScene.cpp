@@ -9,7 +9,7 @@ using namespace ImasiEngine;
 
 namespace Imasi
 {
-    DemoScene::DemoScene(GameContext* context)
+    DemoScene::DemoScene(DemoContext* context)
         : Scene()
         , _context(context)
         , _camera(Camera())

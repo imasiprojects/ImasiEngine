@@ -8,8 +8,8 @@
 #include "../../../ImasiEngine/Source/Graphics/Renderers/InstancedRenderer.hpp"
 #include "../../../ImasiEngine/Source/Resources/ResourceContainer.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Cameras/Camera.hpp"
-#include "../Game/GameContext.hpp"
-#include "../Engine/InputHandler.hpp"
+#include "../Engine/DemoContext.hpp"
+#include "../EngineCandidates/InputHandler.hpp"
 
 namespace Imasi
 {
@@ -17,7 +17,7 @@ namespace Imasi
     {
     private:
 
-        GameContext* _context;
+        DemoContext* _context;
         InputHandler _inputHandler;
 
         ImasiEngine::Camera _camera;
@@ -28,7 +28,7 @@ namespace Imasi
 
     public:
 
-        DemoScene(GameContext* context);
+        DemoScene(DemoContext* context);
         ~DemoScene();
 
         void processWindowEvent(const sf::Event& event) override;

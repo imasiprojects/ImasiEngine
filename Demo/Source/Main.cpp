@@ -1,10 +1,10 @@
 #include <iostream>
 
-#include "Game/GameEngine.hpp"
+#include "Engine/DemoEngine.hpp"
 
 int main()
 {
-    Imasi::GameEngine game;
+    Imasi::DemoEngine game;
     game.run();
 
     std::cin.get();

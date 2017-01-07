@@ -3,14 +3,14 @@
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Scenes\DemoScene.cpp" />
-    <ClCompile Include="Source\Game\GameEngine.cpp" />
-    <ClCompile Include="Source\Engine\InputHandler.cpp" />
+    <ClCompile Include="Source\EngineCandidates\InputHandler.cpp" />
+    <ClCompile Include="Source\Engine\DemoEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Scenes\DemoScene.hpp" />
-    <ClInclude Include="Source\Game\GameContext.hpp" />
-    <ClInclude Include="Source\Game\GameEngine.hpp" />
-    <ClInclude Include="Source\Engine\InputHandler.hpp" />
     <ClInclude Include="Source\Resources\ResourceCodes.hpp" />
+    <ClInclude Include="Source\Engine\DemoContext.hpp" />
+    <ClInclude Include="Source\EngineCandidates\InputHandler.hpp" />
+    <ClInclude Include="Source\Engine\DemoEngine.hpp" />
   </ItemGroup>
 </Project>

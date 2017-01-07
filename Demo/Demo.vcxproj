@@ -27,23 +27,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Engine\InputHandler.cpp" />
-    <ClCompile Include="Source\Game\GameEngine.cpp" />
+    <ClCompile Include="Source\EngineCandidates\InputHandler.cpp" />
+    <ClCompile Include="Source\Engine\DemoEngine.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Scenes\DemoScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Resources\ResourceCodes.hpp" />
-    <ClInclude Include="Source\Engine\InputHandler.hpp" />
-    <ClInclude Include="Source\Game\GameContext.hpp" />
-    <ClInclude Include="Source\Game\GameEngine.hpp" />
+    <ClInclude Include="Source\EngineCandidates\InputHandler.hpp" />
+    <ClInclude Include="Source\Engine\DemoContext.hpp" />
+    <ClInclude Include="Source\Engine\DemoEngine.hpp" />
     <ClInclude Include="Source\Scenes\DemoScene.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{ec3d1560-b3b5-4467-807b-b2586ded91e8}</ProjectGuid>
-    <RootNamespace>Game</RootNamespace>
+    <RootNamespace>Demo</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <ProjectName>Game</ProjectName>
+    <ProjectName>Demo</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
