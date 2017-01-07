@@ -9,7 +9,7 @@ namespace ImasiEngine
     {
     protected:
 
-        unsigned int getGLShaderType() const override;
+        GLEnums::ShaderType getGLShaderType() const override;
 
     public:
 

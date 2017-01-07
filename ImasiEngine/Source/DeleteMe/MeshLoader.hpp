@@ -12,7 +12,7 @@
 #include "../Graphics/Meshes/Mesh.hpp"
 #include "../Utils/Logger.hpp"
 
-ImasiEngine::Mesh* loadMesh(std::string path)
+static ImasiEngine::Mesh* loadMesh(const std::string& path)
 {
     std::vector<unsigned int> indices;
     std::vector<glm::vec3> vertices;

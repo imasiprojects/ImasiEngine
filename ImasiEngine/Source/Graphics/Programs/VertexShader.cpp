@@ -26,8 +26,8 @@ namespace ImasiEngine
     {
     }
 
-    unsigned int VertexShader::getGLShaderType() const
+    GLEnums::ShaderType VertexShader::getGLShaderType() const
     {
-        return GL_VERTEX_SHADER;
+        return GLEnums::ShaderType::Vertex;
     }
 }

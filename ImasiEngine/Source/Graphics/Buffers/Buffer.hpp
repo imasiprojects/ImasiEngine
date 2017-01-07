@@ -8,8 +8,11 @@
 
 #include "../Opengl/OpenglHelper.hpp"
 #include "../Opengl/GLObject.hpp"
+#include "../Opengl/Enums/BufferType.hpp"
 #include "BufferAttribute.hpp"
 #include "../../Exceptions/InvalidArgumentException.hpp"
+#include "../Opengl/Enums/BufferUsage.hpp"
+#include "../Opengl/Enums/DataType.hpp"
 
 namespace ImasiEngine
 {
@@ -18,17 +21,17 @@ namespace ImasiEngine
     {
     private:
 
-        unsigned int _glBufferType;
-        unsigned int _glComponentType;
+        GLEnums::BufferType _glBufferType;
+        GLEnums::DataType _glComponentType;
         unsigned int _componentSize;
         unsigned int _componentCount;
         unsigned int _componentMemberCount;
         unsigned int _componentMemberSize;
-        unsigned int _bufferUsage;
+        GLEnums::BufferUsage _bufferUsage;
         std::list<BufferAttribute> _attributes;
 
         Buffer(const Buffer& buffer);
-        Buffer(const Buffer& buffer, unsigned int bufferUsage);
+        Buffer(const Buffer& buffer, GLEnums::BufferUsage bufferUsage);
 
     protected:
 
@@ -43,7 +46,7 @@ namespace ImasiEngine
                 || std::is_same<T, unsigned short>::value
             >::type
         >
-        Buffer(unsigned int glBufferType, unsigned int bufferUsage, unsigned int componentCount, unsigned int componentMemberCount, T* data)
+        Buffer(GLEnums::BufferType glBufferType, GLEnums::BufferUsage bufferUsage, unsigned int componentCount, unsigned int componentMemberCount, T* data)
             : GLObject()
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
@@ -80,7 +83,7 @@ namespace ImasiEngine
                 || std::is_same<T, glm::mat4>::value
             >::type
         >
-        Buffer(unsigned int glBufferType, unsigned int bufferUsage, unsigned int componentCount, T* data)
+        Buffer(GLEnums::BufferType glBufferType, GLEnums::BufferUsage bufferUsage, unsigned int componentCount, T* data)
             : GLObject()
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
@@ -113,7 +116,7 @@ namespace ImasiEngine
                 _componentMemberCount = 16;
             }
 
-            _glComponentType = GL_FLOAT;
+            _glComponentType = GLEnums::DataType::Float;
             _componentMemberSize = sizeof(float);
             _componentSize = _componentMemberSize * _componentMemberCount;
 
@@ -184,7 +187,7 @@ namespace ImasiEngine
         void resize(unsigned int componentCount);
 
         Buffer clone() const;
-        Buffer clone(unsigned int bufferUsage) const;
+        Buffer clone(GLEnums::BufferUsage bufferUsage) const;
 
         unsigned int getGLComponentType() const;
         unsigned int getComponentCount() const;

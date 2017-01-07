@@ -5,7 +5,8 @@
 
 namespace ImasiEngine
 {
-    class ColorTexture2D : public Texture
+    class ColorTexture2D
+        : public Texture
     {
     private:
 
@@ -21,7 +22,7 @@ namespace ImasiEngine
         ColorTexture2D(ColorTexture2D&& texture) noexcept;
         virtual ~ColorTexture2D();
 
-        unsigned int getGLTextureType() const override;
+        GLEnums::TextureType getGLTextureType() const override;
 
         void create(unsigned int width, unsigned int height);
         bool loadFromFile(const std::string& fileName);
