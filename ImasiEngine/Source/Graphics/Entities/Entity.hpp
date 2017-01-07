@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "../Models/Model.hpp"
-#include "../../Resources/Cached.hpp"
+#include "../../Resources/Cache.hpp"
 
 namespace ImasiEngine
 {
@@ -14,14 +14,14 @@ namespace ImasiEngine
 
         Model* _model;
 
-        mutable Cached<glm::mat4> _translationMatrix;
+        mutable Cache<glm::mat4> _translationMatrix;
         glm::vec3 _position;
-        mutable Cached<glm::mat4> _rotationMatrix;
+        mutable Cache<glm::mat4> _rotationMatrix;
         glm::vec3 _rotation;
-        mutable Cached<glm::mat4> _scaleMatrix;
+        mutable Cache<glm::mat4> _scaleMatrix;
         glm::vec3 _scale;
 
-        mutable Cached<glm::mat4> _modelMatrix;
+        mutable Cache<glm::mat4> _modelMatrix;
 
         void invalidateTranslationMatrix() const;
         void invalidateRotationMatrix() const;

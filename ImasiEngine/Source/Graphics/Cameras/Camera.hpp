@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
-#include "../../Resources/Cached.hpp"
+#include "../../Resources/Cache.hpp"
 
 namespace ImasiEngine
 {
@@ -12,21 +12,21 @@ namespace ImasiEngine
     {
     private:
 
-        mutable Cached<glm::mat4> _translationMatrix;
+        mutable Cache<glm::mat4> _translationMatrix;
         glm::vec3 _position;
 
-        mutable Cached<glm::mat4> _rotationMatrix;
+        mutable Cache<glm::mat4> _rotationMatrix;
         glm::vec2 _rotation;
 
-        mutable Cached<glm::mat4> _viewMatrix;
+        mutable Cache<glm::mat4> _viewMatrix;
 
-        mutable Cached<glm::mat4> _projectionMatrix;
+        mutable Cache<glm::mat4> _projectionMatrix;
         float _fieldOfView;
         float _aspectRatio;
         float _nearPlaneDistance;
         float _farPlaneDistance;
 
-        mutable Cached<glm::mat4> _viewProjectionMatrix;
+        mutable Cache<glm::mat4> _viewProjectionMatrix;
 
         void invalidateTranslationMatrix() const;
         void invalidateRotationMatrix() const;
