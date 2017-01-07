@@ -1,22 +1,22 @@
-#include "GameEngine.hpp"
+#include "DemoEngine.hpp"
 
 #include "../Scenes/DemoScene.hpp"
 
 namespace Imasi
 {
-    GameEngine::GameEngine()
+    DemoEngine::DemoEngine()
         : Engine()
     {
-        _context = new GameContext();
+        _context = new DemoContext();
     }
 
-    GameEngine::~GameEngine()
+    DemoEngine::~DemoEngine()
     {
         delete _context;
     }
 
 
-    void GameEngine::run()
+    void DemoEngine::run()
     {
         setupWindow("Woo");
         _context->window = _window;

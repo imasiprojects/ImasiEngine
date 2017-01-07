@@ -2,20 +2,20 @@
 #define IMASIGAME_GAMEENGINE_HPP
 
 #include "../../ImasiEngine/Source/ImasiEngine.hpp"
-#include "GameContext.hpp"
+#include "DemoContext.hpp"
 
 namespace Imasi
 {
-    class GameEngine : public ImasiEngine::Engine
+    class DemoEngine : public ImasiEngine::Engine
     {
     private:
 
-        GameContext* _context;
+        DemoContext* _context;
 
     public:
 
-        GameEngine();
-        ~GameEngine();
+        DemoEngine();
+        ~DemoEngine();
 
         void run();
     };

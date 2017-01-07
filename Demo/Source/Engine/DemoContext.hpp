@@ -5,7 +5,7 @@
 
 namespace Imasi
 {
-    class GameContext
+    class DemoContext
     {
     public:
 
