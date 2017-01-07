@@ -55,10 +55,10 @@
     <ClInclude Include="Source\Engine\Engine.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\GLObject.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\OpenglHelper.hpp" />
-    <ClInclude Include="Source\Resources\Cached.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\BufferAttribute.hpp" />
     <ClInclude Include="Source\Exceptions\InvalidArgumentException.hpp" />
     <ClInclude Include="Source\Exceptions\OpenglException.hpp" />
+    <ClInclude Include="Source\Resources\Cache.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\BufferType.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\BufferUsage.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\DrawMode.hpp" />

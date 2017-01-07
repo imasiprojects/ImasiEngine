@@ -4,7 +4,7 @@
 namespace ImasiEngine
 {
     template<typename T>
-    class Cached
+    class Cache
     {
     private:
 
@@ -19,7 +19,7 @@ namespace ImasiEngine
                 std::is_constructible<T, ConstructorArgs...>::value
             >::type
         >
-        explicit Cached(ConstructorArgs ...args)
+        explicit Cache(ConstructorArgs ...args)
             : _value(args...)
             , _isValid(true)
         {
@@ -30,7 +30,7 @@ namespace ImasiEngine
                 std::is_copy_constructible<T>::value
             >::type
         >
-        explicit Cached(const Cached<T>& cached)
+        explicit Cache(const Cache<T>& cached)
             : _value(cached._value)
             , _isValid(cached._isValid)
         {
@@ -41,7 +41,7 @@ namespace ImasiEngine
                 std::is_move_constructible<T>::value
             >::type
         >
-        explicit Cached(Cached<T>&& cached)
+        explicit Cache(Cache<T>&& cached)
             : _value(std::move(cached._value))
             , _isValid(cached._isValid)
         {
@@ -53,7 +53,7 @@ namespace ImasiEngine
                 std::is_assignable<T, AssignArg>::value
             >::type
         >
-        Cached<T>& operator=(AssignArg arg)
+        Cache<T>& operator=(AssignArg arg)
         {
             _value = arg;
             return *this;
@@ -64,32 +64,32 @@ namespace ImasiEngine
             return _value;
         }
 
-        T& value() const
+        T& value()
         {
             return _value;
         }
 
-        void set(const T& value)
+        void setCache(const T& value)
         {
             _value = value;
         }
 
-        void validate()
+        void validateCache()
         {
             _isValid = true;
         }
 
-        void invalidate()
+        void invalidateCache()
         {
             _isValid = false;
         }
 
-        bool isValid() const
+        bool hasValidCache() const
         {
             return _isValid;
         }
 
-        bool isInvalid() const
+        bool hasInvalidCache() const
         {
             return !_isValid;
         }
