@@ -64,7 +64,7 @@ namespace ImasiEngine
             return _value;
         }
 
-        T& value() const
+        T& value()
         {
             return _value;
         }
