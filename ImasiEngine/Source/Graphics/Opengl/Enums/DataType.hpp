@@ -7,7 +7,7 @@ namespace ImasiEngine
 {
     namespace GLEnums
     {
-        enum Type : GLenum
+        enum DataType : GLenum
         {
             Unknown = 0,
 

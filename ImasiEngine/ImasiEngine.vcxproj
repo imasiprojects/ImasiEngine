@@ -65,7 +65,7 @@
     <ClInclude Include="Source\Graphics\Opengl\Enums\DrawMode.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\ShaderType.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\TextureType.hpp" />
-    <ClInclude Include="Source\Graphics\Opengl\Enums\Type.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Enums\DataType.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\GLObject.hpp" />
     <ClInclude Include="Source\Graphics\Materials\Material.hpp" />
     <ClInclude Include="Source\Graphics\Meshes\Mesh.hpp" />

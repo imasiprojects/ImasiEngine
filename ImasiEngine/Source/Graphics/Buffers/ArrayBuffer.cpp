@@ -8,12 +8,12 @@ namespace ImasiEngine
 {
     void ArrayBuffer::bind(ArrayBuffer* buffer)
     {
-        GL(glBindBuffer(GLEnums::BufferType::ArrayBuffer, buffer->getGLObjectId()));
+        GL(glBindBuffer(GLEnums::BufferType::Array, buffer->getGLObjectId()));
     }
 
     void ArrayBuffer::unbind()
     {
-        GL(glBindBuffer(GLEnums::BufferType::ArrayBuffer, NULL_ID));
+        GL(glBindBuffer(GLEnums::BufferType::Array, NULL_ID));
     }
 
     ArrayBuffer::ArrayBuffer(ArrayBuffer&& buffer) noexcept

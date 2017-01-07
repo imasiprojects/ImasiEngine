@@ -61,9 +61,9 @@
     <ClInclude Include="Source\Exceptions\OpenglException.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\BufferType.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\BufferUsage.hpp" />
-    <ClInclude Include="Source\Graphics\Opengl\Enums\Type.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\DrawMode.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\ShaderType.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\TextureType.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Enums\DataType.hpp" />
   </ItemGroup>
 </Project>

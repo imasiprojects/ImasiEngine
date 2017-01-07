@@ -12,7 +12,7 @@
 #include "BufferAttribute.hpp"
 #include "../../Exceptions/InvalidArgumentException.hpp"
 #include "../Opengl/Enums/BufferUsage.hpp"
-#include "../Opengl/Enums/Type.hpp"
+#include "../Opengl/Enums/DataType.hpp"
 
 namespace ImasiEngine
 {
@@ -22,7 +22,7 @@ namespace ImasiEngine
     private:
 
         GLEnums::BufferType _glBufferType;
-        GLEnums::Type _glComponentType;
+        GLEnums::DataType _glComponentType;
         unsigned int _componentSize;
         unsigned int _componentCount;
         unsigned int _componentMemberCount;
@@ -116,7 +116,7 @@ namespace ImasiEngine
                 _componentMemberCount = 16;
             }
 
-            _glComponentType = GLEnums::Type::Float;
+            _glComponentType = GLEnums::DataType::Float;
             _componentMemberSize = sizeof(float);
             _componentSize = _componentMemberSize * _componentMemberCount;
 

@@ -21,7 +21,7 @@ namespace ImasiEngine
             >::type
         >
         IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, GLEnums::BufferUsage bufferUsage = GLEnums::BufferUsage::StaticDraw)
-            : Buffer(GLEnums::BufferType::IndexBuffer, bufferUsage, componentCount, componentMemberCount, data)
+            : Buffer(GLEnums::BufferType::Index, bufferUsage, componentCount, componentMemberCount, data)
         {
         }
 
