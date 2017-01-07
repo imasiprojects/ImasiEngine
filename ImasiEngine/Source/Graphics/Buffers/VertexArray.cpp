@@ -1,5 +1,7 @@
 #include "VertexArray.hpp"
 
+#include <GL/glew.h>
+
 #include "ArrayBuffer.hpp"
 #include "../Opengl/OpenglHelper.hpp"
 #include "../../Utils/Logger.hpp"
@@ -137,7 +139,7 @@ namespace ImasiEngine
         _arrayBuffers.clear();
     }
 
-    void VertexArray::render(GLenum drawMode)
+    void VertexArray::render(GLEnums::DrawMode drawMode)
     {
         ArrayBuffer* modelMatrixBuffer = _arrayBuffers[ModelMatrix];
 

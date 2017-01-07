@@ -14,7 +14,8 @@
 
 namespace ImasiEngine
 {
-    class Program : public GLObject
+    class Program
+        : public GLObject
     {
     private:
 

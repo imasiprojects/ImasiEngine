@@ -61,10 +61,16 @@
     <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.hpp" />
     <ClInclude Include="Source\Graphics\Cameras\Camera.hpp" />
     <ClInclude Include="Source\Graphics\Entities\Entity.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Enums\BufferUsage.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Enums\DrawMode.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Enums\ShaderType.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Enums\TextureType.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Enums\DataType.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\GLObject.hpp" />
     <ClInclude Include="Source\Graphics\Materials\Material.hpp" />
     <ClInclude Include="Source\Graphics\Meshes\Mesh.hpp" />
     <ClInclude Include="Source\Graphics\Models\Model.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\Enums\BufferType.hpp" />
     <ClInclude Include="Source\Graphics\Renderers\InstancedRenderer.hpp" />
     <ClInclude Include="Source\Graphics\Renderers\Renderer.hpp" />
     <ClInclude Include="Source\Graphics\Renderers\SimpleRenderer.hpp" />

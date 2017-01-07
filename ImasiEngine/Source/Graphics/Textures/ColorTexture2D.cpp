@@ -24,9 +24,9 @@ namespace ImasiEngine
     {
     }
 
-    unsigned int ColorTexture2D::getGLTextureType() const
+    GLEnums::TextureType ColorTexture2D::getGLTextureType() const
     {
-        return GL_TEXTURE_2D;
+        return GLEnums::TextureType::Texture2D;
     }
 
     unsigned int ColorTexture2D::getWidth() const

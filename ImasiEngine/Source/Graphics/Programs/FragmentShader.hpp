@@ -2,14 +2,16 @@
 #define IMASIENGINE_FRAGMENTSHADER_HPP
 
 #include "Shader.hpp"
+#include "../Opengl/Enums/ShaderType.hpp"
 
 namespace ImasiEngine
 {
-    class FragmentShader : public Shader
+    class FragmentShader
+        : public Shader
     {
     protected:
 
-        unsigned int getGLShaderType() const override;
+        GLEnums::ShaderType getGLShaderType() const override;
 
     public:
 
