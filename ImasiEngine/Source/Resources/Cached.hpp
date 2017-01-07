@@ -53,18 +53,18 @@ namespace ImasiEngine
                 std::is_assignable<T, AssignArg>::value
             >::type
         >
-        const Cached<T>& operator=(AssignArg arg)
+        Cached<T>& operator=(AssignArg arg)
         {
             _value = arg;
             return *this;
         }
 
-        operator const T&()
+        operator T&()
         {
             return _value;
         }
 
-        const T& value() const
+        T& value() const
         {
             return _value;
         }
