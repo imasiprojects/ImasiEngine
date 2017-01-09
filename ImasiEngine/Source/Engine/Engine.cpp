@@ -199,6 +199,11 @@ namespace ImasiEngine
 
     void Engine::setupWindow(const std::string& title, const unsigned int style, const unsigned int width, const unsigned int height)
     {
+        if(_window != nullptr)
+        {
+            delete _window;
+        }
+
         Logger::out << "Creating context..." << std::endl << std::endl;
 
         sf::ContextSettings contextSettings;
