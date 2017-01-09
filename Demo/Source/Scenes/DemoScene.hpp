@@ -36,7 +36,7 @@ namespace Imasi
 
         void update(const float deltaTime) override;
         void updateFromInput(const float deltaTime);
-        void render() override;
+        void render(sf::RenderTarget& renderTarget) override;
     };
 }
 

@@ -2,6 +2,7 @@
 #define IMASIENGINE_SCENE_HPP
 
 #include <queue>
+#include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
 
@@ -34,10 +35,9 @@ namespace ImasiEngine
         virtual void processWindowEvent(const sf::Event& event) = 0;
         virtual void processEngineEvent(const EngineEvent& event) = 0;
 
-        virtual void loop();
         virtual void update();
         virtual void update(const float deltaTime) = 0;
-        virtual void render() = 0;
+        virtual void render(sf::RenderTarget& renderTarget) = 0;
 
         bool isActive() const;
         void setActive(bool isActive = true);
