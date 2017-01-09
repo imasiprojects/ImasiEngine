@@ -4,6 +4,7 @@
 
 #include "../Graphics/Opengl/OpenglHelper.hpp"
 #include "../Utils/Logger.hpp"
+#include "../Exceptions/IllegalStateException.hpp"
 
 namespace ImasiEngine
 {
@@ -245,6 +246,11 @@ namespace ImasiEngine
 
     void Engine::run(Scene* newScene)
     {
+        if(_window == nullptr || !_window->isOpen())
+        {
+            throw IllegalStateException("Window is not open. Call 'setupWindow' before calling run");
+        }
+
         pushScene(newScene);
         while (_window->isOpen() && _scenes.size() > 0)
         {
