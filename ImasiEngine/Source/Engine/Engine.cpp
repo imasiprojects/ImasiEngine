@@ -79,7 +79,7 @@ namespace ImasiEngine
 
             for(Scene* scene : _scenes)
             {
-                scene->render();
+                scene->render(*_window);
             }
         }
 

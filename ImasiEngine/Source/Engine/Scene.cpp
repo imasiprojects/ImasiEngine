@@ -29,12 +29,6 @@ namespace ImasiEngine
         return false;
     }
 
-    void Scene::loop()
-    {
-        update(_frameClock.restart().asSeconds());
-        render();
-    }
-
     void Scene::update()
     {
         update(_frameClock.restart().asSeconds());
