@@ -246,14 +246,9 @@ namespace ImasiEngine
 
     void Engine::run(Scene* newScene)
     {
-        if(_window == nullptr)
+        if(_window == nullptr || !_window->isOpen())
         {
-            throw IllegalStateException("Window is null");
-        }
-
-        if(!_window->isOpen())
-        {
-            throw IllegalStateException("Window is not open");
+            throw IllegalStateException("Window is not open. Call 'setupWindow' before calling run");
         }
 
         pushScene(newScene);
