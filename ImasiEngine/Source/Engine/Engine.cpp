@@ -189,6 +189,7 @@ namespace ImasiEngine
             if (_scenes.size() > 0)
             {
                 EngineEvent event;
+                event.type = EngineEventType::ChildEnded;
                 event.endedChild = scene;
 
                 _scenes.back()->processEngineEvent(event);
