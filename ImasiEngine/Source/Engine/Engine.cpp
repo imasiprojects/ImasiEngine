@@ -269,4 +269,9 @@ namespace ImasiEngine
         }
         _scenes.clear();
     }
+
+    Window* Engine::getWindow()
+    {
+        return _window;
+    }
 }

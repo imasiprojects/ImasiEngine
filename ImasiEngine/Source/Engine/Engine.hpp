@@ -37,6 +37,8 @@ namespace ImasiEngine
 
         void setupWindow(const std::string& title, const unsigned int style = sf::Style::Close, const unsigned int width = 800, const unsigned int height = 600);
         void run(Scene* newScene);
+
+        Window* getWindow();
     };
 }
 
