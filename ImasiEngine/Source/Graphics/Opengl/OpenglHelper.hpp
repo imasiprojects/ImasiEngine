@@ -1,9 +1,10 @@
 #ifndef IMASIENGINE_OPENGLHELPER_HPP
 #define IMASIENGINE_OPENGLHELPER_HPP
 
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics.hpp>
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+
 #include "Enums/DataType.hpp"
 
 #define NULL_ID 0
@@ -32,8 +33,8 @@ namespace ImasiEngine
 {
     namespace OpenglHelper
     {
-        void beginSfml(sf::RenderWindow* window);
-        void endSfml(sf::RenderWindow* window);
+        void beginSfml(sf::RenderTarget& renderTarget);
+        void endSfml(sf::RenderTarget& renderTarget);
 
         bool checkError(const char* file, const int line, const char* call = nullptr);
 

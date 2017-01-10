@@ -9,14 +9,14 @@ namespace ImasiEngine
 {
     namespace OpenglHelper
     {
-        void beginSfml(sf::RenderWindow* window)
+        void beginSfml(sf::RenderTarget& renderTarget)
         {
-            window->pushGLStates();
+            renderTarget.pushGLStates();
         }
 
-        void endSfml(sf::RenderWindow* window)
+        void endSfml(sf::RenderTarget& renderTarget)
         {
-            window->popGLStates();
+            renderTarget.popGLStates();
         }
 
         bool checkError(const char* file, const int line, const char* call)
