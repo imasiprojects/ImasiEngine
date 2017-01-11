@@ -47,6 +47,7 @@
     <ClCompile Include="Source\Graphics\Buffers\Buffer.cpp" />
     <ClCompile Include="Source\Graphics\Buffers\VertexArray.cpp" />
     <ClCompile Include="Source\Engine\Window.cpp" />
+    <ClCompile Include="Source\Experimental\InputHandler.cpp" />
     <ClCompile Include="Source\Utils\Logger.cpp" />
     <ClCompile Include="Source\Graphics\Programs\VertexShader.cpp" />
   </ItemGroup>
@@ -81,6 +82,7 @@
     <ClInclude Include="Source\Graphics\Textures\Texture.hpp" />
     <ClInclude Include="Source\Graphics\Programs\Shader.hpp" />
     <ClInclude Include="Source\ImasiEngine.hpp" />
+    <ClInclude Include="Source\Experimental\InputHandler.hpp" />
     <ClInclude Include="Source\Resources\Cache.hpp" />
     <ClInclude Include="Source\Resources\ResourceContainer.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\OpenglHelper.hpp" />

@@ -9,7 +9,7 @@
 #include "../../../ImasiEngine/Source/Resources/ResourceContainer.hpp"
 #include "../../../ImasiEngine/Source/Graphics/Cameras/Camera.hpp"
 #include "../Engine/DemoContext.hpp"
-#include "../EngineCandidates/InputHandler.hpp"
+#include "../../../ImasiEngine/Source/Experimental/InputHandler.hpp"
 
 namespace Imasi
 {

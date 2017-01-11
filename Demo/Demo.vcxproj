@@ -27,14 +27,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\EngineCandidates\InputHandler.cpp" />
     <ClCompile Include="Source\Engine\DemoEngine.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Scenes\DemoScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Resources\ResourceCodes.hpp" />
-    <ClInclude Include="Source\EngineCandidates\InputHandler.hpp" />
     <ClInclude Include="Source\Engine\DemoContext.hpp" />
     <ClInclude Include="Source\Engine\DemoEngine.hpp" />
     <ClInclude Include="Source\Scenes\DemoScene.hpp" />
