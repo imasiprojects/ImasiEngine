@@ -23,6 +23,7 @@
     <ClCompile Include="Source\Engine\Engine.cpp" />
     <ClCompile Include="Source\Graphics\Opengl\GLObject.cpp" />
     <ClCompile Include="Source\Graphics\Opengl\OpenglHelper.cpp" />
+    <ClCompile Include="Source\Experimental\InputHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\Logger.hpp" />
@@ -66,5 +67,6 @@
     <ClInclude Include="Source\Graphics\Opengl\Enums\TextureType.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\DataType.hpp" />
     <ClInclude Include="Source\Exceptions\IllegalStateException.hpp" />
+    <ClInclude Include="Source\Experimental\InputHandler.hpp" />
   </ItemGroup>
 </Project>
