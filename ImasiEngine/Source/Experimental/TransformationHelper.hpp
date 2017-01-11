@@ -5,9 +5,9 @@
 
 namespace ImasiEngine
 {
-    namespace Helpers
+    namespace TransformationHelper
     {
-        glm::vec2 lookAt(const glm::vec3& from, const glm::vec3& to);
+        glm::vec2 rotate(const glm::vec3& direction);
     }
 }
 

@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "../../Experimental/Helpers.hpp"
+#include "../../Experimental/TransformationHelper.hpp"
 
 namespace ImasiEngine
 {
@@ -135,7 +135,8 @@ namespace ImasiEngine
         }
         else
         {
-            _rotation = Helpers::lookAt(_position, objective);
+            glm::vec3 direction = glm::normalize(_position - objective);
+            _rotation = TransformationHelper::rotate(direction);
         }
 
         fixAngles();
