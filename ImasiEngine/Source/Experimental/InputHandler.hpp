@@ -1,9 +1,9 @@
-#ifndef IMASIGAME_INPUTHANDLER_HPP
-#define IMASIGAME_INPUTHANDLER_HPP
+#ifndef IMASIENGINE_INPUTHANDLER_HPP
+#define IMASIENGINE_INPUTHANDLER_HPP
 
 #include <SFML/Window/Event.hpp>
 
-namespace Imasi
+namespace ImasiEngine
 {
     class InputHandler
     {

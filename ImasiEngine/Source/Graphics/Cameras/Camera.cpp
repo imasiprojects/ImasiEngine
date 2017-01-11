@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "../../Experimental/Helpers.hpp"
+
 namespace ImasiEngine
 {
     Camera::Camera()
@@ -122,20 +124,18 @@ namespace ImasiEngine
         fixAngles();
     }
 
-    void Camera::lookAt(const glm::vec3& objetive)
+    void Camera::lookAt(const glm::vec3& objective)
     {
         invalidateRotationMatrix();
 
-        if (objetive == _position)
+        if (objective == _position)
         {
             _rotation.x = 0.f;
             _rotation.y = 0.f;
         }
         else
         {
-            glm::vec3 direction = glm::normalize(_position - objetive);
-            _rotation.y = glm::degrees(std::asinf(direction.y));
-            _rotation.x = -glm::degrees(std::atan2f(direction.x, direction.z));
+            _rotation = Helpers::lookAt(_position, objective);
         }
 
         fixAngles();

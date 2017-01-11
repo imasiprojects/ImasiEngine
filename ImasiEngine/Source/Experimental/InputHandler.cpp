@@ -1,6 +1,6 @@
 #include "InputHandler.hpp"
 
-namespace Imasi
+namespace ImasiEngine
 {
     InputHandler::InputHandler()
     {

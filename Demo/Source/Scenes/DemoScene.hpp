@@ -18,7 +18,7 @@ namespace Imasi
     private:
 
         DemoContext* _context;
-        InputHandler _inputHandler;
+        ImasiEngine::InputHandler _inputHandler;
 
         ImasiEngine::Camera _camera;
         
