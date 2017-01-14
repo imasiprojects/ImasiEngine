@@ -176,6 +176,11 @@ namespace ImasiEngine
         EngineEvent event;
         event.type = Start;
 
+        StartSceneEventArgs args;
+        args.window = _window;
+
+        event.startSceneEventArgs = &args;
+
         scene->processEngineEvent(event);
     }
 
