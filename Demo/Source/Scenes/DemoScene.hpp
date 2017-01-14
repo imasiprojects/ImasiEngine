@@ -25,7 +25,7 @@ namespace Imasi
         ImasiEngine::ResourceContainer<> _resourceContainer;
         std::list<ImasiEngine::Entity*> _entities;
 
-        void windowResized();
+        void onWindowResized();
 
     public:
 

@@ -58,7 +58,7 @@ namespace Imasi
         }
     }
 
-    void DemoScene::windowResized()
+    void DemoScene::onWindowResized()
     {
         _camera.setAspectRatio(_window->getSize().x / (float)_window->getSize().y);
 
@@ -87,7 +87,7 @@ namespace Imasi
         }
         else if (event.type == sf::Event::Resized)
         {
-            windowResized();
+            onWindowResized();
         }
     }
 
@@ -98,7 +98,7 @@ namespace Imasi
             case Start:
             {
                 _window = event.startSceneEventArgs->window;
-                windowResized();
+                onWindowResized();
                 break;
             }
 
