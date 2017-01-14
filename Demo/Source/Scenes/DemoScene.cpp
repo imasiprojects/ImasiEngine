@@ -85,6 +85,10 @@ namespace Imasi
                 _camera.lookAt(glm::vec3(0, 0, 0));
             }
         }
+        else if (event.type == sf::Event::Resized)
+        {
+            windowResized();
+        }
     }
 
     void DemoScene::processEngineEvent(const EngineEvent& event)
