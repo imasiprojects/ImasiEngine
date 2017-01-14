@@ -33,7 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Resources\ResourceCodes.hpp" />
-    <ClInclude Include="Source\Engine\DemoContext.hpp" />
     <ClInclude Include="Source\Engine\DemoEngine.hpp" />
     <ClInclude Include="Source\Scenes\DemoScene.hpp" />
   </ItemGroup>
