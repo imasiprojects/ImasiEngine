@@ -12,7 +12,7 @@ namespace ImasiEngine
         , _rotation(0.f, 0.f)
         , _viewMatrix(1.f)
         , _fieldOfView(50.0f)
-        , _aspectRatio(16.0f / 9.0f)
+        , _aspectRatio(1.f)
         , _nearPlaneDistance(0.01f)
         , _farPlaneDistance(1000.0f)
     {
