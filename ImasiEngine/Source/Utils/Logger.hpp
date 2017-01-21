@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <chrono>
+#include <ctime>
 
 namespace ImasiEngine
 {
@@ -24,7 +24,7 @@ namespace ImasiEngine
             #ifdef DEBUG
             {
                 std::ofstream outFile(_filename, std::ios::trunc);
-                const auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+                const auto time = std::time(nullptr);
                 outFile << ctime(&time);
                 outFile << "---------------------------------------------------" << std::endl << std::endl;
                 outFile.close();
