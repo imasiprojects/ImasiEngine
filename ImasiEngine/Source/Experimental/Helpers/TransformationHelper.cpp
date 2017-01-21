@@ -12,7 +12,10 @@ namespace ImasiEngine
             return glm::vec2
             (
                 std::asinf(direction.y),
-                std::atan2(direction.x, direction.z) + glm::pi<float>()
+
+                direction.x == 0 && direction.z == 0
+                    ? 0
+                    : std::atan2(direction.x, direction.z) + glm::pi<float>()
             );
         }
 
