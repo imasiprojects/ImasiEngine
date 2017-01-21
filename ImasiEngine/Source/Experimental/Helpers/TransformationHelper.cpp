@@ -12,7 +12,7 @@ namespace ImasiEngine
         {
             if (direction.y < -1.f || direction.y > 1.f)
             {
-                throw new InvalidArgumentException("direction.y", "Must be in range [-1, 1]");
+                throw InvalidArgumentException("direction.y", "Must be in range [-1, 1]");
             }
 
             return glm::vec2
