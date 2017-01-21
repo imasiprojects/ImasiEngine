@@ -137,9 +137,7 @@ namespace ImasiEngine
         }
         else
         {
-            glm::vec3 direction = glm::normalize(objective - _position);
-            glm::vec2 rotation = TransformationHelper::getRotation(direction);
-
+            glm::vec2 rotation = TransformationHelper::getRotation(_position, objective);
             _rotation = -rotation; // Inverse
         }
 

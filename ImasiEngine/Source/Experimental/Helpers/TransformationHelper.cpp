@@ -15,6 +15,11 @@ namespace ImasiEngine
                 std::atan2(direction.x, direction.z) + glm::pi<float>()
             );
         }
+
+        glm::vec2 getRotation(const glm::vec3& from, const glm::vec3& to)
+        {
+            return getRotation(glm::normalize(to - from));
+        }
     }
 }
 
