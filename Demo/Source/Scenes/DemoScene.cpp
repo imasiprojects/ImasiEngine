@@ -11,7 +11,8 @@ namespace Imasi
 {
     DemoScene::DemoScene()
         : Scene()
-        , _camera(Camera())
+        , _window(nullptr)
+        , _camera()
         , _renderer(new InstancedRenderer(2500))
     {
         int mapSize = 11;
@@ -205,7 +206,7 @@ namespace Imasi
 
             if (mouseMovement.x != 0 || mouseMovement.y != 0)
             {
-                _camera.addRotationOffset(glm::vec2(mouseMovement.x, mouseMovement.y) * 0.15f);
+                _camera.addRotationOffset(glm::vec2(mouseMovement.y, mouseMovement.x) * glm::radians(0.15f));
 
                 sf::Vector2i centerWindow = sf::Vector2i(_window->getSize().x / 2, _window->getSize().y / 2);
                 sf::Mouse::setPosition(centerWindow, *_window);

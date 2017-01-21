@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "../../Experimental/Helpers.hpp"
+#include "../../Experimental/Helpers/TransformationHelper.hpp"
 
 namespace ImasiEngine
 {
@@ -12,7 +12,7 @@ namespace ImasiEngine
         , _rotation(0.f, 0.f)
         , _viewMatrix(1.f)
         , _fieldOfView(50.0f)
-        , _aspectRatio(16.0f / 9.0f)
+        , _aspectRatio(1.f)
         , _nearPlaneDistance(0.01f)
         , _farPlaneDistance(1000.0f)
     {
@@ -52,14 +52,15 @@ namespace ImasiEngine
 
     void Camera::fixAngles()
     {
-        _rotation.x = std::fmod(_rotation.x, 360.0f);
+        _rotation.y = std::fmod(_rotation.y, glm::two_pi<float>());
 
-        if (_rotation.x < 0.0f)
+        if (_rotation.y < 0.0f)
         {
-            _rotation.x += 360.0f;
+            _rotation.y += glm::two_pi<float>();
         }
 
-        _rotation.y = glm::clamp(_rotation.y, -89.99f, 89.99f);
+        static const float limitX = glm::half_pi<float>() - glm::epsilon<float>();
+        _rotation.x = glm::clamp(_rotation.x, -limitX, limitX);
     }
 
     const glm::mat4& Camera::getTranslationMatrix() const
@@ -95,8 +96,10 @@ namespace ImasiEngine
         if (_rotationMatrix.hasInvalidCache())
         {
             glm::mat4 rotationMatrix(1.f);
-            rotationMatrix = glm::rotate(rotationMatrix, glm::radians(_rotation.y), glm::vec3(1.f, 0.f, 0.f));
-            _rotationMatrix = glm::rotate(rotationMatrix, glm::radians(_rotation.x), glm::vec3(0.f, 1.f, 0.f));
+
+            rotationMatrix = glm::rotate(rotationMatrix, _rotation.x, glm::vec3(1.f, 0.f, 0.f));
+            _rotationMatrix = glm::rotate(rotationMatrix, _rotation.y, glm::vec3(0.f, 1.f, 0.f));
+
             _rotationMatrix.validateCache();
         }
 
@@ -135,7 +138,8 @@ namespace ImasiEngine
         }
         else
         {
-            _rotation = Helpers::lookAt(_position, objective);
+            // Inverse rotation
+            _rotation = -TransformationHelper::getRotation(_position, objective);
         }
 
         fixAngles();
