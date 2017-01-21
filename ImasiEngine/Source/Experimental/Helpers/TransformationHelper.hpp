@@ -7,7 +7,7 @@ namespace ImasiEngine
 {
     namespace TransformationHelper
     {
-        glm::vec2 rotate(const glm::vec3& direction);
+        glm::vec2 getRotation(const glm::vec3& direction);
     }
 }
 
