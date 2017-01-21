@@ -9,15 +9,13 @@ using namespace ImasiEngine;
 
 namespace Imasi
 {
-    DemoScene::DemoScene(DemoContext* context)
+    DemoScene::DemoScene()
         : Scene()
-        , _context(context)
         , _camera(Camera())
         , _renderer(new InstancedRenderer(2500))
     {
         int mapSize = 11;
 
-        _camera.setAspectRatio(_context->window->getSize().x / (float)_context->window->getSize().y);
         _camera.setPosition({ mapSize * -0.65f, 3.f, 3.f });
         _camera.lookAt({ mapSize * -0.65f, 0.f, -3.f });
 
@@ -48,10 +46,6 @@ namespace Imasi
                 _entities.push_back(entity);
             }
         }
-
-        sf::Vector2i centerWindow = sf::Vector2i(_context->window->getSize().x / 2, _context->window->getSize().y / 2);
-        sf::Mouse::setPosition(centerWindow, *_context->window);
-        _inputHandler.resetMouseMovement(centerWindow);
     }
 
     DemoScene::~DemoScene()
@@ -62,6 +56,15 @@ namespace Imasi
         {
             delete entity;
         }
+    }
+
+    void DemoScene::onWindowResized()
+    {
+        _camera.setAspectRatio(_window->getSize().x / (float)_window->getSize().y);
+
+        sf::Vector2i centerWindow = sf::Vector2i(_window->getSize().x / 2, _window->getSize().y / 2);
+        sf::Mouse::setPosition(centerWindow, *_window);
+        _inputHandler.resetMouseMovement(centerWindow);
     }
 
     void DemoScene::processWindowEvent(const sf::Event& event)
@@ -82,10 +85,28 @@ namespace Imasi
                 _camera.lookAt(glm::vec3(0, 0, 0));
             }
         }
+        else if (event.type == sf::Event::Resized)
+        {
+            onWindowResized();
+        }
     }
 
     void DemoScene::processEngineEvent(const EngineEvent& event)
     {
+        switch (event.type)
+        {
+            case Start:
+            {
+                _window = event.startSceneEventArgs->window;
+                onWindowResized();
+                break;
+            }
+
+            default:
+            {
+                break;
+            }
+        }
     }
 
     void DemoScene::update(const float deltaTime)
@@ -98,12 +119,12 @@ namespace Imasi
 
         if (elapsedTime >= 1.0)
         {
-            _context->window->setTitle("Fps: " + std::to_string(fps));
+            _window->setTitle("Fps: " + std::to_string(fps));
             fps = 0;
             elapsedTime -= 1.0;
         }
 
-        if (_context->window->hasFocus())
+        if (_window->hasFocus())
         {
             updateFromInput(deltaTime);
         }
@@ -186,8 +207,8 @@ namespace Imasi
             {
                 _camera.addRotationOffset(glm::vec2(mouseMovement.x, mouseMovement.y) * 0.15f);
 
-                sf::Vector2i centerWindow = sf::Vector2i(_context->window->getSize().x / 2, _context->window->getSize().y / 2);
-                sf::Mouse::setPosition(centerWindow, *_context->window);
+                sf::Vector2i centerWindow = sf::Vector2i(_window->getSize().x / 2, _window->getSize().y / 2);
+                sf::Mouse::setPosition(centerWindow, *_window);
 
                 _inputHandler.resetMouseMovement(centerWindow);
             }

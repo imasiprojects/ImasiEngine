@@ -70,5 +70,6 @@
     <ClInclude Include="Source\Exceptions\IllegalStateException.hpp" />
     <ClInclude Include="Source\Experimental\InputHandler.hpp" />
     <ClInclude Include="Source\Experimental\Helpers\TransformationHelper.hpp" />
+    <ClInclude Include="Source\Engine\StartSceneEventArgs.hpp" />
   </ItemGroup>
 </Project>
