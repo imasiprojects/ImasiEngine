@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <glm/gtc/constants.hpp>
+#include "../../Exceptions/InvalidArgumentException.hpp"
 
 namespace ImasiEngine
 {
@@ -9,6 +10,11 @@ namespace ImasiEngine
     {
         glm::vec2 getRotation(const glm::vec3& direction)
         {
+            if (direction.y < -1.f || direction.y > 1.f)
+            {
+                throw new InvalidArgumentException("direction.y", "Must be in range [-1, 1]");
+            }
+
             return glm::vec2
             (
                 std::asinf(direction.y),
