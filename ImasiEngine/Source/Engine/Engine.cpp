@@ -170,6 +170,11 @@ namespace ImasiEngine
 
     void Engine::pushScene(Scene* scene)
     {
+        if (_scenes.size() > 0)
+        {
+            _scenes.back()->setActive(false);
+        }
+
         _scenes.push_back(scene);
         scene->setActive();
 
@@ -193,6 +198,8 @@ namespace ImasiEngine
 
             if (_scenes.size() > 0)
             {
+                _scenes.back()->setActive();
+
                 EngineEvent event;
                 event.type = EngineEventType::ChildEnded;
                 event.endedChild = scene;
