@@ -11,7 +11,7 @@ namespace ImasiEngine
     private:
 
         bool _isMoved;
-        #ifdef DEBUG
+#ifdef DEBUG
         std::tuple<TArgs...> _args;
 
         template<std::size_t... Indices>
@@ -19,38 +19,38 @@ namespace ImasiEngine
         {
             T::unbind(std::get<Indices>(_args)...);
         }
-        #endif
+#endif
 
     public:
 
         inline BindGuard(const T& object, TArgs&&... args)
             : _isMoved(false)
-            #ifdef DEBUG
+#ifdef DEBUG
             , _args(std::make_tuple(std::forward<TArgs>(args)...))
-            #endif
+#endif
         {
             T::bind(object, std::forward<TArgs>(args)...);
         }
 
         BindGuard(const BindGuard&) = delete;
 
-        BindGuard(BindGuard&& other)
+        inline BindGuard(BindGuard&& other)
             : _isMoved(false)
-            #ifdef DEBUG
+#ifdef DEBUG
             , _args(std::move(other._args))
-            #endif
+#endif
         {
             other._isMoved = true;
         }
 
         inline virtual ~BindGuard()
         {
-            #ifdef DEBUG
+#ifdef DEBUG
             if (!_isMoved)
             {
                 unbind(std::index_sequence_for<TArgs...>());
             }
-            #endif
+#endif
         }
     };
 }
