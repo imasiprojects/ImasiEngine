@@ -8,9 +8,17 @@ namespace ImasiEngine
         typename... TArgs>
     class BindGuard
     {
+    private:
+
         bool _isMoved;
         #ifdef DEBUG
         std::tuple<TArgs...> _args;
+
+        template<std::size_t... Indices>
+        inline constexpr void unbind(std::index_sequence<Indices...>) const
+        {
+            T::unbind(std::get<Indices>(_args)...);
+        }
         #endif
 
     public:
@@ -35,21 +43,15 @@ namespace ImasiEngine
             other._isMoved = true;
         }
 
-        #ifdef DEBUG
         inline virtual ~BindGuard()
         {
+            #ifdef DEBUG
             if (!_isMoved)
             {
                 unbind(std::index_sequence_for<TArgs...>());
             }
+            #endif
         }
-
-        template<std::size_t... Is>
-        constexpr void unbind(std::index_sequence<Is...>) const
-        {
-            T::unbind(std::get<Is>(_args)...);
-        }
-        #endif
     };
 }
 
