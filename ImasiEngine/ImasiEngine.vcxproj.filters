@@ -71,5 +71,6 @@
     <ClInclude Include="Source\Experimental\InputHandler.hpp" />
     <ClInclude Include="Source\Experimental\Helpers\TransformationHelper.hpp" />
     <ClInclude Include="Source\Engine\StartSceneEventArgs.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\BindGuard.hpp" />
   </ItemGroup>
 </Project>

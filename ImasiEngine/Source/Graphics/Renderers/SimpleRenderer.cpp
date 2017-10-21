@@ -80,21 +80,16 @@ namespace ImasiEngine
 
     void SimpleRenderer::render(const glm::mat4& VP)
     {
-        BIND(Program, _program);
-        {
-            for (Entity* entity : _entities)
-            {
-                _program->setUniform("MVP", VP * entity->getModelMatrix());
+        auto programBindGuard = OpenglHelper::makeBindGuard(*_program);
 
-                BIND(Texture, entity->getModel()->material->diffuseMap, 0);
-                {
-                    _vertexArray->attachMesh(entity->getModel()->mesh);
-                    _vertexArray->render();
-                }
-                UNBIND(Texture, 0);
-            }
+        for (Entity* entity : _entities)
+        {
+            _program->setUniform("MVP", VP * entity->getModelMatrix());
+
+            auto textureBindGuard = OpenglHelper::makeBindGuard(*entity->getModel()->material->diffuseMap, 0);
+            _vertexArray->attachMesh(entity->getModel()->mesh);
+            _vertexArray->render();
         }
-        UNBIND(Program);
     }
 
     void SimpleRenderer::render(Camera& camera)

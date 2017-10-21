@@ -26,7 +26,7 @@ namespace ImasiEngine
         
     public:
 
-        static void bind(VertexArray* vertexArray);
+        static void bind(const VertexArray& vertexArray);
         static void unbind();
 
         VertexArray();

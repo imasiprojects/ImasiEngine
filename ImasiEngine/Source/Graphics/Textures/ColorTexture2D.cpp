@@ -45,13 +45,13 @@ namespace ImasiEngine
 
         createGLObject();
 
-        BIND(Texture, this);
         {
+            auto textureBindGuard = OpenglHelper::makeBindGuard(*this);
+
             GL(glTexImage2D(type, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr));
             GL(glTexParameteri(type, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
             GL(glTexParameteri(type, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
         }
-        UNBIND(Texture);
 
         _width = width;
         _height = height;
@@ -71,8 +71,9 @@ namespace ImasiEngine
 
         createGLObject();
 
-        BIND(Texture, this);
         {
+            auto textureBindGuard = OpenglHelper::makeBindGuard(*this);
+
             GL(glTexImage2D(type, 0, GL_RGBA, imageSize.x, imageSize.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr()));
             GL(glTexParameteri(type, GL_TEXTURE_WRAP_S, GL_REPEAT));
             GL(glTexParameteri(type, GL_TEXTURE_WRAP_T, GL_REPEAT));
@@ -80,7 +81,6 @@ namespace ImasiEngine
             GL(glTexParameteri(type, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
             GL(glGenerateMipmap(type));
         }
-        UNBIND(Texture);
 
         _width = imageSize.x;
         _height = imageSize.y;

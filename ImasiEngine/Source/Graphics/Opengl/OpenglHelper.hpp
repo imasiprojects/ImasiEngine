@@ -5,11 +5,10 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
+#include "BindGuard.hpp"
 #include "Enums/DataType.hpp"
 
 #define NULL_ID 0
-
-#define BIND(glObjectType, glObject, ...) glObjectType::bind(glObject, __VA_ARGS__)
 
 #ifdef DEBUG
 
@@ -17,15 +16,11 @@
 
     #define GL_CHECK() do {} while (ImasiEngine::OpenglHelper::checkError(__FILE__, __LINE__))
 
-    #define UNBIND(glObjectType, ...) glObjectType::unbind(__VA_ARGS__)
-
 #else
 
     #define GL(glCall) glCall
 
     #define GL_CHECK() 
-
-    #define UNBIND(glObjectType, ...) 
 
 #endif
 
@@ -33,6 +28,12 @@ namespace ImasiEngine
 {
     namespace OpenglHelper
     {
+        template <typename T, typename... TArgs, typename = typename std::enable_if<!std::is_pointer<T>::value>::type>
+        inline constexpr BindGuard<T, TArgs...> makeBindGuard(const T& object, TArgs&&... args)
+        {
+            return std::move(BindGuard<T, TArgs...>(object, std::forward<TArgs>(args)...));
+        }
+
         void beginSfml(sf::RenderTarget& renderTarget);
         void endSfml(sf::RenderTarget& renderTarget);
 

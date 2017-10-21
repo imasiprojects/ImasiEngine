@@ -6,9 +6,9 @@
 
 namespace ImasiEngine
 {
-    void IndexBuffer::bind(IndexBuffer* buffer)
+    void IndexBuffer::bind(const IndexBuffer& buffer)
     {
-        GL(glBindBuffer(GLEnums::BufferType::Index, buffer->getGLObjectId()));
+        GL(glBindBuffer(GLEnums::BufferType::Index, buffer.getGLObjectId()));
     }
 
     void IndexBuffer::unbind()

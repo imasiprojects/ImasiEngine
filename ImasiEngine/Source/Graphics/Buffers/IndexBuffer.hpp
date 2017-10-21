@@ -10,7 +10,7 @@ namespace ImasiEngine
     {
     public:
 
-        static void bind(IndexBuffer* buffer);
+        static void bind(const IndexBuffer& buffer);
         static void unbind();
 
         template<
