@@ -28,7 +28,7 @@ namespace ImasiEngine
 {
     namespace OpenglHelper
     {
-        template <typename T, typename... TArgs, typename = typename std::enable_if<!std::is_pointer<T>::value>::type>
+        template <typename T, typename... TArgs>
         inline constexpr BindGuard<T, TArgs...> makeBindGuard(const T& object, TArgs&&... args)
         {
             return std::move(BindGuard<T, TArgs...>(object, std::forward<TArgs>(args)...));
