@@ -29,7 +29,7 @@ namespace ImasiEngine
         BindGuard(const BindGuard&) = delete;
 
 #ifndef DEBUG
-        inline BindGuard(BindGuard&& other) = default;
+        inline BindGuard(BindGuard&& other) noexcept = default;
 #else
         inline BindGuard(BindGuard&& other)
             : _isMoved(false)
