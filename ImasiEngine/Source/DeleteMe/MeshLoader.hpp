@@ -61,9 +61,9 @@ static ImasiEngine::Mesh* loadMesh(const std::string& path)
     }
 
     ImasiEngine::Mesh* mesh = new ImasiEngine::Mesh();
-    mesh->setIndexBuffer(ImasiEngine::IndexBuffer(indices.data(), (int)(indices.size() / 3), 3));
-    mesh->setVertexBuffer(ImasiEngine::ArrayBuffer(vertices.data(), vertices.size()));
-    mesh->setUVBuffer(ImasiEngine::ArrayBuffer(uvs.data(), uvs.size()));
+    mesh->setIndexBuffer(ImasiEngine::IndexBuffer(indices.data(), (GLsizei)(indices.size() / 3), 3));
+    mesh->setVertexBuffer(ImasiEngine::ArrayBuffer(vertices.data(), (GLsizei)vertices.size()));
+    mesh->setUVBuffer(ImasiEngine::ArrayBuffer(uvs.data(), (GLsizei)uvs.size()));
 
     return mesh;
     // The "scene" pointer will be deleted automatically by "importer"

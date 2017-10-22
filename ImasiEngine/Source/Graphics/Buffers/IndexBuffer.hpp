@@ -20,7 +20,7 @@ namespace ImasiEngine
                 || std::is_same<unsigned short, T>::value
             >::type
         >
-        IndexBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, GLEnums::BufferUsage bufferUsage = GLEnums::BufferUsage::StaticDraw)
+        IndexBuffer(T* data, GLsizei componentCount, GLsizei componentMemberCount, GLEnums::BufferUsage bufferUsage = GLEnums::BufferUsage::StaticDraw)
             : Buffer(GLEnums::BufferType::Index, bufferUsage, componentCount, componentMemberCount, data)
         {
         }

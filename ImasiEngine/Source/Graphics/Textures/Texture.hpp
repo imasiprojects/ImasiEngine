@@ -1,7 +1,7 @@
 #ifndef IMASIENGINE_TEXTURE_HPP
 #define IMASIENGINE_TEXTURE_HPP
 
-#include <map>
+#include <unordered_map>
 
 #include "../Opengl/GLObject.hpp"
 #include "../Opengl/Enums/TextureType.hpp"
@@ -13,7 +13,7 @@ namespace ImasiEngine
     {
     protected:
 
-        static std::map<unsigned int, GLEnums::TextureType> _indexTypes;
+        static std::unordered_map<unsigned int, GLEnums::TextureType> _indexTypes;
 
         Texture();
         Texture(const Texture&) = delete;

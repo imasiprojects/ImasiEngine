@@ -24,7 +24,7 @@ namespace ImasiEngine
                 || std::is_same<T, unsigned short>::value
             >::type
         >
-        ArrayBuffer(T* data, unsigned int componentCount, unsigned int componentMemberCount, GLEnums::BufferUsage bufferUsage = GLEnums::BufferUsage::StaticDraw)
+        ArrayBuffer(T* data, GLsizei componentCount, GLsizei componentMemberCount, GLEnums::BufferUsage bufferUsage = GLEnums::BufferUsage::StaticDraw)
             : Buffer(GLEnums::BufferType::Array, bufferUsage, componentCount, componentMemberCount, data)
         {
         }
@@ -40,7 +40,7 @@ namespace ImasiEngine
                 || std::is_same<T, glm::mat4>::value
             >::type
         >
-        ArrayBuffer(T* data, unsigned int componentCount, GLEnums::BufferUsage bufferUsage = GLEnums::BufferUsage::StaticDraw)
+        ArrayBuffer(T* data, GLsizei componentCount, GLEnums::BufferUsage bufferUsage = GLEnums::BufferUsage::StaticDraw)
             : Buffer(GLEnums::BufferType::Array, bufferUsage, componentCount, data)
         {
         }

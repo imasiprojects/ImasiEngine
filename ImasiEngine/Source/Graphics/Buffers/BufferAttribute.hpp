@@ -5,7 +5,7 @@ namespace ImasiEngine
 {
     struct BufferAttribute
     {
-        unsigned int memberCount;
+        GLsizei memberCount;
         unsigned short offset = 0;
     };
 }

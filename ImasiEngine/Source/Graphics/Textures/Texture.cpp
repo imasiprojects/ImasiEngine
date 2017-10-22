@@ -6,7 +6,7 @@
 
 namespace ImasiEngine
 {
-    std::map<unsigned int, GLEnums::TextureType> Texture::_indexTypes;
+    std::unordered_map<unsigned int, GLEnums::TextureType> Texture::_indexTypes;
 
     void Texture::bind(const Texture* texture, unsigned int index)
     {

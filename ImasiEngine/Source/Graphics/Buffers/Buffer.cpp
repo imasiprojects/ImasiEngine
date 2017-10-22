@@ -65,9 +65,9 @@ namespace ImasiEngine
 
     void Buffer::createAttributes()
     {
-        static const int maxComponentMemberCount = 4;
-        int componentMemberCount = _componentMemberCount;
-        unsigned short offset = 0;
+        static const GLsizei maxComponentMemberCount = 4;
+        GLsizei componentMemberCount = _componentMemberCount;
+        GLsizei offset = 0;
 
         while (componentMemberCount > 0)
         {
@@ -82,7 +82,7 @@ namespace ImasiEngine
         }
     }
 
-    void Buffer::copyFrom(const Buffer* buffer, unsigned int componentOffset, unsigned int componentOffsetFrom, unsigned int componentCount)
+    void Buffer::copyFrom(const Buffer* buffer, GLsizei componentOffset, GLsizei componentOffsetFrom, GLsizei componentCount)
     {
         if (_glComponentType != buffer->getGLComponentType())
         {
@@ -129,7 +129,7 @@ namespace ImasiEngine
         GL(glBindBuffer(GLEnums::BufferType::CopyWrite, NULL_ID));
     }
 
-    void Buffer::read(unsigned int componentOffset, unsigned int componentCount, void* outData) const
+    void Buffer::read(GLsizei componentOffset, GLsizei componentCount, void* outData) const
     {
         if (componentOffset >= _componentCount)
         {
@@ -146,7 +146,7 @@ namespace ImasiEngine
         GL(glBindBuffer(_glBufferType, NULL_ID));
     }
 
-    void Buffer::resize(unsigned int componentCount)
+    void Buffer::resize(GLsizei componentCount)
     {
         unsigned int minComponentCount = std::min(_componentCount, componentCount);
 
@@ -173,27 +173,27 @@ namespace ImasiEngine
         return Buffer(*this, bufferUsage);
     }
 
-    unsigned int Buffer::getGLComponentType() const
+    GLenum Buffer::getGLComponentType() const
     {
         return _glComponentType;
     }
 
-    unsigned int Buffer::getComponentCount() const
+    GLsizei Buffer::getComponentCount() const
     {
         return _componentCount;
     }
 
-    unsigned int Buffer::getComponentSize() const
+    GLsizei Buffer::getComponentSize() const
     {
         return _componentSize;
     }
 
-    unsigned int Buffer::getComponentMemberCount() const
+    GLsizei Buffer::getComponentMemberCount() const
     {
         return _componentMemberCount;
     }
 
-    unsigned int Buffer::getBufferUsage() const
+    GLsizei Buffer::getBufferUsage() const
     {
         return _bufferUsage;
     }

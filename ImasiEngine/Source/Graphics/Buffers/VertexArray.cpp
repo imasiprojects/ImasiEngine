@@ -96,7 +96,7 @@ namespace ImasiEngine
                 for (auto& attribute : buffer->getAttributes())
                 {
                     GL(glEnableVertexAttribArray(type + offset));
-                    GL(glVertexAttribPointer(type + offset, attribute.memberCount, buffer->getGLComponentType(), false, buffer->getComponentSize(), (void*)attribute.offset));
+                    GL(glVertexAttribPointer(type + offset, attribute.memberCount, buffer->getGLComponentType(), false, buffer->getComponentSize(), (GLvoid*)attribute.offset));
                     GL(glVertexAttribDivisor(type + offset, divisor));
 
                     offset++;

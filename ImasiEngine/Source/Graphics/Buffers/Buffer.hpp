@@ -23,10 +23,10 @@ namespace ImasiEngine
 
         GLEnums::BufferType _glBufferType;
         GLEnums::DataType _glComponentType;
-        unsigned int _componentSize;
-        unsigned int _componentCount;
-        unsigned int _componentMemberCount;
-        unsigned int _componentMemberSize;
+        GLsizei _componentSize;
+        GLsizei _componentCount;
+        GLsizei _componentMemberCount;
+        GLsizei _componentMemberSize;
         GLEnums::BufferUsage _bufferUsage;
         std::list<BufferAttribute> _attributes;
 
@@ -46,7 +46,7 @@ namespace ImasiEngine
                 || std::is_same<T, unsigned short>::value
             >::type
         >
-        Buffer(GLEnums::BufferType glBufferType, GLEnums::BufferUsage bufferUsage, unsigned int componentCount, unsigned int componentMemberCount, T* data)
+        Buffer(GLEnums::BufferType glBufferType, GLEnums::BufferUsage bufferUsage, GLsizei componentCount, GLsizei componentMemberCount, T* data)
             : GLObject()
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
@@ -83,7 +83,7 @@ namespace ImasiEngine
                 || std::is_same<T, glm::mat4>::value
             >::type
         >
-        Buffer(GLEnums::BufferType glBufferType, GLEnums::BufferUsage bufferUsage, unsigned int componentCount, T* data)
+        Buffer(GLEnums::BufferType glBufferType, GLEnums::BufferUsage bufferUsage, GLsizei componentCount, T* data)
             : GLObject()
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
@@ -155,7 +155,7 @@ namespace ImasiEngine
                 || std::is_same<T, glm::mat4>::value
             >::type
         >
-        void update(unsigned int componentOffset, unsigned int componentCount, T* data)
+        void update(GLsizei componentOffset, GLsizei componentCount, T* data)
         {
             if (OpenglHelper::getGLType<T>() != _glComponentType)
             {
@@ -182,18 +182,18 @@ namespace ImasiEngine
             GL(glBindBuffer(_glBufferType, NULL_ID));
         }
 
-        void read(unsigned int componentOffset, unsigned int componentCount, void* outData) const;
-        void copyFrom(const Buffer* buffer, unsigned int componentOffset, unsigned int componentOffsetFrom, unsigned int componentCount);
-        void resize(unsigned int componentCount);
+        void read(GLsizei componentOffset, GLsizei componentCount, void* outData) const;
+        void copyFrom(const Buffer* buffer, GLsizei componentOffset, GLsizei componentOffsetFrom, GLsizei componentCount);
+        void resize(GLsizei componentCount);
 
         Buffer clone() const;
         Buffer clone(GLEnums::BufferUsage bufferUsage) const;
 
-        unsigned int getGLComponentType() const;
-        unsigned int getComponentCount() const;
-        unsigned int getComponentSize() const;
-        unsigned int getComponentMemberCount() const;
-        unsigned int getBufferUsage() const;
+        GLenum getGLComponentType() const;
+        GLsizei getComponentCount() const;
+        GLsizei getComponentSize() const;
+        GLsizei getComponentMemberCount() const;
+        GLsizei getBufferUsage() const;
         const std::list<BufferAttribute>& getAttributes() const;
     };
 }
