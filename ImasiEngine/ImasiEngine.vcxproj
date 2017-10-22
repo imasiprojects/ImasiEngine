@@ -66,6 +66,7 @@
     <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.hpp" />
     <ClInclude Include="Source\Graphics\Cameras\Camera.hpp" />
     <ClInclude Include="Source\Graphics\Entities\Entity.hpp" />
+    <ClInclude Include="Source\Graphics\Opengl\BindGuard.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\BufferUsage.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\DrawMode.hpp" />
     <ClInclude Include="Source\Graphics\Opengl\Enums\ShaderType.hpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="Source\Graphics\Buffers\ArrayBufferType.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\VertexArray.hpp" />
     <ClInclude Include="Source\Engine\Window.hpp" />
+    <ClInclude Include="Source\Utils\Apply.hpp" />
     <ClInclude Include="Source\Utils\Logger.hpp" />
     <ClInclude Include="Source\Graphics\Programs\VertexShader.hpp" />
   </ItemGroup>

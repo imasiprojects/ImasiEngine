@@ -7,9 +7,9 @@
 
 namespace ImasiEngine
 {
-    void Program::bind(const Program* program)
+    void Program::bind(const Program& program)
     {
-        GL(glUseProgram(program->getGLObjectId()));
+        GL(glUseProgram(program.getGLObjectId()));
     }
 
     void Program::unbind()

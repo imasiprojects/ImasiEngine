@@ -29,7 +29,7 @@ namespace ImasiEngine
 
     public:
 
-        static void bind(const Program* program);
+        static void bind(const Program& program);
         static void unbind();
 
         Program();

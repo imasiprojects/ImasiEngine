@@ -5,6 +5,7 @@
 #include "../Programs/VertexShader.hpp"
 #include "../Programs/FragmentShader.hpp"
 #include "../Models/Model.hpp"
+#include "../Opengl/BindGuard.hpp"
 
 namespace ImasiEngine
 {
@@ -154,27 +155,21 @@ namespace ImasiEngine
 
         if (finalOptimization.size() > 0)
         {
-            BIND(Program, _program);
+            auto programBindGuard = OpenglHelper::makeBindGuard(*_program);
+            _program->setUniform("VP", VP);
+
+            for (auto& optimizedEntity : finalOptimization)
             {
-                _program->setUniform("VP", VP);
+                auto& model = optimizedEntity.first;
+                auto textureBindGuard = OpenglHelper::makeBindGuard(*model->material->diffuseMap, 0);
 
-                for (auto& optimizedEntity : finalOptimization)
+                for (auto& arrayBuffer : optimizedEntity.second)
                 {
-                    auto& model = optimizedEntity.first;
-
-                    BIND(Texture, model->material->diffuseMap, 0);
-                    {
-                        for (auto& arrayBuffer : optimizedEntity.second)
-                        {
-                            _vertexArray->attachMesh(model->mesh);
-                            _vertexArray->attachArrayBuffer(arrayBuffer, ModelMatrix, 1);
-                            _vertexArray->render();
-                        }
-                    }
-                    UNBIND(Texture, 0);
+                    _vertexArray->attachMesh(model->mesh);
+                    _vertexArray->attachArrayBuffer(arrayBuffer, ModelMatrix, 1);
+                    _vertexArray->render();
                 }
             }
-            UNBIND(Program);
         }
 
         for (auto& pair : finalOptimization)

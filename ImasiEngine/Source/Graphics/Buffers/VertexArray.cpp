@@ -8,9 +8,9 @@
 
 namespace ImasiEngine
 {
-    void VertexArray::bind(VertexArray* vertexArray)
+    void VertexArray::bind(const VertexArray& vertexArray)
     {
-        GL(glBindVertexArray(vertexArray->getGLObjectId()));
+        GL(glBindVertexArray(vertexArray.getGLObjectId()));
     }
 
     void VertexArray::unbind()
@@ -87,24 +87,20 @@ namespace ImasiEngine
 
     void VertexArray::attachArrayBuffer(ArrayBuffer* buffer, ArrayBufferType type, unsigned int divisor)
     {
-        BIND(VertexArray, this);
         {
-            BIND(ArrayBuffer, buffer);
+            auto vertexArrayBindGuard = OpenglHelper::makeBindGuard(*this);
+            auto arrayBufferBindGuard = OpenglHelper::makeBindGuard(*buffer);
+            unsigned int offset = 0;
+
+            for (auto& attribute : buffer->getAttributes())
             {
-                unsigned int offset = 0;
+                GL(glEnableVertexAttribArray(type + offset));
+                GL(glVertexAttribPointer(type + offset, attribute.memberCount, buffer->getGLComponentType(), false, buffer->getComponentSize(), (void*)attribute.offset));
+                GL(glVertexAttribDivisor(type + offset, divisor));
 
-                for (auto& attribute : buffer->getAttributes())
-                {
-                    GL(glEnableVertexAttribArray(type + offset));
-                    GL(glVertexAttribPointer(type + offset, attribute.memberCount, buffer->getGLComponentType(), false, buffer->getComponentSize(), (void*)attribute.offset));
-                    GL(glVertexAttribDivisor(type + offset, divisor));
-
-                    offset++;
-                }
+                offset++;
             }
-            UNBIND(ArrayBuffer);
         }
-        UNBIND(VertexArray);
 
         _arrayBuffers[type] = buffer;
     }
@@ -120,14 +116,14 @@ namespace ImasiEngine
 
         if (bufferIterator != _arrayBuffers.end())
         {
-            BIND(VertexArray, this);
             {
+                auto bindGuard = OpenglHelper::makeBindGuard(*this);
+
                 for (unsigned int i = 0; i < bufferIterator->second->getAttributes().size(); i++)
                 {
                     GL(glDisableVertexAttribArray(type + i));
                 }
             }
-            UNBIND(VertexArray);
 
             _arrayBuffers.erase(bufferIterator);
         }
@@ -145,22 +141,17 @@ namespace ImasiEngine
 
         if (_indexBuffer != nullptr)
         {
-            BIND(VertexArray, this);
+            auto vertexArrayBindGuard = OpenglHelper::makeBindGuard(*this);
+            auto indexBufferBindGuard = OpenglHelper::makeBindGuard(*_indexBuffer);
+
+            if (modelMatrixBuffer != nullptr)
             {
-                BIND(IndexBuffer, _indexBuffer);
-                {
-                    if (modelMatrixBuffer != nullptr)
-                    {
-                        glDrawElementsInstanced(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getComponentMemberCount(), _indexBuffer->getGLComponentType(), nullptr, modelMatrixBuffer->getComponentCount());
-                    }
-                    else
-                    {
-                        glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getComponentMemberCount(), _indexBuffer->getGLComponentType(), nullptr);
-                    }
-                }
-                UNBIND(IndexBuffer);
+                glDrawElementsInstanced(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getComponentMemberCount(), _indexBuffer->getGLComponentType(), nullptr, modelMatrixBuffer->getComponentCount());
             }
-            UNBIND(VertexArray);
+            else
+            {
+                glDrawElements(drawMode, _indexBuffer->getComponentCount() * _indexBuffer->getComponentMemberCount(), _indexBuffer->getGLComponentType(), nullptr);
+            }
         }
         else
         {
@@ -168,19 +159,16 @@ namespace ImasiEngine
             if (vertexBufferIterator != _arrayBuffers.end())
             {
                 ArrayBuffer* vertexBuffer = vertexBufferIterator->second;
+                auto bindGuard = OpenglHelper::makeBindGuard(*this);
 
-                BIND(VertexArray, this);
+                if (modelMatrixBuffer != nullptr)
                 {
-                    if (modelMatrixBuffer != nullptr)
-                    {
-                        glDrawElementsInstanced(drawMode, vertexBuffer->getComponentCount() * vertexBuffer->getComponentMemberCount(), vertexBuffer->getGLComponentType(), nullptr, modelMatrixBuffer->getComponentCount());
-                    }
-                    else
-                    {
-                        glDrawArrays(drawMode, 0, vertexBuffer->getComponentCount() * vertexBuffer->getComponentMemberCount());
-                    }
+                    glDrawElementsInstanced(drawMode, vertexBuffer->getComponentCount() * vertexBuffer->getComponentMemberCount(), vertexBuffer->getGLComponentType(), nullptr, modelMatrixBuffer->getComponentCount());
                 }
-                UNBIND(VertexArray);
+                else
+                {
+                    glDrawArrays(drawMode, 0, vertexBuffer->getComponentCount() * vertexBuffer->getComponentMemberCount());
+                }
             }
             else
             {

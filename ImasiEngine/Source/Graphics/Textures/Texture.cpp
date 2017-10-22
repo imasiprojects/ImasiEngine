@@ -8,14 +8,14 @@ namespace ImasiEngine
 {
     std::map<unsigned int, GLEnums::TextureType> Texture::_indexTypes;
 
-    void Texture::bind(const Texture* texture, unsigned int index)
+    void Texture::bind(const Texture& texture, unsigned int index)
     {
-        GLEnums::TextureType type = texture->getGLTextureType();
+        GLEnums::TextureType type = texture.getGLTextureType();
 
         _indexTypes[index] = type;
 
         GL(glActiveTexture(GL_TEXTURE0 + index));
-        GL(glBindTexture(type, texture->getGLObjectId()));
+        GL(glBindTexture(type, texture.getGLObjectId()));
     }
 
     void Texture::unbind(unsigned int index)
