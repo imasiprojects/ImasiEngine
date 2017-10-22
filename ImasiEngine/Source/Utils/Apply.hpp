@@ -1,30 +1,26 @@
 #ifndef IMASIENGINE_APPLY_HPP
 #define IMASIENGINE_APPLY_HPP
 
-#include <iostream>
+#include <tuple>
+#include <tuple>
 
 namespace ImasiEngine
 {
-    template<
-        typename TFunc,
-        typename... TTuple,
-        std::size_t... Indices>
-        inline constexpr decltype(auto) apply_sequence(
-            const TFunc& functor,
-            const std::tuple<TTuple...>& tuple,
-            const std::index_sequence<Indices...>&)
+    template<typename TFunc, typename... TTuple, size_t... Indices>
+    constexpr decltype(auto) applySequence(
+        const TFunc& functor,
+        const std::tuple<TTuple...>& tuple,
+        const std::index_sequence<Indices...>&)
     {
         return functor(std::get<Indices>(tuple)...);
     }
 
-    template<
-        typename TFunc,
-        typename... TTuple>
-        inline constexpr decltype(auto) apply_tuple(
-            const TFunc& functor,
-            const std::tuple<TTuple...>& tuple)
+    template<typename TFunc, typename... TTuple>
+    constexpr decltype(auto) applyTuple(
+        const TFunc& functor,
+        const std::tuple<TTuple...>& tuple)
     {
-        return apply_sequence(functor, tuple, std::index_sequence_for<TTuple...>());
+        return applySequence(functor, tuple, std::index_sequence_for<TTuple...>());
     }
 }
 
