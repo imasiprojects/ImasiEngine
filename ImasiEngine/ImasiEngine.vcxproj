@@ -96,6 +96,7 @@
     <ClInclude Include="Source\Graphics\Buffers\ArrayBufferType.hpp" />
     <ClInclude Include="Source\Graphics\Buffers\VertexArray.hpp" />
     <ClInclude Include="Source\Engine\Window.hpp" />
+    <ClInclude Include="Source\Utils\Apply.hpp" />
     <ClInclude Include="Source\Utils\Logger.hpp" />
     <ClInclude Include="Source\Graphics\Programs\VertexShader.hpp" />
   </ItemGroup>

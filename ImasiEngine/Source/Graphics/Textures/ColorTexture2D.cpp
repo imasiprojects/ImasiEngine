@@ -46,7 +46,7 @@ namespace ImasiEngine
         createGLObject();
 
         {
-            auto textureBindGuard = OpenglHelper::makeBindGuard(*this);
+            auto textureBindGuard = OpenglHelper::makeBindGuard(*this, 0);
 
             GL(glTexImage2D(type, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr));
             GL(glTexParameteri(type, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
@@ -72,7 +72,7 @@ namespace ImasiEngine
         createGLObject();
 
         {
-            auto textureBindGuard = OpenglHelper::makeBindGuard(*this);
+            auto textureBindGuard = OpenglHelper::makeBindGuard(*this, 0);
 
             GL(glTexImage2D(type, 0, GL_RGBA, imageSize.x, imageSize.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr()));
             GL(glTexParameteri(type, GL_TEXTURE_WRAP_S, GL_REPEAT));

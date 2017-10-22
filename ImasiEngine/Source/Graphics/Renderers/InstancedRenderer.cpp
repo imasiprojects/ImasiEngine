@@ -161,7 +161,7 @@ namespace ImasiEngine
             for (auto& optimizedEntity : finalOptimization)
             {
                 auto& model = optimizedEntity.first;
-                auto textureBindGuard = OpenglHelper::makeBindGuard(*model->material->diffuseMap);
+                auto textureBindGuard = OpenglHelper::makeBindGuard(*model->material->diffuseMap, 0);
 
                 for (auto& arrayBuffer : optimizedEntity.second)
                 {

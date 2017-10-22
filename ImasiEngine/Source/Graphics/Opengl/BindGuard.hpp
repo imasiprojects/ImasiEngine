@@ -1,6 +1,8 @@
 #ifndef IMASIENGINE_BINDGUARD_HPP
 #define IMASIENGINE_BINDGUARD_HPP
 
+#include "../../Utils/Apply.hpp"
+
 namespace ImasiEngine
 {
     template<typename T, typename... TArgs>
@@ -11,12 +13,6 @@ namespace ImasiEngine
 #ifdef DEBUG
         bool _isMoved;
         std::tuple<TArgs...> _args;
-
-        template<std::size_t... Indices>
-        inline constexpr void unbind(std::index_sequence<Indices...>) const
-        {
-            T::unbind(std::get<Indices>(_args)...);
-        }
 #endif
 
     public:
@@ -46,7 +42,7 @@ namespace ImasiEngine
         {
             if (!_isMoved)
             {
-                unbind(std::index_sequence_for<TArgs...>());
+                ImasiEngine::apply_tuple(T::unbind, _args);
             }
         }
 #endif

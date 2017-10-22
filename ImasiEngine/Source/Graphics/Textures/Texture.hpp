@@ -25,8 +25,8 @@ namespace ImasiEngine
 
     public:
 
-        static void bind(const Texture& texture, unsigned int index = 0);
-        static void unbind(unsigned int index = 0);
+        static void bind(const Texture& texture, unsigned int index);
+        static void unbind(unsigned int index);
 
         virtual GLEnums::TextureType getGLTextureType() const = 0;
     };
