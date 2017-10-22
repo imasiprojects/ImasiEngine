@@ -46,7 +46,7 @@ namespace ImasiEngine
                 || std::is_same<T, unsigned short>::value
             >::type
         >
-        Buffer(GLEnums::BufferType glBufferType, GLEnums::BufferUsage bufferUsage, GLsizei componentCount, GLsizei componentMemberCount, T* data)
+        Buffer(const GLEnums::BufferType glBufferType, const GLEnums::BufferUsage bufferUsage, const GLsizei componentCount, const GLsizei componentMemberCount, const T* data)
             : GLObject()
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
@@ -83,7 +83,7 @@ namespace ImasiEngine
                 || std::is_same<T, glm::mat4>::value
             >::type
         >
-        Buffer(GLEnums::BufferType glBufferType, GLEnums::BufferUsage bufferUsage, GLsizei componentCount, T* data)
+        Buffer(const GLEnums::BufferType glBufferType, const GLEnums::BufferUsage bufferUsage, const GLsizei componentCount, const T* data)
             : GLObject()
             , _glBufferType(glBufferType)
             , _componentCount(componentCount)
@@ -114,6 +114,10 @@ namespace ImasiEngine
             else if (std::is_same<T, glm::mat4>::value)
             {
                 _componentMemberCount = 16;
+            }
+            else
+            {
+                throw InvalidArgumentException("componentMemberCount", "Unable to deduce component member count");
             }
 
             _glComponentType = GLEnums::DataType::Float;
@@ -189,7 +193,7 @@ namespace ImasiEngine
         Buffer clone() const;
         Buffer clone(GLEnums::BufferUsage bufferUsage) const;
 
-        GLenum getGLComponentType() const;
+        GLEnums::DataType getGLComponentType() const;
         GLsizei getComponentCount() const;
         GLsizei getComponentSize() const;
         GLsizei getComponentMemberCount() const;

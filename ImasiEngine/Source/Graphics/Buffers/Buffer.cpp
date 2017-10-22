@@ -173,7 +173,7 @@ namespace ImasiEngine
         return Buffer(*this, bufferUsage);
     }
 
-    GLenum Buffer::getGLComponentType() const
+    GLEnums::DataType Buffer::getGLComponentType() const
     {
         return _glComponentType;
     }
