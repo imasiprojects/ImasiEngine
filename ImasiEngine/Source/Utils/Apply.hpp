@@ -2,7 +2,6 @@
 #define IMASIENGINE_APPLY_HPP
 
 #include <tuple>
-#include <tuple>
 
 namespace ImasiEngine
 {
