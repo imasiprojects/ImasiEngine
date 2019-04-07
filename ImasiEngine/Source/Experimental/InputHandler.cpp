@@ -23,13 +23,17 @@ namespace ImasiEngine
 
             case sf::Event::KeyPressed:
             {
-                _keyboardKeyStates[event.key.code] = true;
+                if (event.key.code >= 0) {
+                    _keyboardKeyStates[event.key.code] = true;
+                }
                 break;
             }
 
             case sf::Event::KeyReleased:
             {
-                _keyboardKeyStates[event.key.code] = false;
+                if (event.key.code >= 0) {
+                    _keyboardKeyStates[event.key.code] = false;
+                }
                 break;
             }
 

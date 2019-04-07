@@ -1,6 +1,8 @@
 #ifndef IMASIENGINE_COLORTEXTURE2D_HPP
 #define IMASIENGINE_COLORTEXTURE2D_HPP
 
+#include <string>
+
 #include "Texture.hpp"
 
 namespace ImasiEngine
