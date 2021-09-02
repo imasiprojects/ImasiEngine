@@ -10,16 +10,15 @@ namespace ImasiEngine
     {
     private:
 
-        IndexBuffer* _indexBuffer;
-        ArrayBuffer* _vertexBuffer;
-        ArrayBuffer* _uvBuffer;
+        std::unique_ptr<IndexBuffer> _indexBuffer;
+        std::unique_ptr<ArrayBuffer> _vertexBuffer;
+        std::unique_ptr<ArrayBuffer> _uvBuffer;
 
     public:
 
-        Mesh();
+        Mesh() = default;
         Mesh(const Mesh&) = delete;
         Mesh(Mesh&& mesh) noexcept;
-        ~Mesh();
 
         IndexBuffer* getIndexBuffer() const;
         void setIndexBuffer(IndexBuffer&& indexBuffer);

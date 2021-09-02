@@ -45,7 +45,7 @@ namespace ImasiEngine
 
     )SHADER_END";
 
-    void InstancedRenderer::optimizeEntities(const glm::mat4& VP, std::map<Model*, std::list<ArrayBuffer*> >& finalOptimization) const
+    void InstancedRenderer::optimizeEntities(const glm::mat4& VP, std::map<Model*, std::unique_ptr<ArrayBuffer>>& finalOptimization) const
     {
         std::mutex initialOptimizationMutex;
         std::map<Model*, std::vector<glm::mat4>> initialOptimization;
@@ -99,15 +99,15 @@ namespace ImasiEngine
 
         for (auto& modelAndMVPs : initialOptimization)
         {
-            ArrayBuffer* mvpBuffer = new ArrayBuffer(modelAndMVPs.second.data(), (unsigned int)modelAndMVPs.second.size());
-            finalOptimization[modelAndMVPs.first].push_back(mvpBuffer);
+            finalOptimization[modelAndMVPs.first] =
+                std::make_unique<ArrayBuffer>(modelAndMVPs.second.data(), (unsigned int)modelAndMVPs.second.size());
         }
     }
 
     InstancedRenderer::InstancedRenderer(unsigned int maxVectorSize)
         : Renderer()
-        , _program(new Program())
-        , _vertexArray(new VertexArray())
+        , _program(std::make_unique<Program>())
+        , _vertexArray(std::make_unique<VertexArray>())
         , _maxVectorSize(maxVectorSize)
     {
         VertexShader vertexShader(_vertexShader);
@@ -120,12 +120,6 @@ namespace ImasiEngine
         {
             Logger::out << "Error linking program" << std::endl;
         }
-    }
-
-    InstancedRenderer::~InstancedRenderer()
-    {
-        delete _program;
-        delete _vertexArray;
     }
 
     void InstancedRenderer::add(Entity* entity)
@@ -150,7 +144,7 @@ namespace ImasiEngine
 
     void InstancedRenderer::render(const glm::mat4& VP)
     {
-        std::map<Model*, std::list<ArrayBuffer*>> finalOptimization;
+        std::map<Model*, std::unique_ptr<ArrayBuffer>> finalOptimization;
         optimizeEntities(VP, finalOptimization);
 
         if (finalOptimization.size() > 0)
@@ -163,20 +157,9 @@ namespace ImasiEngine
                 auto& model = optimizedEntity.first;
                 auto textureBindGuard = OpenglHelper::makeBindGuard(*model->material->diffuseMap, 0);
 
-                for (auto& arrayBuffer : optimizedEntity.second)
-                {
-                    _vertexArray->attachMesh(model->mesh);
-                    _vertexArray->attachArrayBuffer(arrayBuffer, ModelMatrix, 1);
-                    _vertexArray->render();
-                }
-            }
-        }
-
-        for (auto& pair : finalOptimization)
-        {
-            for (auto& arrayBuffer : pair.second)
-            {
-                delete arrayBuffer;
+                _vertexArray->attachMesh(model->mesh);
+                _vertexArray->attachArrayBuffer(optimizedEntity.second.get(), ModelMatrix, 1);
+                _vertexArray->render();
             }
         }
     }

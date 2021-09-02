@@ -12,7 +12,7 @@
 #include "../Graphics/Meshes/Mesh.hpp"
 #include "../Utils/Logger.hpp"
 
-static ImasiEngine::Mesh* loadMesh(const std::string& path)
+static std::unique_ptr<ImasiEngine::Mesh> loadMesh(const std::string& path)
 {
     std::vector<unsigned int> indices;
     std::vector<glm::vec3> vertices;
@@ -60,13 +60,13 @@ static ImasiEngine::Mesh* loadMesh(const std::string& path)
         }
     }
 
-    ImasiEngine::Mesh* mesh = new ImasiEngine::Mesh();
+    auto mesh = std::make_unique<ImasiEngine::Mesh>();
+
     mesh->setIndexBuffer(ImasiEngine::IndexBuffer(indices.data(), (int)(indices.size() / 3), 3));
     mesh->setVertexBuffer(ImasiEngine::ArrayBuffer(vertices.data(), vertices.size()));
     mesh->setUVBuffer(ImasiEngine::ArrayBuffer(uvs.data(), uvs.size()));
 
     return mesh;
-    // The "scene" pointer will be deleted automatically by "importer"
 }
 
 #endif

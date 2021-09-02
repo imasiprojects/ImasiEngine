@@ -11,16 +11,16 @@ namespace ImasiEngine
     {
     }
 
-    void Scene::pushEvent(SceneEvent event)
+    void Scene::pushEvent(SceneEvent&& event)
     {
-        _eventQueue.push(event);
+        _eventQueue.emplace(std::move(event));
     }
 
     bool Scene::pollEvent(SceneEvent& event)
     {
         if (_eventQueue.size() > 0)
         {
-            event = _eventQueue.front();
+            event = std::move(_eventQueue.front());
             _eventQueue.pop();
 
             return true;

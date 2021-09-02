@@ -12,13 +12,13 @@ namespace ImasiEngine
     {
     private:
 
-        void pushScene(Scene* scene);
+        void pushScene(std::unique_ptr<Scene>&& scene);
         void popScene();
 
     protected:
 
-        Window* _window;
-        std::list<Scene*> _scenes;
+        std::unique_ptr<Window> _window;
+        std::list<std::unique_ptr<Scene>> _scenes;
 
         virtual void setupGlew();
         virtual void setupOpenGL();
@@ -32,11 +32,10 @@ namespace ImasiEngine
 
     public:
 
-        Engine();
         virtual ~Engine();
 
         void setupWindow(const std::string& title, const unsigned int style = sf::Style::Close, const unsigned int width = 800, const unsigned int height = 600);
-        void run(Scene* newScene);
+        void run(std::unique_ptr<Scene>&& newScene);
 
         Window* getWindow();
     };

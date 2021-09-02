@@ -2,77 +2,54 @@
 
 namespace ImasiEngine
 {
-    Mesh::Mesh()
-        : _indexBuffer(nullptr)
-        , _vertexBuffer(nullptr)
-        , _uvBuffer(nullptr)
-    {
-    }
-
     Mesh::Mesh(Mesh&& mesh) noexcept
-        : _indexBuffer(mesh._indexBuffer)
-        , _vertexBuffer(mesh._vertexBuffer)
-        , _uvBuffer(mesh._uvBuffer)
+        : _indexBuffer(std::move(mesh._indexBuffer))
+        , _vertexBuffer(std::move(mesh._vertexBuffer))
+        , _uvBuffer(std::move(mesh._uvBuffer))
     {
-        mesh._indexBuffer = nullptr;
-        mesh._vertexBuffer = nullptr;
-        mesh._uvBuffer = nullptr;
-    }
-
-    Mesh::~Mesh()
-    {
-        delete _indexBuffer;
-        delete _vertexBuffer;
-        delete _uvBuffer;
     }
 
     IndexBuffer* Mesh::getIndexBuffer() const
     {
-        return _indexBuffer;
+        return _indexBuffer.get();
     }
 
     void Mesh::setIndexBuffer(IndexBuffer&& indexBuffer)
     {
-        delete _indexBuffer;
-        _indexBuffer = new IndexBuffer(std::move(indexBuffer));
+        _indexBuffer = std::make_unique<IndexBuffer>(std::move(indexBuffer));
     }
 
     void Mesh::removeIndexBuffer()
     {
-        delete _indexBuffer;
         _indexBuffer = nullptr;
     }
 
     ArrayBuffer* Mesh::getVertexBuffer() const
     {
-        return _vertexBuffer;
+        return _vertexBuffer.get();
     }
 
     void Mesh::setVertexBuffer(ArrayBuffer&& vertexBuffer)
     {
-        delete _vertexBuffer;
-        _vertexBuffer = new ArrayBuffer(std::move(vertexBuffer));
+        _vertexBuffer = std::make_unique<ArrayBuffer>(std::move(vertexBuffer));
     }
 
     void Mesh::removeVertexBuffer()
     {
-        delete _vertexBuffer;
         _vertexBuffer = nullptr;
     }
 
     ArrayBuffer* Mesh::getUVBuffer() const
     {
-        return _uvBuffer;
+        return _uvBuffer.get();
     }
 
     void Mesh::setUVBuffer(ArrayBuffer&& uvBuffer)
     {
-        delete _uvBuffer;
-        _uvBuffer = new ArrayBuffer(std::move(uvBuffer));
+        _uvBuffer = std::make_unique<ArrayBuffer>(std::move(uvBuffer));
     }
     void Mesh::removeUVBuffer()
     {
-        delete _uvBuffer;
         _uvBuffer = nullptr;
     }
 }

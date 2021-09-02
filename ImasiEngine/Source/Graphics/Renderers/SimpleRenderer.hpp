@@ -22,13 +22,12 @@ namespace ImasiEngine
         
         std::list<Entity*> _entities;
 
-        Program* _program;
-        VertexArray* _vertexArray;
+        std::unique_ptr<Program> _program;
+        std::unique_ptr<VertexArray> _vertexArray;
 
     public:
 
         SimpleRenderer();
-        ~SimpleRenderer();
 
         void clear() override;
         void add(Entity* entity);

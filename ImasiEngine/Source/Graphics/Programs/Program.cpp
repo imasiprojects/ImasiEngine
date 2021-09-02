@@ -127,7 +127,7 @@ namespace ImasiEngine
         _invalidAttachPerformed = false;
     }
 
-    int Program::getUniformLocation(char* uniform) const
+    int Program::getUniformLocation(const char* uniform) const
     {
         return glGetUniformLocation(getGLObjectId(), uniform);
     }

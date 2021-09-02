@@ -8,19 +8,8 @@
 
 namespace ImasiEngine
 {
-    Engine::Engine()
-    {
-        _window = nullptr;
-    }
-
     Engine::~Engine()
     {
-        delete _window;
-
-        for(Scene* scene : _scenes)
-        {
-            delete scene;
-        }
     }
 
     void Engine::setupGlew()
@@ -78,7 +67,7 @@ namespace ImasiEngine
 
             processSceneEvents();
 
-            for(Scene* scene : _scenes)
+            for(auto& scene : _scenes)
             {
                 scene->render(*_window);
             }
@@ -141,7 +130,7 @@ namespace ImasiEngine
         SceneEvent event;
         while(_scenes.size() > 0 && _scenes.back()->pollEvent(event))
         {
-            processSceneEvent(event);
+            processSceneEvent(std::move(event));
         }
     }
 
@@ -151,7 +140,7 @@ namespace ImasiEngine
         {
             case NewScene:
             {
-                pushScene(event.newScene);
+                pushScene(std::move(event.newScene));
                 break;
             }
 
@@ -168,32 +157,33 @@ namespace ImasiEngine
         }
     }
 
-    void Engine::pushScene(Scene* scene)
+    void Engine::pushScene(std::unique_ptr<Scene>&& scene)
     {
         if (_scenes.size() > 0)
         {
             _scenes.back()->setActive(false);
         }
 
-        _scenes.push_back(scene);
         scene->setActive();
 
         EngineEvent event;
         event.type = Start;
 
         StartSceneEventArgs args;
-        args.window = _window;
+        args.window = _window.get();
 
         event.startSceneEventArgs = &args;
 
         scene->processEngineEvent(event);
+
+        _scenes.emplace_back(std::move(scene));
     }
 
     void Engine::popScene()
     {
         if (_scenes.size() > 0)
         {
-            Scene* scene = _scenes.back();
+            auto scene = std::move(_scenes.back());
             _scenes.pop_back();
 
             if (_scenes.size() > 0)
@@ -202,22 +192,15 @@ namespace ImasiEngine
 
                 EngineEvent event;
                 event.type = EngineEventType::ChildEnded;
-                event.endedChild = scene;
+                event.endedChild = scene.get();
 
                 _scenes.back()->processEngineEvent(event);
             }
-
-            delete scene;
         }
     }
 
     void Engine::setupWindow(const std::string& title, const unsigned int style, const unsigned int width, const unsigned int height)
     {
-        if(_window != nullptr)
-        {
-            delete _window;
-        }
-
         Logger::out << "Creating context..." << std::endl << std::endl;
 
         sf::ContextSettings contextSettings;
@@ -240,7 +223,7 @@ namespace ImasiEngine
             videoMode = sf::VideoMode(width, height);
         }
 
-        _window = new Window(videoMode, title, style, contextSettings);
+        _window = std::make_unique<Window>(videoMode, title, style, contextSettings);
         _window->setVerticalSyncEnabled(true);
 
         contextSettings = _window->getSettings();
@@ -261,28 +244,24 @@ namespace ImasiEngine
         setupOpenGL();
     }
 
-    void Engine::run(Scene* newScene)
+    void Engine::run(std::unique_ptr<Scene>&& newScene)
     {
         if(_window == nullptr || !_window->isOpen())
         {
             throw IllegalStateException("Window is not open. Call 'setupWindow' before calling run");
         }
 
-        pushScene(newScene);
+        pushScene(std::move(newScene));
         while (_window->isOpen() && _scenes.size() > 0)
         {
             loop();
         }
 
-        for(Scene* scene : _scenes)
-        {
-            delete scene;
-        }
         _scenes.clear();
     }
 
     Window* Engine::getWindow()
     {
-        return _window;
+        return _window.get();
     }
 }
