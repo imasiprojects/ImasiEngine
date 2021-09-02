@@ -13,7 +13,7 @@ namespace Imasi
         : Scene()
         , _window(nullptr)
         , _camera()
-        , _renderer(new InstancedRenderer(2500))
+        , _renderer(std::make_unique<InstancedRenderer>(2500))
     {
         int mapSize = 11;
 
@@ -39,24 +39,19 @@ namespace Imasi
         {
             for (int j = 0; j < mapSize; j++)
             {
-                Entity* entity = new Entity();
+                auto entity = std::make_unique<Entity>();
+
                 entity->setModel(_resourceContainer.getModel(ResourceCodes::myModel));
                 entity->setPosition({ -i * 1.25f, 0, -j * 1.25f });
                 entity->setScale(glm::vec3(0.25f));
 
-                _entities.push_back(entity);
+                _entities.emplace_back(std::move(entity));
             }
         }
     }
 
     DemoScene::~DemoScene()
     {
-        delete _renderer;
-
-        for (auto& entity : _entities)
-        {
-            delete entity;
-        }
     }
 
     void DemoScene::onWindowResized()
@@ -78,7 +73,7 @@ namespace Imasi
             {
                 SceneEvent sceneEvent;
                 sceneEvent.type = End;
-                pushEvent(sceneEvent);
+                pushEvent(std::move(sceneEvent));
             }
 
             if (event.key.code == sf::Keyboard::G)
@@ -135,7 +130,7 @@ namespace Imasi
         static glm::vec3 rotation;
         bool next = change;
 
-        for (Entity* entity : _entities)
+        for (auto& entity : _entities)
         {
             if (next)
             {
@@ -163,8 +158,8 @@ namespace Imasi
 
         if (actualTime >= maxTime)
         {
-            kata1 = *std::next(_entities.begin(), rand() % _entities.size());
-            kata2 = *std::next(_entities.begin(), rand() % _entities.size());
+            kata1 = std::next(_entities.begin(), rand() % _entities.size())->get();
+            kata2 = std::next(_entities.begin(), rand() % _entities.size())->get();
 
             kata1Initial = kata1->getPosition();
             kata2Initial = kata2->getPosition();
@@ -261,7 +256,12 @@ namespace Imasi
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         _renderer->clear();
-        _renderer->add(_entities.begin(), _entities.size());
+
+        for (auto& entity : _entities)
+        {
+            _renderer->add(entity.get());
+        }
+
         _renderer->render(_camera);
     }
 }

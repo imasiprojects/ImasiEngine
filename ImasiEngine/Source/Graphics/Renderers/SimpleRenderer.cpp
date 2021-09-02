@@ -42,8 +42,8 @@ namespace ImasiEngine
 
     SimpleRenderer::SimpleRenderer()
         : Renderer()
-        , _program(new Program())
-        , _vertexArray(new VertexArray())
+        , _program(std::make_unique<Program>())
+        , _vertexArray(std::make_unique<VertexArray>())
     {
         VertexShader vertexShader(_vertexShader);
         FragmentShader fragmentShader(_fragmentShader);
@@ -55,12 +55,6 @@ namespace ImasiEngine
         {
             Logger::out << "Error linking program" << std::endl;
         }
-    }
-
-    SimpleRenderer::~SimpleRenderer()
-    {
-        delete _program;
-        delete _vertexArray;
     }
 
     void SimpleRenderer::clear()

@@ -21,9 +21,9 @@ namespace Imasi
 
         ImasiEngine::Camera _camera;
         
-        ImasiEngine::InstancedRenderer* _renderer;
+        std::unique_ptr<ImasiEngine::InstancedRenderer> _renderer;
         ImasiEngine::ResourceContainer<> _resourceContainer;
-        std::list<ImasiEngine::Entity*> _entities;
+        std::list<std::unique_ptr<ImasiEngine::Entity>> _entities;
 
         void onWindowResized();
 

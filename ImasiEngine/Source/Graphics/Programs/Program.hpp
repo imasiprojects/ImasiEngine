@@ -45,7 +45,7 @@ namespace ImasiEngine
 
         void reset();
 
-        int getUniformLocation(char* uniform) const;
+        int getUniformLocation(const char* uniform) const;
 
         template<typename T,
             typename = typename std::enable_if<
@@ -60,7 +60,7 @@ namespace ImasiEngine
                 || std::is_same<glm::mat4, T>::value
             >::type
         >
-        void setUniform(char* uniform, T value)
+        void setUniform(const char* uniform, T value)
         {
             if (!_isLinked)
             {
@@ -121,7 +121,7 @@ namespace ImasiEngine
                 || std::is_same<glm::mat4, T>::value
             >::type
         >
-        void setUniform(char* uniform, const std::vector<T>& values)
+        void setUniform(const char* uniform, const std::vector<T>& values)
         {
             if (!_isLinked)
             {

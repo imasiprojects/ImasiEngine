@@ -112,7 +112,7 @@ namespace ImasiEngine
 
     void VertexArray::detachArrayBuffer(ArrayBufferType type)
     {
-        auto& bufferIterator = _arrayBuffers.find(type);
+        const auto& bufferIterator = _arrayBuffers.find(type);
 
         if (bufferIterator != _arrayBuffers.end())
         {
@@ -155,7 +155,7 @@ namespace ImasiEngine
         }
         else
         {
-            auto& vertexBufferIterator = _arrayBuffers.find(Vertex);
+            const auto& vertexBufferIterator = _arrayBuffers.find(Vertex);
             if (vertexBufferIterator != _arrayBuffers.end())
             {
                 ArrayBuffer* vertexBuffer = vertexBufferIterator->second;

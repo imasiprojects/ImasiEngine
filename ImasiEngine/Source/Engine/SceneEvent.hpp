@@ -15,10 +15,7 @@ namespace ImasiEngine
     {
         SceneEventType type;
 
-        union
-        {
-            Scene* newScene;
-        };
+        std::unique_ptr<Scene> newScene;
     };
 }
 

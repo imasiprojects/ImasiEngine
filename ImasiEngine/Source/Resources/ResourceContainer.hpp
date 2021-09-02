@@ -24,49 +24,24 @@ namespace ImasiEngine
 
     protected:
 
-        std::map<KeyType, Mesh*> _meshes;
-        std::map<KeyType, ColorTexture2D*> _colorTextures;
-        std::map<KeyType, Material*> _materials;
-        std::map<KeyType, Model*> _models;
-        std::map<KeyType, VertexShader*> _vertexShaders;
-        std::map<KeyType, FragmentShader*> _fragmentShaders;
-        std::map<KeyType, sf::Font*> _fonts;
+        std::map<KeyType, std::unique_ptr<Mesh>> _meshes;
+        std::map<KeyType, std::unique_ptr<ColorTexture2D>> _colorTextures;
+        std::map<KeyType, std::unique_ptr<Material>> _materials;
+        std::map<KeyType, std::unique_ptr<Model>> _models;
+        std::map<KeyType, std::unique_ptr<VertexShader>> _vertexShaders;
+        std::map<KeyType, std::unique_ptr<FragmentShader>> _fragmentShaders;
+        std::map<KeyType, std::unique_ptr<sf::Font>> _fonts;
 
     public:
 
-        ResourceContainer()
-        {
-        }
-
-        ~ResourceContainer()
-        {
-            for (auto it : _meshes)
-            {
-                delete it.second;
-            }
-
-            for (auto it : _colorTextures)
-            {
-                delete it.second;
-            }
-
-            for (auto it : _materials)
-            {
-                delete it.second;
-            }
-
-            for (auto it : _models)
-            {
-                delete it.second;
-            }
-        }
+        ResourceContainer() = default;
 
         Mesh* getMesh(KeyType key)
         {
             auto it = _meshes.find(key);
             if (it != _meshes.end())
             {
-                return it->second;
+                return it->second.get();
             }
 
             return nullptr;
@@ -77,7 +52,7 @@ namespace ImasiEngine
             auto it = _colorTextures.find(key);
             if (it != _colorTextures.end())
             {
-                return it->second;
+                return it->second.get();
             }
 
             return nullptr;
@@ -88,7 +63,7 @@ namespace ImasiEngine
             auto it = _materials.find(key);
             if (it != _materials.end())
             {
-                return it->second;
+                return it->second.get();
             }
 
             return nullptr;
@@ -99,7 +74,7 @@ namespace ImasiEngine
             auto it = _models.find(key);
             if (it != _models.end())
             {
-                return it->second;
+                return it->second.get();
             }
 
             return nullptr;
@@ -110,7 +85,7 @@ namespace ImasiEngine
             auto it = _vertexShaders.find(key);
             if (it != _vertexShaders.end())
             {
-                return it->second;
+                return it->second.get();
             }
 
             return nullptr;
@@ -121,7 +96,7 @@ namespace ImasiEngine
             auto it = _fragmentShaders.find(key);
             if (it != _fragmentShaders.end())
             {
-                return it->second;
+                return it->second.get();
             }
 
             return nullptr;
@@ -132,7 +107,7 @@ namespace ImasiEngine
             auto it = _fonts.find(key);
             if (it != _fonts.end())
             {
-                return it->second;
+                return it->second.get();
             }
 
             return nullptr;
@@ -143,12 +118,11 @@ namespace ImasiEngine
             auto it = _meshes.find(key);
             if (it != _meshes.end())
             {
-                delete it->second;
-                it->second = new Mesh(std::move(value));
+                it->second = std::make_unique<Mesh>(std::move(value));
             }
             else
             {
-                _meshes[key] = new Mesh(std::move(value));
+                _meshes[key] = std::make_unique<Mesh>(std::move(value));
             }
         }
 
@@ -157,12 +131,11 @@ namespace ImasiEngine
             auto it = _colorTextures.find(key);
             if (it != _colorTextures.end())
             {
-                delete it->second;
-                it->second = new ColorTexture2D(std::move(value));
+                it->second = std::make_unique<ColorTexture2D>(std::move(value));
             }
             else
             {
-                _colorTextures[key] = new ColorTexture2D(std::move(value));
+                _colorTextures[key] = std::make_unique<ColorTexture2D>(std::move(value));
             }
         }
 
@@ -171,12 +144,11 @@ namespace ImasiEngine
             auto it = _materials.find(key);
             if (it != _materials.end())
             {
-                delete it->second;
-                it->second = new Material(std::move(value));
+                it->second = std::make_unique<Material>(std::move(value));
             }
             else
             {
-                _materials[key] = new Material(std::move(value));
+                _materials[key] = std::make_unique<Material>(std::move(value));
             }
         }
 
@@ -185,12 +157,11 @@ namespace ImasiEngine
             auto it = _models.find(key);
             if (it != _models.end())
             {
-                delete it->second;
-                it->second = new Model(std::move(value));
+                it->second = std::make_unique<Model>(std::move(value));
             }
             else
             {
-                _models[key] = new Model(std::move(value));
+                _models[key] = std::make_unique<Model>(std::move(value));
             }
         }
 
@@ -199,12 +170,11 @@ namespace ImasiEngine
             auto it = _vertexShaders.find(key);
             if (it != _vertexShaders.end())
             {
-                delete it->second;
-                it->second = new VertexShader(std::move(value));
+                it->second = std::make_unique<VertexShader>(std::move(value));
             }
             else
             {
-                _vertexShaders[key] = new VertexShader(std::move(value));
+                _vertexShaders[key] = std::make_unique<VertexShader>(std::move(value));
             }
         }
 
@@ -213,12 +183,11 @@ namespace ImasiEngine
             auto it = _fragmentShaders.find(key);
             if (it != _fragmentShaders.end())
             {
-                delete it->second;
-                it->second = new FragmentShader(std::move(value));
+                it->second = std::make_unique<FragmentShader>(std::move(value));
             }
             else
             {
-                _fragmentShaders[key] = new FragmentShader(std::move(value));
+                _fragmentShaders[key] = std::make_unique<FragmentShader>(std::move(value));
             }
         }
 
@@ -227,12 +196,11 @@ namespace ImasiEngine
             auto it = _fonts.find(key);
             if (it != _fonts.end())
             {
-                delete it->second;
-                it->second = new sf::Font(std::move(value));
+                it->second = std::make_unique<sf::Font>(std::move(value));
             }
             else
             {
-                _fonts[key] = new sf::Font(std::move(value));
+                _fonts[key] = std::make_unique<sf::Font>(std::move(value));
             }
         }
 

@@ -18,7 +18,7 @@ namespace Imasi
     {
         setupWindow("Woo");
 
-        Engine::run(new DemoScene());
+        Engine::run(std::make_unique<DemoScene>());
         _window->close();
     }
 }

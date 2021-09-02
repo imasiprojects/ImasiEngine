@@ -29,7 +29,7 @@ namespace ImasiEngine
         Scene();
         virtual ~Scene();
 
-        void pushEvent(SceneEvent event);
+        void pushEvent(SceneEvent&& event);
         bool pollEvent(SceneEvent& event);
 
         virtual void processWindowEvent(const sf::Event& event) = 0;
